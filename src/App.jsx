@@ -9,6 +9,12 @@ import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
 import UpdateProfile from './pages/UpdateProfile';
 import Dashboard from './pages/Dashboard';
+import ManageStotram from './pages/ManageStotram';
+import ManageAarti from './pages/ManageAarti';
+import ManagePooja from './pages/ManagePooja';
+import ManagePoojaCategory from './pages/ManagePoojaCategory';
+import ManageStotramCategory from './pages/ManageStotramCategory';
+import ManagePoojaSamagri from './pages/ManagePoojaSamagri';
 import AdminLayout from './components/AdminLayout';
 
 const queryClient = new QueryClient();
@@ -30,6 +36,12 @@ function App() {
           {/* Admin Routes wrapped in Layout */}
           <Route element={<AdminLayout />}>
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/manage-pooja" element={<ManagePooja />} />
+            <Route path="/manage-pooja-categories" element={<ManagePoojaCategory />} />
+            <Route path="/manage-pooja-samagri" element={<ManagePoojaSamagri />} />
+            <Route path="/manage-stotram" element={<ManageStotram />} />
+            <Route path="/manage-stotram-categories" element={<ManageStotramCategory />} />
+            <Route path="/manage-aarti" element={<ManageAarti />} />
             <Route path="/update-profile" element={<UpdateProfile />} />
             <Route path="/settings" element={<div style={{padding: '2rem'}}><h1>Settings</h1><p>Settings content here</p></div>} />
           </Route>

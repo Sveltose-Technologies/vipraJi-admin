@@ -556,3 +556,524 @@ body {
   background-color: rgba(22, 163, 74, 0.1);
   color: var(--primary-color);
 }
+
+/* Stotram List Layout */
+.stotram-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.stotram-list-item {
+  display: flex;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  background-color: #fff;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.stotram-list-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border-color: var(--primary-color);
+}
+
+.stotram-item-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: rgba(22, 163, 74, 0.1);
+  color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1.5rem;
+}
+
+.stotram-item-info {
+  flex: 1;
+}
+
+.stotram-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.stotram-category {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.stotram-play-preview-btn {
+  background: none;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.stotram-list-item:hover .stotram-play-preview-btn {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+.stotram-sanskrit-content {
+  padding: 2rem;
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: var(--text-primary);
+  text-align: center;
+  font-weight: 500;
+  background-color: #F9FAFB;
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+/* Aarti Large Card Layout */
+.aarti-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.aarti-large-card {
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  height: 320px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.aarti-large-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.aarti-image-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.aarti-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.aarti-large-card:hover .aarti-image {
+  transform: scale(1.1);
+}
+
+.aarti-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.8) 100%);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.aarti-top-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.badge {
+  background-color: var(--primary-color);
+  color: #fff;
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.aarti-favorite-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s;
+  backdrop-filter: blur(4px);
+}
+
+.aarti-favorite-btn:hover {
+  transform: scale(1.1);
+}
+
+.aarti-bottom-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.aarti-card-title {
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  margin-bottom: 0.5rem;
+  flex: 1;
+}
+
+.aarti-play-btn {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+}
+
+.aarti-play-btn:hover {
+  transform: scale(1.1);
+  background-color: var(--primary-hover);
+}
+
+/* Audio Player Premium UI */
+.audio-player-wrapper {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  border: 1px solid rgba(255,255,255,0.5);
+  width: 100%;
+}
+
+.audio-progress-bar {
+  height: 6px;
+  background-color: rgba(0,0,0,0.05);
+  width: 100%;
+}
+
+.audio-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary-color), #34D399);
+  border-radius: 0 4px 4px 0;
+  transition: width 0.1s linear;
+}
+
+.audio-controls-container {
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.audio-info {
+  flex: 1;
+}
+
+.audio-status {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.text-gradient {
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.audio-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-top: 0.25rem;
+}
+
+.audio-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.audio-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.5rem;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.audio-btn:hover {
+  color: var(--primary-color);
+  background-color: rgba(22, 163, 74, 0.1);
+}
+
+.audio-btn.active {
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
+.audio-btn-text {
+  font-size: 0.875rem;
+}
+
+.audio-play-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 6px rgba(22, 163, 74, 0.3);
+}
+
+.audio-play-btn:hover {
+  transform: scale(1.05);
+  background-color: var(--primary-hover);
+}
+
+/* Pooja Builder Styles */
+.pooja-builder-container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 70px);
+  margin: -2rem;
+  background-color: var(--bg-color);
+}
+
+.builder-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--bg-surface);
+  z-index: 10;
+}
+
+.builder-header-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.builder-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.builder-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.metadata-card {
+  padding: 1.5rem;
+}
+
+.metadata-card h3 {
+  margin-bottom: 1rem;
+  font-size: 1.125rem;
+  color: var(--text-primary);
+}
+
+.metadata-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.builder-sections-area {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.section-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.section-header-row h3 {
+  font-size: 1.125rem;
+  color: var(--text-primary);
+}
+
+.section-select {
+  width: 200px;
+  background-color: var(--bg-surface);
+}
+
+.sections-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-bottom: 4rem;
+}
+
+.empty-sections {
+  padding: 3rem;
+  text-align: center;
+  color: var(--text-secondary);
+  border: 2px dashed var(--border-color);
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.section-block {
+  display: flex;
+  flex-direction: column;
+  transition: all 0.2s ease;
+  border-left: 4px solid var(--border-color);
+}
+
+.section-block:hover {
+  box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+}
+
+.section-block.type-heading { border-left-color: #3b82f6; }
+.section-block.type-description { border-left-color: #6b7280; }
+.section-block.type-dhyan { border-left-color: #8b5cf6; }
+.section-block.type-mantra { border-left-color: #f59e0b; }
+.section-block.type-notes { border-left-color: #10b981; }
+
+.section-block-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background-color: #F9FAFB;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.section-block-drag {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: grab;
+}
+
+.section-type-badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  letter-spacing: 0.5px;
+}
+
+.section-block-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.favoritable-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  color: #ef4444;
+  font-weight: 600;
+  background-color: #fee2e2;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+.section-block-body {
+  padding: 1rem;
+}
+
+.btn-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.btn-icon:hover {
+  background-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+.btn-icon.delete:hover {
+  color: #ef4444;
+  background-color: #fee2e2;
+}
+
+.heading-input {
+  font-size: 1.25rem;
+  font-weight: 600;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 0.5rem 0;
+  background: transparent;
+  border-radius: 0;
+}
+
+.heading-input:focus {
+  box-shadow: none;
+  border-bottom-color: var(--primary-color);
+}
+
+.content-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.sanskrit-font {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  font-weight: 500;
+}
+
+.notes-input {
+  background-color: #f0fdf4;
+  border-color: #bbf7d0;
+  color: #166534;
+}
+
+.notes-input:focus {
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
+}

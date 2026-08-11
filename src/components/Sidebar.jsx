@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { MdHome, MdPerson, MdSettings } from 'react-icons/md';
+import { MdHome, MdPerson, MdSettings, MdLibraryBooks, MdMusicNote } from 'react-icons/md';
 
 const Sidebar = () => {
   return (
@@ -16,6 +16,36 @@ const Sidebar = () => {
         <NavLink to="/dashboard" className={({isActive}) => isActive ? "sidebar-link active" : "sidebar-link"}>
           <MdHome size={20} />
           <span>Home</span>
+        </NavLink>
+
+        <NavLink to="/manage-pooja-categories" className={({isActive}) => isActive ? "sidebar-link active" : "sidebar-link"}>
+          <MdLibraryBooks size={20} />
+          <span>Pooja Categories</span>
+        </NavLink>
+
+        <NavLink to="/manage-pooja" className={({isActive}) => isActive ? "sidebar-link active" : "sidebar-link"}>
+          <MdLibraryBooks size={20} />
+          <span>Manage Pooja</span>
+        </NavLink>
+
+        <NavLink to="/manage-pooja-samagri" className={({isActive}) => isActive ? "sidebar-link active" : "sidebar-link"}>
+          <MdLibraryBooks size={20} />
+          <span>Pooja Samagri</span>
+        </NavLink>
+
+        <NavLink to="/manage-stotram-categories" className={({isActive}) => isActive ? "sidebar-link active" : "sidebar-link"}>
+          <MdLibraryBooks size={20} />
+          <span>Stotram Categories</span>
+        </NavLink>
+
+        <NavLink to="/manage-stotram" className={({isActive}) => isActive ? "sidebar-link active" : "sidebar-link"}>
+          <MdLibraryBooks size={20} />
+          <span>Manage Stotram</span>
+        </NavLink>
+
+        <NavLink to="/manage-aarti" className={({isActive}) => isActive ? "sidebar-link active" : "sidebar-link"}>
+          <MdMusicNote size={20} />
+          <span>Manage Aarti</span>
         </NavLink>
         
         <NavLink to="/update-profile" className={({isActive}) => isActive ? "sidebar-link active" : "sidebar-link"}>
