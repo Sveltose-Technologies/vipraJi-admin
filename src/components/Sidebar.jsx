@@ -7,53 +7,53 @@ const Sidebar = () => {
     <aside className="sidebar">
       <div className="sidebar-header">
         {/* Placeholder for Logo, user will replace /logo.png with actual file */}
-        <img src="/logo.png" alt="VJ Logo" style={{ height: '40px', width: '40px', marginRight: '12px', objectFit: 'contain' }} onError={(e) => { e.target.style.display = 'none' }} />
-        <span className="sidebar-logo-text">VIPRAJI</span>
+        <img src="/logo.png" alt="VJ Logo" style={{ height: '100px', width: '100px', marginRight: '12px', objectFit: 'contain' }} onError={(e) => { e.target.style.display = 'none' }} />
+        <span className="sidebar-logo-text">VIPRA SARTHI</span>
       </div>
-      
+
       <nav className="sidebar-nav">
         {/* Mock navigation links */}
-        <NavLink to="/dashboard" className={({isActive}) => isActive ? "sidebar-link active" : "sidebar-link"}>
+        <NavLink to="/dashboard" className={({ isActive }) => isActive ? "sidebar-link active" : "sidebar-link"}>
           <MdHome size={20} />
           <span>Home</span>
         </NavLink>
 
-        <NavLink to="/manage-pooja-categories" className={({isActive}) => isActive ? "sidebar-link active" : "sidebar-link"}>
+        <NavLink to="/manage-pooja-categories" className={({ isActive }) => isActive ? "sidebar-link active" : "sidebar-link"}>
           <MdLibraryBooks size={20} />
           <span>Pooja Categories</span>
         </NavLink>
 
-        <NavLink to="/manage-pooja" className={({isActive}) => isActive ? "sidebar-link active" : "sidebar-link"}>
+        <NavLink to="/manage-pooja" className={({ isActive }) => isActive ? "sidebar-link active" : "sidebar-link"}>
           <MdLibraryBooks size={20} />
           <span>Manage Pooja</span>
         </NavLink>
 
-        <NavLink to="/manage-pooja-samagri" className={({isActive}) => isActive ? "sidebar-link active" : "sidebar-link"}>
+        <NavLink to="/manage-pooja-samagri" className={({ isActive }) => isActive ? "sidebar-link active" : "sidebar-link"}>
           <MdLibraryBooks size={20} />
           <span>Pooja Samagri</span>
         </NavLink>
 
-        <NavLink to="/manage-stotram-categories" className={({isActive}) => isActive ? "sidebar-link active" : "sidebar-link"}>
+        <NavLink to="/manage-stotram-categories" className={({ isActive }) => isActive ? "sidebar-link active" : "sidebar-link"}>
           <MdLibraryBooks size={20} />
           <span>Stotram Categories</span>
         </NavLink>
 
-        <NavLink to="/manage-stotram" className={({isActive}) => isActive ? "sidebar-link active" : "sidebar-link"}>
+        <NavLink to="/manage-stotram" className={({ isActive }) => isActive ? "sidebar-link active" : "sidebar-link"}>
           <MdLibraryBooks size={20} />
           <span>Manage Stotram</span>
         </NavLink>
 
-        <NavLink to="/manage-aarti" className={({isActive}) => isActive ? "sidebar-link active" : "sidebar-link"}>
+        <NavLink to="/manage-aarti" className={({ isActive }) => isActive ? "sidebar-link active" : "sidebar-link"}>
           <MdMusicNote size={20} />
           <span>Manage Aarti</span>
         </NavLink>
-        
-        <NavLink to="/update-profile" className={({isActive}) => isActive ? "sidebar-link active" : "sidebar-link"}>
+
+        <NavLink to="/update-profile" className={({ isActive }) => isActive ? "sidebar-link active" : "sidebar-link"}>
           <MdPerson size={20} />
           <span>Update Profile</span>
         </NavLink>
-        
-        <NavLink to="/settings" className={({isActive}) => isActive ? "sidebar-link active" : "sidebar-link"}>
+
+        <NavLink to="/settings" className={({ isActive }) => isActive ? "sidebar-link active" : "sidebar-link"}>
           <MdSettings size={20} />
           <span>Settings</span>
         </NavLink>

@@ -152,7 +152,7 @@ const Dashboard = () => {
                       <img
                         src={getImageUrl(logo.url || logo.logo)}
                         alt="Logo Preview"
-                        style={{ height: '40px', objectFit: 'contain', border: '1px solid #eee', padding: '2px', borderRadius: '4px' }}
+                        style={{ height: '50px', objectFit: 'contain', border: '1px solid #eee', padding: '2px', borderRadius: '4px' }}
                         onError={(e) => { e.target.src = 'https://via.placeholder.com/150?text=No+Image' }}
                       />
                     </td>
