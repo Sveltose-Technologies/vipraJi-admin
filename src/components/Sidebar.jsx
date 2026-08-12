@@ -43,6 +43,11 @@ const Sidebar = () => {
           <span>Manage Stotram</span>
         </NavLink>
 
+        <NavLink to="/manage-aarti-categories" className={({ isActive }) => isActive ? "sidebar-link active" : "sidebar-link"}>
+          <MdMusicNote size={20} />
+          <span>Aarti Categories</span>
+        </NavLink>
+
         <NavLink to="/manage-aarti" className={({ isActive }) => isActive ? "sidebar-link active" : "sidebar-link"}>
           <MdMusicNote size={20} />
           <span>Manage Aarti</span>
