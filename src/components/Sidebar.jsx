@@ -18,11 +18,6 @@ const Sidebar = () => {
           <span>Home</span>
         </NavLink>
 
-        <NavLink to="/manage-pooja-categories" className={({ isActive }) => isActive ? "sidebar-link active" : "sidebar-link"}>
-          <MdLibraryBooks size={20} />
-          <span>Pooja Categories</span>
-        </NavLink>
-
         <NavLink to="/manage-pooja" className={({ isActive }) => isActive ? "sidebar-link active" : "sidebar-link"}>
           <MdLibraryBooks size={20} />
           <span>Manage Pooja</span>
@@ -33,19 +28,9 @@ const Sidebar = () => {
           <span>Pooja Samagri</span>
         </NavLink>
 
-        <NavLink to="/manage-stotram-categories" className={({ isActive }) => isActive ? "sidebar-link active" : "sidebar-link"}>
-          <MdLibraryBooks size={20} />
-          <span>Stotram Categories</span>
-        </NavLink>
-
         <NavLink to="/manage-stotram" className={({ isActive }) => isActive ? "sidebar-link active" : "sidebar-link"}>
           <MdLibraryBooks size={20} />
           <span>Manage Stotram</span>
-        </NavLink>
-
-        <NavLink to="/manage-aarti-categories" className={({ isActive }) => isActive ? "sidebar-link active" : "sidebar-link"}>
-          <MdMusicNote size={20} />
-          <span>Aarti Categories</span>
         </NavLink>
 
         <NavLink to="/manage-aarti" className={({ isActive }) => isActive ? "sidebar-link active" : "sidebar-link"}>

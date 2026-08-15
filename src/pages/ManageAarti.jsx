@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
+import { useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import AudioPlayerUI from '../components/AudioPlayerUI';
-import { MdAdd, MdPlayArrow, MdClose, MdEdit, MdDelete } from 'react-icons/md';
+import { MdAdd, MdPlayArrow, MdClose, MdEdit, MdDelete, MdMusicNote } from 'react-icons/md';
 import { getAllAartis, createAarti, updateAarti, deleteAarti } from '../api/aarti';
 import { getAllAartiCategories } from '../api/aartiCategory';
 
 const ManageAarti = () => {
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
   const [playingAarti, setPlayingAarti] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingId, setEditingId] = useState(null);
@@ -20,6 +22,10 @@ const ManageAarti = () => {
     content: '',
     textEditor: '',
   });
+  
+  // Category Modal State
+  const [catModalOpen, setCatModalOpen] = useState(false);
+  const [newCatName, setNewCatName] = useState('');
   const [files, setFiles] = useState({
     audioFile: null,
     aartiImage: null,
@@ -145,9 +151,15 @@ const ManageAarti = () => {
     <div className="page-content animate-fade-in">
       <div className="top-header" style={{ margin: '-2rem -2rem 2rem -2rem' }}>
         <h1 className="header-title">Manage Aarti</h1>
-        <button className="btn btn-primary" onClick={openAddModal}>
-          <MdAdd size={20} /> Add Aarti
-        </button>
+        <div style={{ display: 'flex', gap: '1rem' }}>
+          <button className="btn" onClick={() => navigate('/manage-aarti-categories')} style={{ backgroundColor: 'white', border: '1px solid var(--border-color)', color: 'var(--text-primary)' }}>
+            <MdMusicNote size={20} style={{ marginRight: '8px', verticalAlign: 'middle' }} />
+            Manage Categories
+          </button>
+          <button className="btn btn-primary" onClick={openAddModal}>
+            <MdAdd size={20} /> Add Aarti
+          </button>
+        </div>
       </div>
 
       {isLoading ? (
@@ -215,7 +227,6 @@ const ManageAarti = () => {
         </div>
       )}
 
-      {/* Add/Edit Modal */}
       {isModalOpen && createPortal(
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-content glass-panel" onClick={e => e.stopPropagation()} style={{ maxWidth: '800px', width: '90%' }}>
@@ -223,7 +234,7 @@ const ManageAarti = () => {
               <h2 className="modal-title" style={{ fontSize: '1.25rem', fontWeight: 700 }}>
                 {editingId ? 'Edit Aarti Details' : 'Add New Aarti'}
               </h2>
-              <button className="modal-close-btn" onClick={closeModal}>
+              <button className="modal-close-btn" type="button" onClick={closeModal}>
                 <MdClose size={24} />
               </button>
             </div>
@@ -249,7 +260,13 @@ const ManageAarti = () => {
                     name="aartiCategoryId"
                     className="input-field"
                     value={formData.aartiCategoryId}
-                    onChange={handleInputChange}
+                    onChange={(e) => {
+                      if (e.target.value === 'ADD_NEW') {
+                        setCatModalOpen(true);
+                      } else {
+                        handleInputChange(e);
+                      }
+                    }}
                     required
                   >
                     <option value="" disabled>Select a category</option>
@@ -258,6 +275,7 @@ const ManageAarti = () => {
                         {cat.categoryName}
                       </option>
                     ))}
+                    <option value="ADD_NEW" style={{ fontWeight: 'bold', color: 'var(--primary-color)' }}>+ Add New Category</option>
                   </select>
                 </div>
 
@@ -346,6 +364,41 @@ const ManageAarti = () => {
                 </div>
               </form>
             </div>
+          </div>
+        </div>,
+        document.body
+      )}
+
+      {/* Category Modal */}
+      {catModalOpen && createPortal(
+        <div className="modal-overlay" style={{ zIndex: 110 }} onClick={() => setCatModalOpen(false)}>
+          <div className="modal-content glass-panel" onClick={e => e.stopPropagation()} style={{ maxWidth: '400px' }}>
+            <div className="modal-header">
+              <h2 className="modal-title">Add Category</h2>
+              <button className="modal-close-btn" type="button" onClick={() => setCatModalOpen(false)}><MdClose size={24} /></button>
+            </div>
+            <form className="modal-body" onSubmit={async (e) => {
+              e.preventDefault();
+              const loadingToast = toast.loading('Creating category...');
+              try {
+                const { createAartiCategory } = await import('../api/aartiCategory');
+                const res = await createAartiCategory({ categoryName: newCatName.trim() });
+                queryClient.invalidateQueries(['aartiCategories']);
+                toast.success('Category created', { id: loadingToast });
+                const newId = res?.data?._id || res?.data?.id || res?._id || res?.id || res?.category?._id || res?.category?.id;
+                if (newId) handleInputChange({ target: { name: 'aartiCategoryId', value: String(newId) } });
+                setCatModalOpen(false);
+                setNewCatName('');
+              } catch (err) {
+                toast.error('Failed to create category', { id: loadingToast });
+              }
+            }}>
+              <div className="input-group">
+                <label className="input-label">Category Name</label>
+                <input type="text" className="input-field" value={newCatName} onChange={e => setNewCatName(e.target.value)} required autoFocus />
+              </div>
+              <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '1.5rem' }}>Save Category</button>
+            </form>
           </div>
         </div>,
         document.body

@@ -181,7 +181,11 @@ const ManagePoojaCategory = () => {
                 <tr><td colSpan="3">Loading...</td></tr>
               ) : subCategories.length > 0 ? (
                 subCategories.map(sub => {
-                  const parentCat = categories.find(c => (c._id || c.id) === sub.categoryId);
+                  const parentCat = categories.find(c => {
+                    const cId = c._id || c.id;
+                    const subCatId = typeof sub.categoryId === 'object' && sub.categoryId !== null ? (sub.categoryId._id || sub.categoryId.id) : sub.categoryId;
+                    return String(cId) === String(subCatId);
+                  });
                   return (
                     <tr key={sub._id || sub.id}>
                       <td>{sub.subCategoryName}</td>
@@ -206,7 +210,7 @@ const ManagePoojaCategory = () => {
         <div className="modal-overlay" onClick={() => setCatModal({ isOpen: false, data: null })}>
           <div className="modal-content glass-panel" onClick={e => e.stopPropagation()}>
             <div className="modal-header">
-              <h2>{catModal.data ? 'Edit Category' : 'Add Category'}</h2>
+              <h2 className="modal-title">{catModal.data ? 'Edit Category' : 'Add Category'}</h2>
               <button className="modal-close-btn" onClick={() => setCatModal({ isOpen: false, data: null })}><MdClose size={24} /></button>
             </div>
             <form className="modal-body" onSubmit={handleSaveCategory}>
@@ -227,7 +231,7 @@ const ManagePoojaCategory = () => {
         <div className="modal-overlay" onClick={() => setSubCatModal({ isOpen: false, data: null })}>
           <div className="modal-content glass-panel" onClick={e => e.stopPropagation()}>
             <div className="modal-header">
-              <h2>{subCatModal.data ? 'Edit Subcategory' : 'Add Subcategory'}</h2>
+              <h2 className="modal-title">{subCatModal.data ? 'Edit Subcategory' : 'Add Subcategory'}</h2>
               <button className="modal-close-btn" onClick={() => setSubCatModal({ isOpen: false, data: null })}><MdClose size={24} /></button>
             </div>
             <form className="modal-body" onSubmit={handleSaveSubCategory}>

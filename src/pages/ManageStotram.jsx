@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
 import AudioPlayerUI from '../components/AudioPlayerUI';
-import { MdAdd, MdMusicNote, MdClose } from 'react-icons/md';
+import { MdAdd, MdMusicNote, MdClose, MdLibraryBooks } from 'react-icons/md';
 import { getAllStotramCategories } from '../api/stotramCategory';
 
 const MOCK_STOTRAS = [
@@ -38,6 +39,7 @@ const MOCK_STOTRAS = [
 ];
 
 const ManageStotram = () => {
+  const navigate = useNavigate();
   const { data: rawCategories = [], isLoading: isCatLoading } = useQuery({
     queryKey: ['stotramCategories'],
     queryFn: getAllStotramCategories
@@ -60,9 +62,19 @@ const ManageStotram = () => {
     <div className="page-content animate-fade-in">
       <div className="top-header" style={{ margin: '-2rem -2rem 2rem -2rem' }}>
         <h1 className="header-title">Manage Stotram</h1>
-        <button className="btn btn-primary">
-          <MdAdd size={20} /> Upload Stotra
-        </button>
+        <div style={{ display: 'flex', gap: '1rem' }}>
+          <button className="btn" onClick={() => navigate('/manage-stotram-categories')} style={{ backgroundColor: 'white', border: '1px solid var(--border-color)', color: 'var(--text-primary)' }}>
+            <MdLibraryBooks size={20} style={{ marginRight: '8px', verticalAlign: 'middle' }} />
+            Manage Categories
+          </button>
+          <button className="btn" onClick={() => navigate('/manage-stotram-subcategories')} style={{ backgroundColor: 'white', border: '1px solid var(--border-color)', color: 'var(--text-primary)' }}>
+            <MdLibraryBooks size={20} style={{ marginRight: '8px', verticalAlign: 'middle' }} />
+            Manage Sub Categories
+          </button>
+          <button className="btn btn-primary">
+            <MdAdd size={20} /> Upload Stotra
+          </button>
+        </div>
       </div>
 
       {/* Category Tabs */}

@@ -14,6 +14,7 @@ import ManageAarti from './pages/ManageAarti';
 import ManagePooja from './pages/ManagePooja';
 import ManagePoojaCategory from './pages/ManagePoojaCategory';
 import ManageStotramCategory from './pages/ManageStotramCategory';
+import ManageStotramSubCategory from './pages/ManageStotramSubCategory';
 import ManagePoojaSamagri from './pages/ManagePoojaSamagri';
 import ManageAartiCategory from './pages/ManageAartiCategory';
 import AdminLayout from './components/AdminLayout';
@@ -42,6 +43,7 @@ function App() {
             <Route path="/manage-pooja-samagri" element={<ManagePoojaSamagri />} />
             <Route path="/manage-stotram" element={<ManageStotram />} />
             <Route path="/manage-stotram-categories" element={<ManageStotramCategory />} />
+            <Route path="/manage-stotram-subcategories" element={<ManageStotramSubCategory />} />
             <Route path="/manage-aarti" element={<ManageAarti />} />
             <Route path="/manage-aarti-categories" element={<ManageAartiCategory />} />
             <Route path="/update-profile" element={<UpdateProfile />} />
