@@ -38,7 +38,7 @@ const Header = () => {
   };
 
   return (
-    <header className="top-header">
+    <header className="main-header">
       <div className="header-title">
         Admin Dashboard
       </div>

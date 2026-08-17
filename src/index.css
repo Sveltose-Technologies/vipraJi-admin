@@ -1,20 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --primary-color: #16A34A;
-  /* Emerald Green */
-  --primary-hover: #15803d;
+  --primary-color: #174A0D;
+  /* Forest Green */
+  --primary-hover: #103309;
   /* Darker green */
-  --vipra-color: #c2410c;
-  /* Orange/Red */
-  --secondary-color: #2563EB;
-  /* Royal Blue */
-  --sidebar-bg: #fff7ed;
-  /* Light logo color / peach */
+  --vipra-color: #8B0909;
+  /* Brand Maroon */
+  --secondary-color: #E84A0A;
+  /* Saffron */
+  --sidebar-bg: #FFF9EF;
+  /* Warm Ivory */
   --sidebar-text: #4b5563;
-  --sidebar-text-hover: #c2410c;
-  --bg-color: #F3F4F6;
-  /* Light gray background for main content */
+  --sidebar-text-hover: #E84A0A;
+  --bg-color: #FFF9EF;
+  /* Warm Ivory */
   --bg-surface: #FFFFFF;
   /* White cards */
   --text-primary: #111827;
@@ -22,8 +22,8 @@
   --text-secondary: #6B7280;
   /* Muted text */
   --border-color: #E5E7EB;
-  --error-color: #ef4444;
-  --success-color: #16A34A;
+  --error-color: #8B0909;
+  --success-color: #174A0D;
 }
 
 * {
@@ -41,6 +41,10 @@ body {
   flex-direction: column;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  color: var(--primary-color);
+}
+
 #root {
   display: flex;
   flex-direction: column;
@@ -52,8 +56,13 @@ body {
 .glass-panel {
   background: var(--bg-surface);
   border: 1px solid var(--border-color);
-  border-radius: 8px;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.3s ease;
+}
+
+.glass-panel:hover {
+  box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.12);
 }
 
 /* Animations */
@@ -117,14 +126,15 @@ body {
   align-items: center;
   justify-content: center;
   padding: 0.75rem 1.5rem;
-  border-radius: 6px;
-  font-weight: 500;
+  border-radius: 8px;
+  font-weight: 600;
   font-size: 0.875rem;
   cursor: pointer;
   transition: all 0.2s ease;
   border: none;
   outline: none;
   gap: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .btn-primary {
@@ -167,9 +177,7 @@ body {
 .auth-title {
   font-size: 2.25rem;
   font-weight: 800;
-  background: linear-gradient(135deg, #f97316 0%, #c2410c 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--primary-color);
   margin-bottom: 0.5rem;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.05);
 }
@@ -241,9 +249,7 @@ body {
 .sidebar-logo-text {
   font-size: 0.80rem;
   font-weight: 800;
-  background: linear-gradient(135deg, #f97316 0%, #c2410c 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--primary-color);
   letter-spacing: 1px;
 }
 
@@ -287,9 +293,8 @@ body {
 
 .top-header {
   height: 70px;
-  background-color: var(--bg-surface);
+  background-color: transparent;
   border-bottom: 1px solid var(--border-color);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -297,10 +302,23 @@ body {
   flex-shrink: 0;
 }
 
+.main-header {
+  height: 110px;
+  background-color: var(--bg-surface);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  flex-shrink: 0;
+  z-index: 10;
+}
+
 .header-title {
   font-size: 1.25rem;
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--primary-color);
 }
 
 .header-right {
@@ -433,7 +451,7 @@ body {
 
 .data-table th,
 .data-table td {
-  padding: 1rem 1.5rem;
+  padding: 1.25rem 1.5rem;
   border-bottom: 1px solid var(--border-color);
 }
 
@@ -1129,7 +1147,7 @@ body {
   background: linear-gradient(145deg, rgba(255, 255, 255, 1), rgba(249, 250, 251, 0.95));
   border: 1px solid rgba(255, 255, 255, 0.8);
   /* The massive shadow creates a full screen dark overlay */
-  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.6), 0 25px 50px -12px rgba(234, 88, 12, 0.4), 0 0 40px rgba(234, 88, 12, 0.15);
+  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.6), 0 25px 50px -12px rgba(232, 74, 10, 0.4), 0 0 40px rgba(232, 74, 10, 0.15);
   border-radius: 24px;
   padding: 3.5rem 3rem;
   display: flex;
@@ -1155,12 +1173,12 @@ body {
 .toast-icon-container {
   width: 90px;
   height: 90px;
-  background: linear-gradient(135deg, #f97316 0%, #c2410c 100%);
+  background: linear-gradient(135deg, #E84A0A 0%, #8B0909 100%);
   border-radius: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 10px 20px rgba(234, 88, 12, 0.3);
+  box-shadow: 0 10px 20px rgba(232, 74, 10, 0.3);
   margin-bottom: 0.5rem;
 }
 
@@ -1193,7 +1211,7 @@ body {
 .toast-message-premium {
   font-size: 1.1rem;
   font-weight: 800;
-  background: linear-gradient(135deg, #f97316 0%, #9a3412 100%);
+  background: linear-gradient(135deg, #D89008 0%, #8B0909 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   display: flex;
@@ -1202,11 +1220,11 @@ body {
 }
 
 .swastik-premium {
-  color: #ea580c;
+  color: #E84A0A;
   font-size: 2rem;
   display: inline-block;
   animation: spinSlow 8s linear infinite;
-  text-shadow: 0 0 15px rgba(234, 88, 12, 0.5);
+  text-shadow: 0 0 15px rgba(232, 74, 10, 0.5);
   -webkit-text-fill-color: initial;
 }
 
