@@ -24,3 +24,8 @@ export const deletePoojaSamagri = async (id) => {
   const response = await apiClient.delete(`/pooja-samagri/delete/${id}`);
   return response.data;
 };
+
+export const getPoojaSamagriByItemType = async (itemType) => {
+  const response = await apiClient.get(`/pooja-samagri/get-by-itemType/${itemType}`);
+  return response.data;
+};
