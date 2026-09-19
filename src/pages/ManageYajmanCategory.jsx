@@ -5,20 +5,20 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { MdAdd, MdEdit, MdDeleteOutline, MdClose, MdSave } from 'react-icons/md';
 import {
-  getAllAartiCategories,
-  createAartiCategory,
-  updateAartiCategory,
-  deleteAartiCategory,
-} from '../api/aartiCategory';
+  getAllYajmanCategories,
+  createYajmanCategory,
+  updateYajmanCategory,
+  deleteYajmanCategory,
+} from '../api/yajmanCategory';
 
-const ManageAartiCategory = () => {
+const ManageYajmanCategory = () => {
   const { showConfirm } = useConfirmModal();
   const queryClient = useQueryClient();
 
   // Queries
   const { data: rawCategories = [], isLoading: isLoadingCat } = useQuery({
-    queryKey: ['aartiCategories'],
-    queryFn: getAllAartiCategories
+    queryKey: ['yajmanCategories'],
+    queryFn: getAllYajmanCategories
   });
 
   const categories = Array.isArray(rawCategories) ? rawCategories : (rawCategories?.data || rawCategories?.categories || []);
@@ -28,32 +28,32 @@ const ManageAartiCategory = () => {
 
   // --- Category Mutations ---
   const createCatMutation = useMutation({
-    mutationFn: createAartiCategory,
+    mutationFn: createYajmanCategory,
     onSuccess: () => {
-      queryClient.invalidateQueries(['aartiCategories']);
-      toast.success('Aarti Category created successfully');
+      queryClient.invalidateQueries(['yajmanCategories']);
+      toast.success('Yajman Category created successfully');
       setCatModal({ isOpen: false, data: null });
     },
-    onError: () => toast.error('Failed to create Aarti Category')
+    onError: () => toast.error('Failed to create Yajman Category')
   });
 
   const updateCatMutation = useMutation({
-    mutationFn: ({ id, data }) => updateAartiCategory(id, data),
+    mutationFn: ({ id, data }) => updateYajmanCategory(id, data),
     onSuccess: () => {
-      queryClient.invalidateQueries(['aartiCategories']);
-      toast.success('Aarti Category updated successfully');
+      queryClient.invalidateQueries(['yajmanCategories']);
+      toast.success('Yajman Category updated successfully');
       setCatModal({ isOpen: false, data: null });
     },
-    onError: () => toast.error('Failed to update Aarti Category')
+    onError: () => toast.error('Failed to update Yajman Category')
   });
 
   const deleteCatMutation = useMutation({
-    mutationFn: deleteAartiCategory,
+    mutationFn: deleteYajmanCategory,
     onSuccess: () => {
-      queryClient.invalidateQueries(['aartiCategories']);
-      toast.success('Aarti Category deleted successfully');
+      queryClient.invalidateQueries(['yajmanCategories']);
+      toast.success('Yajman Category deleted successfully');
     },
-    onError: () => toast.error('Failed to delete Aarti Category')
+    onError: () => toast.error('Failed to delete Yajman Category')
   });
 
   // Handlers
@@ -70,7 +70,7 @@ const ManageAartiCategory = () => {
   return (
     <div className="page-content animate-fade-in">
       <div className="top-header" style={{ margin: '-2rem -2rem 2rem -2rem' }}>
-        <h1 className="header-title">Manage Aarti Categories</h1>
+        <h1 className="header-title">Manage Yajman Categories</h1>
       </div>
 
       <div style={{ maxWidth: '800px', margin: '0 auto' }}>
@@ -103,29 +103,49 @@ const ManageAartiCategory = () => {
                   </tr>
                 ))
               ) : (
-                <tr><td colSpan="2" style={{ textAlign: 'center' }}>No categories found</td></tr>
+                <tr>
+                  <td colSpan="2" style={{ textAlign: 'center', padding: '2rem', color: 'rgba(255,255,255,0.5)' }}>
+                    No Yajman categories found
+                  </td>
+                </tr>
               )}
             </tbody>
           </table>
         </div>
       </div>
 
-      {/* Category Modal */}
+      {/* Modal for Category */}
       {catModal.isOpen && createPortal(
-        <div className="modal-overlay" onClick={() => setCatModal({ isOpen: false, data: null })}>
-          <div className="modal-content glass-panel" onClick={e => e.stopPropagation()} style={{ maxWidth: '400px' }}>
+        <div className="modal-overlay">
+          <div className="modal-content animate-slide-up" style={{ maxWidth: '500px' }}>
             <div className="modal-header">
-              <h2 style={{ fontWeight: 600 }}>{catModal.data ? 'Edit Category' : 'Add Category'}</h2>
-              <button className="modal-close-btn" onClick={() => setCatModal({ isOpen: false, data: null })}><MdClose size={24} /></button>
-            </div>
-            <form className="modal-body" onSubmit={handleSaveCategory}>
-              <div className="input-group">
-                <label className="input-label">Category Name</label>
-                <input type="text" name="categoryName" className="input-field" defaultValue={catModal.data?.categoryName || ''} required placeholder="e.g. Ganesh Aarti" />
-              </div>
-              <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '1.5rem' }} disabled={createCatMutation.isPending || updateCatMutation.isPending}>
-                <MdSave size={20} /> Save
+              <h3>{catModal.data ? 'Edit' : 'Add'} Yajman Category</h3>
+              <button className="btn-icon" onClick={() => setCatModal({ isOpen: false, data: null })}>
+                <MdClose size={24} />
               </button>
+            </div>
+            <form onSubmit={handleSaveCategory} style={{ display: 'flex', flexDirection: 'column' }}>
+              <div className="modal-body">
+                <div className="form-group">
+                  <label>Category Name *</label>
+                  <input 
+                    type="text" 
+                    name="categoryName" 
+                    defaultValue={catModal.data?.categoryName || ''} 
+                    required 
+                    className="input-field"
+                    placeholder="e.g. VIP, Regular"
+                  />
+                </div>
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-outline" onClick={() => setCatModal({ isOpen: false, data: null })}>
+                  Cancel
+                </button>
+                <button type="submit" className="btn btn-primary" disabled={createCatMutation.isPending || updateCatMutation.isPending}>
+                  <MdSave size={20} /> {catModal.data ? 'Update' : 'Save'}
+                </button>
+              </div>
             </form>
           </div>
         </div>,
@@ -135,4 +155,4 @@ const ManageAartiCategory = () => {
   );
 };
 
-export default ManageAartiCategory;
+export default ManageYajmanCategory;

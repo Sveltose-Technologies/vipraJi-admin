@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { MdLogout, MdPersonOutline } from 'react-icons/md';
 
@@ -7,6 +7,7 @@ const Header = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
+  const location = useLocation();
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -37,10 +38,24 @@ const Header = () => {
     navigate('/login');
   };
 
+  const getDynamicTitle = () => {
+    const path = location.pathname;
+    if (path === '/') return 'Admin Home';
+    
+    const segments = path.split('/').filter(Boolean);
+    if (segments.length > 0) {
+      let name = segments[0].replace('manage-', '');
+      name = name.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+      return `Admin ${name}`;
+    }
+    
+    return 'Admin Dashboard';
+  };
+
   return (
     <header className="main-header">
       <div className="header-title">
-        Admin Dashboard
+        {getDynamicTitle()}
       </div>
 
       <div className="header-right">
@@ -60,7 +75,7 @@ const Header = () => {
 
           <div className={`dropdown-menu ${dropdownOpen ? 'show' : ''}`}>
             <div className="dropdown-header">
-              <strong style={{ fontSize: '0.875rem' }}>Manage Account</strong>
+              <strong style={{ }}>Manage Account</strong>
             </div>
             <button
               className="dropdown-item"

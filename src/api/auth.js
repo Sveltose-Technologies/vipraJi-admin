@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Use Vite proxy in development to avoid CORS, and the real URL in production
-const API_URL = import.meta.env.DEV ? '/api' : 'https://backend.vipraji.com';
+const API_URL = import.meta.env.DEV ? '/api' : 'https://backend.viprasaarthi.com';
 
 const apiClient = axios.create({
   baseURL: API_URL,
@@ -51,5 +51,10 @@ export const updateProfile = async ({ id, formData }) => {
       'Content-Type': 'multipart/form-data',
     },
   });
+  return response.data;
+};
+
+export const getAllUsers = async () => {
+  const response = await apiClient.get('/auth/get-all');
   return response.data;
 };

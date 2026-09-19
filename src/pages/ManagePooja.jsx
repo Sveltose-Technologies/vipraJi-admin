@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useConfirmModal } from '../contexts/ConfirmModalContext';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
@@ -9,6 +10,7 @@ import { getAllPoojas, createPooja, updatePooja, deletePooja } from '../api/pooj
 const SECTION_TYPES = ["Heading", "Description", "Dhyan", "Mantra", "Notes"];
 
 const ManagePooja = () => {
+  const { showConfirm } = useConfirmModal();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
@@ -160,7 +162,7 @@ const ManagePooja = () => {
                     <td>{pooja.sectionType}</td>
                     <td>
                       <button className="btn-icon edit" onClick={() => handleModalOpen(pooja)}><MdEdit size={18} /></button>
-                      <button className="btn-icon delete" onClick={() => { if(window.confirm('Are you sure?')) deleteMutation.mutate(pooja._id || pooja.id); }}><MdDeleteOutline size={18} /></button>
+                      <button className="btn-icon delete" onClick={() => showConfirm('Are you sure?', () => { deleteMutation.mutate(pooja._id || pooja.id); })}><MdDeleteOutline size={18} /></button>
                     </td>
                   </tr>
                 )

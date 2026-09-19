@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useConfirmModal } from '../contexts/ConfirmModalContext';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { MdAdd, MdEdit, MdDeleteOutline, MdClose, MdSave } from 'react-icons/md';
@@ -10,6 +11,7 @@ import {
 } from '../api/stotramCategory';
 
 const ManageStotramCategory = () => {
+  const { showConfirm } = useConfirmModal();
   const queryClient = useQueryClient();
 
   // Queries
@@ -96,7 +98,7 @@ const ManageStotramCategory = () => {
                     <td>{cat.categoryName}</td>
                     <td>
                       <button className="btn-icon edit" onClick={() => setCatModal({ isOpen: true, data: cat })}><MdEdit size={18} /></button>
-                      <button className="btn-icon delete" onClick={() => { if(window.confirm('Are you sure?')) deleteCatMutation.mutate(cat._id || cat.id); }}><MdDeleteOutline size={18} /></button>
+                      <button className="btn-icon delete" onClick={() => showConfirm('Are you sure?', () => { deleteCatMutation.mutate(cat._id || cat.id); })}><MdDeleteOutline size={18} /></button>
                     </td>
                   </tr>
                 ))

@@ -69,7 +69,7 @@ const Login = () => {
 
         <form className="form-container" onSubmit={handleSubmit}>
           {errorMsg && (
-            <div style={{ color: 'var(--error-color)', fontSize: '0.875rem', textAlign: 'center', backgroundColor: 'rgba(239, 68, 68, 0.1)', padding: '0.5rem', borderRadius: '4px' }}>
+            <div style={{ color: 'var(--error-color)', textAlign: 'center', backgroundColor: 'rgba(239, 68, 68, 0.1)', padding: '0.5rem', borderRadius: '4px' }}>
               {errorMsg}
             </div>
           )}
@@ -95,7 +95,7 @@ const Login = () => {
               disabled={loginMutation.isPending}
             />
             <div style={{ textAlign: 'right', marginTop: '0.5rem' }}>
-              <Link to="/forgot-password" style={{ fontSize: '0.875rem', color: 'var(--primary-color)', textDecoration: 'none' }}>
+              <Link to="/forgot-password" style={{ color: 'var(--primary-color)', textDecoration: 'none' }}>
                 Forgot Password?
               </Link>
             </div>

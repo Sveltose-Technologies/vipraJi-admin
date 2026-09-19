@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useConfirmModal } from '../contexts/ConfirmModalContext';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { MdAdd, MdClose, MdDeleteOutline, MdSave, MdEdit, MdContentCopy, MdListAlt, MdOutlinePostAdd, MdSearch, MdFilterList } from 'react-icons/md';
 import { toast } from 'react-hot-toast';
 import { getAllPoojaSamagri, createPoojaSamagri, updatePoojaSamagri, deletePoojaSamagri } from '../api/poojaSamagri';
 
 const ManagePoojaSamagri = () => {
+  const { showConfirm } = useConfirmModal();
   const queryClient = useQueryClient();
   const [activeTab, setActiveTab] = useState('inventory'); // 'inventory' | 'builder'
   
@@ -137,9 +139,9 @@ const ManagePoojaSamagri = () => {
   };
 
   const handleDelete = (id) => {
-    if (window.confirm('Are you sure you want to delete this samagri package?')) {
+    showConfirm('Are you sure you want to delete this samagri package?', () => {
       deleteMutation.mutate(id);
-    }
+    });
   };
 
   const closeModal = () => {
@@ -393,7 +395,6 @@ const ManagePoojaSamagri = () => {
                         <span style={{
                           padding: '4px 10px', 
                           borderRadius: '20px',
-                          fontSize: '0.8rem',
                           fontWeight: '600',
                           ...getChipStyle(pkg.itemType)
                         }}>
@@ -425,8 +426,7 @@ const ManagePoojaSamagri = () => {
                         <span style={{ 
                           background: 'rgba(255,255,255,0.1)', 
                           padding: '4px 12px', 
-                          borderRadius: '12px', 
-                          fontSize: '0.9rem',
+                          borderRadius: '12px',
                           fontWeight: 500
                         }}>
                           {pkg.items ? pkg.items.length : 0} items
@@ -516,7 +516,7 @@ const ManagePoojaSamagri = () => {
           <div className="glass-panel" style={{ padding: '2rem', display: 'flex', flexDirection: 'column' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '1rem' }}>
               <h3 style={{ margin: 0, color: 'var(--text-primary)' }}>Matched Packages</h3>
-              <span style={{ background: 'var(--primary-color)', color: '#fff', padding: '4px 12px', borderRadius: '20px', fontSize: '0.85rem', fontWeight: 600, boxShadow: '0 2px 10px rgba(var(--primary-rgb), 0.3)' }}>
+              <span style={{ background: 'var(--primary-color)', color: '#fff', padding: '4px 12px', borderRadius: '20px', fontWeight: 600, boxShadow: '0 2px 10px rgba(var(--primary-rgb), 0.3)' }}>
                 {samagris.filter(pkg => checkedPackages[pkg._id || pkg.id]).length} Selected
               </span>
             </div>
@@ -563,24 +563,23 @@ const ManagePoojaSamagri = () => {
                            <span style={{ 
                              padding: '2px 8px', 
                              borderRadius: '12px', 
-                             fontSize: '0.75rem', 
                              fontWeight: 600,
                              ...getChipStyle(pkg.itemType) 
                            }}>
                              {pkg.itemType}
                            </span>
-                           <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', fontWeight: 500 }}>
+                           <span style={{ color: 'var(--text-secondary)', fontWeight: 500 }}>
                              {pkg.items?.length || 0} items
                            </span>
                         </div>
-                        <div style={{ fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
+                        <div style={{ color: 'var(--text-secondary)' }}>
                            <strong style={{color: 'var(--text-primary)'}}>Poojas:</strong> {(pkg.poojaName || []).join(', ') || 'Any'}
                         </div>
-                        <div style={{ fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
+                        <div style={{ color: 'var(--text-secondary)' }}>
                            <strong style={{color: 'var(--text-primary)'}}>Gods:</strong> {(pkg.godName || []).join(', ') || 'Any'}
                         </div>
                         {pkg.havanRequired && (
-                           <div style={{ fontSize: '0.85rem', color: '#ff9800', display: 'flex', alignItems: 'center', gap: '4px', marginTop: '4px' }}>
+                           <div style={{ color: '#ff9800', display: 'flex', alignItems: 'center', gap: '4px', marginTop: '4px' }}>
                              <span style={{width: '6px', height: '6px', borderRadius: '50%', background: '#ff9800'}}></span>
                              Havan Required
                            </div>
@@ -600,7 +599,7 @@ const ManagePoojaSamagri = () => {
         <div className="modal-overlay" onClick={closeModal} style={{ zIndex: 1000, padding: '1rem' }}>
           <div className="modal-content glass-panel animate-scale-in" onClick={e => e.stopPropagation()} style={{ maxWidth: '800px', width: '100%', maxHeight: '90vh', display: 'flex', flexDirection: 'column' }}>
             <div className="modal-header" style={{ padding: '1.5rem 2rem', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
-              <h2 className="modal-title" style={{ fontSize: '1.5rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <h2 className="modal-title" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                 <div style={{ background: 'var(--primary-color)', padding: '6px', borderRadius: '8px', display: 'flex' }}>
                    {editingId ? <MdEdit size={20} color="#fff" /> : <MdAdd size={20} color="#fff" />}
                 </div>
@@ -660,7 +659,7 @@ const ManagePoojaSamagri = () => {
                     onChange={(e) => setHavanRequired(e.target.checked)}
                     style={{ width: '22px', height: '22px', cursor: 'pointer', accentColor: 'var(--primary-color)', marginRight: '12px' }}
                   />
-                  <label htmlFor="havanRequired" className="input-label" style={{ marginBottom: 0, cursor: 'pointer', flex: 1, fontSize: '1rem' }}>
+                  <label htmlFor="havanRequired" className="input-label" style={{ marginBottom: 0, cursor: 'pointer', flex: 1 }}>
                     Havan Required for this package?
                   </label>
                 </div>
@@ -668,8 +667,8 @@ const ManagePoojaSamagri = () => {
 
               <div style={{ marginTop: '1rem', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '1.5rem' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-                  <h3 style={{ margin: 0, fontSize: '1.2rem', color: 'var(--text-primary)' }}>Package Items</h3>
-                  <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+                  <h3 style={{ margin: 0, color: 'var(--text-primary)' }}>Package Items</h3>
+                  <span style={{ color: 'var(--text-secondary)' }}>
                     {items.length} item(s)
                   </span>
                 </div>

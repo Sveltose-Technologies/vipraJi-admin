@@ -1,14 +1,16 @@
 import React, { useState, useRef } from 'react';
+import { useConfirmModal } from '../contexts/ConfirmModalContext';
 import toast from 'react-hot-toast';
 import { MdEdit, MdDelete, MdAdd } from 'react-icons/md';
 import { useLogos, useCreateLogo, useUpdateLogo, useDeleteLogo } from '../hooks/useLogo';
 import Modal from '../components/Modal';
 import Button from '../components/Button';
 
-const BASE_URL = 'https://backend.vipraji.com';
+const BASE_URL = 'https://backend.viprasaarthi.com';
 
 // Utility for formatting URL (assuming backend might return relative paths for images)
 const getImageUrl = (url) => {
+  const { showConfirm } = useConfirmModal();
   if (!url) return '';
   if (url.startsWith('http')) return url;
   return `${BASE_URL}${url.startsWith('/') ? '' : '/'}${url}`;
@@ -100,27 +102,27 @@ const Dashboard = () => {
   };
 
   const handleDelete = (id) => {
-    if (window.confirm('Are you sure you want to delete this logo?')) {
+    showConfirm('Are you sure you want to delete this logo?', () => {
       deleteMutation.mutate(id, {
         onSuccess: () => toast.success('Logo deleted!'),
         onError: (err) => toast.error(err.response?.data?.message || 'Failed to delete logo')
       });
-    }
+    });
   };
 
   return (
     <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
 
       <div style={{ marginBottom: '2rem' }}>
-        <h1 style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--text-primary)' }}>Home Page Management</h1>
-        <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginTop: '0.25rem' }}>
+        <h1 style={{ fontWeight: 700, color: 'var(--text-primary)' }}>Home Page Management</h1>
+        <p style={{ color: 'var(--text-secondary)', marginTop: '0.25rem' }}>
           Manage your website's Branding (Logos)
         </p>
       </div>
 
       <div className="glass-panel" style={{ padding: '1.5rem' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-          <h2 style={{ fontSize: '1.125rem', fontWeight: 600 }}>Logo List</h2>
+          <h2 style={{ fontWeight: 600 }}>Logo List</h2>
           <Button onClick={openAddModal} style={{ backgroundColor: '#F59E0B', color: 'white', padding: '0.5rem 1rem' }}>
             <MdAdd size={18} style={{ marginRight: '0.25rem' }} /> Add Logo
           </Button>
@@ -194,7 +196,7 @@ const Dashboard = () => {
 
           {previewUrl && (
             <div style={{ border: '1px dashed var(--border-color)', borderRadius: '6px', padding: '1rem', textAlign: 'center', backgroundColor: '#F9FAFB' }}>
-              <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>Preview</p>
+              <p style={{ color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>Preview</p>
               <img src={previewUrl} alt="Preview" style={{ maxHeight: '150px', maxWidth: '100%', objectFit: 'contain' }} />
             </div>
           )}

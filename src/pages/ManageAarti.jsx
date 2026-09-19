@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useConfirmModal } from '../contexts/ConfirmModalContext';
 import { createPortal } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
@@ -9,6 +10,7 @@ import { getAllAartis, createAarti, updateAarti, deleteAarti } from '../api/aart
 import { getAllAartiCategories } from '../api/aartiCategory';
 
 const ManageAarti = () => {
+  const { showConfirm } = useConfirmModal();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const [playingAarti, setPlayingAarti] = useState(null);
@@ -133,15 +135,15 @@ const ManageAarti = () => {
   };
 
   const handleDelete = (id) => {
-    if (window.confirm('Are you sure you want to delete this Aarti?')) {
+    showConfirm('Are you sure you want to delete this Aarti?', () => {
       deleteMutation.mutate(id);
-    }
+    });
   };
 
   const getImageUrl = (aarti) => {
     if (aarti.aartiImage) {
       if (aarti.aartiImage.startsWith('http')) return aarti.aartiImage;
-      const API_URL = import.meta.env.DEV ? 'http://localhost:5000' : 'https://backend.vipraji.com';
+      const API_URL = import.meta.env.DEV ? 'http://localhost:5000' : 'https://backend.viprasaarthi.com';
       return `${API_URL}/${aarti.aartiImage}`;
     }
     return 'https://images.unsplash.com/photo-1579564639904-e5357c9ee364?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60';
@@ -165,14 +167,14 @@ const ManageAarti = () => {
       {isLoading ? (
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '300px', color: 'var(--text-secondary)' }}>
           <div className="spinner" style={{ borderColor: 'var(--primary-color)', borderTopColor: 'transparent', width: '40px', height: '40px', borderWidth: '3px', marginBottom: '1rem' }}></div>
-          <p style={{ fontWeight: 500, fontSize: '1.1rem' }}>Loading Aartis...</p>
+          <p style={{ fontWeight: 500 }}>Loading Aartis...</p>
         </div>
       ) : aartis.length === 0 ? (
         <div className="glass-panel" style={{ padding: '4rem 2rem', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
           <div style={{ width: '80px', height: '80px', borderRadius: '50%', backgroundColor: 'rgba(22, 163, 74, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem' }}>
             <MdPlayArrow size={40} color="var(--primary-color)" />
           </div>
-          <h2 style={{ fontSize: '1.5rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.5rem' }}>No Aartis Found</h2>
+          <h2 style={{ fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.5rem' }}>No Aartis Found</h2>
           <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem', maxWidth: '400px' }}>Your Aarti library is currently empty. Click the button below to add your first beautiful Aarti.</p>
           <button className="btn btn-primary" onClick={openAddModal}>
             <MdAdd size={20} /> Add New Aarti
@@ -231,7 +233,7 @@ const ManageAarti = () => {
         <div className="modal-overlay" onClick={closeModal}>
           <div className="modal-content glass-panel" onClick={e => e.stopPropagation()} style={{ maxWidth: '800px', width: '90%' }}>
             <div className="modal-header">
-              <h2 className="modal-title" style={{ fontSize: '1.25rem', fontWeight: 700 }}>
+              <h2 className="modal-title" style={{ fontWeight: 700 }}>
                 {editingId ? 'Edit Aarti Details' : 'Add New Aarti'}
               </h2>
               <button className="modal-close-btn" type="button" onClick={closeModal}>
@@ -316,7 +318,7 @@ const ManageAarti = () => {
                       accept="image/*"
                       onChange={handleFileChange}
                     />
-                    <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', fontWeight: 500 }}>
+                    <p style={{ color: 'var(--text-secondary)', fontWeight: 500 }}>
                       {files.aartiImage ? files.aartiImage.name : 'Click to upload image'}
                     </p>
                   </div>
@@ -333,7 +335,7 @@ const ManageAarti = () => {
                       accept="audio/*"
                       onChange={handleFileChange}
                     />
-                    <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', fontWeight: 500 }}>
+                    <p style={{ color: 'var(--text-secondary)', fontWeight: 500 }}>
                       {files.audioFile ? files.audioFile.name : 'Click to upload audio (MP3)'}
                     </p>
                   </div>
@@ -350,7 +352,7 @@ const ManageAarti = () => {
                       accept="application/pdf"
                       onChange={handleFileChange}
                     />
-                    <p style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', fontWeight: 500 }}>
+                    <p style={{ color: 'var(--text-secondary)', fontWeight: 500 }}>
                       {files.pdf ? files.pdf.name : 'Click to upload PDF'}
                     </p>
                   </div>

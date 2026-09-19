@@ -110,7 +110,7 @@ const UpdateProfile = () => {
   return (
     <div style={{ maxWidth: '900px', margin: '0 auto' }}>
       <div style={{ marginBottom: '2rem' }}>
-        <h1 style={{ fontSize: '1.5rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.25rem' }}>Update Profile</h1>
+        <h1 style={{ fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.25rem' }}>Update Profile</h1>
         <p style={{ color: 'var(--text-secondary)' }}>Manage your admin details and settings</p>
       </div>
       
