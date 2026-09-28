@@ -171,7 +171,7 @@ const ManageAarti = () => {
         </div>
       ) : aartis.length === 0 ? (
         <div className="glass-panel" style={{ padding: '4rem 2rem', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-          <div style={{ width: '80px', height: '80px', borderRadius: '50%', backgroundColor: 'rgba(22, 163, 74, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem' }}>
+          <div style={{ width: '80px', height: '80px', borderRadius: '50%', backgroundColor: 'rgba(var(--primary-rgb), 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem' }}>
             <MdPlayArrow size={40} color="var(--primary-color)" />
           </div>
           <h2 style={{ fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.5rem' }}>No Aartis Found</h2>

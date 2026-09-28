@@ -32,22 +32,7 @@ const Login = () => {
           if (userObj) {
             localStorage.setItem('adminUser', JSON.stringify(userObj));
           }
-          toast.custom((t) => (
-            <div className={`custom-welcome-card ${t.visible ? 'animate-modal-enter' : 'animate-modal-leave'}`}>
-              <div className="toast-icon-container">
-                <img src="/logo.png" alt="Logo" style={{ width: '150px', height: '150px', objectFit: 'contain', borderRadius: '24px', filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))' }} />
-              </div>
-              <div className="toast-content-premium">
-                <h4 className="toast-title">Welcome Admin!</h4>
-                <p className="toast-subtitle">You have successfully logged in.</p>
-                <div className="toast-message-premium">
-                  <span className="swastik-premium">卐</span>
-                  <span>आपका डिजिटल साथी</span>
-                  <span className="swastik-premium">卐</span>
-                </div>
-              </div>
-            </div>
-          ), { duration: 4000, position: 'top-center' });
+          toast.success('Welcome Admin! You have successfully logged in.', { duration: 4000, position: 'top-center' });
           navigate('/dashboard');
         },
         onError: (error) => {
@@ -62,7 +47,7 @@ const Login = () => {
     <div className="auth-layout">
       <div className="auth-card glass-panel animate-fade-in">
         <div className="auth-header" style={{ textAlign: 'center' }}>
-          <img src="/logo.png" alt="Vipra Sarthi Logo" style={{ height: '200px', objectFit: 'contain', marginBottom: '1rem' }} onError={(e) => { e.target.style.display = 'none' }} />
+          <img src="/logo.png?v=2" alt="Vipra Sarthi Logo" className="auth-logo" onError={(e) => { e.target.style.display = 'none' }} />
           <h1 className="auth-title">Vipra Sarthi</h1>
           <p className="auth-subtitle">Sign in to your admin account</p>
         </div>

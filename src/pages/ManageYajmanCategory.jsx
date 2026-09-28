@@ -11,7 +11,7 @@ import {
   deleteYajmanCategory,
 } from '../api/yajmanCategory';
 
-const ManageYajmanCategory = () => {
+const ManageYajmanCategory = ({ isEmbedded = false }) => {
   const { showConfirm } = useConfirmModal();
   const queryClient = useQueryClient();
 
@@ -67,11 +67,13 @@ const ManageYajmanCategory = () => {
     }
   };
 
-  return (
-    <div className="page-content animate-fade-in">
-      <div className="top-header" style={{ margin: '-2rem -2rem 2rem -2rem' }}>
-        <h1 className="header-title">Manage Yajman Categories</h1>
-      </div>
+  const content = (
+    <>
+      {!isEmbedded && (
+        <div className="top-header" style={{ margin: '-2rem -2rem 2rem -2rem' }}>
+          <h1 className="header-title">Manage Yajman Categories</h1>
+        </div>
+      )}
 
       <div style={{ maxWidth: '800px', margin: '0 auto' }}>
         <div className="glass-panel" style={{ padding: '1.5rem' }}>
@@ -151,8 +153,13 @@ const ManageYajmanCategory = () => {
         </div>,
         document.body
       )}
-    </div>
+    </>
   );
+
+  if (isEmbedded) {
+    return <div className="animate-fade-in" style={{ padding: '1rem 0' }}>{content}</div>;
+  }
+  return <div className="page-content animate-fade-in">{content}</div>;
 };
 
 export default ManageYajmanCategory;

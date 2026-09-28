@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = import.meta.env.DEV ? '/api' : 'https://backend.viprasaarthi.com/';
+const API_URL = 'https://backend.viprasaarthi.com';
 
 export const apiClient = axios.create({
   baseURL: API_URL,

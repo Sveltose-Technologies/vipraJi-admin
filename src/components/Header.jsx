@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import { MdLogout, MdPersonOutline } from 'react-icons/md';
+import { MdLogout, MdPersonOutline, MdMenu } from 'react-icons/md';
 
-const Header = () => {
+const Header = ({ toggleSidebar }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
@@ -54,8 +54,13 @@ const Header = () => {
 
   return (
     <header className="main-header">
-      <div className="header-title">
-        {getDynamicTitle()}
+      <div className="header-left" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+        <button className="mobile-menu-btn" onClick={toggleSidebar} style={{ background: 'none', border: 'none', cursor: 'pointer', display: 'none', padding: '0.25rem' }}>
+          <MdMenu size={28} color="var(--vipra-color)" />
+        </button>
+        <div className="header-title">
+          {getDynamicTitle()}
+        </div>
       </div>
 
       <div className="header-right">

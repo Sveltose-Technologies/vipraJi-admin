@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-// Use Vite proxy in development to avoid CORS, and the real URL in production
-const API_URL = import.meta.env.DEV ? '/api' : 'https://backend.viprasaarthi.com';
+const API_URL = 'https://backend.viprasaarthi.com';
 
 const apiClient = axios.create({
   baseURL: API_URL,
@@ -56,5 +55,11 @@ export const updateProfile = async ({ id, formData }) => {
 
 export const getAllUsers = async () => {
   const response = await apiClient.get('/auth/get-all');
+  return response.data;
+};
+
+export const updateUserStatus = async (id, status) => {
+  // Try to use a standard update endpoint or dedicated status endpoint
+  const response = await apiClient.put(`/auth/update/${id}`, { status });
   return response.data;
 };

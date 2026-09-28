@@ -64,7 +64,7 @@ const Signup = () => {
     <div className="auth-layout" style={{ padding: '2rem 1rem', overflowY: 'auto' }}>
       <div className="auth-card glass-panel animate-fade-in" style={{ maxWidth: '600px', marginTop: '2rem', marginBottom: '2rem' }}>
         <div className="auth-header" style={{ textAlign: 'center' }}>
-          <img src="/logo.png" alt="Vipra Sarthi Logo" style={{ height: '200px', objectFit: 'contain', marginBottom: '1rem' }} onError={(e) => { e.target.style.display = 'none' }} />
+          <img src="/logo.png?v=2" alt="Vipra Sarthi Logo" className="auth-logo" onError={(e) => { e.target.style.display = 'none' }} />
           <h1 className="auth-title">Create Account</h1>
           <p className="auth-subtitle">Join the Vipra Sarthi admin team</p>
         </div>

@@ -1,37 +1,68 @@
-import React, { useState, useMemo } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { getAllUsers } from '../api/auth';
-import { 
-  MdPerson, MdEmail, MdPhone, MdVerified, MdOutlineErrorOutline, 
-  MdSearch, MdFilterList, MdCheckCircle, MdCancel
-} from 'react-icons/md';
+import React, { useState, useMemo } from "react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { getAllUsers, updateUserStatus } from "../api/auth";
+import toast from "react-hot-toast";
+import {
+  MdPerson,
+  MdEmail,
+  MdPhone,
+  MdVerified,
+  MdOutlineErrorOutline,
+  MdSearch,
+  MdFilterList,
+  MdCheckCircle,
+  MdCancel,
+} from "react-icons/md";
+import Modal from "../components/Modal";
 
 const ManageUsers = () => {
+  const queryClient = useQueryClient();
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ['users'],
+    queryKey: ["users"],
     queryFn: getAllUsers,
   });
 
-  const [searchQuery, setSearchQuery] = useState('');
-  const [roleFilter, setRoleFilter] = useState('all');
-  const [statusFilter, setStatusFilter] = useState('all');
+  const statusMutation = useMutation({
+    mutationFn: ({ id, status }) => updateUserStatus(id, status),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["users"]);
+      toast.success("User status updated successfully");
+    },
+    onError: () => {
+      toast.error("Failed to update user status");
+    }
+  });
+
+  const handleStatusToggle = (user) => {
+    // Only allow toggling if user has an id
+    const userId = user._id || user.id;
+    if (!userId) return;
+    const newStatus = user.status === "active" ? "inactive" : "active";
+    statusMutation.mutate({ id: userId, status: newStatus });
+  };
+
+  const [searchQuery, setSearchQuery] = useState("");
+  const [roleFilter, setRoleFilter] = useState("all");
+  const [statusFilter, setStatusFilter] = useState("all");
+  const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
 
   const users = data?.auths || [];
 
   const filteredUsers = useMemo(() => {
-    return users.filter(user => {
+    return users.filter((user) => {
       // 1. Search Query (Name, Email, Phone)
       const query = searchQuery.toLowerCase();
-      const matchesSearch = 
+      const matchesSearch =
         (user.fullName && user.fullName.toLowerCase().includes(query)) ||
         (user.email && user.email.toLowerCase().includes(query)) ||
         (user.mobileNumber && user.mobileNumber.toLowerCase().includes(query));
 
       // 2. Role Filter
-      const matchesRole = roleFilter === 'all' || user.role === roleFilter;
+      const matchesRole = roleFilter === "all" || user.role === roleFilter;
 
       // 3. Status Filter
-      const matchesStatus = statusFilter === 'all' || user.status === statusFilter;
+      const matchesStatus =
+        statusFilter === "all" || user.status === statusFilter;
 
       return matchesSearch && matchesRole && matchesStatus;
     });
@@ -39,479 +70,438 @@ const ManageUsers = () => {
 
   if (isLoading) {
     return (
-      <div className="page-content" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
-        <div className="spinner" style={{ width: '40px', height: '40px', borderTopColor: 'var(--primary-color)' }}></div>
+      <div
+        className="page-content"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          minHeight: "60vh",
+        }}
+      >
+        <div
+          className="spinner"
+          style={{
+            width: "40px",
+            height: "40px",
+            borderTopColor: "var(--primary-color)",
+          }}
+        ></div>
       </div>
     );
   }
 
   if (isError) {
     return (
-      <div className="page-content" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '60vh', color: 'var(--error-color)' }}>
-        <MdOutlineErrorOutline size={48} style={{ marginBottom: '1rem' }} />
+      <div
+        className="page-content"
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          minHeight: "60vh",
+          color: "var(--error-color)",
+        }}
+      >
+        <MdOutlineErrorOutline size={48} style={{ marginBottom: "1rem" }} />
         <h2>Error Loading Users</h2>
-        <p>{error.message || 'An unexpected error occurred while fetching users.'}</p>
+        <p>
+          {error.message ||
+            "An unexpected error occurred while fetching users."}
+        </p>
       </div>
     );
   }
 
   return (
-    <div className="page-content animate-fade-in ecom-layout">
-      
-      {/* Header Section */}
-      <div className="top-header" style={{ marginBottom: '2rem', padding: 0, borderBottom: 'none' }}>
-        <div>
-          <h1 className="page-title" style={{ color: 'var(--text-primary)', marginBottom: '0.5rem' }}>User Management</h1>
-          <p className="page-subtitle" style={{ color: 'var(--text-secondary)' }}>Manage and view all registered users ({filteredUsers.length} shown)</p>
+    <div
+      className="animate-fade-in ecom-layout"
+      style={{ paddingTop: "0.5rem" }}
+    >
+      <Modal
+        isOpen={isFilterModalOpen}
+        onClose={() => setIsFilterModalOpen(false)}
+        title="Filters"
+      >
+        <div className="filter-section">
+          <h4>Role</h4>
+          <div className="filter-options">
+            <label className="filter-label">
+              <input
+                type="radio"
+                name="role"
+                checked={roleFilter === "all"}
+                onChange={() => setRoleFilter("all")}
+              />
+              All Roles
+            </label>
+            <label className="filter-label">
+              <input
+                type="radio"
+                name="role"
+                checked={roleFilter === "admin"}
+                onChange={() => setRoleFilter("admin")}
+              />
+              Admin
+            </label>
+            <label className="filter-label">
+              <input
+                type="radio"
+                name="role"
+                checked={roleFilter === "user"}
+                onChange={() => setRoleFilter("user")}
+              />
+              User
+            </label>
+          </div>
         </div>
-      </div>
+
+        <div className="filter-section">
+          <h4>Account Status</h4>
+          <div className="filter-options">
+            <label className="filter-label">
+              <input
+                type="radio"
+                name="status"
+                checked={statusFilter === "all"}
+                onChange={() => setStatusFilter("all")}
+              />
+              All Status
+            </label>
+            <label className="filter-label">
+              <input
+                type="radio"
+                name="status"
+                checked={statusFilter === "active"}
+                onChange={() => setStatusFilter("active")}
+              />
+              Active
+            </label>
+            <label className="filter-label">
+              <input
+                type="radio"
+                name="status"
+                checked={statusFilter === "inactive"}
+                onChange={() => setStatusFilter("inactive")}
+              />
+              Inactive
+            </label>
+          </div>
+        </div>
+
+        <button
+          className="btn btn-primary"
+          style={{ width: "100%", marginTop: "1rem" }}
+          onClick={() => setIsFilterModalOpen(false)}
+        >
+          Apply Filters
+        </button>
+      </Modal>
 
       <div className="ecom-container">
-        
-        {/* LEFT SIDEBAR: FILTERS */}
-        <aside className="ecom-sidebar glass-panel">
-          <div className="filter-header">
-            <MdFilterList size={20} />
-            <h3>Filters</h3>
-          </div>
-          
-          <div className="filter-section">
-            <h4>Role</h4>
-            <div className="filter-options">
-              <label className="filter-label">
-                <input type="radio" name="role" checked={roleFilter === 'all'} onChange={() => setRoleFilter('all')} />
-                All Roles
-              </label>
-              <label className="filter-label">
-                <input type="radio" name="role" checked={roleFilter === 'admin'} onChange={() => setRoleFilter('admin')} />
-                Admin
-              </label>
-              <label className="filter-label">
-                <input type="radio" name="role" checked={roleFilter === 'user'} onChange={() => setRoleFilter('user')} />
-                User
-              </label>
-            </div>
-          </div>
-
-          <div className="filter-section">
-            <h4>Account Status</h4>
-            <div className="filter-options">
-              <label className="filter-label">
-                <input type="radio" name="status" checked={statusFilter === 'all'} onChange={() => setStatusFilter('all')} />
-                All Status
-              </label>
-              <label className="filter-label">
-                <input type="radio" name="status" checked={statusFilter === 'active'} onChange={() => setStatusFilter('active')} />
-                Active
-              </label>
-              <label className="filter-label">
-                <input type="radio" name="status" checked={statusFilter === 'inactive'} onChange={() => setStatusFilter('inactive')} />
-                Inactive
-              </label>
-            </div>
-          </div>
-          
-          <button 
-            className="btn btn-primary" 
-            style={{width: '100%', marginTop: '1rem'}}
-            onClick={() => { setRoleFilter('all'); setStatusFilter('all'); setSearchQuery(''); }}
-          >
-            Clear Filters
-          </button>
-        </aside>
-
         {/* RIGHT MAIN: LIST VIEW & SEARCH */}
         <main className="ecom-main">
-          
           {/* Search Bar */}
-          <div className="search-container glass-panel">
-            <MdSearch className="search-icon" size={24} />
-            <input 
-              type="text" 
-              className="search-input" 
-              placeholder="Search users by name, email, or mobile number..." 
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
+          <div
+            className="search-container glass-panel"
+            style={{
+              position: "sticky",
+              top: "0.75rem",
+              zIndex: 40,
+              marginBottom: "1.25rem",
+              display: "flex",
+              gap: "1rem",
+              alignItems: "center",
+              padding: "0.75rem 1.5rem",
+              background: "rgba(255, 255, 255, 0.97)",
+              border: "1px solid var(--border-color)",
+              boxShadow: "0 8px 20px rgba(31, 41, 55, 0.08)",
+              backdropFilter: "blur(10px)",
+            }}
+          >
+            <div style={{ display: "flex", flex: 1, alignItems: "center" }}>
+              <MdSearch className="search-icon" size={24} />
+              <input
+                type="text"
+                className="search-input"
+                aria-label="Search users"
+                style={{ padding: "0.5rem 0", minWidth: 0 }}
+                placeholder="Search users by name, email, or mobile number..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </div>
+
+            {/* Active Filters */}
+            <div
+              style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}
+            >
+              {statusFilter !== "all" && (
+                <span
+                  className="detail-tag"
+                  style={{ margin: 0, textTransform: "capitalize" }}
+                >
+                  Status: {statusFilter}
+                </span>
+              )}
+              {roleFilter !== "all" && (
+                <span
+                  className="detail-tag"
+                  style={{ margin: 0, textTransform: "capitalize" }}
+                >
+                  Role: {roleFilter}
+                </span>
+              )}
+
+              {(statusFilter !== "all" ||
+                roleFilter !== "all" ||
+                searchQuery !== "") && (
+                <button
+                  className="btn btn-outline"
+                  style={{ padding: "0.4rem 0.75rem", fontSize: "0.85rem" }}
+                  onClick={() => {
+                    setRoleFilter("all");
+                    setStatusFilter("all");
+                    setSearchQuery("");
+                  }}
+                >
+                  Clear All
+                </button>
+              )}
+            </div>
+
+            <button
+              className="btn btn-primary"
+              onClick={() => setIsFilterModalOpen(true)}
+              style={{
+                padding: "0.5rem 1rem",
+                display: "flex",
+                alignItems: "center",
+                gap: "0.5rem",
+              }}
+            >
+              <MdFilterList size={20} />
+              Filters
+            </button>
           </div>
 
           {/* User List */}
           {filteredUsers.length === 0 ? (
-            <div className="glass-panel" style={{ padding: '3rem', textAlign: 'center', marginTop: '1.5rem' }}>
-              <MdPerson size={64} style={{ color: 'var(--border-color)', marginBottom: '1rem' }} />
+            <div
+              className="glass-panel"
+              style={{
+                padding: "3rem",
+                textAlign: "center",
+                marginTop: "1.5rem",
+              }}
+            >
+              <MdPerson
+                size={64}
+                style={{ color: "var(--border-color)", marginBottom: "1rem" }}
+              />
               <h3>No Users Found</h3>
-              <p style={{ color: 'var(--text-secondary)' }}>Try adjusting your search query or filters.</p>
+              <p style={{ color: "var(--text-secondary)" }}>
+                Try adjusting your search query or filters.
+              </p>
             </div>
           ) : (
-            <div className="user-list">
-              {filteredUsers.map((user) => (
-                <div key={user._id} className="user-list-item glass-panel">
-                  
-                  {/* Left: Avatar & Badges */}
-                  <div className="user-item-left">
-                    <div className="user-avatar-large">
-                      {user.profilePhoto ? (
-                        <img src={user.profilePhoto} alt={user.fullName} className="avatar-img" />
-                      ) : (
-                        <span>{user.fullName ? user.fullName.charAt(0).toUpperCase() : 'U'}</span>
-                      )}
-                    </div>
-                    <div className="user-badges">
-                      <span className="user-role-badge">{user.role}</span>
-                      <span className={`user-status-badge ${user.status === 'active' ? 'active' : 'inactive'}`}>
-                        {user.status === 'active' ? 'Active' : 'Inactive'}
-                      </span>
-                    </div>
-                  </div>
-                  
-                  {/* Middle: Details */}
-                  <div className="user-item-middle">
-                    <h3 className="user-name-display">
-                      {user.fullName}
-                      {user.isVerified && <MdVerified className="verified-icon" title="Verified User" />}
-                    </h3>
-                    
-                    <div className="user-contact-grid">
-                      <div className="contact-item">
-                        <MdEmail className="contact-icon" />
-                        <span title={user.email}>{user.email || 'N/A'}</span>
-                      </div>
-                      <div className="contact-item">
-                        <MdPhone className="contact-icon" />
-                        <span>{user.mobileNumber || 'N/A'}</span>
-                      </div>
-                    </div>
-
-                    {/* Additional Details */}
-                    <div className="user-extra-details">
-                       <span className="detail-tag"><strong>Exp:</strong> {user.experience || 0} Yrs</span>
-                       <span className="detail-tag"><strong>Joined:</strong> {new Date(user.createdAt).toLocaleDateString()}</span>
-                       <span className="detail-tag">
-                         <strong>Pass Reset OTP:</strong> 
-                         {user.resetOtpVerified ? <MdCheckCircle color="var(--success-color)" style={{marginLeft:'4px', verticalAlign:'middle'}}/> : <MdCancel color="var(--error-color)" style={{marginLeft:'4px', verticalAlign:'middle'}}/>}
-                       </span>
-                    </div>
-                  </div>
-                  
-                  {/* Right: Actions (Placeholder for future actions like Edit/Delete) */}
-                  <div className="user-item-right">
-                     <button className="btn btn-outline">View Details</button>
-                  </div>
-                  
-                </div>
-              ))}
+            <div className="glass-panel" style={{ overflowX: "auto" }}>
+              <table
+                className="data-table users-table"
+                style={{ minWidth: "900px", tableLayout: "fixed" }}
+              >
+                <colgroup>
+                  <col style={{ width: "22%" }} />
+                  <col style={{ width: "29%" }} />
+                  <col style={{ width: "10%" }} />
+                  <col style={{ width: "12%" }} />
+                  <col style={{ width: "12%" }} />
+                  <col style={{ width: "15%" }} />
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th>User</th>
+                    <th>Contact</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th>Joined</th>
+                    <th>Reset OTP</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredUsers.map((user) => (
+                    <tr key={user._id || user.id}>
+                      <td>
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "0.75rem",
+                            minWidth: "170px",
+                          }}
+                        >
+                          <div
+                            className="user-avatar-large"
+                            style={{
+                              width: "38px",
+                              height: "38px",
+                              flex: "0 0 38px",
+                              fontSize: "1rem",
+                            }}
+                          >
+                            {user.profilePhoto ? (
+                              <img
+                                src={user.profilePhoto}
+                                alt=""
+                                className="avatar-img"
+                              />
+                            ) : (
+                              <span>
+                                {user.fullName
+                                  ? user.fullName.charAt(0).toUpperCase()
+                                  : "U"}
+                              </span>
+                            )}
+                          </div>
+                          <span
+                            style={{
+                              fontWeight: 600,
+                              color: "var(--text-primary)",
+                              overflowWrap: "anywhere",
+                            }}
+                          >
+                            {user.fullName || "Unnamed User"}
+                          </span>
+                        </div>
+                        <div
+                          style={{
+                            color: "var(--text-secondary)",
+                            fontSize: "0.8rem",
+                            margin: "0.3rem 0 0 3.25rem",
+                          }}
+                        >
+                          {user.experience || 0} yrs experience
+                        </div>
+                      </td>
+                      <td>
+                        <div
+                          style={{
+                            display: "grid",
+                            gap: "0.35rem",
+                            minWidth: 0,
+                          }}
+                        >
+                          <span
+                            style={{
+                              display: "flex",
+                              alignItems: "flex-start",
+                              gap: "0.4rem",
+                              overflowWrap: "anywhere",
+                            }}
+                          >
+                            <MdEmail
+                              style={{
+                                flex: "0 0 auto",
+                                color: "var(--text-secondary)",
+                                marginTop: "0.15rem",
+                              }}
+                            />
+                            {user.email || "—"}
+                          </span>
+                          <span
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "0.4rem",
+                            }}
+                          >
+                            <MdPhone
+                              style={{
+                                flex: "0 0 auto",
+                                color: "var(--text-secondary)",
+                              }}
+                            />
+                            {user.mobileNumber || "—"}
+                          </span>
+                        </div>
+                      </td>
+                      <td>
+                        <span
+                          className="user-role-badge"
+                          style={{ display: "inline-block", width: "auto" }}
+                        >
+                          {user.role || "—"}
+                        </span>
+                      </td>
+                      <td>
+                        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "6px" }}>
+                          <label className="toggle-switch">
+                            <input 
+                              type="checkbox" 
+                              checked={user.status === "active"}
+                              onChange={() => handleStatusToggle(user)}
+                              disabled={statusMutation.isLoading}
+                            />
+                            <span className="toggle-slider"></span>
+                          </label>
+                          <span
+                            className={`user-status-badge ${user.status === "active" ? "active" : "inactive"}`}
+                            style={{ display: "inline-block", width: "auto" }}
+                          >
+                            {user.status === "active" ? "Active" : "Inactive"}
+                          </span>
+                        </div>
+                      </td>
+                      <td>
+                        {user.createdAt
+                          ? new Date(user.createdAt).toLocaleDateString()
+                          : "—"}
+                      </td>
+                      <td>
+                        {user.resetOtpVerified ? (
+                          <span
+                            style={{
+                              color: "var(--success-color)",
+                              display: "inline-flex",
+                              alignItems: "center",
+                              gap: "0.35rem",
+                            }}
+                          >
+                            <MdCheckCircle /> Verified
+                          </span>
+                        ) : (
+                          <span
+                            style={{
+                              color: "var(--error-color)",
+                              display: "inline-flex",
+                              alignItems: "center",
+                              gap: "0.35rem",
+                            }}
+                          >
+                            <MdCancel /> Not verified
+                          </span>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           )}
         </main>
       </div>
-
       <style>{`
-        /* E-Commerce Layout */
-        .ecom-container {
-          display: flex;
-          gap: 2rem;
-          align-items: flex-start;
+        .users-table th,
+        .users-table td {
+          padding: 0.9rem 0.8rem;
+          vertical-align: middle;
         }
 
-        .ecom-sidebar {
-          flex: 0 0 280px;
-          padding: 1.5rem;
-          position: sticky;
-          top: 2rem;
-        }
-
-        .ecom-main {
-          flex: 1;
-          min-width: 0;
-          display: flex;
-          flex-direction: column;
-          gap: 1.5rem;
-        }
-
-        /* Sidebar Filters */
-        .filter-header {
-          display: flex;
-          align-items: center;
-          gap: 0.75rem;
-          margin-bottom: 1.5rem;
-          padding-bottom: 1rem;
-          border-bottom: 1px solid var(--border-color);
-          color: var(--text-primary);
-        }
-
-        .filter-header h3 {
-          font-size: 1.25rem;
-          margin: 0;
-          color: var(--text-primary);
-        }
-
-        .filter-section {
-          margin-bottom: 1.5rem;
-        }
-
-        .filter-section h4 {
-          font-size: 0.9rem;
-          font-weight: 600;
-          color: var(--text-secondary);
-          margin-bottom: 0.75rem;
-          text-transform: uppercase;
-          letter-spacing: 0.05em;
-        }
-
-        .filter-options {
-          display: flex;
-          flex-direction: column;
-          gap: 0.5rem;
-        }
-
-        .filter-label {
-          display: flex;
-          align-items: center;
-          gap: 0.75rem;
-          font-size: 0.95rem;
-          color: var(--text-primary);
-          cursor: pointer;
-          padding: 0.25rem 0;
-        }
-
-        .filter-label input[type="radio"] {
-          accent-color: var(--primary-color);
-          width: 1.1rem;
-          height: 1.1rem;
-          cursor: pointer;
-        }
-
-        /* Search Bar */
-        .search-container {
-          display: flex;
-          align-items: center;
-          padding: 0.5rem 1.5rem;
-          background: white;
-        }
-
-        .search-icon {
-          color: var(--text-secondary);
-          margin-right: 1rem;
-        }
-
-        .search-input {
-          flex: 1;
-          border: none;
-          outline: none;
-          padding: 1rem 0;
-          font-size: 1.1rem;
-          color: var(--text-primary);
-          background: transparent;
-        }
-        
-        .search-input::placeholder {
-          color: var(--text-secondary);
-          opacity: 0.7;
-        }
-
-        /* User List Items */
-        .user-list {
-          display: flex;
-          flex-direction: column;
-          gap: 1rem;
-        }
-
-        .user-list-item {
-          display: flex;
-          flex-direction: row;
-          padding: 1.5rem;
-          gap: 2rem;
-          background: #ffffff;
-          transition: all 0.2s ease;
-          border-left: 4px solid transparent;
-        }
-
-        .user-list-item:hover {
-          transform: translateX(4px);
-          border-left-color: var(--primary-color);
-          box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-        }
-
-        .user-item-left {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 1rem;
-          flex: 0 0 100px;
-        }
-
-        .user-avatar-large {
-          width: 80px;
-          height: 80px;
-          border-radius: 50%;
-          background: linear-gradient(135deg, rgba(230, 126, 34, 0.1), rgba(155, 42, 31, 0.1));
-          color: var(--primary-color);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 2.25rem;
-          font-weight: 700;
-          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-          overflow: hidden;
-        }
-
-        .avatar-img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
-
-        .user-badges {
-          display: flex;
-          flex-direction: column;
-          gap: 0.5rem;
-          align-items: center;
-          width: 100%;
-        }
-
-        .user-role-badge, .user-status-badge {
-          padding: 0.25rem 0.75rem;
-          border-radius: 20px;
-          font-size: 0.7rem;
-          font-weight: 700;
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
-          text-align: center;
-          width: 100%;
-        }
-
-        .user-role-badge {
-          background-color: var(--border-color);
-          color: var(--text-secondary);
-        }
-
-        .user-status-badge.active {
-          background-color: rgba(22, 163, 74, 0.1);
-          color: var(--success-color);
-        }
-
-        .user-status-badge.inactive {
-          background-color: rgba(239, 68, 68, 0.1);
-          color: var(--error-color);
-        }
-
-        .user-item-middle {
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-        }
-
-        .user-name-display {
-          font-weight: 700;
-          color: var(--text-primary);
-          margin-bottom: 1rem;
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-        }
-
-        .verified-icon {
-          color: #3B82F6;
-          font-size: 1.25rem;
-        }
-
-        .user-contact-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-          gap: 1rem;
-          margin-bottom: 1rem;
-        }
-
-        .contact-item {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          color: var(--text-primary);
-          font-size: 0.95rem;
-          font-weight: 500;
-        }
-
-        .contact-icon {
-          color: var(--primary-color);
-          font-size: 1.25rem;
-        }
-
-        .user-extra-details {
-          display: flex;
-          gap: 1.5rem;
-          flex-wrap: wrap;
-          padding-top: 1rem;
-          border-top: 1px dashed var(--border-color);
-        }
-
-        .detail-tag {
-          font-size: 0.85rem;
-          color: var(--text-secondary);
-          background-color: var(--bg-color);
-          padding: 0.4rem 0.75rem;
-          border-radius: 6px;
-        }
-        
-        .detail-tag strong {
-          color: var(--text-primary);
-          margin-right: 0.25rem;
-        }
-
-        .user-item-right {
-          flex: 0 0 auto;
-          display: flex;
-          flex-direction: column;
-          justify-content: flex-start;
-          align-items: flex-end;
-          padding-top: 0.5rem;
-        }
-
-        .btn-outline {
-          background: transparent;
-          border: 1px solid var(--primary-color);
-          color: var(--primary-color);
-        }
-
-        .btn-outline:hover {
-          background: var(--primary-color);
-          color: white;
-        }
-
-        /* Responsive */
-        @media (max-width: 992px) {
-          .ecom-container {
-            flex-direction: column;
-          }
-          .ecom-sidebar {
-            flex: auto;
-            width: 100%;
-            position: static;
-          }
-          .filter-options {
-            flex-direction: row;
+        @media (max-width: 720px) {
+          .search-container {
             flex-wrap: wrap;
-            gap: 1.5rem;
-          }
-          .user-list-item {
-            flex-direction: column;
-          }
-          .user-item-left {
-            flex-direction: row;
-            flex: auto;
-            align-items: center;
-            justify-content: space-between;
-          }
-          .user-badges {
-            flex-direction: row;
-            width: auto;
-          }
-          .user-role-badge, .user-status-badge {
-            width: auto;
-          }
-          .user-item-right {
-            align-items: stretch;
-            padding-top: 1rem;
+            padding: 0.75rem !important;
           }
         }
       `}</style>
