@@ -37,7 +37,8 @@ const ManageUsers = () => {
     // Only allow toggling if user has an id
     const userId = user._id || user.id;
     if (!userId) return;
-    const newStatus = user.status === "active" ? "inactive" : "active";
+    const currentStatus = user.status || "active";
+    const newStatus = currentStatus === "active" ? "inactive" : "active";
     statusMutation.mutate({ id: userId, status: newStatus });
   };
 
@@ -46,7 +47,7 @@ const ManageUsers = () => {
   const [statusFilter, setStatusFilter] = useState("all");
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
 
-  const users = data?.auths || [];
+  const users = data?.data || data?.auths || data?.users || (Array.isArray(data) ? data : []);
 
   const filteredUsers = useMemo(() => {
     return users.filter((user) => {
@@ -61,8 +62,9 @@ const ManageUsers = () => {
       const matchesRole = roleFilter === "all" || user.role === roleFilter;
 
       // 3. Status Filter
+      const userStatus = user.status || "active";
       const matchesStatus =
-        statusFilter === "all" || user.status === statusFilter;
+        statusFilter === "all" || userStatus === statusFilter;
 
       return matchesSearch && matchesRole && matchesStatus;
     });
@@ -439,17 +441,17 @@ const ManageUsers = () => {
                           <label className="toggle-switch">
                             <input 
                               type="checkbox" 
-                              checked={user.status === "active"}
+                              checked={(user.status || "active") === "active"}
                               onChange={() => handleStatusToggle(user)}
                               disabled={statusMutation.isLoading}
                             />
                             <span className="toggle-slider"></span>
                           </label>
                           <span
-                            className={`user-status-badge ${user.status === "active" ? "active" : "inactive"}`}
+                            className={`user-status-badge ${(user.status || "active") === "active" ? "active" : "inactive"}`}
                             style={{ display: "inline-block", width: "auto" }}
                           >
-                            {user.status === "active" ? "Active" : "Inactive"}
+                            {(user.status || "active") === "active" ? "Active" : "Inactive"}
                           </span>
                         </div>
                       </td>

@@ -29,6 +29,7 @@ import ManageSupportTickets from "./pages/ManageSupportTickets";
 const ManageCommunity = React.lazy(() => import("./pages/ManageCommunity"));
 import ManageSubscriptions from "./pages/ManageSubscriptions";
 import ManageLegalContent from "./pages/ManageLegalContent";
+import ManageNotifications from "./pages/ManageNotifications";
 import AdminLayout from "./components/AdminLayout";
 import {
   createTermAndCondition,
@@ -87,6 +88,7 @@ function App() {
           <Route element={<AdminLayout />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/manage-users" element={<ManageUsers />} />
+            <Route path="/manage-notifications" element={<ManageNotifications />} />
             <Route
               path="/manage-community"
               element={

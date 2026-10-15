@@ -3,12 +3,10 @@ import { NavLink } from "react-router-dom";
 import {
   MdDashboard,
   MdPerson,
-  MdSettings,
+  MdNotificationsActive,
   MdLibraryBooks,
   MdMusicNote,
   MdCardMembership,
-  MdGavel,
-  MdPrivacyTip,
   MdForum,
   MdClose
 } from "react-icons/md";
@@ -50,6 +48,15 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           >
             <MdPerson size={20} />
             <span>Manage Users</span>
+          </NavLink>
+          <NavLink
+            to="/manage-notifications"
+            className={({ isActive }) =>
+              isActive ? "sidebar-link active" : "sidebar-link"
+            }
+          >
+            <MdNotificationsActive size={20} />
+            <span>Notifications</span>
           </NavLink>
         </div>
 

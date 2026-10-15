@@ -143,7 +143,7 @@ const ManageAarti = () => {
   const getImageUrl = (aarti) => {
     if (aarti.aartiImage) {
       if (aarti.aartiImage.startsWith('http')) return aarti.aartiImage;
-      const API_URL = import.meta.env.DEV ? 'http://localhost:5000' : 'https://backend.viprasaarthi.com';
+      const API_URL = import.meta.env.DEV ? '/api-proxy' : 'https://backend.viprasaarthi.com';
       return `${API_URL}/${aarti.aartiImage}`;
     }
     return 'https://images.unsplash.com/photo-1579564639904-e5357c9ee364?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60';

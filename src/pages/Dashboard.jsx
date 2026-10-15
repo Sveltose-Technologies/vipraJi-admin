@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import {
   MdPerson, MdLibraryBooks, MdMusicNote, MdCardMembership, MdGroup,
-  MdShoppingBasket, MdMenuBook, MdCategory, MdForum, MdConfirmationNumber
+  MdShoppingBasket, MdMenuBook, MdCategory, MdForum, MdConfirmationNumber,
+  MdNotificationsActive
 } from 'react-icons/md';
 
 import { getAllUsers } from '../api/auth';
@@ -14,6 +15,7 @@ import { getAllPoojaSamagri } from '../api/poojaSamagri';
 import { getAllStotramCategories } from '../api/stotramCategory';
 import { getAllCommunityPosts } from '../api/communityPost';
 import { getAllSupportTickets } from '../api/supportTicket';
+import { getAllNotifications } from '../api/notification';
 
 const Dashboard = () => {
   const [counts, setCounts] = useState({
@@ -26,6 +28,7 @@ const Dashboard = () => {
     stotrams: 0,
     community: 0,
     supportTickets: 0,
+    notifications: 0,
   });
   const [loading, setLoading] = useState(true);
 
@@ -34,7 +37,7 @@ const Dashboard = () => {
       try {
         const [
           usersRes, subsRes, poojaRes, aartiRes, yajmanRes, 
-          samagriRes, stotramRes, communityRes, ticketsRes
+          samagriRes, stotramRes, communityRes, ticketsRes, notifsRes
         ] = await Promise.allSettled([
           getAllUsers(),
           getAllSubscriptions(),
@@ -44,17 +47,21 @@ const Dashboard = () => {
           getAllPoojaSamagri(),
           getAllStotramCategories(),
           getAllCommunityPosts(),
-          getAllSupportTickets()
+          getAllSupportTickets(),
+          getAllNotifications()
         ]);
 
         const getCount = (res) => {
           if (res.status === 'fulfilled' && res.value) {
             const v = res.value;
+            // Check for total count field first
+            if (typeof v.total === 'number') return v.total;
+            if (typeof v.count === 'number') return v.count;
             // The API might return the array directly or wrap it in a specific key.
             // Check for common backend array keys to safely extract the count.
             const arr = v.auths || v.users || v.subscriptions || v.poojas || v.aartis ||
               v.yajmans || v.samagri || v.categories || v.posts || v.tickets ||
-              v.data || v.result || v;
+              v.notifications || v.data || v.result || v;
             return Array.isArray(arr) ? arr.length : 0;
           }
           return 0;
@@ -70,6 +77,7 @@ const Dashboard = () => {
           stotrams: getCount(stotramRes),
           community: getCount(communityRes),
           supportTickets: getCount(ticketsRes),
+          notifications: getCount(notifsRes),
         });
       } catch (err) {
         console.error("Failed to fetch dashboard counts", err);
@@ -82,6 +90,7 @@ const Dashboard = () => {
 
   const gridItems = [
     { title: "Total Users", icon: <MdPerson size={48} />, link: "/manage-users", color: "var(--primary-color)", count: counts.users },
+    { title: "Notifications", icon: <MdNotificationsActive size={48} />, link: "/manage-notifications", color: "var(--primary-color)", count: counts.notifications },
     { title: "Total Pooja", icon: <MdLibraryBooks size={48} />, link: "/manage-pooja", color: "var(--primary-color)", count: counts.poojas },
     { title: "Pooja Samagri", icon: <MdShoppingBasket size={48} />, link: "/manage-pooja-samagri", color: "var(--primary-color)", count: counts.poojaSamagri },
     { title: "Total Stotram", icon: <MdMenuBook size={48} />, link: "/manage-stotram", color: "var(--primary-color)", count: counts.stotrams },
