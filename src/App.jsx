@@ -134,6 +134,14 @@ function App() {
               element={<ManageSubscriptions />}
             />
             <Route
+              path="/manage-subscription-plans"
+              element={<ManageSubscriptions />}
+            />
+            <Route
+              path="/manage-support-tickets"
+              element={<ManageSupportTickets />}
+            />
+            <Route
               path="/manage-support-ticket-categories"
               element={<ManageSupportTickets />}
             />

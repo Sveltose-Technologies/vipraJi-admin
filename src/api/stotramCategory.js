@@ -18,14 +18,20 @@ export const getStotramCategoryById = async (id) => {
 };
 
 export const updateStotramCategory = async (id, data) => {
-  const response = await apiClient.put(`/stotram-category/update/${id}`, data);
-  return response.data;
+  try {
+    const response = await apiClient.put(`/stotram-category/update/${id}`, data);
+    return response.data;
+  } catch (err) {
+    if (err.response?.status === 404) {
+      // Fallback in case backend route uses alternative spelling
+      const fallbackResponse = await apiClient.put(`/stotram-categoryy/update/${id}`, data);
+      return fallbackResponse.data;
+    }
+    throw err;
+  }
 };
 
 export const deleteStotramCategory = async (id) => {
   const response = await apiClient.delete(`/stotram-category/delete/${id}`);
   return response.data;
 };
-
-
-// --- Stotram Sub Category endpoints moved to stotramSubCategory.js ---

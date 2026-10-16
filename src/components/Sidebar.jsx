@@ -8,6 +8,7 @@ import {
   MdMusicNote,
   MdCardMembership,
   MdForum,
+  MdConfirmationNumber,
   MdClose
 } from "react-icons/md";
 
@@ -142,12 +143,12 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         <div className="sidebar-section">
           <div className="sidebar-section-title">System & Settings</div>
           <NavLink
-            to="/manage-support-ticket-categories"
+            to="/manage-support-tickets"
             className={({ isActive }) =>
               isActive ? "sidebar-link active" : "sidebar-link"
             }
           >
-            <MdLibraryBooks size={20} />
+            <MdConfirmationNumber size={20} />
             <span>Support Tickets</span>
           </NavLink>
           <NavLink

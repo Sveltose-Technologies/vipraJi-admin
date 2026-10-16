@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useConfirmModal } from '../contexts/ConfirmModalContext';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import { MdAdd, MdEdit, MdDeleteOutline, MdClose, MdSave } from 'react-icons/md';
+import { MdAdd, MdEdit, MdDeleteOutline, MdClose, MdSave, MdMusicNote, MdArrowBack } from 'react-icons/md';
 import { getAllStotramCategories } from '../api/stotramCategory';
 import {
   getAllStotramSubCategories,
@@ -11,7 +12,14 @@ import {
   deleteStotramSubCategory
 } from '../api/stotramSubCategory';
 
+const idOf = (item) => {
+  if (!item) return '';
+  if (typeof item === 'string') return item;
+  return item._id || item.id || '';
+};
+
 const ManageStotramSubCategory = () => {
+  const navigate = useNavigate();
   const { showConfirm } = useConfirmModal();
   const queryClient = useQueryClient();
 
@@ -30,64 +38,126 @@ const ManageStotramSubCategory = () => {
   const subCategories = Array.isArray(rawSubCategories) ? rawSubCategories : (rawSubCategories?.data || rawSubCategories?.subCategories || []);
 
   const [modal, setModal] = useState({ isOpen: false, data: null });
+  const [formData, setFormData] = useState({
+    categoryId: '',
+    title: '',
+    textEditor: '',
+    audioFile: '',
+    pdf: '',
+    isFavorite: false,
+  });
+
+  const openCreateModal = () => {
+    setFormData({
+      categoryId: categories.length > 0 ? idOf(categories[0]) : '',
+      title: '',
+      textEditor: '',
+      audioFile: '',
+      pdf: '',
+      isFavorite: false,
+    });
+    setModal({ isOpen: true, data: null });
+  };
+
+  const openEditModal = (sub) => {
+    const rawCat = sub.categoryId;
+    const catId = typeof rawCat === 'object' && rawCat ? idOf(rawCat) : (rawCat || '');
+
+    setFormData({
+      categoryId: catId,
+      title: sub.title || sub.subCategoryName || '',
+      textEditor: sub.textEditor || '',
+      audioFile: sub.audioFile || '',
+      pdf: sub.pdf || '',
+      isFavorite: Boolean(sub.isFavorite),
+    });
+    setModal({ isOpen: true, data: sub });
+  };
 
   // Mutations
   const createMutation = useMutation({
     mutationFn: createStotramSubCategory,
     onSuccess: () => {
-      queryClient.invalidateQueries(['stotramSubCategories']);
+      queryClient.invalidateQueries({ queryKey: ['stotramSubCategories'] });
       toast.success('Sub Category created successfully');
       setModal({ isOpen: false, data: null });
     },
-    onError: () => toast.error('Failed to create sub category')
+    onError: (err) => {
+      toast.error(err?.response?.data?.message || err?.message || 'Failed to create sub category');
+    }
   });
 
   const updateMutation = useMutation({
     mutationFn: ({ id, data }) => updateStotramSubCategory(id, data),
     onSuccess: () => {
-      queryClient.invalidateQueries(['stotramSubCategories']);
+      queryClient.invalidateQueries({ queryKey: ['stotramSubCategories'] });
       toast.success('Sub Category updated successfully');
       setModal({ isOpen: false, data: null });
     },
-    onError: () => toast.error('Failed to update sub category')
+    onError: (err) => {
+      toast.error(err?.response?.data?.message || err?.message || 'Failed to update sub category');
+    }
   });
 
   const deleteMutation = useMutation({
     mutationFn: deleteStotramSubCategory,
     onSuccess: () => {
-      queryClient.invalidateQueries(['stotramSubCategories']);
+      queryClient.invalidateQueries({ queryKey: ['stotramSubCategories'] });
       toast.success('Sub Category deleted successfully');
     },
-    onError: () => toast.error('Failed to delete sub category')
+    onError: (err) => {
+      toast.error(err?.response?.data?.message || err?.message || 'Failed to delete sub category');
+    }
   });
 
   const handleSave = (e) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
-    const isFavorite = e.target.isFavorite.checked;
-    formData.set('isFavorite', isFavorite);
-    
+
+    if (!formData.categoryId) {
+      toast.error('Please select a category');
+      return;
+    }
+    if (!formData.title.trim()) {
+      toast.error('Title is required');
+      return;
+    }
+    if (!formData.textEditor.trim()) {
+      toast.error('Text Editor content is required');
+      return;
+    }
+
+    const payload = {
+      categoryId: formData.categoryId.trim(),
+      title: formData.title.trim(),
+      textEditor: formData.textEditor.trim(),
+      audioFile: (formData.audioFile || '').trim(),
+      pdf: (formData.pdf || '').trim(),
+      isFavorite: Boolean(formData.isFavorite),
+    };
+
     if (modal.data) {
-      // If we are editing, only send files if they are selected
-      const audioFile = formData.get('audioFile');
-      if (audioFile && audioFile.size === 0) {
-        formData.delete('audioFile');
-      }
-      const pdf = formData.get('pdf');
-      if (pdf && pdf.size === 0) {
-        formData.delete('pdf');
-      }
-      updateMutation.mutate({ id: modal.data._id || modal.data.id, data: formData });
+      updateMutation.mutate({ id: idOf(modal.data), data: payload });
     } else {
-      createMutation.mutate(formData);
+      createMutation.mutate(payload);
     }
   };
 
   return (
     <div className="page-content animate-fade-in">
       <div className="top-header" style={{ margin: '-2rem -2rem 2rem -2rem' }}>
-        <h1 className="header-title">Manage Stotram Sub Categories</h1>
-        <button className="btn btn-primary" onClick={() => setModal({ isOpen: true, data: null })}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <button
+            className="btn btn-outline"
+            onClick={() => navigate('/manage-stotram')}
+            title="Back to Stotram Library"
+            style={{ padding: '0.5rem 0.75rem' }}
+          >
+            <MdArrowBack size={18} />
+          </button>
+          <h1 className="header-title">Manage Stotram Sub Categories</h1>
+        </div>
+
+        <button className="btn btn-primary" onClick={openCreateModal}>
           <MdAdd size={20} /> Add Sub Category
         </button>
       </div>
@@ -98,34 +168,56 @@ const ManageStotramSubCategory = () => {
             <tr>
               <th>Title</th>
               <th>Category</th>
+              <th>Audio File</th>
+              <th>PDF File</th>
               <th>Favorite</th>
-              <th style={{ width: '100px' }}>Actions</th>
+              <th style={{ width: '100px', textAlign: 'right' }}>Actions</th>
             </tr>
           </thead>
           <tbody>
             {isLoadingSubCat || isLoadingCat ? (
-              <tr><td colSpan="4">Loading...</td></tr>
+              <tr><td colSpan="6" style={{ textAlign: 'center', padding: '2rem' }}>Loading...</td></tr>
             ) : subCategories.length > 0 ? (
-              subCategories.map(sub => {
-                const parentCat = categories.find(c => {
-                  const cId = c._id || c.id;
-                  const subCatId = typeof sub.categoryId === 'object' && sub.categoryId !== null ? (sub.categoryId._id || sub.categoryId.id) : sub.categoryId;
-                  return String(cId) === String(subCatId);
-                });
+              subCategories.map((sub) => {
+                const subCatId = typeof sub.categoryId === 'object' && sub.categoryId !== null ? idOf(sub.categoryId) : sub.categoryId;
+                const parentCat = categories.find((c) => String(idOf(c)) === String(subCatId));
+
                 return (
-                  <tr key={sub._id || sub.id}>
-                    <td>{sub.title || sub.subCategoryName}</td>
-                    <td>{parentCat ? parentCat.categoryName : 'Unknown'}</td>
-                    <td>{sub.isFavorite ? 'Yes' : 'No'}</td>
+                  <tr key={idOf(sub)}>
                     <td>
-                      <button className="btn-icon edit" onClick={() => setModal({ isOpen: true, data: sub })}><MdEdit size={18} /></button>
-                      <button className="btn-icon delete" onClick={() => showConfirm('Are you sure?', () => { deleteMutation.mutate(sub._id || sub.id); })}><MdDeleteOutline size={18} /></button>
+                      <strong style={{ color: 'var(--text-primary)' }}>{sub.title || sub.subCategoryName}</strong>
+                    </td>
+                    <td>{parentCat ? parentCat.categoryName : (typeof sub.categoryId === 'object' ? sub.categoryId?.categoryName : 'Unknown')}</td>
+                    <td>
+                      {sub.audioFile ? (
+                        <span style={{ fontSize: '0.75rem', color: 'var(--success-color)', fontWeight: '600' }}>Configured</span>
+                      ) : (
+                        <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>None</span>
+                      )}
+                    </td>
+                    <td>
+                      {sub.pdf ? (
+                        <a href={sub.pdf} target="_blank" rel="noopener noreferrer" style={{ fontSize: '0.75rem', color: '#2563EB', fontWeight: '600' }}>
+                          View PDF
+                        </a>
+                      ) : (
+                        <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>None</span>
+                      )}
+                    </td>
+                    <td>
+                      <span className={`badge ${sub.isFavorite ? 'badge-success' : 'badge-warning'}`}>
+                        {sub.isFavorite ? 'Favorite' : 'Normal'}
+                      </span>
+                    </td>
+                    <td style={{ textAlign: 'right' }}>
+                      <button className="btn-icon edit" onClick={() => openEditModal(sub)} title="Edit"><MdEdit size={18} /></button>
+                      <button className="btn-icon delete" onClick={() => showConfirm('Delete this sub category?', () => { deleteMutation.mutate(idOf(sub)); })} title="Delete"><MdDeleteOutline size={18} /></button>
                     </td>
                   </tr>
-                )
+                );
               })
             ) : (
-              <tr><td colSpan="4" style={{ textAlign: 'center' }}>No sub categories found</td></tr>
+              <tr><td colSpan="6" style={{ textAlign: 'center', padding: '2rem' }}>No sub categories found</td></tr>
             )}
           </tbody>
         </table>
@@ -133,45 +225,101 @@ const ManageStotramSubCategory = () => {
 
       {modal.isOpen && (
         <div className="modal-overlay" onClick={() => setModal({ isOpen: false, data: null })}>
-          <div className="modal-content glass-panel" onClick={e => e.stopPropagation()} style={{ maxWidth: '600px' }}>
+          <div className="modal-content glass-panel animate-fade-in" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '620px', width: '92%' }}>
             <div className="modal-header">
               <h2>{modal.data ? 'Edit Sub Category' : 'Add Sub Category'}</h2>
               <button className="modal-close-btn" onClick={() => setModal({ isOpen: false, data: null })}><MdClose size={24} /></button>
             </div>
-            <form className="modal-body" onSubmit={handleSave}>
+            <form className="modal-body" onSubmit={handleSave} style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1rem' }}>
               <div className="input-group">
-                <label className="input-label">Select Category</label>
-                <select name="categoryId" className="input-field" defaultValue={modal.data?.categoryId || ''} required>
+                <label className="input-label">Select Category *</label>
+                <select
+                  name="categoryId"
+                  className="input-field"
+                  value={formData.categoryId}
+                  onChange={(e) => setFormData({ ...formData, categoryId: e.target.value })}
+                  required
+                >
                   <option value="" disabled>Select a category</option>
-                  {categories.map(cat => (
-                    <option key={cat._id || cat.id} value={cat._id || cat.id}>{cat.categoryName}</option>
+                  {categories.map((cat) => (
+                    <option key={idOf(cat)} value={idOf(cat)}>{cat.categoryName}</option>
                   ))}
                 </select>
               </div>
+
               <div className="input-group">
-                <label className="input-label">Title</label>
-                <input type="text" name="title" className="input-field" defaultValue={modal.data?.title || modal.data?.subCategoryName || ''} required />
+                <label className="input-label">Title *</label>
+                <input
+                  type="text"
+                  className="input-field"
+                  placeholder="e.g. Shiv Tandav Stotram"
+                  value={formData.title}
+                  onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                  required
+                />
               </div>
+
               <div className="input-group">
-                <label className="input-label">Text Editor (Content)</label>
-                <textarea name="textEditor" className="input-field" rows="4" defaultValue={modal.data?.textEditor || ''} required></textarea>
+                <label className="input-label">Text Editor (Content / Sanskrit Lyrics) *</label>
+                <textarea
+                  className="input-field"
+                  rows="5"
+                  placeholder="Enter stotram text or lyrics..."
+                  value={formData.textEditor}
+                  onChange={(e) => setFormData({ ...formData, textEditor: e.target.value })}
+                  required
+                  style={{ resize: 'vertical' }}
+                />
               </div>
+
               <div className="input-group">
-                <label className="input-label">Audio File</label>
-                <input type="file" name="audioFile" className="input-field" accept="audio/*" {...(!modal.data ? { required: true } : {})} />
+                <label className="input-label">Audio File URL</label>
+                <input
+                  type="url"
+                  className="input-field"
+                  placeholder="https://example.com/audio/stotram.mp3"
+                  value={formData.audioFile}
+                  onChange={(e) => setFormData({ ...formData, audioFile: e.target.value })}
+                />
               </div>
+
               <div className="input-group">
-                <label className="input-label">PDF File</label>
-                <input type="file" name="pdf" className="input-field" accept="application/pdf" {...(!modal.data ? { required: true } : {})} />
+                <label className="input-label">PDF File URL</label>
+                <input
+                  type="url"
+                  className="input-field"
+                  placeholder="https://example.com/pdf/stotram.pdf"
+                  value={formData.pdf}
+                  onChange={(e) => setFormData({ ...formData, pdf: e.target.value })}
+                />
               </div>
-              <div className="input-group" style={{ flexDirection: 'row', alignItems: 'center', gap: '10px' }}>
-                <input type="checkbox" name="isFavorite" id="isFavorite" defaultChecked={modal.data?.isFavorite || false} style={{ width: '20px', height: '20px' }} />
-                <label className="input-label" htmlFor="isFavorite" style={{ marginBottom: 0 }}>Is Favorite</label>
+
+              <label style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer', userSelect: 'none' }}>
+                <input
+                  type="checkbox"
+                  checked={formData.isFavorite}
+                  onChange={(e) => setFormData({ ...formData, isFavorite: e.target.checked })}
+                  style={{ width: '18px', height: '18px' }}
+                />
+                <span className="input-label" style={{ marginBottom: 0 }}>Mark as Favorite</span>
+              </label>
+
+              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem', marginTop: '1rem' }}>
+                <button
+                  type="button"
+                  className="btn btn-outline"
+                  onClick={() => setModal({ isOpen: false, data: null })}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="btn btn-primary"
+                  disabled={createMutation.isPending || updateMutation.isPending}
+                >
+                  <MdSave size={20} /> {createMutation.isPending || updateMutation.isPending ? 'Saving...' : 'Save'}
+                </button>
               </div>
-              
-              <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '1rem' }} disabled={createMutation.isPending || updateMutation.isPending}>
-                <MdSave size={20} /> {createMutation.isPending || updateMutation.isPending ? 'Saving...' : 'Save'}
-              </button>
             </form>
           </div>
         </div>
