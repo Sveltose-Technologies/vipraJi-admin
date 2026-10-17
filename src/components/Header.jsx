@@ -11,14 +11,22 @@ const Header = ({ toggleSidebar }) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const storedUser = localStorage.getItem('adminUser');
-    if (storedUser) {
-      try {
-        setUser(JSON.parse(storedUser));
-      } catch (e) {
-        console.error("Failed to parse user", e);
+    const loadUser = () => {
+      const storedUser = localStorage.getItem('adminUser');
+      if (storedUser) {
+        try {
+          const parsed = JSON.parse(storedUser);
+          const actualUser = parsed?.data || parsed?.user || parsed;
+          setUser(actualUser);
+        } catch (e) {
+          console.error("Failed to parse user", e);
+        }
       }
-    }
+    };
+
+    loadUser();
+    window.addEventListener('storage', loadUser);
+    return () => window.removeEventListener('storage', loadUser);
   }, []);
 
   // Close dropdown on click outside
@@ -33,23 +41,81 @@ const Header = ({ toggleSidebar }) => {
   }, []);
 
   const handleLogout = () => {
-    // Clear session logic here (localStorage.removeItem('token'), etc.)
+    localStorage.removeItem('token');
+    localStorage.removeItem('adminToken');
+    localStorage.removeItem('adminUser');
     toast.success('Logged out successfully');
     navigate('/login');
   };
 
   const getDynamicTitle = () => {
     const path = location.pathname;
-    if (path === '/') return 'Admin Home';
+    if (path === '/' || path === '/dashboard') return 'Dashboard';
     
+    const routeTitles = {
+      '/manage-users': 'Users',
+      '/manage-notifications': 'Notifications',
+      '/manage-community': 'Community',
+      '/manage-pooja': 'Pooja',
+      '/manage-pooja-categories': 'Pooja Categories',
+      '/manage-pooja-samagri': 'Pooja Samagri',
+      '/manage-stotram': 'Stotram',
+      '/manage-stotram-categories': 'Stotram Categories',
+      '/manage-stotram-subcategories': 'Stotram Sub-Categories',
+      '/manage-aarti': 'Aarti',
+      '/manage-aarti-categories': 'Aarti Categories',
+      '/manage-yajman': 'Yajman',
+      '/manage-yajman-categories': 'Yajman Categories',
+      '/manage-subscriptions': 'Subscriptions',
+      '/manage-subscription-plans': 'Subscription Plans',
+      '/manage-support-tickets': 'Support Tickets',
+      '/manage-support-ticket-categories': 'Support Ticket Categories',
+      '/manage-terms-and-conditions': 'Terms and Conditions',
+      '/manage-privacy-policy': 'Privacy Policy',
+      '/update-profile': 'Update Profile',
+      '/settings': 'Settings',
+    };
+
+    if (routeTitles[path]) {
+      return routeTitles[path];
+    }
+
     const segments = path.split('/').filter(Boolean);
     if (segments.length > 0) {
-      let name = segments[0].replace('manage-', '');
+      let name = segments[0].replace(/^manage-/, '');
       name = name.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
-      return `Admin ${name}`;
+      return name;
     }
     
-    return 'Admin Dashboard';
+    return 'Dashboard';
+  };
+
+  const getAdminName = () => {
+    const displayName = user?.displayName?.trim();
+    if (displayName && displayName.toLowerCase() !== 'admin user') {
+      return displayName;
+    }
+    const fullName = user?.fullName?.trim();
+    if (fullName && fullName.toLowerCase() !== 'admin user') {
+      return fullName;
+    }
+    const name = user?.name?.trim();
+    if (name && name.toLowerCase() !== 'admin user') {
+      return name;
+    }
+    const emailPrefix = user?.email?.split('@')[0];
+    if (emailPrefix) {
+      return emailPrefix;
+    }
+    return 'Admin';
+  };
+
+  const getRoleLabel = () => {
+    const role = user?.role;
+    if (role && typeof role === 'string') {
+      return role.charAt(0).toUpperCase() + role.slice(1);
+    }
+    return 'Admin';
   };
 
   return (
@@ -70,11 +136,11 @@ const Header = ({ toggleSidebar }) => {
             onClick={() => setDropdownOpen(!dropdownOpen)}
           >
             <div className="user-info">
-              <span className="user-name">{user?.fullName || user?.displayName || user?.email?.split('@')[0] || 'Admin User'}</span>
-              <span className="user-role">{user?.role || 'Admin'}</span>
+              <span className="user-name">{getAdminName()}</span>
+              <span className="user-role">{getRoleLabel()}</span>
             </div>
             <div className="user-avatar">
-              {(user?.fullName || user?.displayName || user?.email || 'A').charAt(0).toUpperCase()}
+              {(getAdminName() || 'A').charAt(0).toUpperCase()}
             </div>
           </div>
 

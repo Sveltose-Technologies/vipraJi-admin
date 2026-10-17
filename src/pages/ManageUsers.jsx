@@ -22,24 +22,65 @@ const ManageUsers = () => {
     queryFn: getAllUsers,
   });
 
-  const statusMutation = useMutation({
-    mutationFn: ({ id, status }) => updateUserStatus(id, status),
-    onSuccess: () => {
-      queryClient.invalidateQueries(["users"]);
-      toast.success("User status updated successfully");
-    },
-    onError: () => {
-      toast.error("Failed to update user status");
+  // Persistent status overrides to ensure UI reacts immediately and persists even if backend projection omits status
+  const [statusOverrides, setStatusOverrides] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem('user_status_overrides') || '{}');
+    } catch {
+      return {};
     }
   });
 
+  const getUserStatus = (user) => {
+    const userId = user._id || user.id;
+    if (userId && statusOverrides[userId]) {
+      return statusOverrides[userId];
+    }
+    return user.status === "deactive" || user.status === "inactive" ? "deactive" : "active";
+  };
+
+  const statusMutation = useMutation({
+    mutationFn: ({ id, status }) => updateUserStatus(id, status),
+  });
+
   const handleStatusToggle = (user) => {
-    // Only allow toggling if user has an id
     const userId = user._id || user.id;
     if (!userId) return;
-    const currentStatus = user.status || "active";
-    const newStatus = currentStatus === "active" ? "inactive" : "active";
-    statusMutation.mutate({ id: userId, status: newStatus });
+    const currentStatus = getUserStatus(user);
+    const newStatus = currentStatus === "active" ? "deactive" : "active";
+
+    // Immediate optimistic update
+    setStatusOverrides((prev) => {
+      const updated = { ...prev, [userId]: newStatus };
+      try {
+        localStorage.setItem('user_status_overrides', JSON.stringify(updated));
+      } catch (e) {
+        console.error(e);
+      }
+      return updated;
+    });
+
+    statusMutation.mutate(
+      { id: userId, status: newStatus },
+      {
+        onSuccess: () => {
+          toast.success(newStatus === "active" ? "User status changed to Active" : "User status changed to Deactive");
+        },
+        onError: () => {
+          // Rollback on error
+          setStatusOverrides((prev) => {
+            const reverted = { ...prev, [userId]: currentStatus };
+            try {
+              localStorage.setItem('user_status_overrides', JSON.stringify(reverted));
+            } catch (e) {
+              console.error(e);
+            }
+            return reverted;
+          });
+          toast.error("Failed to update status on server");
+        }
+      }
+    );
   };
 
   const [searchQuery, setSearchQuery] = useState("");
@@ -55,6 +96,7 @@ const ManageUsers = () => {
       const query = searchQuery.toLowerCase();
       const matchesSearch =
         (user.fullName && user.fullName.toLowerCase().includes(query)) ||
+        (user.displayName && user.displayName.toLowerCase().includes(query)) ||
         (user.email && user.email.toLowerCase().includes(query)) ||
         (user.mobileNumber && user.mobileNumber.toLowerCase().includes(query));
 
@@ -62,13 +104,13 @@ const ManageUsers = () => {
       const matchesRole = roleFilter === "all" || user.role === roleFilter;
 
       // 3. Status Filter
-      const userStatus = user.status || "active";
+      const userStatus = getUserStatus(user);
       const matchesStatus =
         statusFilter === "all" || userStatus === statusFilter;
 
       return matchesSearch && matchesRole && matchesStatus;
     });
-  }, [users, searchQuery, roleFilter, statusFilter]);
+  }, [users, searchQuery, roleFilter, statusFilter, statusOverrides]);
 
   if (isLoading) {
     return (
@@ -184,10 +226,10 @@ const ManageUsers = () => {
               <input
                 type="radio"
                 name="status"
-                checked={statusFilter === "inactive"}
-                onChange={() => setStatusFilter("inactive")}
+                checked={statusFilter === "deactive" || statusFilter === "inactive"}
+                onChange={() => setStatusFilter("deactive")}
               />
-              Inactive
+              Deactive
             </label>
           </div>
         </div>
@@ -314,27 +356,30 @@ const ManageUsers = () => {
                 style={{ minWidth: "900px", tableLayout: "fixed" }}
               >
                 <colgroup>
-                  <col style={{ width: "22%" }} />
-                  <col style={{ width: "29%" }} />
-                  <col style={{ width: "10%" }} />
+                  <col style={{ width: "24%" }} />
+                  <col style={{ width: "28%" }} />
                   <col style={{ width: "12%" }} />
                   <col style={{ width: "12%" }} />
-                  <col style={{ width: "15%" }} />
+                  <col style={{ width: "12%" }} />
+                  <col style={{ width: "12%" }} />
                 </colgroup>
                 <thead>
                   <tr>
-                    <th>User</th>
-                    <th>Contact</th>
-                    <th>Role</th>
-                    <th>Status</th>
-                    <th>Joined</th>
-                    <th>Reset OTP</th>
+                    <th style={{ textAlign: "left" }}>Name</th>
+                    <th style={{ textAlign: "left" }}>Contact</th>
+                    <th style={{ textAlign: "left" }}>Role</th>
+                    <th style={{ textAlign: "left" }}>Status</th>
+                    <th style={{ textAlign: "left" }}>Joined</th>
+                    <th style={{ textAlign: "left" }}>Reset OTP</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredUsers.map((user) => (
+                  {filteredUsers.map((user) => {
+                    const userStatus = getUserStatus(user);
+                    const isDeactive = userStatus === "deactive";
+                    return (
                     <tr key={user._id || user.id}>
-                      <td>
+                      <td style={{ textAlign: "left" }}>
                         <div
                           style={{
                             display: "flex",
@@ -360,33 +405,44 @@ const ManageUsers = () => {
                               />
                             ) : (
                               <span>
-                                {user.fullName
+                                {user.displayName
+                                  ? user.displayName.charAt(0).toUpperCase()
+                                  : user.fullName
                                   ? user.fullName.charAt(0).toUpperCase()
                                   : "U"}
                               </span>
                             )}
                           </div>
-                          <span
+                          <div>
+                            <div
+                              style={{
+                                fontWeight: 600,
+                                color: "var(--text-primary)",
+                                overflowWrap: "anywhere",
+                              }}
+                            >
+                              {user.displayName || user.fullName || "Unnamed User"}
+                            </div>
+                            {user.displayName && user.fullName && user.displayName !== user.fullName && (
+                              <div style={{ fontSize: "0.75rem", color: "var(--text-secondary)" }}>
+                                {user.fullName}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                        {user.experience ? (
+                          <div
                             style={{
-                              fontWeight: 600,
-                              color: "var(--text-primary)",
-                              overflowWrap: "anywhere",
+                              color: "var(--text-secondary)",
+                              fontSize: "0.8rem",
+                              margin: "0.3rem 0 0 3.25rem",
                             }}
                           >
-                            {user.fullName || "Unnamed User"}
-                          </span>
-                        </div>
-                        <div
-                          style={{
-                            color: "var(--text-secondary)",
-                            fontSize: "0.8rem",
-                            margin: "0.3rem 0 0 3.25rem",
-                          }}
-                        >
-                          {user.experience || 0} yrs experience
-                        </div>
+                            {user.experience} yrs experience
+                          </div>
+                        ) : null}
                       </td>
-                      <td>
+                      <td style={{ textAlign: "left" }}>
                         <div
                           style={{
                             display: "grid",
@@ -428,7 +484,7 @@ const ManageUsers = () => {
                           </span>
                         </div>
                       </td>
-                      <td>
+                      <td style={{ textAlign: "left" }}>
                         <span
                           className="user-role-badge"
                           style={{ display: "inline-block", width: "auto" }}
@@ -436,31 +492,55 @@ const ManageUsers = () => {
                           {user.role || "—"}
                         </span>
                       </td>
-                      <td>
-                        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "6px" }}>
-                          <label className="toggle-switch">
+                      <td style={{ textAlign: "left" }}>
+                        <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "6px" }}>
+                          <label
+                            className="toggle-switch"
+                            title={isDeactive ? "Click to Activate" : "Click to Deactivate"}
+                            style={{ cursor: "pointer" }}
+                          >
                             <input 
                               type="checkbox" 
-                              checked={(user.status || "active") === "active"}
+                              checked={!isDeactive}
                               onChange={() => handleStatusToggle(user)}
-                              disabled={statusMutation.isLoading}
+                              disabled={statusMutation.isPending}
                             />
-                            <span className="toggle-slider"></span>
+                            <span
+                              className="toggle-slider"
+                              style={{
+                                backgroundColor: !isDeactive ? "#16a34a" : "#cbd5e1",
+                                transition: "background-color 0.3s ease"
+                              }}
+                            ></span>
                           </label>
-                          <span
-                            className={`user-status-badge ${(user.status || "active") === "active" ? "active" : "inactive"}`}
-                            style={{ display: "inline-block", width: "auto" }}
+                          <button
+                            type="button"
+                            onClick={() => handleStatusToggle(user)}
+                            disabled={statusMutation.isPending}
+                            className={`user-status-badge ${isDeactive ? "inactive" : "active"}`}
+                            style={{
+                              display: "inline-flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              width: "auto",
+                              border: "none",
+                              cursor: "pointer",
+                              padding: "0.25rem 0.65rem",
+                              borderRadius: "12px",
+                              transition: "all 0.2s ease"
+                            }}
+                            title={`Status: ${isDeactive ? "Deactive" : "Active"}. Click to toggle.`}
                           >
-                            {(user.status || "active") === "active" ? "Active" : "Inactive"}
-                          </span>
+                            {isDeactive ? "DEACTIVE" : "ACTIVE"}
+                          </button>
                         </div>
                       </td>
-                      <td>
+                      <td style={{ textAlign: "left" }}>
                         {user.createdAt
                           ? new Date(user.createdAt).toLocaleDateString()
                           : "—"}
                       </td>
-                      <td>
+                      <td style={{ textAlign: "left" }}>
                         {user.resetOtpVerified ? (
                           <span
                             style={{
@@ -486,7 +566,7 @@ const ManageUsers = () => {
                         )}
                       </td>
                     </tr>
-                  ))}
+                  )})}
                 </tbody>
               </table>
             </div>

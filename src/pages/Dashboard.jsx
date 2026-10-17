@@ -89,79 +89,89 @@ const Dashboard = () => {
   }, []);
 
   const gridItems = [
-    { title: "Total Users", icon: <MdPerson size={48} />, link: "/manage-users", color: "var(--primary-color)", count: counts.users },
-    { title: "Notifications", icon: <MdNotificationsActive size={48} />, link: "/manage-notifications", color: "var(--primary-color)", count: counts.notifications },
-    { title: "Total Pooja", icon: <MdLibraryBooks size={48} />, link: "/manage-pooja", color: "var(--primary-color)", count: counts.poojas },
-    { title: "Pooja Samagri", icon: <MdShoppingBasket size={48} />, link: "/manage-pooja-samagri", color: "var(--primary-color)", count: counts.poojaSamagri },
-    { title: "Total Stotram", icon: <MdMenuBook size={48} />, link: "/manage-stotram", color: "var(--primary-color)", count: counts.stotrams },
-    { title: "Manage Aarti", icon: <MdMusicNote size={48} />, link: "/manage-aarti", color: "var(--primary-color)", count: counts.aartis },
-    { title: "Manage Yajman", icon: <MdGroup size={48} />, link: "/manage-yajman", color: "var(--primary-color)", count: counts.yajmans },
-    { title: "Community Posts", icon: <MdForum size={48} />, link: "/manage-community", color: "var(--primary-color)", count: counts.community },
-    { title: "Subscriptions", icon: <MdCardMembership size={48} />, link: "/manage-subscriptions", color: "var(--primary-color)", count: counts.subscriptions },
-    { title: "Support Tickets", icon: <MdConfirmationNumber size={48} />, link: "/manage-support-ticket-categories", color: "var(--primary-color)", count: counts.supportTickets },
+    { title: "Total Users", icon: <MdPerson size={20} />, link: "/manage-users", color: "var(--primary-color)", count: counts.users },
+    { title: "Notifications", icon: <MdNotificationsActive size={20} />, link: "/manage-notifications", color: "var(--primary-color)", count: counts.notifications },
+    { title: "Total Pooja", icon: <MdLibraryBooks size={20} />, link: "/manage-pooja", color: "var(--primary-color)", count: counts.poojas },
+    { title: "Pooja Samagri", icon: <MdShoppingBasket size={20} />, link: "/manage-pooja-samagri", color: "var(--primary-color)", count: counts.poojaSamagri },
+    { title: "Total Stotram", icon: <MdMenuBook size={20} />, link: "/manage-stotram", color: "var(--primary-color)", count: counts.stotrams },
+    { title: "Manage Aarti", icon: <MdMusicNote size={20} />, link: "/manage-aarti", color: "var(--primary-color)", count: counts.aartis },
+    { title: "Manage Yajman", icon: <MdGroup size={20} />, link: "/manage-yajman", color: "var(--primary-color)", count: counts.yajmans },
+    { title: "Community Posts", icon: <MdForum size={20} />, link: "/manage-community", color: "var(--primary-color)", count: counts.community },
+    { title: "Subscriptions", icon: <MdCardMembership size={20} />, link: "/manage-subscriptions", color: "var(--primary-color)", count: counts.subscriptions },
+    { title: "Support Tickets", icon: <MdConfirmationNumber size={20} />, link: "/manage-support-ticket-categories", color: "var(--primary-color)", count: counts.supportTickets },
   ];
 
   return (
     <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0.1rem 0' }}>
-      <div style={{ marginBottom: '1.2rem' }}>
-        <h1 style={{ fontWeight: 800, color: 'var(--text-primary)', fontSize: '2rem' }}>Dashboard Overview</h1>
-        <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', marginTop: '0.5rem' }}>
+      <div style={{ marginBottom: '1rem' }}>
+        <h1 style={{ fontWeight: 700, color: 'var(--text-primary)', fontSize: '1.4rem', margin: 0 }}>Dashboard Overview</h1>
+        <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', marginTop: '0.25rem' }}>
           Welcome back! Here's a snapshot of your platform today.
         </p>
       </div>
 
       <div style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-        gap: '1rem',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+        gap: '0.85rem',
       }}>
         {gridItems.map((item, idx) => (
           <Link key={idx} to={item.link} style={{ textDecoration: 'none', display: 'block' }}>
             <div style={{
               background: '#FFFFFF',
               borderRadius: '8px',
-              padding: '24px',
+              padding: '14px 16px',
               position: 'relative',
-              boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-              border: '1px solid rgba(0,0,0,0.05)',
-              transition: 'transform 0.2s, box-shadow 0.2s',
+              boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03)',
+              border: '1px solid #EAECEF',
+              transition: 'transform 0.15s ease, box-shadow 0.15s ease',
               display: 'flex',
               flexDirection: 'column',
-              minHeight: '160px'
+              justifyContent: 'space-between',
+              minHeight: '115px'
             }}
               onMouseOver={(e) => {
-                e.currentTarget.style.transform = 'translateY(-4px)';
-                e.currentTarget.style.boxShadow = '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)';
+                e.currentTarget.style.transform = 'translateY(-2px)';
+                e.currentTarget.style.boxShadow = '0 6px 12px -2px rgba(0, 0, 0, 0.08)';
               }}
               onMouseOut={(e) => {
                 e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)';
+                e.currentTarget.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03)';
               }}
             >
-              {/* Title Top Left */}
-              <div style={{ fontSize: '1.1rem', color: '#6B7280', fontWeight: 500, marginBottom: '1.5rem' }}>
-                {item.title}
-              </div>
-
-              {/* Middle section: Icon and Big Number */}
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flex: 1, marginBottom: '1.5rem' }}>
-                <div style={{ color: 'var(--primary-color)', opacity: 0.9 }}>
+              {/* Top Row: Title & Compact Icon */}
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                <span style={{ fontSize: '0.85rem', color: '#64748B', fontWeight: 600 }}>
+                  {item.title}
+                </span>
+                <div style={{
+                  width: '32px',
+                  height: '32px',
+                  borderRadius: '6px',
+                  backgroundColor: 'rgba(155, 42, 31, 0.08)',
+                  color: 'var(--vipra-color, #9B2A1F)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0
+                }}>
                   {item.icon}
                 </div>
-
-                <div style={{ fontSize: '2rem', fontWeight: 700, color: 'var(--text-primary)', lineHeight: 1 }}>
-                  {loading ? (
-                    <span style={{ opacity: 0.3, fontSize: '1rem' }}>...</span>
-                  ) : (
-                    item.count.toLocaleString()
-                  )}
-                </div>
               </div>
 
-              {/* Bottom section: Subtitle */}
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '1rem', borderTop: '1px solid #E5E7EB' }}>
-                <span style={{ fontSize: '0.85rem', color: '#9CA3AF' }}>Click to manage</span>
-                <span style={{ fontSize: '0.85rem', color: 'var(--secondary-color)', fontWeight: 600 }}>Manage Data &rarr;</span>
+              {/* Middle section: Big Number */}
+              <div style={{ fontSize: '1.45rem', fontWeight: 700, color: 'var(--text-primary)', lineHeight: 1.1, marginBottom: '0.6rem' }}>
+                {loading ? (
+                  <span style={{ opacity: 0.3, fontSize: '0.9rem' }}>...</span>
+                ) : (
+                  item.count.toLocaleString()
+                )}
+              </div>
+
+              {/* Bottom section: Subtitle & link */}
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '0.5rem', borderTop: '1px solid #F1F5F9' }}>
+                <span style={{ fontSize: '0.75rem', color: '#94A3B8' }}>Click to manage</span>
+                <span style={{ fontSize: '0.75rem', color: 'var(--secondary-color)', fontWeight: 600 }}>Manage &rarr;</span>
               </div>
             </div>
           </Link>

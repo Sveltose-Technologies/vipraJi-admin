@@ -1,13 +1,4 @@
-import axios from 'axios';
-
-const API_URL = import.meta.env.DEV ? '/api-proxy' : 'https://backend.viprasaarthi.com';
-
-const apiClient = axios.create({
-  baseURL: API_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
+import { apiClient } from './apiClient';
 
 export const signup = async (userData) => {
   const response = await apiClient.post('/auth/signup', userData);
@@ -45,10 +36,9 @@ export const resetPassword = async (data) => {
 };
 
 export const updateProfile = async ({ id, formData }) => {
+  const isFormData = typeof FormData !== 'undefined' && formData instanceof FormData;
   const response = await apiClient.put(`/auth/update/${id}`, formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
+    headers: isFormData ? { 'Content-Type': 'multipart/form-data' } : {},
   });
   return response.data;
 };
@@ -59,7 +49,6 @@ export const getAllUsers = async () => {
 };
 
 export const updateUserStatus = async (id, status) => {
-  // Try to use a standard update endpoint or dedicated status endpoint
   const response = await apiClient.put(`/auth/update/${id}`, { status });
   return response.data;
 };
