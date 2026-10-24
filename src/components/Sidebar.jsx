@@ -9,7 +9,8 @@ import {
   MdCardMembership,
   MdForum,
   MdConfirmationNumber,
-  MdClose
+  MdClose,
+  MdSelfImprovement,
 } from "react-icons/md";
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
@@ -63,6 +64,15 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
 
         <div className="sidebar-section">
           <div className="sidebar-section-title">Pooja & Content</div>
+          <NavLink
+            to="/manage-spiritual-cards"
+            className={({ isActive }) =>
+              isActive ? "sidebar-link active" : "sidebar-link"
+            }
+          >
+            <MdSelfImprovement size={20} />
+            <span>Spiritual Cards</span>
+          </NavLink>
           <NavLink
             to="/manage-pooja"
             className={({ isActive }) =>

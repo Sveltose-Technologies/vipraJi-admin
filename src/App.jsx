@@ -30,6 +30,7 @@ const ManageCommunity = React.lazy(() => import("./pages/ManageCommunity"));
 import ManageSubscriptions from "./pages/ManageSubscriptions";
 import ManageLegalContent from "./pages/ManageLegalContent";
 import ManageNotifications from "./pages/ManageNotifications";
+import ManageSpiritualCards from "./pages/ManageSpiritualCards";
 import AdminLayout from "./components/AdminLayout";
 import {
   createTermAndCondition,
@@ -101,6 +102,7 @@ function App() {
                 </React.Suspense>
               }
             />
+            <Route path="/manage-spiritual-cards" element={<ManageSpiritualCards />} />
             <Route path="/manage-pooja" element={<ManagePooja />} />
             <Route
               path="/manage-pooja-categories"
