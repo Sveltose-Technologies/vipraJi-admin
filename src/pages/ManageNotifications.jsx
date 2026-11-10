@@ -505,31 +505,31 @@ const ManageNotifications = () => {
   }, [usersList, userSearchText]);
 
   return (
-    <div className="page-content animate-fade-in" style={{ paddingBottom: '3rem' }}>
+    <div className="page-content animate-fade-in" style={{ paddingBottom: '1.25rem' }}>
       {/* Top Header */}
       <div className="notif-page-header">
         <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.25rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.15rem' }}>
             <h1 className="header-title" style={{ margin: 0 }}>Mobile Push Notifications</h1>
             <span
               style={{
                 background: 'rgba(130, 0, 30, 0.1)',
                 color: 'var(--primary-color)',
-                fontSize: '0.75rem',
+                fontSize: '0.7rem',
                 fontWeight: 700,
-                padding: '0.2rem 0.6rem',
-                borderRadius: '6px',
+                padding: '0.15rem 0.5rem',
+                borderRadius: '5px',
               }}
             >
               Admin Dispatch & Management
             </span>
           </div>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '0.88rem', margin: 0 }}>
+          <p style={{ color: 'var(--text-secondary)', fontSize: '0.78rem', margin: 0 }}>
             Broadcast push alerts to users' mobile devices: puja reminders, daily panchang, festival wishes, and subscription updates.
           </p>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
           <button
             type="button"
             className="btn"
@@ -539,7 +539,7 @@ const ManageNotifications = () => {
               color: 'var(--text-primary)',
               display: 'flex',
               alignItems: 'center',
-              gap: '0.4rem',
+              gap: '0.35rem',
             }}
             onClick={() => {
               refetchNotifications();
@@ -548,7 +548,7 @@ const ManageNotifications = () => {
             }}
             disabled={isNotifsFetching}
           >
-            <MdRefresh size={18} className={isNotifsFetching ? 'spinner' : ''} />
+            <MdRefresh size={16} className={isNotifsFetching ? 'spinner' : ''} />
             <span>Refresh</span>
           </button>
 
@@ -561,7 +561,7 @@ const ManageNotifications = () => {
               color: '#92400E',
               display: 'flex',
               alignItems: 'center',
-              gap: '0.4rem',
+              gap: '0.35rem',
               fontWeight: 600,
             }}
             onClick={() => {
@@ -571,7 +571,7 @@ const ManageNotifications = () => {
             }}
             disabled={triggerRenewalMutation.isPending}
           >
-            <MdAutorenew size={18} />
+            <MdAutorenew size={16} />
             <span>{triggerRenewalMutation.isPending ? 'Scanning...' : 'Trigger Renewal Reminders'}</span>
           </button>
 
@@ -579,9 +579,9 @@ const ManageNotifications = () => {
             type="button"
             className="btn btn-primary"
             onClick={() => handleOpenCreateModal(null)}
-            style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}
+            style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}
           >
-            <MdAdd size={20} />
+            <MdAdd size={17} />
             <span>Create Push Notification</span>
           </button>
         </div>
@@ -591,7 +591,7 @@ const ManageNotifications = () => {
       <div className="notif-stats-grid">
         <div className="notif-stat-card">
           <div className="notif-stat-icon-wrap" style={{ background: '#FFF1F2', color: '#BE123C' }}>
-            <MdCampaign size={26} />
+            <MdCampaign size={20} />
           </div>
           <div className="notif-stat-info">
             <span className="notif-stat-value">{stats.totalNotifications || 0}</span>
@@ -601,7 +601,7 @@ const ManageNotifications = () => {
 
         <div className="notif-stat-card">
           <div className="notif-stat-icon-wrap" style={{ background: '#EFF6FF', color: '#1D4ED8' }}>
-            <MdSend size={26} />
+            <MdSend size={20} />
           </div>
           <div className="notif-stat-info">
             <span className="notif-stat-value">{stats.totalDeliveries || 0}</span>
@@ -611,7 +611,7 @@ const ManageNotifications = () => {
 
         <div className="notif-stat-card">
           <div className="notif-stat-icon-wrap" style={{ background: '#ECFDF5', color: '#047857' }}>
-            <MdCheckCircle size={26} />
+            <MdCheckCircle size={20} />
           </div>
           <div className="notif-stat-info">
             <span className="notif-stat-value">{stats.totalReadDeliveries || 0}</span>
@@ -621,7 +621,7 @@ const ManageNotifications = () => {
 
         <div className="notif-stat-card">
           <div className="notif-stat-icon-wrap" style={{ background: '#F5F3FF', color: '#6D28D9' }}>
-            <MdAssessment size={26} />
+            <MdAssessment size={20} />
           </div>
           <div className="notif-stat-info">
             <span className="notif-stat-value">{stats.readRate || '0%'}</span>
@@ -721,33 +721,33 @@ const ManageNotifications = () => {
       </div>
 
       {/* Main Notifications Campaigns Table */}
-      <div className="glass-panel" style={{ padding: '1rem', overflowX: 'auto' }}>
+      <div className="glass-panel" style={{ padding: '0.85rem 1rem', overflowX: 'auto' }}>
         {isNotifsLoading ? (
-          <div style={{ textAlign: 'center', padding: '3.5rem', color: 'var(--text-secondary)' }}>
-            <div className="spinner" style={{ margin: '0 auto 1rem auto', width: 28, height: 28 }} />
-            <p>Loading push notification campaigns...</p>
+          <div style={{ textAlign: 'center', padding: '1.75rem', color: 'var(--text-secondary)' }}>
+            <div className="spinner" style={{ margin: '0 auto 0.65rem auto', width: 24, height: 24 }} />
+            <p style={{ fontSize: '0.85rem', margin: 0 }}>Loading push notification campaigns...</p>
           </div>
         ) : filteredNotifications.length === 0 ? (
-          <div style={{ textAlign: 'center', padding: '3.5rem 1rem' }}>
+          <div style={{ textAlign: 'center', padding: '1.75rem 1rem' }}>
             <div
               style={{
-                width: 64,
-                height: 64,
+                width: 48,
+                height: 48,
                 borderRadius: '50%',
                 background: '#F3F4F6',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                margin: '0 auto 1rem auto',
+                margin: '0 auto 0.65rem auto',
                 color: 'var(--text-secondary)',
               }}
             >
-              <MdCampaign size={32} />
+              <MdCampaign size={24} />
             </div>
-            <h3 style={{ fontSize: '1.1rem', marginBottom: '0.4rem', color: 'var(--text-primary)' }}>
+            <h3 style={{ fontSize: '1rem', marginBottom: '0.3rem', color: 'var(--text-primary)' }}>
               No push notifications found
             </h3>
-            <p style={{ color: 'var(--text-secondary)', fontSize: '0.88rem', maxWidth: 420, margin: '0 auto 1.5rem auto' }}>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '0.82rem', maxWidth: 400, margin: '0 auto 1rem auto' }}>
               {searchQuery || typeFilter !== 'ALL' || statusFilter !== 'ALL'
                 ? 'No notification campaigns matched your current search filters.'
                 : 'Create your first push notification to broadcast festival updates or auspicious timings to mobile app users.'}
@@ -757,7 +757,7 @@ const ManageNotifications = () => {
               className="btn btn-primary"
               onClick={() => handleOpenCreateModal(null)}
             >
-              <MdAdd size={18} /> Create Push Notification
+              <MdAdd size={17} /> Create Push Notification
             </button>
           </div>
         ) : (
@@ -1042,7 +1042,7 @@ const ManageNotifications = () => {
           onClose={() => setCreateModalOpen(false)}
           title={editingItem ? 'Edit Push Notification Campaign' : 'Create Mobile Push Notification'}
         >
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1rem' }}>
             {/* Left: Configuration Form */}
             <form
               onSubmit={(e) => {
@@ -1051,9 +1051,9 @@ const ManageNotifications = () => {
               }}
             >
               {/* Type Selection */}
-              <div className="input-group" style={{ marginBottom: '1rem' }}>
+              <div className="input-group" style={{ marginBottom: '0.65rem' }}>
                 <label className="input-label">Push Notification Type *</label>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '0.4rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(125px, 1fr))', gap: '0.35rem' }}>
                   {NOTIFICATION_TYPES.map((t) => {
                     const isSelected = formType === t;
                     return (
@@ -1064,19 +1064,19 @@ const ManageNotifications = () => {
                         style={{
                           display: 'flex',
                           alignItems: 'center',
-                          gap: '0.4rem',
-                          padding: '0.5rem 0.65rem',
-                          borderRadius: '8px',
-                          border: isSelected ? '2px solid var(--primary-color)' : '1px solid var(--border-color)',
+                          gap: '0.35rem',
+                          padding: '0.38rem 0.55rem',
+                          borderRadius: '7px',
+                          border: isSelected ? '1.5px solid var(--primary-color)' : '1px solid var(--border-color)',
                           background: isSelected ? '#FFF5F7' : 'white',
                           color: isSelected ? 'var(--primary-color)' : 'var(--text-primary)',
                           fontWeight: isSelected ? 700 : 500,
-                          fontSize: '0.76rem',
+                          fontSize: '0.73rem',
                           cursor: 'pointer',
                           textAlign: 'left',
                         }}
                       >
-                        {getTypeIcon(t, 16)}
+                        {getTypeIcon(t, 14)}
                         <span>{t.replace(/_/g, ' ')}</span>
                       </button>
                     );
@@ -1085,7 +1085,7 @@ const ManageNotifications = () => {
               </div>
 
               {/* Title Input with Quick Variable Inserters */}
-              <div className="input-group" style={{ marginBottom: '1rem' }}>
+              <div className="input-group" style={{ marginBottom: '0.65rem' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <label className="input-label" htmlFor="formTitle">
                     Notification Title *
@@ -1445,17 +1445,17 @@ const ManageNotifications = () => {
               </div>
 
               {/* Smartphone Shell */}
-              <div className="phone-mockup-frame" style={{ width: 300, height: 480 }}>
+              <div className="phone-mockup-frame" style={{ width: 256, height: 405 }}>
                 <div className="phone-notch"></div>
-                <div className="phone-screen" style={{ paddingTop: '1.75rem' }}>
+                <div className="phone-screen" style={{ paddingTop: '1.35rem' }}>
                   <div className="phone-status-bar">
                     <span>9:41</span>
                     <span>5G • 100%</span>
                   </div>
 
-                  <div className="phone-clock-center" style={{ marginBottom: '1.25rem' }}>
-                    <div className="phone-clock-time" style={{ fontSize: '2.5rem' }}>09:41</div>
-                    <div className="phone-clock-date" style={{ fontSize: '0.78rem' }}>
+                  <div className="phone-clock-center" style={{ marginBottom: '0.85rem' }}>
+                    <div className="phone-clock-time" style={{ fontSize: '2rem' }}>09:41</div>
+                    <div className="phone-clock-date" style={{ fontSize: '0.72rem' }}>
                       {new Date().toLocaleDateString('en-IN', { weekday: 'short', month: 'short', day: 'numeric' })}
                     </div>
                   </div>
@@ -1534,12 +1534,12 @@ const ManageNotifications = () => {
           onClose={() => setScheduleModalOpen(false)}
           title="Schedule Push Dispatch to Mobile Devices"
         >
-          <div style={{ padding: '0.5rem 0' }}>
-            <p style={{ color: 'var(--text-secondary)', fontSize: '0.88rem', marginBottom: '1.25rem' }}>
+          <div style={{ padding: '0.25rem 0' }}>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '0.82rem', marginBottom: '0.85rem' }}>
               Choose the exact date and time to automatically dispatch <b>"{targetNotification.title}"</b> to {targetNotification.recipientType} mobile devices.
             </p>
 
-            <div className="input-group" style={{ marginBottom: '1.5rem' }}>
+            <div className="input-group" style={{ marginBottom: '1rem' }}>
               <label className="input-label" htmlFor="scheduleDateTime">
                 Select Dispatch Date & Time (Local Time) *
               </label>
@@ -1588,38 +1588,38 @@ const ManageNotifications = () => {
           onClose={() => setDeliveryReportModalOpen(false)}
           title={`Mobile Delivery Report: ${targetNotification.title}`}
         >
-          <div style={{ padding: '0.5rem 0' }}>
+          <div style={{ padding: '0.25rem 0' }}>
             {isReportLoading ? (
-              <div style={{ textAlign: 'center', padding: '3rem' }}>
-                <div className="spinner" style={{ margin: '0 auto 1rem auto' }} />
-                <p>Loading delivery metrics...</p>
+              <div style={{ textAlign: 'center', padding: '1.5rem' }}>
+                <div className="spinner" style={{ margin: '0 auto 0.65rem auto' }} />
+                <p style={{ fontSize: '0.84rem', margin: 0 }}>Loading delivery metrics...</p>
               </div>
             ) : (
               <div>
                 {/* Summary Metrics */}
                 {deliverySummary && (
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '0.75rem', marginBottom: '1.5rem' }}>
-                    <div style={{ background: '#F9FAFB', border: '1px solid var(--border-color)', borderRadius: 8, padding: '0.75rem', textAlign: 'center' }}>
-                      <div style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', fontWeight: 600 }}>TARGET DEVICES</div>
-                      <div style={{ fontSize: '1.3rem', fontWeight: 800, color: 'var(--text-primary)', marginTop: 2 }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', gap: '0.55rem', marginBottom: '0.95rem' }}>
+                    <div style={{ background: '#F9FAFB', border: '1px solid var(--border-color)', borderRadius: 7, padding: '0.55rem', textAlign: 'center' }}>
+                      <div style={{ fontSize: '0.68rem', color: 'var(--text-secondary)', fontWeight: 600 }}>TARGET DEVICES</div>
+                      <div style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--text-primary)', marginTop: 2 }}>
                         {deliverySummary.total || 0}
                       </div>
                     </div>
-                    <div style={{ background: '#ECFDF5', border: '1px solid #A7F3D0', borderRadius: 8, padding: '0.75rem', textAlign: 'center' }}>
-                      <div style={{ fontSize: '0.72rem', color: '#065F46', fontWeight: 600 }}>ACCEPTED / SENT</div>
-                      <div style={{ fontSize: '1.3rem', fontWeight: 800, color: '#047857', marginTop: 2 }}>
+                    <div style={{ background: '#ECFDF5', border: '1px solid #A7F3D0', borderRadius: 7, padding: '0.55rem', textAlign: 'center' }}>
+                      <div style={{ fontSize: '0.68rem', color: '#065F46', fontWeight: 600 }}>ACCEPTED / SENT</div>
+                      <div style={{ fontSize: '1.1rem', fontWeight: 800, color: '#047857', marginTop: 2 }}>
                         {deliverySummary.statusBreakdown?.ACCEPTED || deliverySummary.statusBreakdown?.DELIVERED || 0}
                       </div>
                     </div>
-                    <div style={{ background: '#EFF6FF', border: '1px solid #BFDBFE', borderRadius: 8, padding: '0.75rem', textAlign: 'center' }}>
-                      <div style={{ fontSize: '0.72rem', color: '#1E40AF', fontWeight: 600 }}>READ ON APP</div>
-                      <div style={{ fontSize: '1.3rem', fontWeight: 800, color: '#1D4ED8', marginTop: 2 }}>
+                    <div style={{ background: '#EFF6FF', border: '1px solid #BFDBFE', borderRadius: 7, padding: '0.55rem', textAlign: 'center' }}>
+                      <div style={{ fontSize: '0.68rem', color: '#1E40AF', fontWeight: 600 }}>READ ON APP</div>
+                      <div style={{ fontSize: '1.1rem', fontWeight: 800, color: '#1D4ED8', marginTop: 2 }}>
                         {deliverySummary.readCount || 0}
                       </div>
                     </div>
-                    <div style={{ background: '#FEF2F2', border: '1px solid #FECDD3', borderRadius: 8, padding: '0.75rem', textAlign: 'center' }}>
-                      <div style={{ fontSize: '0.72rem', color: '#991B1B', fontWeight: 600 }}>FAILED DELIVERIES</div>
-                      <div style={{ fontSize: '1.3rem', fontWeight: 800, color: '#B91C1C', marginTop: 2 }}>
+                    <div style={{ background: '#FEF2F2', border: '1px solid #FECDD3', borderRadius: 7, padding: '0.55rem', textAlign: 'center' }}>
+                      <div style={{ fontSize: '0.68rem', color: '#991B1B', fontWeight: 600 }}>FAILED DELIVERIES</div>
+                      <div style={{ fontSize: '1.1rem', fontWeight: 800, color: '#B91C1C', marginTop: 2 }}>
                         {deliverySummary.statusBreakdown?.FAILED || 0}
                       </div>
                     </div>
@@ -1775,7 +1775,7 @@ const ManageNotifications = () => {
               </div>
             </div>
 
-            <div style={{ marginTop: '1.25rem', textAlign: 'center' }}>
+            <div style={{ marginTop: '0.85rem', textAlign: 'center' }}>
               <button
                 type="button"
                 className="btn"
@@ -1796,59 +1796,59 @@ const ManageNotifications = () => {
           onClose={() => setDetailsModalOpen(false)}
           title="Notification Campaign Details"
         >
-          <div style={{ padding: '0.5rem 0' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.25rem' }}>
-              <div className={`notif-item-icon-wrap ${getTypeBadgeClass(detailItem.type)}`} style={{ width: 44, height: 44 }}>
-                {getTypeIcon(detailItem.type, 22)}
+          <div style={{ padding: '0.25rem 0' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '0.85rem' }}>
+              <div className={`notif-item-icon-wrap ${getTypeBadgeClass(detailItem.type)}`} style={{ width: 36, height: 36 }}>
+                {getTypeIcon(detailItem.type, 18)}
               </div>
               <div>
                 <span className={`notif-item-type-tag ${getTypeBadgeClass(detailItem.type)}`}>
                   {detailItem.type.replace(/_/g, ' ')}
                 </span>
-                <h3 style={{ fontSize: '1.15rem', color: 'var(--text-primary)', margin: '0.2rem 0' }}>
+                <h3 style={{ fontSize: '1rem', color: 'var(--text-primary)', margin: '0.15rem 0' }}>
                   {detailItem.title}
                 </h3>
               </div>
             </div>
 
             {/* Message Body Card */}
-            <div style={{ background: '#F9FAFB', border: '1px solid var(--border-color)', borderRadius: 10, padding: '1rem', marginBottom: '1.25rem' }}>
-              <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', marginBottom: '0.35rem' }}>
+            <div style={{ background: '#F9FAFB', border: '1px solid var(--border-color)', borderRadius: 8, padding: '0.75rem 0.9rem', marginBottom: '0.85rem' }}>
+              <div style={{ fontSize: '0.7rem', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', marginBottom: '0.25rem' }}>
                 Push Alert Text
               </div>
-              <p style={{ fontSize: '0.92rem', color: '#374151', lineHeight: 1.5, margin: 0 }}>
+              <p style={{ fontSize: '0.86rem', color: '#374151', lineHeight: 1.45, margin: 0 }}>
                 {detailItem.body}
               </p>
             </div>
 
             {/* Campaign Metadata Grid */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '0.75rem', marginBottom: '1.25rem' }}>
-              <div style={{ background: '#FFFFFF', border: '1px solid var(--border-color)', borderRadius: 8, padding: '0.75rem' }}>
-                <div style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', fontWeight: 600 }}>CAMPAIGN STATUS</div>
-                <div style={{ marginTop: 4 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '0.55rem', marginBottom: '0.85rem' }}>
+              <div style={{ background: '#FFFFFF', border: '1px solid var(--border-color)', borderRadius: 7, padding: '0.55rem 0.7rem' }}>
+                <div style={{ fontSize: '0.68rem', color: 'var(--text-secondary)', fontWeight: 600 }}>CAMPAIGN STATUS</div>
+                <div style={{ marginTop: 3 }}>
                   <span className={`status-pill ${(detailItem.status || 'DRAFT').toLowerCase()}`}>
                     {detailItem.status}
                   </span>
                 </div>
               </div>
 
-              <div style={{ background: '#FFFFFF', border: '1px solid var(--border-color)', borderRadius: 8, padding: '0.75rem' }}>
-                <div style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', fontWeight: 600 }}>TARGET AUDIENCE</div>
-                <div style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--text-primary)', marginTop: 4 }}>
+              <div style={{ background: '#FFFFFF', border: '1px solid var(--border-color)', borderRadius: 7, padding: '0.55rem 0.7rem' }}>
+                <div style={{ fontSize: '0.68rem', color: 'var(--text-secondary)', fontWeight: 600 }}>TARGET AUDIENCE</div>
+                <div style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--text-primary)', marginTop: 3 }}>
                   {detailItem.recipientType}
                 </div>
               </div>
 
-              <div style={{ background: '#FFFFFF', border: '1px solid var(--border-color)', borderRadius: 8, padding: '0.75rem' }}>
-                <div style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', fontWeight: 600 }}>DELIVERIES (SUCCESS / TOTAL)</div>
-                <div style={{ fontSize: '0.88rem', fontWeight: 700, color: '#166534', marginTop: 4 }}>
+              <div style={{ background: '#FFFFFF', border: '1px solid var(--border-color)', borderRadius: 7, padding: '0.55rem 0.7rem' }}>
+                <div style={{ fontSize: '0.68rem', color: 'var(--text-secondary)', fontWeight: 600 }}>DELIVERIES (SUCCESS / TOTAL)</div>
+                <div style={{ fontSize: '0.82rem', fontWeight: 700, color: '#166534', marginTop: 3 }}>
                   {detailItem.successCount || 0} / {detailItem.recipientCount || 0}
                 </div>
               </div>
 
-              <div style={{ background: '#FFFFFF', border: '1px solid var(--border-color)', borderRadius: 8, padding: '0.75rem' }}>
-                <div style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', fontWeight: 600 }}>SENT TIMESTAMP</div>
-                <div style={{ fontSize: '0.82rem', color: 'var(--text-primary)', marginTop: 4 }}>
+              <div style={{ background: '#FFFFFF', border: '1px solid var(--border-color)', borderRadius: 7, padding: '0.55rem 0.7rem' }}>
+                <div style={{ fontSize: '0.68rem', color: 'var(--text-secondary)', fontWeight: 600 }}>SENT TIMESTAMP</div>
+                <div style={{ fontSize: '0.78rem', color: 'var(--text-primary)', marginTop: 3 }}>
                   {detailItem.sentAt ? new Date(detailItem.sentAt).toLocaleString('en-IN') : 'Not sent yet'}
                 </div>
               </div>
@@ -1856,17 +1856,17 @@ const ManageNotifications = () => {
 
             {/* Attached Payload Data */}
             {detailItem.data && Object.keys(detailItem.data).length > 0 && (
-              <div style={{ marginBottom: '1.25rem' }}>
-                <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', marginBottom: '0.35rem' }}>
+              <div style={{ marginBottom: '0.85rem' }}>
+                <div style={{ fontSize: '0.7rem', fontWeight: 700, color: 'var(--text-secondary)', textTransform: 'uppercase', marginBottom: '0.25rem' }}>
                   Mobile Deep Link & Action Payload
                 </div>
-                <pre style={{ background: '#1F2937', color: '#F3F4F6', padding: '0.75rem', borderRadius: '8px', fontSize: '0.78rem', overflowX: 'auto', margin: 0 }}>
+                <pre style={{ background: '#1F2937', color: '#F3F4F6', padding: '0.65rem', borderRadius: '7px', fontSize: '0.75rem', overflowX: 'auto', margin: 0 }}>
                   {JSON.stringify(detailItem.data, null, 2)}
                 </pre>
               </div>
             )}
 
-            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.55rem' }}>
               <button
                 type="button"
                 className="btn"

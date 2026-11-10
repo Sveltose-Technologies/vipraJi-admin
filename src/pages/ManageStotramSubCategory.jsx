@@ -144,25 +144,25 @@ const ManageStotramSubCategory = () => {
 
   return (
     <div className="page-content animate-fade-in">
-      <div className="top-header" style={{ margin: '-2rem -2rem 2rem -2rem' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+      <div className="top-header" style={{ margin: '-0.95rem -1.25rem 0.9rem -1.25rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           <button
             className="btn btn-outline"
             onClick={() => navigate('/manage-stotram')}
             title="Back to Stotram Library"
-            style={{ padding: '0.5rem 0.75rem' }}
+            style={{ padding: '0.35rem 0.6rem' }}
           >
-            <MdArrowBack size={18} />
+            <MdArrowBack size={16} />
           </button>
           <h1 className="header-title">Manage Stotram Sub Categories</h1>
         </div>
 
         <button className="btn btn-primary" onClick={openCreateModal}>
-          <MdAdd size={20} /> Add Sub Category
+          <MdAdd size={17} /> Add Sub Category
         </button>
       </div>
 
-      <div className="glass-panel" style={{ padding: '1.5rem' }}>
+      <div className="glass-panel" style={{ padding: '0.9rem 1rem' }}>
         <table className="data-table">
           <thead>
             <tr>
@@ -171,12 +171,12 @@ const ManageStotramSubCategory = () => {
               <th>Audio File</th>
               <th>PDF File</th>
               <th>Favorite</th>
-              <th style={{ width: '100px', textAlign: 'right' }}>Actions</th>
+              <th style={{ width: '90px', textAlign: 'right' }}>Actions</th>
             </tr>
           </thead>
           <tbody>
             {isLoadingSubCat || isLoadingCat ? (
-              <tr><td colSpan="6" style={{ textAlign: 'center', padding: '2rem' }}>Loading...</td></tr>
+              <tr><td colSpan="6" style={{ textAlign: 'center', padding: '1.25rem' }}>Loading...</td></tr>
             ) : subCategories.length > 0 ? (
               subCategories.map((sub) => {
                 const subCatId = typeof sub.categoryId === 'object' && sub.categoryId !== null ? idOf(sub.categoryId) : sub.categoryId;
@@ -190,18 +190,18 @@ const ManageStotramSubCategory = () => {
                     <td>{parentCat ? parentCat.categoryName : (typeof sub.categoryId === 'object' ? sub.categoryId?.categoryName : 'Unknown')}</td>
                     <td>
                       {sub.audioFile ? (
-                        <span style={{ fontSize: '0.75rem', color: 'var(--success-color)', fontWeight: '600' }}>Configured</span>
+                        <span style={{ fontSize: '0.74rem', color: 'var(--success-color)', fontWeight: '600' }}>Configured</span>
                       ) : (
-                        <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>None</span>
+                        <span style={{ fontSize: '0.74rem', color: 'var(--text-secondary)' }}>None</span>
                       )}
                     </td>
                     <td>
                       {sub.pdf ? (
-                        <a href={sub.pdf} target="_blank" rel="noopener noreferrer" style={{ fontSize: '0.75rem', color: '#2563EB', fontWeight: '600' }}>
+                        <a href={sub.pdf} target="_blank" rel="noopener noreferrer" style={{ fontSize: '0.74rem', color: '#2563EB', fontWeight: '600' }}>
                           View PDF
                         </a>
                       ) : (
-                        <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>None</span>
+                        <span style={{ fontSize: '0.74rem', color: 'var(--text-secondary)' }}>None</span>
                       )}
                     </td>
                     <td>
@@ -210,14 +210,14 @@ const ManageStotramSubCategory = () => {
                       </span>
                     </td>
                     <td style={{ textAlign: 'right' }}>
-                      <button className="btn-icon edit" onClick={() => openEditModal(sub)} title="Edit"><MdEdit size={18} /></button>
-                      <button className="btn-icon delete" onClick={() => showConfirm('Delete this sub category?', () => { deleteMutation.mutate(idOf(sub)); })} title="Delete"><MdDeleteOutline size={18} /></button>
+                      <button className="btn-icon edit" onClick={() => openEditModal(sub)} title="Edit"><MdEdit size={16} /></button>
+                      <button className="btn-icon delete" onClick={() => showConfirm('Delete this sub category?', () => { deleteMutation.mutate(idOf(sub)); })} title="Delete"><MdDeleteOutline size={16} /></button>
                     </td>
                   </tr>
                 );
               })
             ) : (
-              <tr><td colSpan="6" style={{ textAlign: 'center', padding: '2rem' }}>No sub categories found</td></tr>
+              <tr><td colSpan="6" style={{ textAlign: 'center', padding: '1.25rem' }}>No sub categories found</td></tr>
             )}
           </tbody>
         </table>
@@ -225,13 +225,13 @@ const ManageStotramSubCategory = () => {
 
       {modal.isOpen && (
         <div className="modal-overlay" onClick={() => setModal({ isOpen: false, data: null })}>
-          <div className="modal-content glass-panel animate-fade-in" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '620px', width: '92%' }}>
+          <div className="modal-content glass-panel animate-fade-in" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '580px', width: '92%' }}>
             <div className="modal-header">
-              <h2>{modal.data ? 'Edit Sub Category' : 'Add Sub Category'}</h2>
-              <button className="modal-close-btn" onClick={() => setModal({ isOpen: false, data: null })}><MdClose size={24} /></button>
+              <h2 className="modal-title">{modal.data ? 'Edit Sub Category' : 'Add Sub Category'}</h2>
+              <button className="modal-close-btn" onClick={() => setModal({ isOpen: false, data: null })}><MdClose size={20} /></button>
             </div>
-            <form className="modal-body" onSubmit={handleSave} style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1rem' }}>
-              <div className="input-group">
+            <form className="modal-body" onSubmit={handleSave} style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
+              <div className="input-group" style={{ marginBottom: 0 }}>
                 <label className="input-label">Select Category *</label>
                 <select
                   name="categoryId"
@@ -247,7 +247,7 @@ const ManageStotramSubCategory = () => {
                 </select>
               </div>
 
-              <div className="input-group">
+              <div className="input-group" style={{ marginBottom: 0 }}>
                 <label className="input-label">Title *</label>
                 <input
                   type="text"
@@ -259,11 +259,11 @@ const ManageStotramSubCategory = () => {
                 />
               </div>
 
-              <div className="input-group">
+              <div className="input-group" style={{ marginBottom: 0 }}>
                 <label className="input-label">Text Editor (Content / Sanskrit Lyrics) *</label>
                 <textarea
                   className="input-field"
-                  rows="5"
+                  rows="4"
                   placeholder="Enter stotram text or lyrics..."
                   value={formData.textEditor}
                   onChange={(e) => setFormData({ ...formData, textEditor: e.target.value })}
@@ -272,7 +272,7 @@ const ManageStotramSubCategory = () => {
                 />
               </div>
 
-              <div className="input-group">
+              <div className="input-group" style={{ marginBottom: 0 }}>
                 <label className="input-label">Audio File URL</label>
                 <input
                   type="url"
@@ -283,7 +283,7 @@ const ManageStotramSubCategory = () => {
                 />
               </div>
 
-              <div className="input-group">
+              <div className="input-group" style={{ marginBottom: 0 }}>
                 <label className="input-label">PDF File URL</label>
                 <input
                   type="url"
@@ -294,17 +294,17 @@ const ManageStotramSubCategory = () => {
                 />
               </div>
 
-              <label style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer', userSelect: 'none' }}>
+              <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', userSelect: 'none' }}>
                 <input
                   type="checkbox"
                   checked={formData.isFavorite}
                   onChange={(e) => setFormData({ ...formData, isFavorite: e.target.checked })}
-                  style={{ width: '18px', height: '18px' }}
+                  style={{ width: '16px', height: '16px' }}
                 />
                 <span className="input-label" style={{ marginBottom: 0 }}>Mark as Favorite</span>
               </label>
 
-              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem', marginTop: '1rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.5rem', marginTop: '0.4rem' }}>
                 <button
                   type="button"
                   className="btn btn-outline"
@@ -317,7 +317,7 @@ const ManageStotramSubCategory = () => {
                   className="btn btn-primary"
                   disabled={createMutation.isPending || updateMutation.isPending}
                 >
-                  <MdSave size={20} /> {createMutation.isPending || updateMutation.isPending ? 'Saving...' : 'Save'}
+                  <MdSave size={16} /> {createMutation.isPending || updateMutation.isPending ? 'Saving...' : 'Save'}
                 </button>
               </div>
             </form>

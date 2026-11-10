@@ -31,6 +31,7 @@ import ManageSubscriptions from "./pages/ManageSubscriptions";
 import ManageLegalContent from "./pages/ManageLegalContent";
 import ManageNotifications from "./pages/ManageNotifications";
 import ManageSpiritualCards from "./pages/ManageSpiritualCards";
+import ManageWelcomeScreen from "./pages/ManageWelcomeScreen";
 import AdminLayout from "./components/AdminLayout";
 import {
   createTermAndCondition,
@@ -103,6 +104,7 @@ function App() {
               }
             />
             <Route path="/manage-spiritual-cards" element={<ManageSpiritualCards />} />
+            <Route path="/manage-welcome-screen" element={<ManageWelcomeScreen />} />
             <Route path="/manage-pooja" element={<ManagePooja />} />
             <Route
               path="/manage-pooja-categories"

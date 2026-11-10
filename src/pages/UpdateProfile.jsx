@@ -206,26 +206,26 @@ const UpdateProfile = () => {
   };
 
   return (
-    <div style={{ maxWidth: '960px', margin: '0 auto', paddingBottom: '3rem' }}>
-      <div style={{ marginBottom: '1.5rem' }}>
-        <h1 style={{ fontWeight: 700, color: 'var(--text-primary)', fontSize: '1.75rem', marginBottom: '0.25rem' }}>
+    <div style={{ maxWidth: '880px', margin: '0 auto', paddingBottom: '1.25rem' }}>
+      <div style={{ marginBottom: '0.85rem' }}>
+        <h1 style={{ fontWeight: 700, color: 'var(--text-primary)', fontSize: '1.2rem', marginBottom: '0.15rem' }}>
           Update Profile
         </h1>
-        <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
+        <p style={{ color: 'var(--text-secondary)', fontSize: '0.8rem', margin: 0 }}>
           Manage your account profile, branding assets, and system details
         </p>
       </div>
 
-      <div className="glass-panel" style={{ padding: '2rem' }}>
+      <div className="glass-panel" style={{ padding: '1.15rem 1.25rem' }}>
         <form className="form-container" onSubmit={handleSubmit}>
           
           {/* SECTION 1: PERSONAL INFORMATION */}
-          <div style={{ borderBottom: '1px solid var(--border-color)', paddingBottom: '1.25rem', marginBottom: '1.5rem' }}>
-            <h3 style={{ fontSize: '1.05rem', fontWeight: 600, color: 'var(--vipra-color)', marginBottom: '1rem' }}>
+          <div style={{ borderBottom: '1px solid var(--border-color)', paddingBottom: '0.85rem', marginBottom: '0.95rem' }}>
+            <h3 style={{ fontSize: '0.95rem', fontWeight: 600, color: 'var(--vipra-color)', marginBottom: '0.65rem' }}>
               Personal & Contact Information
             </h3>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '0.75rem' }}>
               <Input
                 label="Full Name"
                 id="fullName"
@@ -246,7 +246,7 @@ const UpdateProfile = () => {
               />
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem', marginTop: '1rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '0.75rem', marginTop: '0.65rem' }}>
               <Input
                 label="Email Address"
                 id="email"
@@ -269,7 +269,7 @@ const UpdateProfile = () => {
               />
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.25rem', marginTop: '1rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '0.75rem', marginTop: '0.65rem' }}>
               <Input
                 label="WhatsApp Number"
                 id="whatsappNumber"
@@ -292,12 +292,12 @@ const UpdateProfile = () => {
           </div>
 
           {/* SECTION 2: PROFESSIONAL & STATUS */}
-          <div style={{ borderBottom: '1px solid var(--border-color)', paddingBottom: '1.25rem', marginBottom: '1.5rem' }}>
-            <h3 style={{ fontSize: '1.05rem', fontWeight: 600, color: 'var(--vipra-color)', marginBottom: '1rem' }}>
+          <div style={{ borderBottom: '1px solid var(--border-color)', paddingBottom: '0.85rem', marginBottom: '0.95rem' }}>
+            <h3 style={{ fontSize: '0.95rem', fontWeight: 600, color: 'var(--vipra-color)', marginBottom: '0.65rem' }}>
               Role, Experience & Status
             </h3>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.25rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(185px, 1fr))', gap: '0.75rem' }}>
               <div className="input-group">
                 <label className="input-label" htmlFor="role">Role</label>
                 <select
@@ -339,7 +339,7 @@ const UpdateProfile = () => {
               </div>
             </div>
 
-            <div style={{ marginTop: '1rem' }}>
+            <div style={{ marginTop: '0.65rem' }}>
               <Input
                 label="PDF Footer Text"
                 id="pdfFooterText"
@@ -352,18 +352,18 @@ const UpdateProfile = () => {
           </div>
 
           {/* SECTION 3: SPECIALISATIONS [ ] */}
-          <div style={{ borderBottom: '1px solid var(--border-color)', paddingBottom: '1.25rem', marginBottom: '1.5rem' }}>
-            <h3 style={{ fontSize: '1.05rem', fontWeight: 600, color: 'var(--vipra-color)', marginBottom: '0.5rem' }}>
+          <div style={{ borderBottom: '1px solid var(--border-color)', paddingBottom: '0.85rem', marginBottom: '0.95rem' }}>
+            <h3 style={{ fontSize: '0.95rem', fontWeight: 600, color: 'var(--vipra-color)', marginBottom: '0.25rem' }}>
               Specialisations [ ]
             </h3>
-            <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', marginBottom: '1rem' }}>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '0.78rem', marginBottom: '0.65rem' }}>
               Add multiple areas of Vedic expertise and services
             </p>
 
             {/* Existing Chips */}
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '1rem', minHeight: '36px' }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginBottom: '0.65rem', minHeight: '28px' }}>
               {specialisations.length === 0 ? (
-                <span style={{ fontSize: '0.85rem', color: '#94A3B8', fontStyle: 'italic' }}>
+                <span style={{ fontSize: '0.8rem', color: '#94A3B8', fontStyle: 'italic' }}>
                   No specialisations added yet. Type below or pick presets.
                 </span>
               ) : (
@@ -373,12 +373,12 @@ const UpdateProfile = () => {
                     style={{
                       display: 'inline-flex',
                       alignItems: 'center',
-                      gap: '0.4rem',
-                      padding: '0.35rem 0.75rem',
+                      gap: '0.3rem',
+                      padding: '0.22rem 0.6rem',
                       backgroundColor: 'rgba(155, 42, 31, 0.08)',
                       color: 'var(--vipra-color)',
-                      borderRadius: '20px',
-                      fontSize: '0.85rem',
+                      borderRadius: '16px',
+                      fontSize: '0.78rem',
                       fontWeight: 600,
                       border: '1px solid rgba(155, 42, 31, 0.2)'
                     }}
@@ -398,7 +398,7 @@ const UpdateProfile = () => {
                       }}
                       title="Remove"
                     >
-                      <MdClose size={16} />
+                      <MdClose size={14} />
                     </button>
                   </span>
                 ))
@@ -406,7 +406,7 @@ const UpdateProfile = () => {
             </div>
 
             {/* Custom Input */}
-            <div style={{ display: 'flex', gap: '0.5rem', maxWidth: '500px', marginBottom: '1rem' }}>
+            <div style={{ display: 'flex', gap: '0.45rem', maxWidth: '460px', marginBottom: '0.65rem' }}>
               <input
                 type="text"
                 className="input-field"
@@ -424,19 +424,19 @@ const UpdateProfile = () => {
                 type="button"
                 className="btn btn-primary"
                 onClick={() => addSpecialisation()}
-                style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', padding: '0.5rem 1rem' }}
+                style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', padding: '0.4rem 0.85rem' }}
               >
-                <MdAdd size={18} />
+                <MdAdd size={16} />
                 Add
               </button>
             </div>
 
             {/* Preset Suggestions */}
             <div>
-              <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+              <span style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.4px' }}>
                 Quick Presets:
               </span>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginTop: '0.4rem' }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.32rem', marginTop: '0.3rem' }}>
                 {PRESET_SPECIALISATIONS.map((preset, idx) => {
                   const isAdded = specialisations.includes(preset);
                   return (
@@ -445,9 +445,9 @@ const UpdateProfile = () => {
                       type="button"
                       onClick={() => !isAdded && addSpecialisation(preset)}
                       style={{
-                        padding: '0.25rem 0.6rem',
-                        fontSize: '0.75rem',
-                        borderRadius: '12px',
+                        padding: '0.18rem 0.5rem',
+                        fontSize: '0.72rem',
+                        borderRadius: '10px',
                         border: isAdded ? '1px solid #CBD5E1' : '1px solid #94A3B8',
                         background: isAdded ? '#F1F5F9' : '#FFFFFF',
                         color: isAdded ? '#94A3B8' : 'var(--text-primary)',
@@ -465,32 +465,32 @@ const UpdateProfile = () => {
           </div>
 
           {/* SECTION 4: IMAGES & UPLOADS */}
-          <div style={{ marginBottom: '1.5rem' }}>
-            <h3 style={{ fontSize: '1.05rem', fontWeight: 600, color: 'var(--vipra-color)', marginBottom: '0.5rem' }}>
+          <div style={{ marginBottom: '0.95rem' }}>
+            <h3 style={{ fontSize: '0.95rem', fontWeight: 600, color: 'var(--vipra-color)', marginBottom: '0.25rem' }}>
               Branding & Signature Assets
             </h3>
-            <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', marginBottom: '1.25rem' }}>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '0.78rem', marginBottom: '0.75rem' }}>
               Upload your profile photo, personal branding logo, and official signature
             </p>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.5rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.9rem' }}>
               
               {/* Profile Photo */}
               <div style={{
                 border: '1px dashed #CBD5E1',
                 borderRadius: '8px',
-                padding: '1.25rem',
+                padding: '0.8rem',
                 textAlign: 'center',
                 backgroundColor: '#FAFAFA'
               }}>
-                <label style={{ fontWeight: 600, fontSize: '0.9rem', color: 'var(--text-primary)', display: 'block', marginBottom: '0.75rem' }}>
+                <label style={{ fontWeight: 600, fontSize: '0.82rem', color: 'var(--text-primary)', display: 'block', marginBottom: '0.5rem' }}>
                   Profile Photo
                 </label>
                 <div style={{
-                  width: '90px',
-                  height: '90px',
+                  width: '68px',
+                  height: '68px',
                   borderRadius: '50%',
-                  margin: '0 auto 0.75rem auto',
+                  margin: '0 auto 0.55rem auto',
                   border: '2px solid rgba(155, 42, 31, 0.15)',
                   overflow: 'hidden',
                   display: 'flex',
@@ -501,7 +501,7 @@ const UpdateProfile = () => {
                   {previewPhoto ? (
                     <img src={previewPhoto} alt="Profile Preview" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   ) : (
-                    <MdImage size={40} color="#94A3B8" />
+                    <MdImage size={30} color="#94A3B8" />
                   )}
                 </div>
                 <input
@@ -517,13 +517,13 @@ const UpdateProfile = () => {
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
-                    gap: '0.4rem',
+                    gap: '0.35rem',
                     cursor: 'pointer',
-                    fontSize: '0.8rem',
-                    padding: '0.4rem 0.8rem'
+                    fontSize: '0.76rem',
+                    padding: '0.3rem 0.65rem'
                   }}
                 >
-                  <MdCloudUpload size={16} />
+                  <MdCloudUpload size={14} />
                   {previewPhoto ? 'Change Photo' : 'Upload Photo'}
                 </label>
               </div>
@@ -532,30 +532,30 @@ const UpdateProfile = () => {
               <div style={{
                 border: '1px dashed #CBD5E1',
                 borderRadius: '8px',
-                padding: '1.25rem',
+                padding: '0.8rem',
                 textAlign: 'center',
                 backgroundColor: '#FAFAFA'
               }}>
-                <label style={{ fontWeight: 600, fontSize: '0.9rem', color: 'var(--text-primary)', display: 'block', marginBottom: '0.75rem' }}>
+                <label style={{ fontWeight: 600, fontSize: '0.82rem', color: 'var(--text-primary)', display: 'block', marginBottom: '0.5rem' }}>
                   Personal Logo
                 </label>
                 <div style={{
-                  width: '120px',
-                  height: '90px',
+                  width: '96px',
+                  height: '68px',
                   borderRadius: '6px',
-                  margin: '0 auto 0.75rem auto',
+                  margin: '0 auto 0.55rem auto',
                   border: '1px solid #E2E8F0',
                   overflow: 'hidden',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   backgroundColor: '#FFFFFF',
-                  padding: '4px'
+                  padding: '3px'
                 }}>
                   {previewLogo ? (
                     <img src={previewLogo} alt="Logo Preview" style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
                   ) : (
-                    <MdImage size={40} color="#94A3B8" />
+                    <MdImage size={30} color="#94A3B8" />
                   )}
                 </div>
                 <input
@@ -571,13 +571,13 @@ const UpdateProfile = () => {
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
-                    gap: '0.4rem',
+                    gap: '0.35rem',
                     cursor: 'pointer',
-                    fontSize: '0.8rem',
-                    padding: '0.4rem 0.8rem'
+                    fontSize: '0.76rem',
+                    padding: '0.3rem 0.65rem'
                   }}
                 >
-                  <MdCloudUpload size={16} />
+                  <MdCloudUpload size={14} />
                   {previewLogo ? 'Change Logo' : 'Upload Logo'}
                 </label>
               </div>
@@ -586,30 +586,30 @@ const UpdateProfile = () => {
               <div style={{
                 border: '1px dashed #CBD5E1',
                 borderRadius: '8px',
-                padding: '1.25rem',
+                padding: '0.8rem',
                 textAlign: 'center',
                 backgroundColor: '#FAFAFA'
               }}>
-                <label style={{ fontWeight: 600, fontSize: '0.9rem', color: 'var(--text-primary)', display: 'block', marginBottom: '0.75rem' }}>
+                <label style={{ fontWeight: 600, fontSize: '0.82rem', color: 'var(--text-primary)', display: 'block', marginBottom: '0.5rem' }}>
                   Signature
                 </label>
                 <div style={{
-                  width: '140px',
-                  height: '90px',
+                  width: '110px',
+                  height: '68px',
                   borderRadius: '6px',
-                  margin: '0 auto 0.75rem auto',
+                  margin: '0 auto 0.55rem auto',
                   border: '1px solid #E2E8F0',
                   overflow: 'hidden',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   backgroundColor: '#FFFFFF',
-                  padding: '4px'
+                  padding: '3px'
                 }}>
                   {previewSig ? (
                     <img src={previewSig} alt="Signature Preview" style={{ maxWidth: '100%', maxHeight: '100%', objectFit: 'contain' }} />
                   ) : (
-                    <MdImage size={40} color="#94A3B8" />
+                    <MdImage size={30} color="#94A3B8" />
                   )}
                 </div>
                 <input
@@ -625,13 +625,13 @@ const UpdateProfile = () => {
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
-                    gap: '0.4rem',
+                    gap: '0.35rem',
                     cursor: 'pointer',
-                    fontSize: '0.8rem',
-                    padding: '0.4rem 0.8rem'
+                    fontSize: '0.76rem',
+                    padding: '0.3rem 0.65rem'
                   }}
                 >
-                  <MdCloudUpload size={16} />
+                  <MdCloudUpload size={14} />
                   {previewSig ? 'Change Signature' : 'Upload Signature'}
                 </label>
               </div>
@@ -640,8 +640,8 @@ const UpdateProfile = () => {
           </div>
 
           {/* SUBMIT BUTTON */}
-          <div style={{ marginTop: '2rem' }}>
-            <Button type="submit" isLoading={updateMutation.isPending} style={{ minWidth: '180px' }}>
+          <div style={{ marginTop: '1rem' }}>
+            <Button type="submit" isLoading={updateMutation.isPending} style={{ minWidth: '160px' }}>
               {updateMutation.isPending ? 'Updating Profile...' : 'Save & Update Profile'}
             </Button>
           </div>

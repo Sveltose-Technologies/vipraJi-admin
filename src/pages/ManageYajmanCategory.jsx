@@ -70,17 +70,17 @@ const ManageYajmanCategory = ({ isEmbedded = false }) => {
   const content = (
     <>
       {!isEmbedded && (
-        <div className="top-header" style={{ margin: '-2rem -2rem 2rem -2rem' }}>
+        <div className="top-header" style={{ margin: '-0.95rem -1.25rem 0.9rem -1.25rem' }}>
           <h1 className="header-title">Manage Yajman Categories</h1>
         </div>
       )}
 
-      <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-        <div className="glass-panel" style={{ padding: '1.5rem' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-            <h2>Categories</h2>
+      <div style={{ maxWidth: '720px', margin: '0 auto' }}>
+        <div className="glass-panel" style={{ padding: '0.9rem 1rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.65rem' }}>
+            <h2 style={{ fontSize: '0.98rem', margin: 0 }}>Categories</h2>
             <button className="btn btn-primary" onClick={() => setCatModal({ isOpen: true, data: null })}>
-              <MdAdd size={20} /> Add Category
+              <MdAdd size={16} /> Add Category
             </button>
           </div>
           
@@ -88,7 +88,7 @@ const ManageYajmanCategory = ({ isEmbedded = false }) => {
             <thead>
               <tr>
                 <th>Category Name</th>
-                <th style={{ width: '100px' }}>Actions</th>
+                <th style={{ width: '90px' }}>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -99,14 +99,14 @@ const ManageYajmanCategory = ({ isEmbedded = false }) => {
                   <tr key={cat._id || cat.id}>
                     <td>{cat.categoryName}</td>
                     <td>
-                      <button className="btn-icon edit" onClick={() => setCatModal({ isOpen: true, data: cat })}><MdEdit size={18} /></button>
-                      <button className="btn-icon delete" onClick={() => showConfirm('Are you sure?', () => { deleteCatMutation.mutate(cat._id || cat.id); })}><MdDeleteOutline size={18} /></button>
+                      <button className="btn-icon edit" onClick={() => setCatModal({ isOpen: true, data: cat })}><MdEdit size={16} /></button>
+                      <button className="btn-icon delete" onClick={() => showConfirm('Are you sure?', () => { deleteCatMutation.mutate(cat._id || cat.id); })}><MdDeleteOutline size={16} /></button>
                     </td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan="2" style={{ textAlign: 'center', padding: '2rem', color: 'rgba(255,255,255,0.5)' }}>
+                  <td colSpan="2" style={{ textAlign: 'center', padding: '1.25rem', color: 'var(--text-secondary)' }}>
                     No Yajman categories found
                   </td>
                 </tr>
@@ -119,17 +119,17 @@ const ManageYajmanCategory = ({ isEmbedded = false }) => {
       {/* Modal for Category */}
       {catModal.isOpen && createPortal(
         <div className="modal-overlay">
-          <div className="modal-content animate-slide-up" style={{ maxWidth: '500px' }}>
+          <div className="modal-content glass-panel animate-slide-up" style={{ maxWidth: '420px' }}>
             <div className="modal-header">
-              <h3>{catModal.data ? 'Edit' : 'Add'} Yajman Category</h3>
-              <button className="btn-icon" onClick={() => setCatModal({ isOpen: false, data: null })}>
-                <MdClose size={24} />
+              <h3 className="modal-title">{catModal.data ? 'Edit' : 'Add'} Yajman Category</h3>
+              <button className="modal-close-btn" onClick={() => setCatModal({ isOpen: false, data: null })}>
+                <MdClose size={20} />
               </button>
             </div>
             <form onSubmit={handleSaveCategory} style={{ display: 'flex', flexDirection: 'column' }}>
               <div className="modal-body">
-                <div className="form-group">
-                  <label>Category Name *</label>
+                <div className="input-group" style={{ marginBottom: 0 }}>
+                  <label className="input-label">Category Name *</label>
                   <input 
                     type="text" 
                     name="categoryName" 
@@ -145,7 +145,7 @@ const ManageYajmanCategory = ({ isEmbedded = false }) => {
                   Cancel
                 </button>
                 <button type="submit" className="btn btn-primary" disabled={createCatMutation.isPending || updateCatMutation.isPending}>
-                  <MdSave size={20} /> {catModal.data ? 'Update' : 'Save'}
+                  <MdSave size={16} /> {catModal.data ? 'Update' : 'Save'}
                 </button>
               </div>
             </form>
@@ -157,7 +157,7 @@ const ManageYajmanCategory = ({ isEmbedded = false }) => {
   );
 
   if (isEmbedded) {
-    return <div className="animate-fade-in" style={{ padding: '1rem 0' }}>{content}</div>;
+    return <div className="animate-fade-in" style={{ padding: '0.25rem 0' }}>{content}</div>;
   }
   return <div className="page-content animate-fade-in">{content}</div>;
 };

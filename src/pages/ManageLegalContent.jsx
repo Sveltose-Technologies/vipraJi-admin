@@ -152,24 +152,24 @@ const ManageLegalContent = ({ config }) => {
 
   return (
     <div className="page-content animate-fade-in">
-      <div className="top-header" style={{ margin: "-2rem -2rem 2rem -2rem" }}>
+      <div className="top-header" style={{ margin: "-0.95rem -1.25rem 0.9rem -1.25rem" }}>
         <h1 className="header-title">Manage {config.label}</h1>
         <button className="btn btn-primary" onClick={openAddModal}>
-          <MdAdd size={20} /> Add {config.label}
+          <MdAdd size={18} /> Add {config.label}
         </button>
       </div>
 
       <div
         className="glass-panel"
-        style={{ padding: "1.5rem", overflowX: "auto" }}
+        style={{ padding: "0.9rem 1rem", overflowX: "auto" }}
       >
         <table className="data-table">
           <thead>
             <tr>
-              <th style={{ width: "100px" }}>Banner</th>
+              <th style={{ width: "84px" }}>Banner</th>
               <th>Title</th>
               <th>Description</th>
-              <th style={{ width: "110px" }}>Actions</th>
+              <th style={{ width: "96px" }}>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -189,8 +189,8 @@ const ManageLegalContent = ({ config }) => {
                           src={imageUrl}
                           alt={`${record.title || config.label} banner`}
                           style={{
-                            width: "72px",
-                            height: "48px",
+                            width: "56px",
+                            height: "38px",
                             objectFit: "cover",
                             borderRadius: "4px",
                           }}
@@ -232,7 +232,7 @@ const ManageLegalContent = ({ config }) => {
               <tr>
                 <td
                   colSpan="4"
-                  style={{ textAlign: "center", padding: "2rem" }}
+                  style={{ textAlign: "center", padding: "1.25rem" }}
                 >
                   No {config.label.toLowerCase()} records found
                 </td>
@@ -248,7 +248,7 @@ const ManageLegalContent = ({ config }) => {
             <div
               className="modal-content glass-panel"
               onClick={(event) => event.stopPropagation()}
-              style={{ maxWidth: "760px", width: "92%" }}
+              style={{ maxWidth: "660px", width: "92%" }}
             >
               <div className="modal-header">
                 <h2 className="modal-title">
@@ -260,16 +260,16 @@ const ManageLegalContent = ({ config }) => {
                   onClick={closeModal}
                   aria-label="Close"
                 >
-                  <MdClose size={24} />
+                  <MdClose size={20} />
                 </button>
               </div>
-              <div className="modal-body" style={{ padding: "1.5rem" }}>
+              <div className="modal-body" style={{ padding: "1rem 1.15rem" }}>
                 {isDetailLoading ? (
                   <p>Loading record...</p>
                 ) : (
                   <form
                     onSubmit={handleSubmit}
-                    style={{ display: "grid", gap: "1rem" }}
+                    style={{ display: "grid", gap: "0.7rem" }}
                   >
                     <div className="input-group">
                       <label
@@ -323,7 +323,7 @@ const ManageLegalContent = ({ config }) => {
                       <textarea
                         id={`${config.queryKey}-text-editor`}
                         className="input-field"
-                        rows="7"
+                        rows="5"
                         value={formData.textEditor}
                         onChange={(event) =>
                           setFormData({
@@ -350,11 +350,11 @@ const ManageLegalContent = ({ config }) => {
                             alt="Current banner"
                             style={{
                               display: "block",
-                              width: "160px",
-                              height: "90px",
+                              width: "120px",
+                              height: "68px",
                               objectFit: "cover",
                               borderRadius: "4px",
-                              marginBottom: "0.75rem",
+                              marginBottom: "0.5rem",
                             }}
                           />
                         )}
@@ -375,7 +375,7 @@ const ManageLegalContent = ({ config }) => {
                       className="btn btn-primary"
                       disabled={isSaving || isDetailLoading}
                     >
-                      <MdSave size={20} />{" "}
+                      <MdSave size={18} />{" "}
                       {isSaving ? "Saving..." : editingId ? "Update" : "Save"}
                     </button>
                   </form>

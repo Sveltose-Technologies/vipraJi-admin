@@ -69,16 +69,16 @@ const ManageAartiCategory = () => {
 
   return (
     <div className="page-content animate-fade-in">
-      <div className="top-header" style={{ margin: '-2rem -2rem 2rem -2rem' }}>
+      <div className="top-header" style={{ margin: '-0.95rem -1.25rem 0.9rem -1.25rem' }}>
         <h1 className="header-title">Manage Aarti Categories</h1>
       </div>
 
-      <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-        <div className="glass-panel" style={{ padding: '1.5rem' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-            <h2>Categories</h2>
+      <div style={{ maxWidth: '720px', margin: '0 auto' }}>
+        <div className="glass-panel" style={{ padding: '0.9rem 1rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.65rem' }}>
+            <h2 style={{ fontSize: '0.98rem', margin: 0 }}>Categories</h2>
             <button className="btn btn-primary" onClick={() => setCatModal({ isOpen: true, data: null })}>
-              <MdAdd size={20} /> Add Category
+              <MdAdd size={16} /> Add Category
             </button>
           </div>
           
@@ -86,7 +86,7 @@ const ManageAartiCategory = () => {
             <thead>
               <tr>
                 <th>Category Name</th>
-                <th style={{ width: '100px' }}>Actions</th>
+                <th style={{ width: '90px' }}>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -97,8 +97,8 @@ const ManageAartiCategory = () => {
                   <tr key={cat._id || cat.id}>
                     <td>{cat.categoryName}</td>
                     <td>
-                      <button className="btn-icon edit" onClick={() => setCatModal({ isOpen: true, data: cat })}><MdEdit size={18} /></button>
-                      <button className="btn-icon delete" onClick={() => showConfirm('Are you sure?', () => { deleteCatMutation.mutate(cat._id || cat.id); })}><MdDeleteOutline size={18} /></button>
+                      <button className="btn-icon edit" onClick={() => setCatModal({ isOpen: true, data: cat })}><MdEdit size={16} /></button>
+                      <button className="btn-icon delete" onClick={() => showConfirm('Are you sure?', () => { deleteCatMutation.mutate(cat._id || cat.id); })}><MdDeleteOutline size={16} /></button>
                     </td>
                   </tr>
                 ))
@@ -113,18 +113,18 @@ const ManageAartiCategory = () => {
       {/* Category Modal */}
       {catModal.isOpen && createPortal(
         <div className="modal-overlay" onClick={() => setCatModal({ isOpen: false, data: null })}>
-          <div className="modal-content glass-panel" onClick={e => e.stopPropagation()} style={{ maxWidth: '400px' }}>
+          <div className="modal-content glass-panel" onClick={e => e.stopPropagation()} style={{ maxWidth: '380px' }}>
             <div className="modal-header">
-              <h2 style={{ fontWeight: 600 }}>{catModal.data ? 'Edit Category' : 'Add Category'}</h2>
-              <button className="modal-close-btn" onClick={() => setCatModal({ isOpen: false, data: null })}><MdClose size={24} /></button>
+              <h2 className="modal-title" style={{ fontWeight: 600 }}>{catModal.data ? 'Edit Category' : 'Add Category'}</h2>
+              <button className="modal-close-btn" onClick={() => setCatModal({ isOpen: false, data: null })}><MdClose size={20} /></button>
             </div>
             <form className="modal-body" onSubmit={handleSaveCategory}>
               <div className="input-group">
                 <label className="input-label">Category Name</label>
                 <input type="text" name="categoryName" className="input-field" defaultValue={catModal.data?.categoryName || ''} required placeholder="e.g. Ganesh Aarti" />
               </div>
-              <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '1.5rem' }} disabled={createCatMutation.isPending || updateCatMutation.isPending}>
-                <MdSave size={20} /> Save
+              <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '0.5rem' }} disabled={createCatMutation.isPending || updateCatMutation.isPending}>
+                <MdSave size={16} /> Save
               </button>
             </form>
           </div>

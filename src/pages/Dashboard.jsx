@@ -102,25 +102,25 @@ const Dashboard = () => {
   ];
 
   return (
-    <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0.1rem 0' }}>
-      <div style={{ marginBottom: '1rem' }}>
-        <h1 style={{ fontWeight: 700, color: 'var(--text-primary)', fontSize: '1.4rem', margin: 0 }}>Dashboard Overview</h1>
-        <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', marginTop: '0.25rem' }}>
+    <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0.05rem 0' }}>
+      <div style={{ marginBottom: '0.75rem' }}>
+        <h1 style={{ fontWeight: 700, color: 'var(--text-primary)', fontSize: '1.2rem', margin: 0 }}>Dashboard Overview</h1>
+        <p style={{ color: 'var(--text-secondary)', fontSize: '0.78rem', marginTop: '0.15rem', marginBottom: 0 }}>
           Welcome back! Here's a snapshot of your platform today.
         </p>
       </div>
 
       <div style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-        gap: '0.85rem',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(195px, 1fr))',
+        gap: '0.7rem',
       }}>
         {gridItems.map((item, idx) => (
           <Link key={idx} to={item.link} style={{ textDecoration: 'none', display: 'block' }}>
             <div style={{
               background: '#FFFFFF',
               borderRadius: '8px',
-              padding: '14px 16px',
+              padding: '11px 14px',
               position: 'relative',
               boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03)',
               border: '1px solid #EAECEF',
@@ -128,7 +128,7 @@ const Dashboard = () => {
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'space-between',
-              minHeight: '115px'
+              minHeight: '94px'
             }}
               onMouseOver={(e) => {
                 e.currentTarget.style.transform = 'translateY(-2px)';
@@ -140,13 +140,13 @@ const Dashboard = () => {
               }}
             >
               {/* Top Row: Title & Compact Icon */}
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-                <span style={{ fontSize: '0.85rem', color: '#64748B', fontWeight: 600 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.35rem' }}>
+                <span style={{ fontSize: '0.8rem', color: '#64748B', fontWeight: 600 }}>
                   {item.title}
                 </span>
                 <div style={{
-                  width: '32px',
-                  height: '32px',
+                  width: '28px',
+                  height: '28px',
                   borderRadius: '6px',
                   backgroundColor: 'rgba(155, 42, 31, 0.08)',
                   color: 'var(--vipra-color, #9B2A1F)',
@@ -160,18 +160,18 @@ const Dashboard = () => {
               </div>
 
               {/* Middle section: Big Number */}
-              <div style={{ fontSize: '1.45rem', fontWeight: 700, color: 'var(--text-primary)', lineHeight: 1.1, marginBottom: '0.6rem' }}>
+              <div style={{ fontSize: '1.28rem', fontWeight: 700, color: 'var(--text-primary)', lineHeight: 1.1, marginBottom: '0.45rem' }}>
                 {loading ? (
-                  <span style={{ opacity: 0.3, fontSize: '0.9rem' }}>...</span>
+                  <span style={{ opacity: 0.3, fontSize: '0.85rem' }}>...</span>
                 ) : (
                   item.count.toLocaleString()
                 )}
               </div>
 
               {/* Bottom section: Subtitle & link */}
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '0.5rem', borderTop: '1px solid #F1F5F9' }}>
-                <span style={{ fontSize: '0.75rem', color: '#94A3B8' }}>Click to manage</span>
-                <span style={{ fontSize: '0.75rem', color: 'var(--secondary-color)', fontWeight: 600 }}>Manage &rarr;</span>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '0.38rem', borderTop: '1px solid #F1F5F9' }}>
+                <span style={{ fontSize: '0.72rem', color: '#94A3B8' }}>Click to manage</span>
+                <span style={{ fontSize: '0.72rem', color: 'var(--secondary-color)', fontWeight: 600 }}>Manage &rarr;</span>
               </div>
             </div>
           </Link>

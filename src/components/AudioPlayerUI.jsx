@@ -77,7 +77,7 @@ const AudioPlayerUI = ({ title, audioUrl }) => {
             className="audio-play-btn"
             onClick={togglePlay}
           >
-            {isPlaying ? <MdPause size={28} /> : <MdPlayArrow size={28} />}
+            {isPlaying ? <MdPause size={22} /> : <MdPlayArrow size={22} />}
           </button>
           
           <button 

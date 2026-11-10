@@ -74,36 +74,36 @@ const ManageStotramCategory = () => {
 
   return (
     <div className="page-content animate-fade-in">
-      <div className="top-header" style={{ margin: '-2rem -2rem 2rem -2rem' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+      <div className="top-header" style={{ margin: '-0.95rem -1.25rem 0.9rem -1.25rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           <button
             className="btn btn-outline"
             onClick={() => navigate('/manage-stotram')}
             title="Back to Stotram Library"
-            style={{ padding: '0.5rem 0.75rem' }}
+            style={{ padding: '0.35rem 0.6rem' }}
           >
-            <MdArrowBack size={18} />
+            <MdArrowBack size={16} />
           </button>
           <h1 className="header-title">Manage Stotram Categories</h1>
         </div>
 
         <button className="btn btn-primary" onClick={() => setCatModal({ isOpen: true, data: null })}>
-          <MdAdd size={20} /> Add Category
+          <MdAdd size={17} /> Add Category
         </button>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '2rem' }}>
-        <div className="glass-panel" style={{ padding: '1.5rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1rem' }}>
+        <div className="glass-panel" style={{ padding: '0.9rem 1rem' }}>
           <table className="data-table">
             <thead>
               <tr>
                 <th>Category Name</th>
-                <th style={{ width: '120px', textAlign: 'right' }}>Actions</th>
+                <th style={{ width: '100px', textAlign: 'right' }}>Actions</th>
               </tr>
             </thead>
             <tbody>
               {isLoadingCat ? (
-                <tr><td colSpan="2" style={{ textAlign: 'center', padding: '2rem' }}>Loading categories...</td></tr>
+                <tr><td colSpan="2" style={{ textAlign: 'center', padding: '1.25rem' }}>Loading categories...</td></tr>
               ) : categories.length > 0 ? (
                 categories.map((cat) => (
                   <tr key={cat._id || cat.id}>
@@ -111,13 +111,13 @@ const ManageStotramCategory = () => {
                       <strong style={{ color: 'var(--text-primary)' }}>{cat.categoryName}</strong>
                     </td>
                     <td style={{ textAlign: 'right' }}>
-                      <button className="btn-icon edit" onClick={() => setCatModal({ isOpen: true, data: cat })} title="Edit"><MdEdit size={18} /></button>
-                      <button className="btn-icon delete" onClick={() => showConfirm(`Delete category "${cat.categoryName}"?`, () => { deleteCatMutation.mutate(cat._id || cat.id); })} title="Delete"><MdDeleteOutline size={18} /></button>
+                      <button className="btn-icon edit" onClick={() => setCatModal({ isOpen: true, data: cat })} title="Edit"><MdEdit size={16} /></button>
+                      <button className="btn-icon delete" onClick={() => showConfirm(`Delete category "${cat.categoryName}"?`, () => { deleteCatMutation.mutate(cat._id || cat.id); })} title="Delete"><MdDeleteOutline size={16} /></button>
                     </td>
                   </tr>
                 ))
               ) : (
-                <tr><td colSpan="2" style={{ textAlign: 'center', padding: '2rem' }}>No categories found</td></tr>
+                <tr><td colSpan="2" style={{ textAlign: 'center', padding: '1.25rem' }}>No categories found</td></tr>
               )}
             </tbody>
           </table>
@@ -127,13 +127,13 @@ const ManageStotramCategory = () => {
       {/* Category Modal */}
       {catModal.isOpen && (
         <div className="modal-overlay" onClick={() => setCatModal({ isOpen: false, data: null })}>
-          <div className="modal-content glass-panel animate-fade-in" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '480px', width: '92%' }}>
+          <div className="modal-content glass-panel animate-fade-in" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '420px', width: '92%' }}>
             <div className="modal-header">
-              <h2>{catModal.data ? 'Edit Category' : 'Add Category'}</h2>
-              <button className="modal-close-btn" onClick={() => setCatModal({ isOpen: false, data: null })}><MdClose size={24} /></button>
+              <h2 className="modal-title">{catModal.data ? 'Edit Category' : 'Add Category'}</h2>
+              <button className="modal-close-btn" onClick={() => setCatModal({ isOpen: false, data: null })}><MdClose size={20} /></button>
             </div>
-            <form className="modal-body" onSubmit={handleSaveCategory} style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1rem' }}>
-              <div className="input-group">
+            <form className="modal-body" onSubmit={handleSaveCategory} style={{ display: 'flex', flexDirection: 'column', gap: '0.7rem' }}>
+              <div className="input-group" style={{ marginBottom: 0 }}>
                 <label className="input-label">Category Name *</label>
                 <input
                   type="text"
@@ -144,7 +144,7 @@ const ManageStotramCategory = () => {
                   required
                 />
               </div>
-              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem', marginTop: '1rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.5rem', marginTop: '0.4rem' }}>
                 <button
                   type="button"
                   className="btn btn-outline"
@@ -157,7 +157,7 @@ const ManageStotramCategory = () => {
                   className="btn btn-primary"
                   disabled={createCatMutation.isPending || updateCatMutation.isPending}
                 >
-                  <MdSave size={20} /> Save
+                  <MdSave size={16} /> Save
                 </button>
               </div>
             </form>

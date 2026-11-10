@@ -161,7 +161,6 @@ const ManageUsers = () => {
   return (
     <div
       className="animate-fade-in ecom-layout"
-      style={{ paddingTop: "0.5rem" }}
     >
       <Modal
         isOpen={isFilterModalOpen}
@@ -236,7 +235,7 @@ const ManageUsers = () => {
 
         <button
           className="btn btn-primary"
-          style={{ width: "100%", marginTop: "1rem" }}
+          style={{ width: "100%", marginTop: "0.75rem" }}
           onClick={() => setIsFilterModalOpen(false)}
         >
           Apply Filters
@@ -251,26 +250,26 @@ const ManageUsers = () => {
             className="search-container glass-panel"
             style={{
               position: "sticky",
-              top: "0.75rem",
+              top: "0.4rem",
               zIndex: 40,
-              marginBottom: "1.25rem",
+              marginBottom: "0.85rem",
               display: "flex",
-              gap: "1rem",
+              gap: "0.65rem",
               alignItems: "center",
-              padding: "0.75rem 1.5rem",
+              padding: "0.45rem 0.9rem",
               background: "rgba(255, 255, 255, 0.97)",
               border: "1px solid var(--border-color)",
-              boxShadow: "0 8px 20px rgba(31, 41, 55, 0.08)",
+              boxShadow: "0 4px 12px rgba(31, 41, 55, 0.06)",
               backdropFilter: "blur(10px)",
             }}
           >
             <div style={{ display: "flex", flex: 1, alignItems: "center" }}>
-              <MdSearch className="search-icon" size={24} />
+              <MdSearch className="search-icon" size={19} />
               <input
                 type="text"
                 className="search-input"
                 aria-label="Search users"
-                style={{ padding: "0.5rem 0", minWidth: 0 }}
+                style={{ padding: "0.3rem 0", minWidth: 0, fontSize: "0.84rem" }}
                 placeholder="Search users by name, email, or mobile number..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -279,12 +278,12 @@ const ManageUsers = () => {
 
             {/* Active Filters */}
             <div
-              style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}
+              style={{ display: "flex", gap: "0.4rem", alignItems: "center" }}
             >
               {statusFilter !== "all" && (
                 <span
                   className="detail-tag"
-                  style={{ margin: 0, textTransform: "capitalize" }}
+                  style={{ margin: 0, textTransform: "capitalize", fontSize: "0.75rem", padding: "0.18rem 0.5rem" }}
                 >
                   Status: {statusFilter}
                 </span>
@@ -292,7 +291,7 @@ const ManageUsers = () => {
               {roleFilter !== "all" && (
                 <span
                   className="detail-tag"
-                  style={{ margin: 0, textTransform: "capitalize" }}
+                  style={{ margin: 0, textTransform: "capitalize", fontSize: "0.75rem", padding: "0.18rem 0.5rem" }}
                 >
                   Role: {roleFilter}
                 </span>
@@ -303,7 +302,7 @@ const ManageUsers = () => {
                 searchQuery !== "") && (
                 <button
                   className="btn btn-outline"
-                  style={{ padding: "0.4rem 0.75rem", fontSize: "0.85rem" }}
+                  style={{ padding: "0.3rem 0.6rem", fontSize: "0.76rem" }}
                   onClick={() => {
                     setRoleFilter("all");
                     setStatusFilter("all");
@@ -319,13 +318,14 @@ const ManageUsers = () => {
               className="btn btn-primary"
               onClick={() => setIsFilterModalOpen(true)}
               style={{
-                padding: "0.5rem 1rem",
+                padding: "0.38rem 0.8rem",
+                fontSize: "0.8rem",
                 display: "flex",
                 alignItems: "center",
-                gap: "0.5rem",
+                gap: "0.35rem",
               }}
             >
-              <MdFilterList size={20} />
+              <MdFilterList size={17} />
               Filters
             </button>
           </div>
@@ -335,17 +335,17 @@ const ManageUsers = () => {
             <div
               className="glass-panel"
               style={{
-                padding: "3rem",
+                padding: "2rem",
                 textAlign: "center",
-                marginTop: "1.5rem",
+                marginTop: "0.75rem",
               }}
             >
               <MdPerson
-                size={64}
-                style={{ color: "var(--border-color)", marginBottom: "1rem" }}
+                size={44}
+                style={{ color: "var(--border-color)", marginBottom: "0.65rem" }}
               />
-              <h3>No Users Found</h3>
-              <p style={{ color: "var(--text-secondary)" }}>
+              <h3 style={{ fontSize: "1rem", marginBottom: "0.25rem" }}>No Users Found</h3>
+              <p style={{ color: "var(--text-secondary)", fontSize: "0.84rem" }}>
                 Try adjusting your search query or filters.
               </p>
             </div>
@@ -353,7 +353,7 @@ const ManageUsers = () => {
             <div className="glass-panel" style={{ overflowX: "auto" }}>
               <table
                 className="data-table users-table"
-                style={{ minWidth: "900px", tableLayout: "fixed" }}
+                style={{ minWidth: "820px", tableLayout: "fixed" }}
               >
                 <colgroup>
                   <col style={{ width: "24%" }} />
@@ -384,17 +384,17 @@ const ManageUsers = () => {
                           style={{
                             display: "flex",
                             alignItems: "center",
-                            gap: "0.75rem",
-                            minWidth: "170px",
+                            gap: "0.55rem",
+                            minWidth: "160px",
                           }}
                         >
                           <div
                             className="user-avatar-large"
                             style={{
-                              width: "38px",
-                              height: "38px",
-                              flex: "0 0 38px",
-                              fontSize: "1rem",
+                              width: "32px",
+                              height: "32px",
+                              flex: "0 0 32px",
+                              fontSize: "0.85rem",
                             }}
                           >
                             {user.profilePhoto ? (
@@ -417,6 +417,7 @@ const ManageUsers = () => {
                             <div
                               style={{
                                 fontWeight: 600,
+                                fontSize: "0.85rem",
                                 color: "var(--text-primary)",
                                 overflowWrap: "anywhere",
                               }}
@@ -424,7 +425,7 @@ const ManageUsers = () => {
                               {user.displayName || user.fullName || "Unnamed User"}
                             </div>
                             {user.displayName && user.fullName && user.displayName !== user.fullName && (
-                              <div style={{ fontSize: "0.75rem", color: "var(--text-secondary)" }}>
+                              <div style={{ fontSize: "0.72rem", color: "var(--text-secondary)" }}>
                                 {user.fullName}
                               </div>
                             )}
@@ -434,19 +435,19 @@ const ManageUsers = () => {
                           <div
                             style={{
                               color: "var(--text-secondary)",
-                              fontSize: "0.8rem",
-                              margin: "0.3rem 0 0 3.25rem",
+                              fontSize: "0.74rem",
+                              margin: "0.2rem 0 0 2.55rem",
                             }}
                           >
                             {user.experience} yrs experience
                           </div>
                         ) : null}
                       </td>
-                      <td style={{ textAlign: "left" }}>
+                      <td style={{ textAlign: "left", fontSize: "0.8rem" }}>
                         <div
                           style={{
                             display: "grid",
-                            gap: "0.35rem",
+                            gap: "0.2rem",
                             minWidth: 0,
                           }}
                         >
@@ -454,7 +455,7 @@ const ManageUsers = () => {
                             style={{
                               display: "flex",
                               alignItems: "flex-start",
-                              gap: "0.4rem",
+                              gap: "0.35rem",
                               overflowWrap: "anywhere",
                             }}
                           >
@@ -471,7 +472,7 @@ const ManageUsers = () => {
                             style={{
                               display: "flex",
                               alignItems: "center",
-                              gap: "0.4rem",
+                              gap: "0.35rem",
                             }}
                           >
                             <MdPhone
@@ -487,17 +488,17 @@ const ManageUsers = () => {
                       <td style={{ textAlign: "left" }}>
                         <span
                           className="user-role-badge"
-                          style={{ display: "inline-block", width: "auto" }}
+                          style={{ display: "inline-block", width: "auto", fontSize: "0.74rem" }}
                         >
                           {user.role || "—"}
                         </span>
                       </td>
                       <td style={{ textAlign: "left" }}>
-                        <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "6px" }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: "0.45rem" }}>
                           <label
                             className="toggle-switch"
                             title={isDeactive ? "Click to Activate" : "Click to Deactivate"}
-                            style={{ cursor: "pointer" }}
+                            style={{ cursor: "pointer", transform: "scale(0.85)" }}
                           >
                             <input 
                               type="checkbox" 
@@ -525,8 +526,9 @@ const ManageUsers = () => {
                               width: "auto",
                               border: "none",
                               cursor: "pointer",
-                              padding: "0.25rem 0.65rem",
-                              borderRadius: "12px",
+                              padding: "0.15rem 0.5rem",
+                              fontSize: "0.7rem",
+                              borderRadius: "10px",
                               transition: "all 0.2s ease"
                             }}
                             title={`Status: ${isDeactive ? "Deactive" : "Active"}. Click to toggle.`}
@@ -535,19 +537,19 @@ const ManageUsers = () => {
                           </button>
                         </div>
                       </td>
-                      <td style={{ textAlign: "left" }}>
+                      <td style={{ textAlign: "left", fontSize: "0.8rem" }}>
                         {user.createdAt
                           ? new Date(user.createdAt).toLocaleDateString()
                           : "—"}
                       </td>
-                      <td style={{ textAlign: "left" }}>
+                      <td style={{ textAlign: "left", fontSize: "0.8rem" }}>
                         {user.resetOtpVerified ? (
                           <span
                             style={{
                               color: "var(--success-color)",
                               display: "inline-flex",
                               alignItems: "center",
-                              gap: "0.35rem",
+                              gap: "0.3rem",
                             }}
                           >
                             <MdCheckCircle /> Verified
@@ -558,7 +560,7 @@ const ManageUsers = () => {
                               color: "var(--error-color)",
                               display: "inline-flex",
                               alignItems: "center",
-                              gap: "0.35rem",
+                              gap: "0.3rem",
                             }}
                           >
                             <MdCancel /> Not verified
@@ -576,14 +578,14 @@ const ManageUsers = () => {
       <style>{`
         .users-table th,
         .users-table td {
-          padding: 0.9rem 0.8rem;
+          padding: 0.52rem 0.7rem;
           vertical-align: middle;
         }
 
         @media (max-width: 720px) {
           .search-container {
             flex-wrap: wrap;
-            padding: 0.75rem !important;
+            padding: 0.55rem !important;
           }
         }
       `}</style>

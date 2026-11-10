@@ -74,16 +74,16 @@ const ManageSupportTicketCategory = () => {
 
   return (
     <div className="page-content animate-fade-in">
-      <div className="top-header" style={{ margin: '-2rem -2rem 2rem -2rem' }}>
+      <div className="top-header" style={{ margin: '-0.95rem -1.25rem 0.9rem -1.25rem' }}>
         <h1 className="header-title">Manage Support Ticket Categories</h1>
       </div>
 
-      <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-        <div className="glass-panel" style={{ padding: '1.5rem' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+      <div style={{ maxWidth: '720px', margin: '0 auto' }}>
+        <div className="glass-panel" style={{ padding: '0.9rem 1rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
             <h2>Categories</h2>
             <button className="btn btn-primary" onClick={() => setCatModal({ isOpen: true, data: null })}>
-              <MdAdd size={20} /> Add Category
+              <MdAdd size={17} /> Add Category
             </button>
           </div>
           
@@ -92,7 +92,7 @@ const ManageSupportTicketCategory = () => {
               <tr>
                 <th>Category Name</th>
                 <th>Status</th>
-                <th style={{ width: '100px' }}>Actions</th>
+                <th style={{ width: '96px' }}>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -104,7 +104,7 @@ const ManageSupportTicketCategory = () => {
                     <td>{cat.categoryName}</td>
                     <td>
                       <span className={`badge ${cat.isActive ? 'badge-success' : 'badge-danger'}`} style={{ 
-                        padding: '4px 8px', 
+                        padding: '3px 8px', 
                         borderRadius: '4px',
                         backgroundColor: cat.isActive ? 'rgba(40, 167, 69, 0.2)' : 'rgba(220, 53, 69, 0.2)',
                         color: cat.isActive ? '#28a745' : '#dc3545',
@@ -114,14 +114,14 @@ const ManageSupportTicketCategory = () => {
                       </span>
                     </td>
                     <td>
-                      <button className="btn-icon edit" onClick={() => setCatModal({ isOpen: true, data: cat })}><MdEdit size={18} /></button>
-                      <button className="btn-icon delete" onClick={() => showConfirm('Are you sure?', () => { deleteCatMutation.mutate(cat._id || cat.id); })}><MdDeleteOutline size={18} /></button>
+                      <button className="btn-icon edit" onClick={() => setCatModal({ isOpen: true, data: cat })}><MdEdit size={17} /></button>
+                      <button className="btn-icon delete" onClick={() => showConfirm('Are you sure?', () => { deleteCatMutation.mutate(cat._id || cat.id); })}><MdDeleteOutline size={17} /></button>
                     </td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan="3" style={{ textAlign: 'center', padding: '2rem', color: 'rgba(255,255,255,0.5)' }}>
+                  <td colSpan="3" style={{ textAlign: 'center', padding: '1.25rem', color: 'var(--text-secondary)' }}>
                     No support ticket categories found
                   </td>
                 </tr>
@@ -134,17 +134,17 @@ const ManageSupportTicketCategory = () => {
       {/* Modal for Category */}
       {catModal.isOpen && createPortal(
         <div className="modal-overlay">
-          <div className="modal-content animate-slide-up" style={{ maxWidth: '500px' }}>
+          <div className="modal-content animate-slide-up" style={{ maxWidth: '420px' }}>
             <div className="modal-header">
               <h3>{catModal.data ? 'Edit' : 'Add'} Support Ticket Category</h3>
               <button className="btn-icon" onClick={() => setCatModal({ isOpen: false, data: null })}>
-                <MdClose size={24} />
+                <MdClose size={20} />
               </button>
             </div>
             <form onSubmit={handleSaveCategory} style={{ display: 'flex', flexDirection: 'column' }}>
               <div className="modal-body">
-                <div className="form-group" style={{ marginBottom: '1rem' }}>
-                  <label>Category Name *</label>
+                <div className="form-group" style={{ marginBottom: '0.75rem' }}>
+                  <label className="input-label">Category Name *</label>
                   <input 
                     type="text" 
                     name="categoryName" 
@@ -154,15 +154,15 @@ const ManageSupportTicketCategory = () => {
                     placeholder="e.g. Payment Issue, Tech Support"
                   />
                 </div>
-                <div className="form-group" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <div className="form-group" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <input 
                     type="checkbox" 
                     name="isActive" 
                     id="isActive"
                     defaultChecked={catModal.data ? catModal.data.isActive : true} 
-                    style={{ width: '18px', height: '18px' }}
+                    style={{ width: '16px', height: '16px' }}
                   />
-                  <label htmlFor="isActive" style={{ margin: 0, cursor: 'pointer', color: 'var(--text-primary)' }}>Is Active?</label>
+                  <label htmlFor="isActive" style={{ margin: 0, cursor: 'pointer', fontSize: '0.85rem', color: 'var(--text-primary)' }}>Is Active?</label>
                 </div>
               </div>
               <div className="modal-footer">
@@ -170,7 +170,7 @@ const ManageSupportTicketCategory = () => {
                   Cancel
                 </button>
                 <button type="submit" className="btn btn-primary" disabled={createCatMutation.isPending || updateCatMutation.isPending}>
-                  <MdSave size={20} /> {catModal.data ? 'Update' : 'Save'}
+                  <MdSave size={17} /> {catModal.data ? 'Update' : 'Save'}
                 </button>
               </div>
             </form>

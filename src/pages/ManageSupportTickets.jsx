@@ -424,20 +424,20 @@ const ManageSupportTickets = () => {
     updateCategoryMutation.isPending;
 
   return (
-    <div className="page-content animate-fade-in" style={{ paddingTop: "0.5rem" }}>
+    <div className="page-content animate-fade-in">
       {/* TOP HEADER */}
-      <div className="top-header" style={{ margin: "-2rem -2rem 1.5rem -2rem" }}>
+      <div className="top-header" style={{ margin: "-0.95rem -1.25rem 0.9rem -1.25rem" }}>
         <div>
-          <h1 className="header-title" style={{ display: "flex", alignItems: "center", gap: "0.65rem" }}>
-            <MdConfirmationNumber size={28} />
+          <h1 className="header-title" style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+            <MdConfirmationNumber size={21} />
             Support Ticket Management
           </h1>
-          <p style={{ color: "var(--text-secondary)", fontSize: "0.875rem", marginTop: "0.25rem" }}>
+          <p style={{ color: "var(--text-secondary)", fontSize: "0.78rem", marginTop: "0.15rem", marginBottom: 0 }}>
             Resolve user queries, manage support requests, and configure ticket categories.
           </p>
         </div>
 
-        <div style={{ display: "flex", gap: "0.75rem", alignItems: "center" }}>
+        <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
           <button
             className="btn btn-outline"
             onClick={() => {
@@ -446,18 +446,17 @@ const ManageSupportTickets = () => {
               toast.success("Tickets refreshed");
             }}
             title="Refresh"
-            style={{ padding: "0.6rem 0.9rem" }}
           >
-            <MdRefresh size={19} />
+            <MdRefresh size={16} />
           </button>
 
           {activeTab === "tickets" ? (
             <button className="btn btn-primary" onClick={openCreateTicketModal}>
-              <MdAdd size={20} /> Create Ticket
+              <MdAdd size={17} /> Create Ticket
             </button>
           ) : (
             <button className="btn btn-primary" onClick={openCreateCategoryModal}>
-              <MdAdd size={20} /> Add Category
+              <MdAdd size={17} /> Add Category
             </button>
           )}
         </div>
@@ -467,48 +466,48 @@ const ManageSupportTickets = () => {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-          gap: "1rem",
-          marginBottom: "1.75rem",
+          gridTemplateColumns: "repeat(auto-fit, minmax(175px, 1fr))",
+          gap: "0.75rem",
+          marginBottom: "0.95rem",
         }}
       >
-        <div className="glass-panel" style={{ padding: "1.25rem 1.5rem", display: "flex", alignItems: "center", gap: "1rem" }}>
-          <div style={{ width: "48px", height: "48px", borderRadius: "12px", background: "rgba(130, 0, 30, 0.1)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--primary-color)" }}>
-            <MdConfirmationNumber size={26} />
+        <div className="glass-panel" style={{ padding: "0.68rem 0.9rem", display: "flex", alignItems: "center", gap: "0.75rem" }}>
+          <div style={{ width: "36px", height: "36px", borderRadius: "9px", background: "rgba(130, 0, 30, 0.1)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--primary-color)", flexShrink: 0 }}>
+            <MdConfirmationNumber size={19} />
           </div>
           <div>
-            <div style={{ fontSize: "0.8rem", color: "var(--text-secondary)", textTransform: "uppercase", fontWeight: "600" }}>Total Tickets</div>
-            <div style={{ fontSize: "1.6rem", fontWeight: "700", color: "var(--primary-color)", lineHeight: 1.2 }}>{stats.total}</div>
+            <div style={{ fontSize: "0.72rem", color: "var(--text-secondary)", textTransform: "uppercase", fontWeight: "600" }}>Total Tickets</div>
+            <div style={{ fontSize: "1.2rem", fontWeight: "700", color: "var(--primary-color)", lineHeight: 1.2 }}>{stats.total}</div>
           </div>
         </div>
 
-        <div className="glass-panel" style={{ padding: "1.25rem 1.5rem", display: "flex", alignItems: "center", gap: "1rem" }}>
-          <div style={{ width: "48px", height: "48px", borderRadius: "12px", background: "rgba(245, 166, 35, 0.15)", display: "flex", alignItems: "center", justifyContent: "center", color: "#D97706" }}>
-            <MdPending size={26} />
+        <div className="glass-panel" style={{ padding: "0.68rem 0.9rem", display: "flex", alignItems: "center", gap: "0.75rem" }}>
+          <div style={{ width: "36px", height: "36px", borderRadius: "9px", background: "rgba(245, 166, 35, 0.15)", display: "flex", alignItems: "center", justifyContent: "center", color: "#D97706", flexShrink: 0 }}>
+            <MdPending size={19} />
           </div>
           <div>
-            <div style={{ fontSize: "0.8rem", color: "var(--text-secondary)", textTransform: "uppercase", fontWeight: "600" }}>Pending Action</div>
-            <div style={{ fontSize: "1.6rem", fontWeight: "700", color: "#D97706", lineHeight: 1.2 }}>{stats.pending}</div>
+            <div style={{ fontSize: "0.72rem", color: "var(--text-secondary)", textTransform: "uppercase", fontWeight: "600" }}>Pending Action</div>
+            <div style={{ fontSize: "1.2rem", fontWeight: "700", color: "#D97706", lineHeight: 1.2 }}>{stats.pending}</div>
           </div>
         </div>
 
-        <div className="glass-panel" style={{ padding: "1.25rem 1.5rem", display: "flex", alignItems: "center", gap: "1rem" }}>
-          <div style={{ width: "48px", height: "48px", borderRadius: "12px", background: "rgba(23, 74, 13, 0.1)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--success-color)" }}>
-            <MdCheckCircle size={26} />
+        <div className="glass-panel" style={{ padding: "0.68rem 0.9rem", display: "flex", alignItems: "center", gap: "0.75rem" }}>
+          <div style={{ width: "36px", height: "36px", borderRadius: "9px", background: "rgba(23, 74, 13, 0.1)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--success-color)", flexShrink: 0 }}>
+            <MdCheckCircle size={19} />
           </div>
           <div>
-            <div style={{ fontSize: "0.8rem", color: "var(--text-secondary)", textTransform: "uppercase", fontWeight: "600" }}>Resolved</div>
-            <div style={{ fontSize: "1.6rem", fontWeight: "700", color: "var(--success-color)", lineHeight: 1.2 }}>{stats.resolved}</div>
+            <div style={{ fontSize: "0.72rem", color: "var(--text-secondary)", textTransform: "uppercase", fontWeight: "600" }}>Resolved</div>
+            <div style={{ fontSize: "1.2rem", fontWeight: "700", color: "var(--success-color)", lineHeight: 1.2 }}>{stats.resolved}</div>
           </div>
         </div>
 
-        <div className="glass-panel" style={{ padding: "1.25rem 1.5rem", display: "flex", alignItems: "center", gap: "1rem" }}>
-          <div style={{ width: "48px", height: "48px", borderRadius: "12px", background: "rgba(59, 130, 246, 0.1)", display: "flex", alignItems: "center", justifyContent: "center", color: "#2563EB" }}>
-            <MdAssignmentInd size={26} />
+        <div className="glass-panel" style={{ padding: "0.68rem 0.9rem", display: "flex", alignItems: "center", gap: "0.75rem" }}>
+          <div style={{ width: "36px", height: "36px", borderRadius: "9px", background: "rgba(59, 130, 246, 0.1)", display: "flex", alignItems: "center", justifyContent: "center", color: "#2563EB", flexShrink: 0 }}>
+            <MdAssignmentInd size={19} />
           </div>
           <div>
-            <div style={{ fontSize: "0.8rem", color: "var(--text-secondary)", textTransform: "uppercase", fontWeight: "600" }}>Assigned to Me</div>
-            <div style={{ fontSize: "1.6rem", fontWeight: "700", color: "#2563EB", lineHeight: 1.2 }}>{stats.assignedToMe}</div>
+            <div style={{ fontSize: "0.72rem", color: "var(--text-secondary)", textTransform: "uppercase", fontWeight: "600" }}>Assigned to Me</div>
+            <div style={{ fontSize: "1.2rem", fontWeight: "700", color: "#2563EB", lineHeight: 1.2 }}>{stats.assignedToMe}</div>
           </div>
         </div>
       </div>
@@ -519,9 +518,9 @@ const ManageSupportTickets = () => {
         aria-label="Support ticket tabs"
         style={{
           display: "flex",
-          gap: "0.5rem",
+          gap: "0.45rem",
           borderBottom: "1px solid var(--border-color)",
-          marginBottom: "1.5rem",
+          marginBottom: "0.9rem",
         }}
       >
         <button
@@ -529,9 +528,9 @@ const ManageSupportTickets = () => {
           aria-selected={activeTab === "tickets"}
           className={`btn ${activeTab === "tickets" ? "btn-primary" : "btn-outline"}`}
           onClick={() => setActiveTab("tickets")}
-          style={{ borderRadius: "8px 8px 0 0", display: "flex", alignItems: "center", gap: "0.5rem" }}
+          style={{ borderRadius: "7px 7px 0 0", display: "flex", alignItems: "center", gap: "0.4rem" }}
         >
-          <MdConfirmationNumber size={18} />
+          <MdConfirmationNumber size={16} />
           Support Tickets ({allTickets.length})
         </button>
 
@@ -540,9 +539,9 @@ const ManageSupportTickets = () => {
           aria-selected={activeTab === "categories"}
           className={`btn ${activeTab === "categories" ? "btn-primary" : "btn-outline"}`}
           onClick={() => setActiveTab("categories")}
-          style={{ borderRadius: "8px 8px 0 0", display: "flex", alignItems: "center", gap: "0.5rem" }}
+          style={{ borderRadius: "7px 7px 0 0", display: "flex", alignItems: "center", gap: "0.4rem" }}
         >
-          <MdLayers size={18} />
+          <MdLayers size={16} />
           Categories ({categories.length})
         </button>
       </div>
@@ -556,42 +555,42 @@ const ManageSupportTickets = () => {
           <div
             className="glass-panel"
             style={{
-              padding: "1rem 1.5rem",
-              marginBottom: "1.5rem",
+              padding: "0.55rem 0.9rem",
+              marginBottom: "0.85rem",
               display: "flex",
               flexWrap: "wrap",
-              gap: "1rem",
+              gap: "0.65rem",
               alignItems: "center",
               justifyContent: "space-between",
             }}
           >
             {/* Search Input */}
-            <div style={{ display: "flex", alignItems: "center", flex: "1 1 280px", gap: "0.5rem", background: "#FFFFFF", padding: "0.35rem 0.75rem", borderRadius: "6px", border: "1px solid var(--border-color)" }}>
-              <MdSearch size={22} color="var(--text-secondary)" />
+            <div style={{ display: "flex", alignItems: "center", flex: "1 1 250px", gap: "0.45rem", background: "#FFFFFF", padding: "0.28rem 0.65rem", borderRadius: "6px", border: "1px solid var(--border-color)" }}>
+              <MdSearch size={18} color="var(--text-secondary)" />
               <input
                 type="text"
                 placeholder="Search by subject, description, user name or email..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                style={{ border: "none", outline: "none", width: "100%", fontSize: "0.9rem", color: "var(--text-primary)" }}
+                style={{ border: "none", outline: "none", width: "100%", fontSize: "0.84rem", color: "var(--text-primary)" }}
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery("")}
                   style={{ background: "none", border: "none", cursor: "pointer", color: "var(--text-secondary)" }}
                 >
-                  <MdClose size={16} />
+                  <MdClose size={15} />
                 </button>
               )}
             </div>
 
             {/* Scope Toggle: All vs Assigned to Me */}
-            <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
+            <div style={{ display: "flex", gap: "0.45rem", alignItems: "center" }}>
               <select
                 className="input-field"
                 value={ticketScope}
                 onChange={(e) => setTicketScope(e.target.value)}
-                style={{ width: "auto", padding: "0.5rem 0.75rem", fontWeight: "500" }}
+                style={{ width: "auto", padding: "0.38rem 0.65rem", fontWeight: "500", fontSize: "0.82rem" }}
               >
                 <option value="all">All Platform Tickets</option>
                 <option value="assigned_to_me">Assigned to Me</option>
@@ -602,7 +601,7 @@ const ManageSupportTickets = () => {
                 className="input-field"
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
-                style={{ width: "auto", padding: "0.5rem 0.75rem" }}
+                style={{ width: "auto", padding: "0.38rem 0.65rem", fontSize: "0.82rem" }}
               >
                 <option value="all">All Statuses</option>
                 <option value="Pending">Pending</option>
@@ -615,7 +614,7 @@ const ManageSupportTickets = () => {
                 className="input-field"
                 value={categoryFilter}
                 onChange={(e) => setCategoryFilter(e.target.value)}
-                style={{ width: "auto", padding: "0.5rem 0.75rem" }}
+                style={{ width: "auto", padding: "0.38rem 0.65rem", fontSize: "0.82rem" }}
               >
                 <option value="all">All Categories</option>
                 {categories.map((c) => (
@@ -628,7 +627,7 @@ const ManageSupportTickets = () => {
           </div>
 
           {/* TABLE OF TICKETS */}
-          <div className="glass-panel" style={{ padding: "1.25rem", overflowX: "auto" }}>
+          <div className="glass-panel" style={{ padding: "0.9rem 1rem", overflowX: "auto" }}>
             <table className="data-table">
               <thead>
                 <tr>
@@ -644,17 +643,17 @@ const ManageSupportTickets = () => {
               <tbody>
                 {isLoadingAllTickets ? (
                   <tr>
-                    <td colSpan="7" style={{ textAlign: "center", padding: "3rem" }}>
-                      <div className="spinner" style={{ width: "32px", height: "32px", margin: "0 auto", borderTopColor: "var(--primary-color)" }}></div>
-                      <p style={{ marginTop: "0.75rem", color: "var(--text-secondary)" }}>Loading support tickets...</p>
+                    <td colSpan="7" style={{ textAlign: "center", padding: "1.75rem" }}>
+                      <div className="spinner" style={{ width: "26px", height: "26px", margin: "0 auto", borderTopColor: "var(--primary-color)" }}></div>
+                      <p style={{ marginTop: "0.55rem", fontSize: "0.85rem", color: "var(--text-secondary)" }}>Loading support tickets...</p>
                     </td>
                   </tr>
                 ) : filteredTickets.length === 0 ? (
                   <tr>
-                    <td colSpan="7" style={{ textAlign: "center", padding: "3rem" }}>
-                      <MdConfirmationNumber size={48} style={{ color: "var(--border-color)", marginBottom: "0.75rem" }} />
-                      <h3 style={{ margin: "0 0 0.5rem 0", color: "var(--text-primary)" }}>No Support Tickets Found</h3>
-                      <p style={{ color: "var(--text-secondary)", margin: 0 }}>
+                    <td colSpan="7" style={{ textAlign: "center", padding: "1.75rem" }}>
+                      <MdConfirmationNumber size={36} style={{ color: "var(--border-color)", marginBottom: "0.5rem" }} />
+                      <h3 style={{ margin: "0 0 0.35rem 0", fontSize: "1rem", color: "var(--text-primary)" }}>No Support Tickets Found</h3>
+                      <p style={{ color: "var(--text-secondary)", fontSize: "0.84rem", margin: 0 }}>
                         {searchQuery || statusFilter !== "all" || categoryFilter !== "all" || ticketScope !== "all"
                           ? "No tickets match your filter criteria. Try resetting filters."
                           : "No support tickets have been created yet."}
@@ -800,7 +799,7 @@ const ManageSupportTickets = () => {
       {/* TAB 2: CATEGORIES LIST                                  */}
       {/* ======================================================== */}
       {activeTab === "categories" && (
-        <div className="glass-panel" style={{ padding: "1.25rem", overflowX: "auto" }}>
+        <div className="glass-panel" style={{ padding: "0.9rem 1rem", overflowX: "auto" }}>
           <table className="data-table">
             <thead>
               <tr>
@@ -813,13 +812,13 @@ const ManageSupportTickets = () => {
             <tbody>
               {isLoadingCategories ? (
                 <tr>
-                  <td colSpan="4" style={{ textAlign: "center", padding: "2rem" }}>
+                  <td colSpan="4" style={{ textAlign: "center", padding: "1.25rem" }}>
                     Loading categories...
                   </td>
                 </tr>
               ) : categories.length === 0 ? (
                 <tr>
-                  <td colSpan="4" style={{ textAlign: "center", padding: "2rem" }}>
+                  <td colSpan="4" style={{ textAlign: "center", padding: "1.25rem" }}>
                     No support ticket categories found.
                   </td>
                 </tr>
@@ -883,19 +882,19 @@ const ManageSupportTickets = () => {
           <div
             className="modal-content glass-panel animate-fade-in"
             onClick={(e) => e.stopPropagation()}
-            style={{ maxWidth: "680px", width: "95%", maxHeight: "90vh", display: "flex", flexDirection: "column" }}
+            style={{ maxWidth: "600px", width: "95%", maxHeight: "90vh", display: "flex", flexDirection: "column" }}
           >
             <div className="modal-header">
-              <h2 className="modal-title" style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                <MdConfirmationNumber />
+              <h2 className="modal-title" style={{ display: "flex", alignItems: "center", gap: "0.45rem" }}>
+                <MdConfirmationNumber size={18} />
                 {ticketModal.id ? "Edit Support Ticket" : "Create New Support Ticket"}
               </h2>
               <button className="modal-close-btn" onClick={closeTicketModal}>
-                <MdClose size={24} />
+                <MdClose size={20} />
               </button>
             </div>
 
-            <form onSubmit={handleTicketSubmit} style={{ display: "flex", flexDirection: "column", overflowY: "auto", flex: 1, padding: "1.5rem", gap: "1rem" }}>
+            <form onSubmit={handleTicketSubmit} style={{ display: "flex", flexDirection: "column", overflowY: "auto", flex: 1, padding: "1rem 1.15rem", gap: "0.7rem" }}>
               {/* User Selection */}
               <div className="input-group">
                 <label className="input-label" htmlFor="ticket-user">
@@ -1036,12 +1035,12 @@ const ManageSupportTickets = () => {
               </div>
 
               {/* FOOTER ACTIONS */}
-              <div style={{ display: "flex", justifyContent: "flex-end", gap: "0.75rem", marginTop: "1rem", paddingTop: "1rem", borderTop: "1px solid var(--border-color)" }}>
+              <div style={{ display: "flex", justifyContent: "flex-end", gap: "0.55rem", marginTop: "0.35rem", paddingTop: "0.75rem", borderTop: "1px solid var(--border-color)" }}>
                 <button type="button" className="btn btn-outline" onClick={closeTicketModal} disabled={isSaving}>
                   Cancel
                 </button>
                 <button type="submit" className="btn btn-primary" disabled={isSaving}>
-                  <MdSave size={18} />
+                  <MdSave size={16} />
                   {isSaving ? "Saving..." : ticketModal.id ? "Update Ticket" : "Create Ticket"}
                 </button>
               </div>
@@ -1058,15 +1057,15 @@ const ManageSupportTickets = () => {
           <div
             className="modal-content glass-panel animate-fade-in"
             onClick={(e) => e.stopPropagation()}
-            style={{ maxWidth: "640px", width: "92%", maxHeight: "90vh", overflowY: "auto", padding: "2rem" }}
+            style={{ maxWidth: "560px", width: "92%", maxHeight: "90vh", overflowY: "auto", padding: "1.15rem" }}
           >
-            <div className="modal-header" style={{ marginBottom: "1.25rem" }}>
+            <div className="modal-header" style={{ padding: "0 0 0.7rem 0", marginBottom: "0.85rem" }}>
               <div>
                 <span
                   style={{
-                    fontSize: "0.75rem",
+                    fontSize: "0.72rem",
                     fontWeight: "700",
-                    padding: "0.2rem 0.6rem",
+                    padding: "0.18rem 0.55rem",
                     borderRadius: "4px",
                     background:
                       detailModalTicket.status === "Resolved"
@@ -1085,30 +1084,30 @@ const ManageSupportTickets = () => {
                 >
                   {detailModalTicket.status}
                 </span>
-                <h2 className="modal-title" style={{ marginTop: "0.4rem", color: "var(--primary-color)" }}>
+                <h2 className="modal-title" style={{ marginTop: "0.3rem", color: "var(--primary-color)" }}>
                   {detailModalTicket.subject}
                 </h2>
               </div>
               <button className="modal-close-btn" onClick={() => setDetailModalTicket(null)}>
-                <MdClose size={24} />
+                <MdClose size={20} />
               </button>
             </div>
 
             {/* User Info Card */}
             {detailModalTicket.userId && typeof detailModalTicket.userId === "object" && (
-              <div style={{ background: "var(--bg-color)", padding: "1rem 1.25rem", borderRadius: "8px", border: "1px solid var(--border-color)", marginBottom: "1.25rem" }}>
-                <div style={{ fontSize: "0.75rem", fontWeight: "700", color: "var(--text-secondary)", textTransform: "uppercase", marginBottom: "0.5rem" }}>
+              <div style={{ background: "var(--bg-color)", padding: "0.75rem 0.9rem", borderRadius: "7px", border: "1px solid var(--border-color)", marginBottom: "0.85rem" }}>
+                <div style={{ fontSize: "0.7rem", fontWeight: "700", color: "var(--text-secondary)", textTransform: "uppercase", marginBottom: "0.35rem" }}>
                   Requester Details
                 </div>
-                <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-                  <div className="user-avatar-large" style={{ width: "42px", height: "42px", fontSize: "1.1rem" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "0.65rem" }}>
+                  <div className="user-avatar-large" style={{ width: "36px", height: "36px", fontSize: "0.95rem" }}>
                     {detailModalTicket.userId.fullName ? detailModalTicket.userId.fullName.charAt(0) : "U"}
                   </div>
                   <div>
-                    <div style={{ fontWeight: "700", color: "var(--text-primary)" }}>{detailModalTicket.userId.fullName}</div>
-                    <div style={{ fontSize: "0.85rem", color: "var(--text-secondary)", display: "flex", gap: "1rem" }}>
-                      <span><MdEmail size={13} /> {detailModalTicket.userId.email}</span>
-                      <span><MdPhone size={13} /> {detailModalTicket.userId.mobileNumber}</span>
+                    <div style={{ fontWeight: "700", fontSize: "0.88rem", color: "var(--text-primary)" }}>{detailModalTicket.userId.fullName}</div>
+                    <div style={{ fontSize: "0.78rem", color: "var(--text-secondary)", display: "flex", gap: "0.75rem" }}>
+                      <span><MdEmail size={12} /> {detailModalTicket.userId.email}</span>
+                      <span><MdPhone size={12} /> {detailModalTicket.userId.mobileNumber}</span>
                     </div>
                   </div>
                 </div>
@@ -1116,27 +1115,27 @@ const ManageSupportTickets = () => {
             )}
 
             {/* Description */}
-            <div style={{ marginBottom: "1.25rem" }}>
-              <h4 style={{ fontSize: "0.85rem", textTransform: "uppercase", color: "var(--text-secondary)", marginBottom: "0.35rem" }}>
+            <div style={{ marginBottom: "0.85rem" }}>
+              <h4 style={{ fontSize: "0.76rem", textTransform: "uppercase", color: "var(--text-secondary)", marginBottom: "0.25rem" }}>
                 Description
               </h4>
-              <p style={{ background: "#FAFAFA", padding: "1rem", borderRadius: "6px", border: "1px solid var(--border-color)", lineHeight: "1.5", margin: 0, color: "var(--text-primary)" }}>
+              <p style={{ background: "#FAFAFA", padding: "0.7rem 0.85rem", borderRadius: "6px", border: "1px solid var(--border-color)", lineHeight: "1.45", fontSize: "0.86rem", margin: 0, color: "var(--text-primary)" }}>
                 {detailModalTicket.description}
               </p>
             </div>
 
             {/* Remarks */}
-            <div style={{ marginBottom: "1.5rem" }}>
-              <h4 style={{ fontSize: "0.85rem", textTransform: "uppercase", color: "var(--text-secondary)", marginBottom: "0.35rem" }}>
+            <div style={{ marginBottom: "1rem" }}>
+              <h4 style={{ fontSize: "0.76rem", textTransform: "uppercase", color: "var(--text-secondary)", marginBottom: "0.25rem" }}>
                 Admin Remarks
               </h4>
-              <p style={{ background: "#FAFAFA", padding: "0.75rem 1rem", borderRadius: "6px", border: "1px solid var(--border-color)", color: detailModalTicket.remarks ? "var(--text-primary)" : "var(--text-secondary)", fontStyle: detailModalTicket.remarks ? "normal" : "italic", margin: 0 }}>
+              <p style={{ background: "#FAFAFA", padding: "0.65rem 0.85rem", borderRadius: "6px", border: "1px solid var(--border-color)", fontSize: "0.85rem", color: detailModalTicket.remarks ? "var(--text-primary)" : "var(--text-secondary)", fontStyle: detailModalTicket.remarks ? "normal" : "italic", margin: 0 }}>
                 {detailModalTicket.remarks || "No remarks added yet."}
               </p>
             </div>
 
             {/* Actions */}
-            <div style={{ display: "flex", justifyContent: "flex-end", gap: "0.75rem", borderTop: "1px solid var(--border-color)", paddingTop: "1rem" }}>
+            <div style={{ display: "flex", justifyContent: "flex-end", gap: "0.55rem", borderTop: "1px solid var(--border-color)", paddingTop: "0.75rem" }}>
               <button
                 className="btn btn-outline"
                 onClick={() => {
@@ -1145,7 +1144,7 @@ const ManageSupportTickets = () => {
                   openEditTicketModal(t);
                 }}
               >
-                <MdEdit size={16} /> Edit Ticket
+                <MdEdit size={15} /> Edit Ticket
               </button>
               <button className="btn btn-primary" onClick={() => setDetailModalTicket(null)}>
                 Close
@@ -1163,18 +1162,18 @@ const ManageSupportTickets = () => {
           <div
             className="modal-content glass-panel animate-fade-in"
             onClick={(e) => e.stopPropagation()}
-            style={{ maxWidth: "480px", width: "92%", padding: "1.5rem" }}
+            style={{ maxWidth: "420px", width: "92%", padding: "1rem 1.15rem" }}
           >
-            <div className="modal-header">
+            <div className="modal-header" style={{ padding: "0 0 0.65rem 0" }}>
               <h2 className="modal-title">
                 {categoryModal.id ? "Edit Category" : "Add Ticket Category"}
               </h2>
               <button className="modal-close-btn" onClick={closeCategoryModal}>
-                <MdClose size={24} />
+                <MdClose size={20} />
               </button>
             </div>
 
-            <form onSubmit={handleCategorySubmit} style={{ display: "flex", flexDirection: "column", gap: "1rem", marginTop: "1rem" }}>
+            <form onSubmit={handleCategorySubmit} style={{ display: "flex", flexDirection: "column", gap: "0.7rem", marginTop: "0.75rem" }}>
               <div className="input-group">
                 <label className="input-label" htmlFor="cat-name">
                   Category Name <span style={{ color: "var(--error-color)" }}>*</span>
@@ -1189,7 +1188,7 @@ const ManageSupportTickets = () => {
                 />
               </div>
 
-              <label style={{ display: "flex", alignItems: "center", gap: "0.5rem", cursor: "pointer", userSelect: "none" }}>
+              <label style={{ display: "flex", alignItems: "center", gap: "0.45rem", cursor: "pointer", userSelect: "none", fontSize: "0.86rem" }}>
                 <input
                   type="checkbox"
                   checked={categoryForm.isActive}
@@ -1198,12 +1197,12 @@ const ManageSupportTickets = () => {
                 <span style={{ fontWeight: "500", color: "var(--text-primary)" }}>Active Status</span>
               </label>
 
-              <div style={{ display: "flex", justifyContent: "flex-end", gap: "0.75rem", marginTop: "1rem" }}>
+              <div style={{ display: "flex", justifyContent: "flex-end", gap: "0.55rem", marginTop: "0.35rem" }}>
                 <button type="button" className="btn btn-outline" onClick={closeCategoryModal} disabled={isSaving}>
                   Cancel
                 </button>
                 <button type="submit" className="btn btn-primary" disabled={isSaving}>
-                  <MdSave size={18} />
+                  <MdSave size={16} />
                   {isSaving ? "Saving..." : categoryModal.id ? "Update Category" : "Save Category"}
                 </button>
               </div>

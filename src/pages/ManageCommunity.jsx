@@ -316,7 +316,7 @@ const ManageCommunity = () => {
 
   return (
     <div className="page-content animate-fade-in">
-      <div className="top-header" style={{ margin: "-2rem -2rem 2rem -2rem" }}>
+      <div className="top-header" style={{ margin: "-0.95rem -1.25rem 0.9rem -1.25rem" }}>
         <h1 className="header-title">Community</h1>
         {section === "posts" ? (
           <button
@@ -324,7 +324,7 @@ const ManageCommunity = () => {
             onClick={() => openPost()}
             disabled={!adminId}
           >
-            <MdAdd size={20} /> Create Post
+            <MdAdd size={17} /> Create Post
           </button>
         ) : (
           <button
@@ -332,7 +332,7 @@ const ManageCommunity = () => {
             onClick={() => openReply()}
             disabled={!adminId || !allPosts.length}
           >
-            <MdAdd size={20} /> Add Reply
+            <MdAdd size={17} /> Add Reply
           </button>
         )}
       </div>
@@ -342,9 +342,10 @@ const ManageCommunity = () => {
         aria-label="Community management"
         style={{
           display: "flex",
-          gap: "0.5rem",
+          gap: "0.45rem",
           borderBottom: "1px solid var(--border-color)",
-          marginBottom: "1.25rem",
+          marginBottom: "0.85rem",
+          paddingBottom: "0.4rem",
         }}
       >
         <button
@@ -368,7 +369,7 @@ const ManageCommunity = () => {
       {section === "posts" ? (
         <div
           className="glass-panel"
-          style={{ padding: "1.5rem", overflowX: "auto" }}
+          style={{ padding: "0.9rem 1rem", overflowX: "auto" }}
         >
           {!adminId ? (
             <p>
@@ -453,7 +454,7 @@ const ManageCommunity = () => {
                   <tr>
                     <td
                       colSpan="5"
-                      style={{ textAlign: "center", padding: "2rem" }}
+                      style={{ textAlign: "center", padding: "1.25rem" }}
                     >
                       No posts created by this admin.
                     </td>
@@ -466,7 +467,7 @@ const ManageCommunity = () => {
       ) : (
         <div
           className="glass-panel"
-          style={{ padding: "1.5rem", overflowX: "auto" }}
+          style={{ padding: "0.9rem 1rem", overflowX: "auto" }}
         >
           {!adminId ? (
             <p>
@@ -536,7 +537,7 @@ const ManageCommunity = () => {
                   <tr>
                     <td
                       colSpan="4"
-                      style={{ textAlign: "center", padding: "2rem" }}
+                      style={{ textAlign: "center", padding: "1.25rem" }}
                     >
                       No replies created by this admin.
                     </td>
@@ -554,7 +555,7 @@ const ManageCommunity = () => {
             <div
               className="modal-content"
               onClick={(event) => event.stopPropagation()}
-              style={{ maxWidth: "680px", width: "92%" }}
+              style={{ maxWidth: "580px", width: "92%" }}
             >
               <div className="modal-header">
                 <h2>
@@ -568,7 +569,7 @@ const ManageCommunity = () => {
                   aria-label="Close"
                   onClick={closeModal}
                 >
-                  <MdClose size={24} />
+                  <MdClose size={20} />
                 </button>
               </div>
               {isDetailLoading ? (
@@ -577,7 +578,7 @@ const ManageCommunity = () => {
                 <form
                   className="modal-body"
                   onSubmit={handlePostSubmit}
-                  style={{ display: "grid", gap: "1rem" }}
+                  style={{ display: "grid", gap: "0.7rem", padding: "1rem 1.15rem" }}
                 >
                   <div className="input-group">
                     <label
@@ -637,7 +638,7 @@ const ManageCommunity = () => {
                     <textarea
                       id="community-post-description"
                       className="input-field"
-                      rows="5"
+                      rows="4"
                       value={postForm.description}
                       onChange={(event) =>
                         setPostForm({
@@ -691,7 +692,7 @@ const ManageCommunity = () => {
                     className="btn btn-primary"
                     disabled={isSaving || !adminId}
                   >
-                    <MdSave size={20} />{" "}
+                    <MdSave size={18} />{" "}
                     {isSaving
                       ? "Saving..."
                       : modal.id
@@ -703,7 +704,7 @@ const ManageCommunity = () => {
                 <form
                   className="modal-body"
                   onSubmit={handleReplySubmit}
-                  style={{ display: "grid", gap: "1rem" }}
+                  style={{ display: "grid", gap: "0.7rem", padding: "1rem 1.15rem" }}
                 >
                   <div className="input-group">
                     <label
@@ -778,7 +779,7 @@ const ManageCommunity = () => {
                     <textarea
                       id="community-reply-text"
                       className="input-field"
-                      rows="5"
+                      rows="4"
                       value={replyForm.reply}
                       onChange={(event) =>
                         setReplyForm({
@@ -795,7 +796,7 @@ const ManageCommunity = () => {
                     className="btn btn-primary"
                     disabled={isSaving || !adminId}
                   >
-                    <MdSave size={20} />{" "}
+                    <MdSave size={18} />{" "}
                     {isSaving
                       ? "Saving..."
                       : modal.id
@@ -826,7 +827,7 @@ const ManageCommunity = () => {
                   data: { userId: reactionUserId, adminId },
                 });
               }}
-              style={{ maxWidth: "420px", width: "92%" }}
+              style={{ maxWidth: "380px", width: "92%" }}
             >
               <div className="modal-header">
                 <h2>
@@ -838,12 +839,12 @@ const ManageCommunity = () => {
                   aria-label="Close"
                   onClick={() => setReaction({ postId: "", action: "" })}
                 >
-                  <MdClose size={24} />
+                  <MdClose size={20} />
                 </button>
               </div>
               <div
                 className="modal-body"
-                style={{ display: "grid", gap: "1rem" }}
+                style={{ display: "grid", gap: "0.75rem", padding: "1rem 1.15rem" }}
               >
                 <div className="input-group">
                   <label className="input-label" htmlFor="reaction-user-id">

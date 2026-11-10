@@ -151,33 +151,33 @@ const ManageAarti = () => {
 
   return (
     <div className="page-content animate-fade-in">
-      <div className="top-header" style={{ margin: '-2rem -2rem 2rem -2rem' }}>
+      <div className="top-header" style={{ margin: '-0.95rem -1.25rem 0.9rem -1.25rem' }}>
         <h1 className="header-title">Manage Aarti</h1>
-        <div style={{ display: 'flex', gap: '1rem' }}>
-          <button className="btn" onClick={() => navigate('/manage-aarti-categories')} style={{ backgroundColor: 'white', border: '1px solid var(--border-color)', color: 'var(--text-primary)' }}>
-            <MdMusicNote size={20} style={{ marginRight: '8px', verticalAlign: 'middle' }} />
+        <div style={{ display: 'flex', gap: '0.5rem' }}>
+          <button className="btn btn-outline" onClick={() => navigate('/manage-aarti-categories')}>
+            <MdMusicNote size={17} />
             Manage Categories
           </button>
           <button className="btn btn-primary" onClick={openAddModal}>
-            <MdAdd size={20} /> Add Aarti
+            <MdAdd size={17} /> Add Aarti
           </button>
         </div>
       </div>
 
       {isLoading ? (
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '300px', color: 'var(--text-secondary)' }}>
-          <div className="spinner" style={{ borderColor: 'var(--primary-color)', borderTopColor: 'transparent', width: '40px', height: '40px', borderWidth: '3px', marginBottom: '1rem' }}></div>
-          <p style={{ fontWeight: 500 }}>Loading Aartis...</p>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '220px', color: 'var(--text-secondary)' }}>
+          <div className="spinner" style={{ borderColor: 'var(--primary-color)', borderTopColor: 'transparent', width: '32px', height: '32px', borderWidth: '3px', marginBottom: '0.65rem' }}></div>
+          <p style={{ fontWeight: 500, fontSize: '0.85rem' }}>Loading Aartis...</p>
         </div>
       ) : aartis.length === 0 ? (
-        <div className="glass-panel" style={{ padding: '4rem 2rem', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-          <div style={{ width: '80px', height: '80px', borderRadius: '50%', backgroundColor: 'rgba(var(--primary-rgb), 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.5rem' }}>
-            <MdPlayArrow size={40} color="var(--primary-color)" />
+        <div className="glass-panel" style={{ padding: '2.25rem 1.25rem', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+          <div style={{ width: '56px', height: '56px', borderRadius: '50%', backgroundColor: 'rgba(var(--primary-rgb), 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '0.9rem' }}>
+            <MdPlayArrow size={28} color="var(--primary-color)" />
           </div>
-          <h2 style={{ fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.5rem' }}>No Aartis Found</h2>
-          <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem', maxWidth: '400px' }}>Your Aarti library is currently empty. Click the button below to add your first beautiful Aarti.</p>
+          <h2 style={{ fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.35rem', fontSize: '1.05rem' }}>No Aartis Found</h2>
+          <p style={{ color: 'var(--text-secondary)', marginBottom: '1.15rem', maxWidth: '380px', fontSize: '0.84rem' }}>Your Aarti library is currently empty. Click the button below to add your first Aarti.</p>
           <button className="btn btn-primary" onClick={openAddModal}>
-            <MdAdd size={20} /> Add New Aarti
+            <MdAdd size={17} /> Add New Aarti
           </button>
         </div>
       ) : (
@@ -231,19 +231,19 @@ const ManageAarti = () => {
 
       {isModalOpen && createPortal(
         <div className="modal-overlay" onClick={closeModal}>
-          <div className="modal-content glass-panel" onClick={e => e.stopPropagation()} style={{ maxWidth: '800px', width: '90%' }}>
+          <div className="modal-content glass-panel" onClick={e => e.stopPropagation()} style={{ maxWidth: '720px', width: '92%' }}>
             <div className="modal-header">
               <h2 className="modal-title" style={{ fontWeight: 700 }}>
                 {editingId ? 'Edit Aarti Details' : 'Add New Aarti'}
               </h2>
               <button className="modal-close-btn" type="button" onClick={closeModal}>
-                <MdClose size={24} />
+                <MdClose size={20} />
               </button>
             </div>
-            <div className="modal-body" style={{ padding: '2rem' }}>
-              <form onSubmit={handleSubmit} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem' }}>
+            <div className="modal-body" style={{ padding: '1rem 1.25rem' }}>
+              <form onSubmit={handleSubmit} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.85rem' }}>
                 
-                <div className="input-group" style={{ gridColumn: '1 / -1' }}>
+                <div className="input-group" style={{ gridColumn: '1 / -1', marginBottom: 0 }}>
                   <label className="input-label">Aarti Title</label>
                   <input
                     type="text"
@@ -256,7 +256,7 @@ const ManageAarti = () => {
                   />
                 </div>
                 
-                <div className="input-group">
+                <div className="input-group" style={{ marginBottom: 0 }}>
                   <label className="input-label">Aarti Category</label>
                   <select
                     name="aartiCategoryId"
@@ -281,12 +281,12 @@ const ManageAarti = () => {
                   </select>
                 </div>
 
-                <div className="input-group" style={{ gridColumn: '1 / -1' }}>
+                <div className="input-group" style={{ gridColumn: '1 / -1', marginBottom: 0 }}>
                   <label className="input-label">Content (Sanskrit / Hindi)</label>
                   <textarea
                     name="content"
                     className="input-field"
-                    rows="4"
+                    rows="3"
                     value={formData.content}
                     onChange={handleInputChange}
                     placeholder="Enter the full text of the Aarti..."
@@ -294,12 +294,12 @@ const ManageAarti = () => {
                   />
                 </div>
 
-                <div className="input-group" style={{ gridColumn: '1 / -1' }}>
+                <div className="input-group" style={{ gridColumn: '1 / -1', marginBottom: 0 }}>
                   <label className="input-label">Text Editor (HTML/Rich Text)</label>
                   <textarea
                     name="textEditor"
                     className="input-field"
-                    rows="4"
+                    rows="3"
                     value={formData.textEditor}
                     onChange={handleInputChange}
                     placeholder="Enter rich text or HTML content here..."
@@ -307,9 +307,9 @@ const ManageAarti = () => {
                   />
                 </div>
 
-                <div className="input-group">
+                <div className="input-group" style={{ marginBottom: 0 }}>
                   <label className="input-label">Aarti Cover Image</label>
-                  <div style={{ border: '2px dashed var(--border-color)', borderRadius: '8px', padding: '1.5rem', textAlign: 'center', backgroundColor: '#F9FAFB', transition: 'all 0.2s', cursor: 'pointer' }} onClick={() => document.getElementById('aartiImageUpload').click()} onMouseOver={(e) => e.currentTarget.style.borderColor = 'var(--primary-color)'} onMouseOut={(e) => e.currentTarget.style.borderColor = 'var(--border-color)'}>
+                  <div style={{ border: '1.5px dashed var(--border-color)', borderRadius: '6px', padding: '0.75rem', textAlign: 'center', backgroundColor: '#F9FAFB', transition: 'all 0.2s', cursor: 'pointer', fontSize: '0.8rem' }} onClick={() => document.getElementById('aartiImageUpload').click()} onMouseOver={(e) => e.currentTarget.style.borderColor = 'var(--primary-color)'} onMouseOut={(e) => e.currentTarget.style.borderColor = 'var(--border-color)'}>
                     <input
                       id="aartiImageUpload"
                       type="file"
@@ -318,15 +318,15 @@ const ManageAarti = () => {
                       accept="image/*"
                       onChange={handleFileChange}
                     />
-                    <p style={{ color: 'var(--text-secondary)', fontWeight: 500 }}>
+                    <p style={{ color: 'var(--text-secondary)', fontWeight: 500, margin: 0 }}>
                       {files.aartiImage ? files.aartiImage.name : 'Click to upload image'}
                     </p>
                   </div>
                 </div>
 
-                <div className="input-group">
+                <div className="input-group" style={{ marginBottom: 0 }}>
                   <label className="input-label">Audio File</label>
-                  <div style={{ border: '2px dashed var(--border-color)', borderRadius: '8px', padding: '1.5rem', textAlign: 'center', backgroundColor: '#F9FAFB', transition: 'all 0.2s', cursor: 'pointer' }} onClick={() => document.getElementById('audioFileUpload').click()} onMouseOver={(e) => e.currentTarget.style.borderColor = 'var(--primary-color)'} onMouseOut={(e) => e.currentTarget.style.borderColor = 'var(--border-color)'}>
+                  <div style={{ border: '1.5px dashed var(--border-color)', borderRadius: '6px', padding: '0.75rem', textAlign: 'center', backgroundColor: '#F9FAFB', transition: 'all 0.2s', cursor: 'pointer', fontSize: '0.8rem' }} onClick={() => document.getElementById('audioFileUpload').click()} onMouseOver={(e) => e.currentTarget.style.borderColor = 'var(--primary-color)'} onMouseOut={(e) => e.currentTarget.style.borderColor = 'var(--border-color)'}>
                     <input
                       id="audioFileUpload"
                       type="file"
@@ -335,15 +335,15 @@ const ManageAarti = () => {
                       accept="audio/*"
                       onChange={handleFileChange}
                     />
-                    <p style={{ color: 'var(--text-secondary)', fontWeight: 500 }}>
+                    <p style={{ color: 'var(--text-secondary)', fontWeight: 500, margin: 0 }}>
                       {files.audioFile ? files.audioFile.name : 'Click to upload audio (MP3)'}
                     </p>
                   </div>
                 </div>
 
-                <div className="input-group" style={{ gridColumn: '1 / -1' }}>
+                <div className="input-group" style={{ gridColumn: '1 / -1', marginBottom: 0 }}>
                   <label className="input-label">PDF Document</label>
-                  <div style={{ border: '2px dashed var(--border-color)', borderRadius: '8px', padding: '1.5rem', textAlign: 'center', backgroundColor: '#F9FAFB', transition: 'all 0.2s', cursor: 'pointer' }} onClick={() => document.getElementById('pdfUpload').click()} onMouseOver={(e) => e.currentTarget.style.borderColor = 'var(--primary-color)'} onMouseOut={(e) => e.currentTarget.style.borderColor = 'var(--border-color)'}>
+                  <div style={{ border: '1.5px dashed var(--border-color)', borderRadius: '6px', padding: '0.75rem', textAlign: 'center', backgroundColor: '#F9FAFB', transition: 'all 0.2s', cursor: 'pointer', fontSize: '0.8rem' }} onClick={() => document.getElementById('pdfUpload').click()} onMouseOver={(e) => e.currentTarget.style.borderColor = 'var(--primary-color)'} onMouseOut={(e) => e.currentTarget.style.borderColor = 'var(--border-color)'}>
                     <input
                       id="pdfUpload"
                       type="file"
@@ -352,14 +352,14 @@ const ManageAarti = () => {
                       accept="application/pdf"
                       onChange={handleFileChange}
                     />
-                    <p style={{ color: 'var(--text-secondary)', fontWeight: 500 }}>
+                    <p style={{ color: 'var(--text-secondary)', fontWeight: 500, margin: 0 }}>
                       {files.pdf ? files.pdf.name : 'Click to upload PDF'}
                     </p>
                   </div>
                 </div>
 
-                <div style={{ gridColumn: '1 / -1', display: 'flex', justifyContent: 'flex-end', gap: '1rem', marginTop: '1rem', borderTop: '1px solid var(--border-color)', paddingTop: '1.5rem' }}>
-                  <button type="button" className="btn" onClick={closeModal} style={{ backgroundColor: 'white', border: '1px solid var(--border-color)', color: 'var(--text-primary)' }}>Cancel</button>
+                <div style={{ gridColumn: '1 / -1', display: 'flex', justifyContent: 'flex-end', gap: '0.6rem', marginTop: '0.35rem', borderTop: '1px solid var(--border-color)', paddingTop: '0.85rem' }}>
+                  <button type="button" className="btn btn-outline" onClick={closeModal}>Cancel</button>
                   <button type="submit" className="btn btn-primary" disabled={createMutation.isPending || updateMutation.isPending}>
                     {(createMutation.isPending || updateMutation.isPending) ? 'Saving...' : editingId ? 'Update Aarti' : 'Save Aarti'}
                   </button>
@@ -374,10 +374,10 @@ const ManageAarti = () => {
       {/* Category Modal */}
       {catModalOpen && createPortal(
         <div className="modal-overlay" style={{ zIndex: 110 }} onClick={() => setCatModalOpen(false)}>
-          <div className="modal-content glass-panel" onClick={e => e.stopPropagation()} style={{ maxWidth: '400px' }}>
+          <div className="modal-content glass-panel" onClick={e => e.stopPropagation()} style={{ maxWidth: '380px' }}>
             <div className="modal-header">
               <h2 className="modal-title">Add Category</h2>
-              <button className="modal-close-btn" type="button" onClick={() => setCatModalOpen(false)}><MdClose size={24} /></button>
+              <button className="modal-close-btn" type="button" onClick={() => setCatModalOpen(false)}><MdClose size={20} /></button>
             </div>
             <form className="modal-body" onSubmit={async (e) => {
               e.preventDefault();
@@ -399,7 +399,7 @@ const ManageAarti = () => {
                 <label className="input-label">Category Name</label>
                 <input type="text" className="input-field" value={newCatName} onChange={e => setNewCatName(e.target.value)} required autoFocus />
               </div>
-              <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '1.5rem' }}>Save Category</button>
+              <button type="submit" className="btn btn-primary" style={{ width: '100%', marginTop: '0.85rem' }}>Save Category</button>
             </form>
           </div>
         </div>,

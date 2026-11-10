@@ -120,9 +120,9 @@ const Header = ({ toggleSidebar }) => {
 
   return (
     <header className="main-header">
-      <div className="header-left" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-        <button className="mobile-menu-btn" onClick={toggleSidebar} style={{ background: 'none', border: 'none', cursor: 'pointer', display: 'none', padding: '0.25rem' }}>
-          <MdMenu size={28} color="var(--vipra-color)" />
+      <div className="header-left" style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+        <button className="mobile-menu-btn" onClick={toggleSidebar} style={{ background: 'none', border: 'none', cursor: 'pointer', display: 'none', padding: '0.2rem' }}>
+          <MdMenu size={22} color="var(--vipra-color)" />
         </button>
         <div className="header-title">
           {getDynamicTitle()}

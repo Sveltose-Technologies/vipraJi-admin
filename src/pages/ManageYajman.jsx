@@ -122,37 +122,37 @@ const ManageYajman = () => {
     <div className="page-content animate-fade-in">
       <div
         className="top-header"
-        style={{ marginBottom: "2rem", padding: 0, borderBottom: "none" }}
+        style={{ marginBottom: "0.75rem", padding: 0, borderBottom: "none", minHeight: "unset" }}
       >
         <div>
           <h1
             className="page-title"
-            style={{ color: "var(--text-primary)", marginBottom: "0.5rem" }}
+            style={{ color: "var(--text-primary)", marginBottom: "0.15rem", fontSize: "1.15rem" }}
           >
             Manage Yajman
           </h1>
           <p
             className="page-subtitle"
-            style={{ color: "var(--text-secondary)" }}
+            style={{ color: "var(--text-secondary)", fontSize: "0.8rem", margin: 0 }}
           >
             Manage Yajman entries and categories
           </p>
         </div>
       </div>
 
-      <div style={{ display: 'flex', gap: '1rem', marginBottom: '2rem', borderBottom: '1px solid var(--border-color)' }}>
+      <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.85rem', borderBottom: '1px solid var(--border-color)' }}>
         <button
           className={`tab-btn ${activeTab === "yajmans" ? "active" : ""}`}
           onClick={() => setActiveTab("yajmans")}
           style={{
-            padding: '0.75rem 1.5rem',
+            padding: '0.45rem 0.9rem',
             background: 'none',
             border: 'none',
             borderBottom: activeTab === "yajmans" ? '2px solid var(--primary-color)' : '2px solid transparent',
             color: activeTab === "yajmans" ? 'var(--primary-color)' : 'var(--text-secondary)',
             fontWeight: activeTab === "yajmans" ? 600 : 400,
             cursor: 'pointer',
-            fontSize: '1rem'
+            fontSize: '0.84rem'
           }}
         >
           Yajmans
@@ -161,14 +161,14 @@ const ManageYajman = () => {
           className={`tab-btn ${activeTab === "categories" ? "active" : ""}`}
           onClick={() => setActiveTab("categories")}
           style={{
-            padding: '0.75rem 1.5rem',
+            padding: '0.45rem 0.9rem',
             background: 'none',
             border: 'none',
             borderBottom: activeTab === "categories" ? '2px solid var(--primary-color)' : '2px solid transparent',
             color: activeTab === "categories" ? 'var(--primary-color)' : 'var(--text-secondary)',
             fontWeight: activeTab === "categories" ? 600 : 400,
             cursor: 'pointer',
-            fontSize: '1rem'
+            fontSize: '0.84rem'
           }}
         >
           Categories
@@ -181,18 +181,18 @@ const ManageYajman = () => {
             style={{
               display: "flex",
               alignItems: "center",
-              gap: "0.75rem",
-              marginBottom: "1.25rem",
-              maxWidth: "520px",
+              gap: "0.5rem",
+              marginBottom: "0.85rem",
+              maxWidth: "460px",
             }}
           >
             <div style={{ position: "relative", flex: 1 }}>
               <MdSearch
-                size={20}
+                size={18}
                 aria-hidden="true"
                 style={{
                   position: "absolute",
-                  left: "0.8rem",
+                  left: "0.65rem",
                   top: "50%",
                   transform: "translateY(-50%)",
                   color: "var(--text-secondary)",
@@ -205,7 +205,7 @@ const ManageYajman = () => {
                 placeholder="Search name, category, phone, location, or status"
                 value={searchQuery}
                 onChange={(event) => setSearchQuery(event.target.value)}
-                style={{ paddingLeft: "2.5rem" }}
+                style={{ paddingLeft: "2.15rem" }}
               />
             </div>
             {searchQuery && (
@@ -216,7 +216,7 @@ const ManageYajman = () => {
                 title="Clear search"
                 onClick={() => setSearchQuery("")}
               >
-                <MdClose size={20} />
+                <MdClose size={18} />
               </button>
             )}
           </div>
@@ -224,14 +224,14 @@ const ManageYajman = () => {
           {yajmanList.length === 0 ? (
             <div
               className="glass-panel"
-              style={{ padding: "3rem", textAlign: "center" }}
+              style={{ padding: "1.85rem", textAlign: "center" }}
             >
               <MdPerson
-                size={64}
-                style={{ color: "var(--border-color)", marginBottom: "1rem" }}
+                size={44}
+                style={{ color: "var(--border-color)", marginBottom: "0.65rem" }}
               />
-              <h3>No Yajman Entries Found</h3>
-              <p style={{ color: "var(--text-secondary)" }}>
+              <h3 style={{ fontSize: "1rem", marginBottom: "0.25rem" }}>No Yajman Entries Found</h3>
+              <p style={{ color: "var(--text-secondary)", fontSize: "0.84rem" }}>
                 There are no yajman entries registered yet.
               </p>
             </div>
@@ -239,21 +239,21 @@ const ManageYajman = () => {
             <div
               className="glass-panel"
               style={{
-                padding: "2.5rem",
+                padding: "1.65rem",
                 textAlign: "center",
                 color: "var(--text-secondary)",
               }}
             >
-              <h3 style={{ color: "var(--text-primary)" }}>
+              <h3 style={{ color: "var(--text-primary)", fontSize: "1rem", marginBottom: "0.25rem" }}>
                 No matching Yajman entries
               </h3>
-              <p>
+              <p style={{ fontSize: "0.84rem" }}>
                 Try a different name, category, phone number, location, or status.
               </p>
             </div>
           ) : (
             <div className="glass-panel" style={{ overflowX: "auto" }}>
-              <table className="data-table" style={{ minWidth: "720px" }}>
+              <table className="data-table" style={{ minWidth: "680px" }}>
                 <thead>
                   <tr>
                     <th>Yajman</th>
@@ -275,8 +275,8 @@ const ManageYajman = () => {
                             style={{
                               display: "flex",
                               alignItems: "center",
-                              gap: "0.75rem",
-                              minWidth: "180px",
+                              gap: "0.55rem",
+                              minWidth: "160px",
                             }}
                           >
                             <div className="yajman-avatar">
@@ -300,8 +300,8 @@ const ManageYajman = () => {
                         <td>{getPhone(yajman) || "—"}</td>
                         <td>{getLocation(yajman) || "—"}</td>
                         <td>
-                          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "6px" }}>
-                            <label className="toggle-switch">
+                          <div style={{ display: "flex", alignItems: "center", gap: "0.45rem" }}>
+                            <label className="toggle-switch" style={{ transform: "scale(0.85)" }}>
                               <input
                                 type="checkbox"
                                 checked={status.toLowerCase() === "active"}
@@ -328,18 +328,18 @@ const ManageYajman = () => {
 
           <style>{`
         .yajman-avatar {
-          width: 36px;
-          height: 36px;
+          width: 30px;
+          height: 30px;
           border-radius: 50%;
           background: rgba(245, 166, 35, 0.15);
           color: var(--secondary-color);
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 1rem;
+          font-size: 0.85rem;
           font-weight: 700;
           overflow: hidden;
-          flex: 0 0 36px;
+          flex: 0 0 30px;
         }
 
         .avatar-img {
@@ -351,9 +351,9 @@ const ManageYajman = () => {
         .yajman-status-badge {
           background-color: rgba(230, 126, 34, 0.1);
           color: var(--primary-color);
-          padding: 0.3rem 0.55rem;
+          padding: 0.18rem 0.48rem;
           border-radius: 4px;
-          font-size: 0.75rem;
+          font-size: 0.7rem;
           font-weight: 600;
           text-transform: uppercase;
         }

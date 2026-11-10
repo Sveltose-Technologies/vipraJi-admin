@@ -85,9 +85,9 @@ const NotificationBell = () => {
         aria-label="View notifications"
       >
         {unreadCount > 0 ? (
-          <MdNotificationsActive size={22} className="bell-active-icon" />
+          <MdNotificationsActive size={19} className="bell-active-icon" />
         ) : (
-          <MdNotifications size={22} />
+          <MdNotifications size={19} />
         )}
         {unreadCount > 0 && (
           <span className="notification-badge-count">
@@ -210,15 +210,15 @@ const NotificationBell = () => {
       {/* Detail Modal */}
       {selectedNotif && (
         <div className="modal-overlay" style={{ zIndex: 9999 }}>
-          <div className="modal-content glass-panel animate-fade-in" style={{ maxWidth: '520px' }}>
+          <div className="modal-content glass-panel animate-fade-in" style={{ maxWidth: '460px' }}>
             <div className="modal-header">
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <div className={`notif-item-icon-wrap ${getTypeBadgeClass(selectedNotif.type)}`} style={{ width: 36, height: 36 }}>
-                  {getTypeIcon(selectedNotif.type, 20)}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+                <div className={`notif-item-icon-wrap ${getTypeBadgeClass(selectedNotif.type)}`} style={{ width: 32, height: 32 }}>
+                  {getTypeIcon(selectedNotif.type, 17)}
                 </div>
                 <div>
-                  <h3 style={{ fontSize: '1.1rem', margin: 0 }}>Notification Details</h3>
-                  <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
+                  <h3 style={{ fontSize: '0.96rem', margin: 0 }}>Notification Details</h3>
+                  <span style={{ fontSize: '0.74rem', color: 'var(--text-secondary)' }}>
                     {selectedNotif.type} • {selectedNotif.status}
                   </span>
                 </div>
@@ -228,51 +228,51 @@ const NotificationBell = () => {
                 className="modal-close-btn"
                 onClick={() => setSelectedNotif(null)}
               >
-                <MdClose size={22} />
+                <MdClose size={20} />
               </button>
             </div>
-            <div className="modal-body" style={{ padding: '1.25rem 0' }}>
-              <div style={{ marginBottom: '1rem', background: '#F9FAFB', padding: '1rem', borderRadius: '10px' }}>
-                <h4 style={{ color: 'var(--primary-color)', fontSize: '1rem', marginBottom: '0.4rem' }}>
+            <div className="modal-body" style={{ padding: '0.9rem 1.1rem' }}>
+              <div style={{ marginBottom: '0.75rem', background: '#F9FAFB', padding: '0.75rem 0.85rem', borderRadius: '8px' }}>
+                <h4 style={{ color: 'var(--primary-color)', fontSize: '0.92rem', marginBottom: '0.25rem' }}>
                   {selectedNotif.title}
                 </h4>
-                <p style={{ color: '#374151', fontSize: '0.92rem', lineHeight: 1.5, margin: 0 }}>
+                <p style={{ color: '#374151', fontSize: '0.84rem', lineHeight: 1.45, margin: 0 }}>
                   {selectedNotif.body}
                 </p>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.75rem', marginBottom: '1rem' }}>
-                <div style={{ background: '#FFFBEB', padding: '0.75rem', borderRadius: '8px', border: '1px solid #FDE68A' }}>
-                  <div style={{ fontSize: '0.75rem', color: '#92400E', fontWeight: 600 }}>RECIPIENT TYPE</div>
-                  <div style={{ fontSize: '0.9rem', color: '#78350F', fontWeight: 700, marginTop: '2px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.55rem', marginBottom: '0.75rem' }}>
+                <div style={{ background: '#FFFBEB', padding: '0.55rem 0.7rem', borderRadius: '7px', border: '1px solid #FDE68A' }}>
+                  <div style={{ fontSize: '0.68rem', color: '#92400E', fontWeight: 600 }}>RECIPIENT TYPE</div>
+                  <div style={{ fontSize: '0.82rem', color: '#78350F', fontWeight: 700, marginTop: '2px' }}>
                     {selectedNotif.recipientType}
                   </div>
                 </div>
-                <div style={{ background: '#F0FDF4', padding: '0.75rem', borderRadius: '8px', border: '1px solid #BBF7D0' }}>
-                  <div style={{ fontSize: '0.75rem', color: '#166534', fontWeight: 600 }}>DELIVERED / TOTAL</div>
-                  <div style={{ fontSize: '0.9rem', color: '#14532D', fontWeight: 700, marginTop: '2px' }}>
+                <div style={{ background: '#F0FDF4', padding: '0.55rem 0.7rem', borderRadius: '7px', border: '1px solid #BBF7D0' }}>
+                  <div style={{ fontSize: '0.68rem', color: '#166534', fontWeight: 600 }}>DELIVERED / TOTAL</div>
+                  <div style={{ fontSize: '0.82rem', color: '#14532D', fontWeight: 700, marginTop: '2px' }}>
                     {selectedNotif.successCount || 0} / {selectedNotif.recipientCount || 0}
                   </div>
                 </div>
               </div>
 
               {selectedNotif.data && Object.keys(selectedNotif.data).length > 0 && (
-                <div style={{ marginBottom: '1rem' }}>
-                  <div style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '0.25rem' }}>
+                <div style={{ marginBottom: '0.75rem' }}>
+                  <div style={{ fontSize: '0.74rem', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '0.2rem' }}>
                     Attached Payload Data:
                   </div>
-                  <pre style={{ background: '#1F2937', color: '#F3F4F6', padding: '0.75rem', borderRadius: '8px', fontSize: '0.8rem', overflowX: 'auto' }}>
+                  <pre style={{ background: '#1F2937', color: '#F3F4F6', padding: '0.6rem', borderRadius: '7px', fontSize: '0.75rem', overflowX: 'auto' }}>
                     {JSON.stringify(selectedNotif.data, null, 2)}
                   </pre>
                 </div>
               )}
 
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
                 <span>Sent: {selectedNotif.sentAt ? new Date(selectedNotif.sentAt).toLocaleString('en-IN') : 'Not sent yet'}</span>
                 <span>Created: {new Date(selectedNotif.createdAt).toLocaleDateString('en-IN')}</span>
               </div>
             </div>
-            <div className="modal-footer" style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem' }}>
+            <div className="modal-footer" style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.55rem' }}>
               <button
                 type="button"
                 className="btn btn-primary"

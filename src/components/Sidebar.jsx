@@ -11,6 +11,7 @@ import {
   MdConfirmationNumber,
   MdClose,
   MdSelfImprovement,
+  MdWavingHand,
 } from "react-icons/md";
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
@@ -20,13 +21,13 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         <img
           src="/sidebar-logo.png?v=2"
           alt="Vipra Sarthi Typography Logo"
-          style={{ width: "100%", maxHeight: "60px", objectFit: "contain" }}
+          style={{ width: "100%", maxHeight: "40px", objectFit: "contain" }}
           onError={(e) => {
             e.target.style.display = "none";
           }}
         />
         <button className="sidebar-close-btn mobile-only" onClick={toggleSidebar} style={{ background: 'none', border: 'none', color: 'var(--primary-color)', cursor: 'pointer', marginLeft: 'auto' }}>
-          <MdClose size={24} />
+          <MdClose size={20} />
         </button>
       </div>
 
@@ -39,7 +40,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
               isActive ? "sidebar-link active" : "sidebar-link"
             }
           >
-            <MdDashboard size={20} />
+            <MdDashboard size={17} />
             <span>Dashboard</span>
           </NavLink>
           <NavLink
@@ -48,7 +49,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
               isActive ? "sidebar-link active" : "sidebar-link"
             }
           >
-            <MdPerson size={20} />
+            <MdPerson size={17} />
             <span>Manage Users</span>
           </NavLink>
           <NavLink
@@ -57,7 +58,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
               isActive ? "sidebar-link active" : "sidebar-link"
             }
           >
-            <MdNotificationsActive size={20} />
+            <MdNotificationsActive size={17} />
             <span>Notifications</span>
           </NavLink>
         </div>
@@ -65,12 +66,21 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         <div className="sidebar-section">
           <div className="sidebar-section-title">Pooja & Content</div>
           <NavLink
+            to="/manage-welcome-screen"
+            className={({ isActive }) =>
+              isActive ? "sidebar-link active" : "sidebar-link"
+            }
+          >
+            <MdWavingHand size={17} />
+            <span>Welcome Screen</span>
+          </NavLink>
+          <NavLink
             to="/manage-spiritual-cards"
             className={({ isActive }) =>
               isActive ? "sidebar-link active" : "sidebar-link"
             }
           >
-            <MdSelfImprovement size={20} />
+            <MdSelfImprovement size={17} />
             <span>Spiritual Cards</span>
           </NavLink>
           <NavLink
@@ -79,7 +89,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
               isActive ? "sidebar-link active" : "sidebar-link"
             }
           >
-            <MdLibraryBooks size={20} />
+            <MdLibraryBooks size={17} />
             <span>Manage Pooja</span>
           </NavLink>
           <NavLink
@@ -88,7 +98,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
               isActive ? "sidebar-link active" : "sidebar-link"
             }
           >
-            <MdLibraryBooks size={20} />
+            <MdLibraryBooks size={17} />
             <span>Pooja Samagri</span>
           </NavLink>
           <NavLink
@@ -97,7 +107,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
               isActive ? "sidebar-link active" : "sidebar-link"
             }
           >
-            <MdLibraryBooks size={20} />
+            <MdLibraryBooks size={17} />
             <span>Manage Stotram</span>
           </NavLink>
           <NavLink
@@ -106,7 +116,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
               isActive ? "sidebar-link active" : "sidebar-link"
             }
           >
-            <MdMusicNote size={20} />
+            <MdMusicNote size={17} />
             <span>Manage Aarti</span>
           </NavLink>
         </div>
@@ -119,7 +129,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
               isActive ? "sidebar-link active" : "sidebar-link"
             }
           >
-            <MdPerson size={20} />
+            <MdPerson size={17} />
             <span>Manage Yajman</span>
           </NavLink>
         </div>
@@ -132,7 +142,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
               isActive ? "sidebar-link active" : "sidebar-link"
             }
           >
-            <MdForum size={20} />
+            <MdForum size={17} />
             <span>Manage Community</span>
           </NavLink>
         </div>
@@ -145,7 +155,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
               isActive ? "sidebar-link active" : "sidebar-link"
             }
           >
-            <MdCardMembership size={20} />
+            <MdCardMembership size={17} />
             <span>Manage Subscriptions</span>
           </NavLink>
         </div>
@@ -158,7 +168,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
               isActive ? "sidebar-link active" : "sidebar-link"
             }
           >
-            <MdConfirmationNumber size={20} />
+            <MdConfirmationNumber size={17} />
             <span>Support Tickets</span>
           </NavLink>
           <NavLink
@@ -168,7 +178,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             }
             onClick={() => { if (window.innerWidth <= 1024) toggleSidebar(); }}
           >
-            <MdPerson size={20} />
+            <MdPerson size={17} />
             <span>Update Profile</span>
           </NavLink>
         </div>
@@ -178,8 +188,8 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             display: flex;
             flex-direction: column;
             border-bottom: 1px solid var(--border-color);
-            padding-bottom: 0.5rem;
-            margin-bottom: 0.5rem;
+            padding-bottom: 0.3rem;
+            margin-bottom: 0.3rem;
           }
           
           .sidebar-section:last-child {
@@ -189,13 +199,13 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           }
 
           .sidebar-section-title {
-            padding: 0.5rem 1.5rem;
-            font-size: 0.75rem;
+            padding: 0.28rem 1rem;
+            font-size: 0.68rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.05em;
             color: var(--text-secondary);
-            margin-top: 0.5rem;
+            margin-top: 0.2rem;
           }
         `}</style>
       </nav>

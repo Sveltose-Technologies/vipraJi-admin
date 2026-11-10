@@ -22,7 +22,7 @@ const Modal = ({ isOpen, onClose, title, children }) => {
         <div className="modal-header">
           <h2 className="modal-title">{title}</h2>
           <button className="modal-close-btn" onClick={onClose}>
-            <MdClose size={24} />
+            <MdClose size={20} />
           </button>
         </div>
         <div className="modal-body">

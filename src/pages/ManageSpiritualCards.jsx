@@ -411,48 +411,47 @@ const ManageSpiritualCards = () => {
     endDate !== '';
 
   return (
-    <div className="page-content" style={{ padding: '1.5rem 2rem', maxWidth: '1600px', margin: '0 auto' }}>
+    <div style={{ maxWidth: '1500px', margin: '0 auto' }}>
       {/* Top Banner / Header */}
       <div
         className="glass-panel"
         style={{
-          padding: '1.75rem 2rem',
-          marginBottom: '1.5rem',
+          padding: '0.75rem 1rem',
+          marginBottom: '0.8rem',
           background: 'linear-gradient(135deg, #FFFFFF 0%, #FFF8EE 100%)',
-          borderLeft: '5px solid var(--primary-color)',
+          borderLeft: '4px solid var(--primary-color)',
           display: 'flex',
           flexWrap: 'wrap',
           alignItems: 'center',
           justifyContent: 'space-between',
-          gap: '1.5rem',
+          gap: '0.75rem',
         }}
       >
         <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.25rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
             <span
               style={{
-                fontSize: '1.5rem',
                 backgroundColor: 'rgba(130, 0, 30, 0.08)',
-                padding: '0.5rem',
-                borderRadius: '12px',
+                padding: '0.4rem',
+                borderRadius: '9px',
                 color: 'var(--primary-color)',
                 display: 'inline-flex',
               }}
             >
-              <MdSelfImprovement size={28} />
+              <MdSelfImprovement size={20} />
             </span>
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <h1 style={{ margin: 0, fontWeight: 700, fontSize: '1.6rem', color: 'var(--primary-color)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+                <h1 style={{ margin: 0, fontWeight: 700, fontSize: '1.12rem', color: 'var(--primary-color)' }}>
                   Daily Spiritual Cards
                 </h1>
                 <span
                   style={{
                     backgroundColor: 'var(--secondary-color)',
                     color: '#4A2C10',
-                    fontSize: '0.75rem',
+                    fontSize: '0.66rem',
                     fontWeight: 700,
-                    padding: '0.2rem 0.6rem',
+                    padding: '0.14rem 0.5rem',
                     borderRadius: '20px',
                     letterSpacing: '0.04em',
                     textTransform: 'uppercase',
@@ -461,14 +460,14 @@ const ManageSpiritualCards = () => {
                   Admin Portal
                 </span>
               </div>
-              <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '0.9rem', marginTop: '0.25rem' }}>
-                Create, curate, publish, and manage daily sacred mantras, inspirational thoughts, festival alerts, and quotes for devotees.
+              <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '0.78rem', marginTop: '0.12rem' }}>
+                Curate and publish daily sacred mantras, thoughts, festival alerts, and quotes.
               </p>
             </div>
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', flexWrap: 'wrap' }}>
           <button
             onClick={() => refetch()}
             disabled={isFetching}
@@ -479,16 +478,17 @@ const ManageSpiritualCards = () => {
               border: '1px solid var(--border-color)',
               display: 'inline-flex',
               alignItems: 'center',
-              gap: '0.5rem',
-              padding: '0.65rem 1rem',
-              borderRadius: '10px',
+              gap: '0.35rem',
+              padding: '0.38rem 0.72rem',
+              borderRadius: '7px',
+              fontSize: '0.8rem',
               fontWeight: 600,
               cursor: 'pointer',
               transition: 'all 0.2s',
             }}
             title="Refresh list"
           >
-            <MdRefresh size={18} className={isFetching ? 'animate-spin' : ''} />
+            <MdRefresh size={16} className={isFetching ? 'animate-spin' : ''} />
             <span>Refresh</span>
           </button>
 
@@ -497,8 +497,8 @@ const ManageSpiritualCards = () => {
             style={{
               display: 'inline-flex',
               backgroundColor: '#F3F4F6',
-              padding: '4px',
-              borderRadius: '10px',
+              padding: '2px',
+              borderRadius: '7px',
               border: '1px solid var(--border-color)',
             }}
           >
@@ -508,18 +508,19 @@ const ManageSpiritualCards = () => {
                 background: viewMode === 'grid' ? '#FFFFFF' : 'transparent',
                 color: viewMode === 'grid' ? 'var(--primary-color)' : 'var(--text-secondary)',
                 border: 'none',
-                padding: '0.45rem 0.75rem',
-                borderRadius: '8px',
+                padding: '0.32rem 0.55rem',
+                borderRadius: '5px',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '0.35rem',
+                gap: '0.3rem',
+                fontSize: '0.78rem',
                 fontWeight: viewMode === 'grid' ? 600 : 500,
-                boxShadow: viewMode === 'grid' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
+                boxShadow: viewMode === 'grid' ? '0 1px 2px rgba(0,0,0,0.1)' : 'none',
               }}
               title="Card View"
             >
-              <MdViewModule size={18} />
+              <MdViewModule size={16} />
               <span>Cards</span>
             </button>
             <button
@@ -528,18 +529,19 @@ const ManageSpiritualCards = () => {
                 background: viewMode === 'table' ? '#FFFFFF' : 'transparent',
                 color: viewMode === 'table' ? 'var(--primary-color)' : 'var(--text-secondary)',
                 border: 'none',
-                padding: '0.45rem 0.75rem',
-                borderRadius: '8px',
+                padding: '0.32rem 0.55rem',
+                borderRadius: '5px',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '0.35rem',
+                gap: '0.3rem',
+                fontSize: '0.78rem',
                 fontWeight: viewMode === 'table' ? 600 : 500,
-                boxShadow: viewMode === 'table' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none',
+                boxShadow: viewMode === 'table' ? '0 1px 2px rgba(0,0,0,0.1)' : 'none',
               }}
               title="Table View"
             >
-              <MdViewList size={18} />
+              <MdViewList size={16} />
               <span>Table</span>
             </button>
           </div>
@@ -553,16 +555,17 @@ const ManageSpiritualCards = () => {
               border: 'none',
               display: 'inline-flex',
               alignItems: 'center',
-              gap: '0.5rem',
-              padding: '0.7rem 1.4rem',
-              borderRadius: '10px',
+              gap: '0.35rem',
+              padding: '0.42rem 0.9rem',
+              borderRadius: '7px',
+              fontSize: '0.81rem',
               fontWeight: 600,
-              boxShadow: '0 4px 14px rgba(130, 0, 30, 0.25)',
+              boxShadow: '0 2px 6px rgba(130, 0, 30, 0.2)',
               cursor: 'pointer',
               transition: 'transform 0.15s, background-color 0.2s',
             }}
           >
-            <MdAdd size={20} />
+            <MdAdd size={17} />
             <span>Create New Card</span>
           </button>
         </div>
@@ -572,81 +575,84 @@ const ManageSpiritualCards = () => {
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-          gap: '1rem',
-          marginBottom: '1.5rem',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(175px, 1fr))',
+          gap: '0.7rem',
+          marginBottom: '0.8rem',
         }}
       >
-        <div className="glass-panel" style={{ padding: '1.25rem 1.5rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+        <div className="glass-panel" style={{ padding: '0.65rem 0.9rem', display: 'flex', alignItems: 'center', gap: '0.7rem' }}>
           <div
             style={{
-              width: '46px',
-              height: '46px',
-              borderRadius: '12px',
+              width: '34px',
+              height: '34px',
+              borderRadius: '8px',
               backgroundColor: 'rgba(130, 0, 30, 0.08)',
               color: 'var(--primary-color)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
+              flexShrink: 0,
             }}
           >
-            <MdSelfImprovement size={26} />
+            <MdSelfImprovement size={18} />
           </div>
           <div>
-            <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', fontWeight: 600, textTransform: 'uppercase' }}>
+            <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', fontWeight: 600, textTransform: 'uppercase' }}>
               Total Cards
             </div>
-            <div style={{ fontSize: '1.6rem', fontWeight: 700, color: 'var(--text-primary)' }}>
+            <div style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--text-primary)', lineHeight: 1.15 }}>
               {stats.total}
             </div>
           </div>
         </div>
 
-        <div className="glass-panel" style={{ padding: '1.25rem 1.5rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+        <div className="glass-panel" style={{ padding: '0.65rem 0.9rem', display: 'flex', alignItems: 'center', gap: '0.7rem' }}>
           <div
             style={{
-              width: '46px',
-              height: '46px',
-              borderRadius: '12px',
+              width: '34px',
+              height: '34px',
+              borderRadius: '8px',
               backgroundColor: 'rgba(23, 74, 13, 0.1)',
               color: 'var(--success-color)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
+              flexShrink: 0,
             }}
           >
-            <MdCheckCircle size={26} />
+            <MdCheckCircle size={18} />
           </div>
           <div>
-            <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', fontWeight: 600, textTransform: 'uppercase' }}>
-              Published Cards
+            <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', fontWeight: 600, textTransform: 'uppercase' }}>
+              Published
             </div>
-            <div style={{ fontSize: '1.6rem', fontWeight: 700, color: 'var(--success-color)' }}>
+            <div style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--success-color)', lineHeight: 1.15 }}>
               {stats.published}
             </div>
           </div>
         </div>
 
-        <div className="glass-panel" style={{ padding: '1.25rem 1.5rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+        <div className="glass-panel" style={{ padding: '0.65rem 0.9rem', display: 'flex', alignItems: 'center', gap: '0.7rem' }}>
           <div
             style={{
-              width: '46px',
-              height: '46px',
-              borderRadius: '12px',
+              width: '34px',
+              height: '34px',
+              borderRadius: '8px',
               backgroundColor: 'rgba(240, 190, 60, 0.15)',
               color: '#B45309',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
+              flexShrink: 0,
             }}
           >
-            <MdOutlineRadioButtonUnchecked size={26} />
+            <MdOutlineRadioButtonUnchecked size={18} />
           </div>
           <div>
-            <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', fontWeight: 600, textTransform: 'uppercase' }}>
-              Drafts / Unassigned
+            <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', fontWeight: 600, textTransform: 'uppercase' }}>
+              Drafts
             </div>
-            <div style={{ fontSize: '1.6rem', fontWeight: 700, color: '#B45309' }}>
+            <div style={{ fontSize: '1.15rem', fontWeight: 700, color: '#B45309', lineHeight: 1.15 }}>
               {stats.drafts}
             </div>
           </div>
@@ -655,34 +661,35 @@ const ManageSpiritualCards = () => {
         <div
           className="glass-panel"
           style={{
-            padding: '1.25rem 1.5rem',
+            padding: '0.65rem 0.9rem',
             display: 'flex',
             alignItems: 'center',
-            gap: '1rem',
-            borderLeft: stats.hasTodayCard ? '4px solid var(--success-color)' : '4px solid #F59E0B',
+            gap: '0.7rem',
+            borderLeft: stats.hasTodayCard ? '3px solid var(--success-color)' : '3px solid #F59E0B',
             background: stats.hasTodayCard ? '#F6FDF6' : '#FFFDF7',
           }}
         >
           <div
             style={{
-              width: '46px',
-              height: '46px',
-              borderRadius: '12px',
+              width: '34px',
+              height: '34px',
+              borderRadius: '8px',
               backgroundColor: stats.hasTodayCard ? 'rgba(23, 74, 13, 0.12)' : 'rgba(245, 158, 11, 0.12)',
               color: stats.hasTodayCard ? 'var(--success-color)' : '#D97706',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
+              flexShrink: 0,
             }}
           >
-            <MdCalendarToday size={24} />
+            <MdCalendarToday size={17} />
           </div>
-          <div style={{ flex: 1 }}>
-            <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', fontWeight: 600, textTransform: 'uppercase' }}>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', fontWeight: 600, textTransform: 'uppercase' }}>
               Today ({todayStr})
             </div>
-            <div style={{ fontSize: '0.95rem', fontWeight: 700, color: stats.hasTodayCard ? 'var(--success-color)' : '#D97706' }}>
-              {stats.hasTodayCard ? 'Active Card Live 🟢' : 'No Live Card for Today ⚠️'}
+            <div style={{ fontSize: '0.82rem', fontWeight: 700, color: stats.hasTodayCard ? 'var(--success-color)' : '#D97706' }}>
+              {stats.hasTodayCard ? 'Card Live 🟢' : 'Missing Today'}
             </div>
           </div>
           {!stats.hasTodayCard && (
@@ -696,14 +703,14 @@ const ManageSpiritualCards = () => {
                 backgroundColor: '#F59E0B',
                 color: '#FFFFFF',
                 border: 'none',
-                padding: '0.4rem 0.8rem',
-                borderRadius: '8px',
-                fontSize: '0.75rem',
+                padding: '0.28rem 0.55rem',
+                borderRadius: '6px',
+                fontSize: '0.72rem',
                 fontWeight: 700,
                 cursor: 'pointer',
               }}
             >
-              Add Today
+              Add
             </button>
           )}
         </div>
@@ -713,27 +720,27 @@ const ManageSpiritualCards = () => {
       <div
         className="glass-panel"
         style={{
-          padding: '1.25rem 1.5rem',
-          marginBottom: '1.5rem',
+          padding: '0.65rem 0.9rem',
+          marginBottom: '0.85rem',
           display: 'flex',
           flexDirection: 'column',
-          gap: '1rem',
+          gap: '0.55rem',
         }}
       >
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', alignItems: 'center' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.55rem', alignItems: 'center' }}>
           {/* Search box */}
           <div
             style={{
               position: 'relative',
-              flex: '1 1 280px',
-              minWidth: '240px',
+              flex: '1 1 220px',
+              minWidth: '200px',
             }}
           >
             <MdSearch
-              size={20}
+              size={17}
               style={{
                 position: 'absolute',
-                left: '12px',
+                left: '10px',
                 top: '50%',
                 transform: 'translateY(-50%)',
                 color: 'var(--text-secondary)',
@@ -741,7 +748,7 @@ const ManageSpiritualCards = () => {
             />
             <input
               type="text"
-              placeholder="Search by thought, mantra, quote, festival, or author..."
+              placeholder="Search thought, mantra, quote, festival..."
               value={searchQuery}
               onChange={(e) => {
                 setSearchQuery(e.target.value);
@@ -749,10 +756,10 @@ const ManageSpiritualCards = () => {
               }}
               style={{
                 width: '100%',
-                padding: '0.65rem 1rem 0.65rem 2.4rem',
-                borderRadius: '10px',
+                padding: '0.42rem 0.75rem 0.42rem 2.1rem',
+                borderRadius: '7px',
                 border: '1px solid var(--border-color)',
-                fontSize: '0.9rem',
+                fontSize: '0.82rem',
                 backgroundColor: '#FAFAFA',
                 outline: 'none',
               }}
@@ -762,7 +769,7 @@ const ManageSpiritualCards = () => {
                 onClick={() => setSearchQuery('')}
                 style={{
                   position: 'absolute',
-                  right: '10px',
+                  right: '8px',
                   top: '50%',
                   transform: 'translateY(-50%)',
                   background: 'none',
@@ -771,14 +778,14 @@ const ManageSpiritualCards = () => {
                   cursor: 'pointer',
                 }}
               >
-                <MdClose size={16} />
+                <MdClose size={15} />
               </button>
             )}
           </div>
 
           {/* Status Filter */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <span style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-secondary)' }}>Status:</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+            <span style={{ fontSize: '0.78rem', fontWeight: 600, color: 'var(--text-secondary)' }}>Status:</span>
             <select
               value={statusFilter}
               onChange={(e) => {
@@ -786,10 +793,10 @@ const ManageSpiritualCards = () => {
                 setPage(1);
               }}
               style={{
-                padding: '0.6rem 0.8rem',
-                borderRadius: '8px',
+                padding: '0.4rem 0.6rem',
+                borderRadius: '7px',
                 border: '1px solid var(--border-color)',
-                fontSize: '0.85rem',
+                fontSize: '0.8rem',
                 backgroundColor: '#FFFFFF',
                 color: 'var(--text-primary)',
                 fontWeight: 500,
@@ -803,8 +810,8 @@ const ManageSpiritualCards = () => {
           </div>
 
           {/* Language Filter */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <span style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-secondary)' }}>Language:</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+            <span style={{ fontSize: '0.78rem', fontWeight: 600, color: 'var(--text-secondary)' }}>Lang:</span>
             <select
               value={languageFilter}
               onChange={(e) => {
@@ -812,10 +819,10 @@ const ManageSpiritualCards = () => {
                 setPage(1);
               }}
               style={{
-                padding: '0.6rem 0.8rem',
-                borderRadius: '8px',
+                padding: '0.4rem 0.6rem',
+                borderRadius: '7px',
                 border: '1px solid var(--border-color)',
-                fontSize: '0.85rem',
+                fontSize: '0.8rem',
                 backgroundColor: '#FFFFFF',
                 color: 'var(--text-primary)',
                 fontWeight: 500,
@@ -832,8 +839,8 @@ const ManageSpiritualCards = () => {
           </div>
 
           {/* Date range filters */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <span style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-secondary)' }}>From:</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+            <span style={{ fontSize: '0.78rem', fontWeight: 600, color: 'var(--text-secondary)' }}>From:</span>
             <input
               type="date"
               value={startDate}
@@ -842,14 +849,14 @@ const ManageSpiritualCards = () => {
                 setPage(1);
               }}
               style={{
-                padding: '0.55rem 0.75rem',
-                borderRadius: '8px',
+                padding: '0.38rem 0.55rem',
+                borderRadius: '7px',
                 border: '1px solid var(--border-color)',
-                fontSize: '0.85rem',
+                fontSize: '0.78rem',
                 backgroundColor: '#FFFFFF',
               }}
             />
-            <span style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-secondary)' }}>To:</span>
+            <span style={{ fontSize: '0.78rem', fontWeight: 600, color: 'var(--text-secondary)' }}>To:</span>
             <input
               type="date"
               value={endDate}
@@ -858,10 +865,10 @@ const ManageSpiritualCards = () => {
                 setPage(1);
               }}
               style={{
-                padding: '0.55rem 0.75rem',
-                borderRadius: '8px',
+                padding: '0.38rem 0.55rem',
+                borderRadius: '7px',
                 border: '1px solid var(--border-color)',
-                fontSize: '0.85rem',
+                fontSize: '0.78rem',
                 backgroundColor: '#FFFFFF',
               }}
             />
@@ -871,11 +878,11 @@ const ManageSpiritualCards = () => {
           <button
             onClick={handleQuickTodayFilter}
             style={{
-              padding: '0.55rem 0.85rem',
-              borderRadius: '8px',
+              padding: '0.38rem 0.65rem',
+              borderRadius: '7px',
               border: '1px solid var(--border-color)',
               background: '#FFFFFF',
-              fontSize: '0.8rem',
+              fontSize: '0.78rem',
               fontWeight: 600,
               color: 'var(--primary-color)',
               cursor: 'pointer',
@@ -888,21 +895,21 @@ const ManageSpiritualCards = () => {
             <button
               onClick={handleClearFilters}
               style={{
-                padding: '0.55rem 0.85rem',
-                borderRadius: '8px',
+                padding: '0.38rem 0.65rem',
+                borderRadius: '7px',
                 border: 'none',
                 background: '#FEE2E2',
                 color: '#991B1B',
-                fontSize: '0.8rem',
+                fontSize: '0.78rem',
                 fontWeight: 600,
                 cursor: 'pointer',
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '0.35rem',
+                gap: '0.25rem',
               }}
             >
-              <MdClose size={14} />
-              <span>Clear Filters</span>
+              <MdClose size={13} />
+              <span>Clear</span>
             </button>
           )}
         </div>
@@ -910,15 +917,15 @@ const ManageSpiritualCards = () => {
 
       {/* Main Content: Grid View or Table View */}
       {isLoading ? (
-        <div className="glass-panel" style={{ padding: '4rem', textAlign: 'center', color: 'var(--text-secondary)' }}>
-          <div className="spinner" style={{ margin: '0 auto 1rem auto' }} />
-          <p style={{ fontSize: '1.1rem', fontWeight: 600 }}>Loading Spiritual Cards...</p>
+        <div className="glass-panel" style={{ padding: '2rem', textAlign: 'center', color: 'var(--text-secondary)' }}>
+          <div className="spinner" style={{ margin: '0 auto 0.75rem auto' }} />
+          <p style={{ fontSize: '0.9rem', fontWeight: 600 }}>Loading Spiritual Cards...</p>
         </div>
       ) : cards.length === 0 ? (
         <div
           className="glass-panel"
           style={{
-            padding: '4rem 2rem',
+            padding: '2rem 1.25rem',
             textAlign: 'center',
             color: 'var(--text-secondary)',
             background: '#FFFFFF',
@@ -926,28 +933,28 @@ const ManageSpiritualCards = () => {
         >
           <div
             style={{
-              width: '80px',
-              height: '80px',
+              width: '54px',
+              height: '54px',
               borderRadius: '50%',
               backgroundColor: 'rgba(130, 0, 30, 0.05)',
               color: 'var(--primary-color)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              margin: '0 auto 1.5rem auto',
+              margin: '0 auto 0.85rem auto',
             }}
           >
-            <MdSelfImprovement size={44} />
+            <MdSelfImprovement size={28} />
           </div>
-          <h3 style={{ fontSize: '1.3rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '0.5rem' }}>
+          <h3 style={{ fontSize: '1.05rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '0.35rem' }}>
             No Daily Spiritual Cards Found
           </h3>
-          <p style={{ maxWidth: '480px', margin: '0 auto 1.5rem auto', fontSize: '0.95rem' }}>
+          <p style={{ maxWidth: '460px', margin: '0 auto 1rem auto', fontSize: '0.84rem' }}>
             {hasActiveFilters
               ? 'No spiritual cards match your current search and filter criteria. Try adjusting your filters.'
               : 'Start inspiring devotees every day by creating the first Daily Spiritual Card with a sacred mantra, thought, and quote.'}
           </p>
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '0.75rem' }}>
             {hasActiveFilters && (
               <button
                 onClick={handleClearFilters}
@@ -955,8 +962,8 @@ const ManageSpiritualCards = () => {
                 style={{
                   backgroundColor: '#F3F4F6',
                   color: 'var(--text-primary)',
-                  padding: '0.65rem 1.25rem',
-                  borderRadius: '8px',
+                  padding: '0.45rem 0.9rem',
+                  borderRadius: '7px',
                   fontWeight: 600,
                 }}
               >
@@ -969,15 +976,15 @@ const ManageSpiritualCards = () => {
               style={{
                 backgroundColor: 'var(--primary-color)',
                 color: '#FFFFFF',
-                padding: '0.65rem 1.25rem',
-                borderRadius: '8px',
+                padding: '0.45rem 0.95rem',
+                borderRadius: '7px',
                 fontWeight: 600,
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '0.5rem',
+                gap: '0.35rem',
               }}
             >
-              <MdAdd size={20} />
+              <MdAdd size={17} />
               <span>Create Spiritual Card</span>
             </button>
           </div>
@@ -987,9 +994,9 @@ const ManageSpiritualCards = () => {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1fr))',
-            gap: '1.5rem',
-            marginBottom: '2rem',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(290px, 1fr))',
+            gap: '0.9rem',
+            marginBottom: '1rem',
           }}
         >
           {cards.map((card) => {
@@ -1004,13 +1011,13 @@ const ManageSpiritualCards = () => {
                 style={{
                   display: 'flex',
                   flexDirection: 'column',
-                  borderRadius: '16px',
+                  borderRadius: '10px',
                   overflow: 'hidden',
                   border: isToday ? '2px solid var(--secondary-color)' : '1px solid var(--border-color)',
                   backgroundColor: '#FFFFFF',
                   boxShadow: isToday
-                    ? '0 10px 25px -5px rgba(240, 190, 60, 0.25)'
-                    : '0 4px 16px -2px rgba(0, 0, 0, 0.05)',
+                    ? '0 6px 16px -4px rgba(240, 190, 60, 0.22)'
+                    : '0 2px 8px -2px rgba(0, 0, 0, 0.04)',
                   position: 'relative',
                   transition: 'transform 0.2s, box-shadow 0.2s',
                 }}
@@ -1021,27 +1028,27 @@ const ManageSpiritualCards = () => {
                     style={{
                       background: 'linear-gradient(90deg, #F59E0B 0%, #D97706 100%)',
                       color: '#FFFFFF',
-                      padding: '0.45rem 1rem',
+                      padding: '0.32rem 0.85rem',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'space-between',
-                      fontSize: '0.85rem',
+                      fontSize: '0.78rem',
                       fontWeight: 700,
                       letterSpacing: '0.02em',
                     }}
                   >
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                      <MdTempleHindu size={18} />
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                      <MdTempleHindu size={15} />
                       <span>{card.festival.name || 'Festival / Special Occasion'}</span>
                     </div>
-                    <span style={{ fontSize: '0.75rem', opacity: 0.9 }}>पर्व विशेष</span>
+                    <span style={{ fontSize: '0.7rem', opacity: 0.9 }}>पर्व विशेष</span>
                   </div>
                 )}
 
                 {/* Card Header */}
                 <div
                   style={{
-                    padding: '1.25rem 1.25rem 0.75rem 1.25rem',
+                    padding: '0.65rem 0.9rem 0.55rem 0.9rem',
                     borderBottom: '1px dashed var(--border-color)',
                     display: 'flex',
                     alignItems: 'center',
@@ -1049,21 +1056,21 @@ const ManageSpiritualCards = () => {
                     background: isToday ? 'rgba(253, 249, 241, 0.8)' : '#FFFFFF',
                   }}
                 >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                     <div
                       style={{
                         backgroundColor: isToday ? 'var(--primary-color)' : '#F3F4F6',
                         color: isToday ? '#FFFFFF' : 'var(--text-primary)',
-                        padding: '0.4rem 0.75rem',
-                        borderRadius: '8px',
+                        padding: '0.25rem 0.55rem',
+                        borderRadius: '6px',
                         fontWeight: 700,
-                        fontSize: '0.85rem',
+                        fontSize: '0.76rem',
                         display: 'flex',
                         alignItems: 'center',
-                        gap: '0.35rem',
+                        gap: '0.3rem',
                       }}
                     >
-                      <MdCalendarToday size={14} />
+                      <MdCalendarToday size={12} />
                       <span>{card.date}</span>
                     </div>
                     {isToday && (
@@ -1071,10 +1078,10 @@ const ManageSpiritualCards = () => {
                         style={{
                           backgroundColor: 'var(--secondary-color)',
                           color: '#4A2C10',
-                          fontSize: '0.7rem',
+                          fontSize: '0.65rem',
                           fontWeight: 700,
-                          padding: '0.2rem 0.5rem',
-                          borderRadius: '12px',
+                          padding: '0.14rem 0.42rem',
+                          borderRadius: '10px',
                         }}
                       >
                         TODAY
@@ -1084,10 +1091,10 @@ const ManageSpiritualCards = () => {
                       style={{
                         backgroundColor: '#EDE9FE',
                         color: '#6D28D9',
-                        fontSize: '0.75rem',
+                        fontSize: '0.68rem',
                         fontWeight: 600,
-                        padding: '0.2rem 0.5rem',
-                        borderRadius: '6px',
+                        padding: '0.14rem 0.42rem',
+                        borderRadius: '5px',
                         textTransform: 'uppercase',
                       }}
                     >
@@ -1100,10 +1107,10 @@ const ManageSpiritualCards = () => {
                     style={{
                       display: 'inline-flex',
                       alignItems: 'center',
-                      gap: '0.35rem',
-                      padding: '0.25rem 0.65rem',
-                      borderRadius: '20px',
-                      fontSize: '0.75rem',
+                      gap: '0.28rem',
+                      padding: '0.18rem 0.52rem',
+                      borderRadius: '16px',
+                      fontSize: '0.7rem',
                       fontWeight: 700,
                       backgroundColor: isPublished ? 'rgba(23, 74, 13, 0.1)' : '#FEF3C7',
                       color: isPublished ? 'var(--success-color)' : '#92400E',
@@ -1111,8 +1118,8 @@ const ManageSpiritualCards = () => {
                   >
                     <span
                       style={{
-                        width: '7px',
-                        height: '7px',
+                        width: '6px',
+                        height: '6px',
                         borderRadius: '50%',
                         backgroundColor: isPublished ? 'var(--success-color)' : '#D97706',
                       }}
@@ -1122,25 +1129,25 @@ const ManageSpiritualCards = () => {
                 </div>
 
                 {/* Card Body */}
-                <div style={{ padding: '1.25rem', display: 'flex', flexDirection: 'column', gap: '1rem', flex: 1 }}>
+                <div style={{ padding: '0.8rem 0.9rem', display: 'flex', flexDirection: 'column', gap: '0.6rem', flex: 1 }}>
                   {/* Thought Section */}
                   <div>
                     <div
                       style={{
-                        fontSize: '0.75rem',
+                        fontSize: '0.68rem',
                         fontWeight: 700,
                         textTransform: 'uppercase',
                         color: 'var(--primary-color)',
                         letterSpacing: '0.04em',
-                        marginBottom: '0.25rem',
+                        marginBottom: '0.18rem',
                       }}
                     >
                       {card.thought?.title || 'Daily Spiritual Thought (दैनिक विचार)'}
                     </div>
                     <p
                       style={{
-                        fontSize: '0.92rem',
-                        lineHeight: '1.55',
+                        fontSize: '0.82rem',
+                        lineHeight: '1.42',
                         color: 'var(--text-primary)',
                         margin: 0,
                         display: '-webkit-box',
@@ -1158,8 +1165,8 @@ const ManageSpiritualCards = () => {
                     style={{
                       backgroundColor: '#FFFDF7',
                       border: '1px solid #F5E6CC',
-                      borderRadius: '12px',
-                      padding: '0.9rem 1rem',
+                      borderRadius: '8px',
+                      padding: '0.6rem 0.75rem',
                       position: 'relative',
                     }}
                   >
@@ -1168,12 +1175,12 @@ const ManageSpiritualCards = () => {
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'space-between',
-                        marginBottom: '0.35rem',
+                        marginBottom: '0.25rem',
                       }}
                     >
                       <span
                         style={{
-                          fontSize: '0.75rem',
+                          fontSize: '0.68rem',
                           fontWeight: 700,
                           color: '#82001E',
                           textTransform: 'uppercase',
@@ -1181,16 +1188,16 @@ const ManageSpiritualCards = () => {
                       >
                         {card.mantra?.title || "Today's Sacred Mantra"}
                       </span>
-                      <span style={{ fontSize: '1rem', color: '#82001E' }}>🕉️</span>
+                      <span style={{ fontSize: '0.88rem', color: '#82001E' }}>🕉️</span>
                     </div>
                     <div
                       style={{
                         fontFamily: 'serif',
-                        fontSize: '0.95rem',
+                        fontSize: '0.86rem',
                         fontWeight: 600,
                         color: '#4A2C10',
-                        lineHeight: '1.5',
-                        marginBottom: card.mantra?.meaning ? '0.4rem' : 0,
+                        lineHeight: '1.4',
+                        marginBottom: card.mantra?.meaning ? '0.3rem' : 0,
                       }}
                     >
                       {card.mantra?.text}
@@ -1198,11 +1205,11 @@ const ManageSpiritualCards = () => {
                     {card.mantra?.meaning && (
                       <div
                         style={{
-                          fontSize: '0.8rem',
+                          fontSize: '0.75rem',
                           color: 'var(--text-secondary)',
                           fontStyle: 'italic',
                           borderTop: '1px dashed #F5E6CC',
-                          paddingTop: '0.35rem',
+                          paddingTop: '0.28rem',
                           display: '-webkit-box',
                           WebkitLineClamp: 2,
                           WebkitBoxOrient: 'vertical',
@@ -1218,21 +1225,21 @@ const ManageSpiritualCards = () => {
                   <div
                     style={{
                       display: 'flex',
-                      gap: '0.5rem',
+                      gap: '0.4rem',
                       backgroundColor: '#F9FAFB',
-                      padding: '0.75rem 0.9rem',
-                      borderRadius: '10px',
+                      padding: '0.55rem 0.75rem',
+                      borderRadius: '8px',
                     }}
                   >
-                    <MdFormatQuote size={20} style={{ color: 'var(--primary-color)', flexShrink: 0 }} />
+                    <MdFormatQuote size={17} style={{ color: 'var(--primary-color)', flexShrink: 0 }} />
                     <div style={{ flex: 1 }}>
                       <p
                         style={{
-                          fontSize: '0.85rem',
+                          fontSize: '0.78rem',
                           fontStyle: 'italic',
                           color: 'var(--text-primary)',
                           margin: 0,
-                          lineHeight: '1.45',
+                          lineHeight: '1.38',
                           display: '-webkit-box',
                           WebkitLineClamp: 2,
                           WebkitBoxOrient: 'vertical',
@@ -1244,11 +1251,11 @@ const ManageSpiritualCards = () => {
                       {card.quote?.author && (
                         <div
                           style={{
-                            fontSize: '0.75rem',
+                            fontSize: '0.7rem',
                             fontWeight: 600,
                             color: 'var(--text-secondary)',
                             textAlign: 'right',
-                            marginTop: '0.2rem',
+                            marginTop: '0.15rem',
                           }}
                         >
                           — {card.quote.author}
@@ -1261,7 +1268,7 @@ const ManageSpiritualCards = () => {
                 {/* Card Actions Footer */}
                 <div
                   style={{
-                    padding: '0.75rem 1rem',
+                    padding: '0.55rem 0.85rem',
                     borderTop: '1px solid var(--border-color)',
                     backgroundColor: '#FAFAFA',
                     display: 'flex',
@@ -1281,38 +1288,38 @@ const ManageSpiritualCards = () => {
                       cursor: 'pointer',
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '0.3rem',
-                      fontSize: '0.8rem',
+                      gap: '0.25rem',
+                      fontSize: '0.76rem',
                       fontWeight: 600,
-                      padding: '0.3rem 0.5rem',
+                      padding: '0.25rem 0.45rem',
                       borderRadius: '6px',
                     }}
                     title="Devotee Preview"
                   >
-                    <MdVisibility size={16} />
+                    <MdVisibility size={15} />
                     <span>Preview</span>
                   </button>
 
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
                     {/* Publish / Unpublish Button */}
                     <button
                       onClick={() => handleTogglePublish(card)}
                       style={{
-                        padding: '0.35rem 0.65rem',
+                        padding: '0.26rem 0.55rem',
                         borderRadius: '6px',
                         border: '1px solid var(--border-color)',
                         backgroundColor: isPublished ? '#FFFBEB' : '#ECFDF5',
                         color: isPublished ? '#92400E' : '#065F46',
-                        fontSize: '0.78rem',
+                        fontSize: '0.72rem',
                         fontWeight: 700,
                         cursor: 'pointer',
                         display: 'flex',
                         alignItems: 'center',
-                        gap: '0.3rem',
+                        gap: '0.25rem',
                       }}
                       title={isPublished ? 'Unpublish to draft' : 'Publish to devotees'}
                     >
-                      <MdPublish size={14} />
+                      <MdPublish size={13} />
                       <span>{isPublished ? 'Unpublish' : 'Publish'}</span>
                     </button>
 
@@ -1320,21 +1327,21 @@ const ManageSpiritualCards = () => {
                     <button
                       onClick={() => handleOpenEditModal(card)}
                       style={{
-                        padding: '0.35rem 0.65rem',
+                        padding: '0.26rem 0.52rem',
                         borderRadius: '6px',
                         border: '1px solid var(--border-color)',
                         backgroundColor: '#FFFFFF',
                         color: 'var(--primary-color)',
-                        fontSize: '0.78rem',
+                        fontSize: '0.72rem',
                         fontWeight: 600,
                         cursor: 'pointer',
                         display: 'flex',
                         alignItems: 'center',
-                        gap: '0.25rem',
+                        gap: '0.2rem',
                       }}
                       title="Edit Card"
                     >
-                      <MdEdit size={14} />
+                      <MdEdit size={13} />
                       <span>Edit</span>
                     </button>
 
@@ -1342,12 +1349,12 @@ const ManageSpiritualCards = () => {
                     <button
                       onClick={() => handleDelete(card)}
                       style={{
-                        padding: '0.35rem 0.5rem',
+                        padding: '0.28rem 0.42rem',
                         borderRadius: '6px',
                         border: 'none',
                         backgroundColor: 'rgba(239, 68, 68, 0.1)',
                         color: 'var(--error-color)',
-                        fontSize: '0.85rem',
+                        fontSize: '0.8rem',
                         cursor: 'pointer',
                         display: 'flex',
                         alignItems: 'center',
@@ -1355,7 +1362,7 @@ const ManageSpiritualCards = () => {
                       }}
                       title="Delete Card"
                     >
-                      <MdDeleteOutline size={16} />
+                      <MdDeleteOutline size={15} />
                     </button>
                   </div>
                 </div>
@@ -1365,19 +1372,19 @@ const ManageSpiritualCards = () => {
         </div>
       ) : (
         /* TABLE VIEW: Compact rows */
-        <div className="glass-panel" style={{ overflow: 'hidden', marginBottom: '2rem' }}>
+        <div className="glass-panel" style={{ overflow: 'hidden', marginBottom: '0.9rem' }}>
           <div style={{ overflowX: 'auto' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.9rem' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.82rem' }}>
               <thead>
                 <tr style={{ backgroundColor: '#F9FAFB', borderBottom: '1px solid var(--border-color)' }}>
-                  <th style={{ padding: '1rem', fontWeight: 600, color: 'var(--text-secondary)' }}>Date</th>
-                  <th style={{ padding: '1rem', fontWeight: 600, color: 'var(--text-secondary)' }}>Status</th>
-                  <th style={{ padding: '1rem', fontWeight: 600, color: 'var(--text-secondary)' }}>Language</th>
-                  <th style={{ padding: '1rem', fontWeight: 600, color: 'var(--text-secondary)' }}>Festival</th>
-                  <th style={{ padding: '1rem', fontWeight: 600, color: 'var(--text-secondary)' }}>Thought</th>
-                  <th style={{ padding: '1rem', fontWeight: 600, color: 'var(--text-secondary)' }}>Mantra</th>
-                  <th style={{ padding: '1rem', fontWeight: 600, color: 'var(--text-secondary)' }}>Quote</th>
-                  <th style={{ padding: '1rem', fontWeight: 600, color: 'var(--text-secondary)', textAlign: 'right' }}>Actions</th>
+                  <th style={{ padding: '0.5rem 0.75rem', fontWeight: 600, color: 'var(--text-secondary)', fontSize: '0.72rem', textTransform: 'uppercase' }}>Date</th>
+                  <th style={{ padding: '0.5rem 0.75rem', fontWeight: 600, color: 'var(--text-secondary)', fontSize: '0.72rem', textTransform: 'uppercase' }}>Status</th>
+                  <th style={{ padding: '0.5rem 0.75rem', fontWeight: 600, color: 'var(--text-secondary)', fontSize: '0.72rem', textTransform: 'uppercase' }}>Lang</th>
+                  <th style={{ padding: '0.5rem 0.75rem', fontWeight: 600, color: 'var(--text-secondary)', fontSize: '0.72rem', textTransform: 'uppercase' }}>Festival</th>
+                  <th style={{ padding: '0.5rem 0.75rem', fontWeight: 600, color: 'var(--text-secondary)', fontSize: '0.72rem', textTransform: 'uppercase' }}>Thought</th>
+                  <th style={{ padding: '0.5rem 0.75rem', fontWeight: 600, color: 'var(--text-secondary)', fontSize: '0.72rem', textTransform: 'uppercase' }}>Mantra</th>
+                  <th style={{ padding: '0.5rem 0.75rem', fontWeight: 600, color: 'var(--text-secondary)', fontSize: '0.72rem', textTransform: 'uppercase' }}>Quote</th>
+                  <th style={{ padding: '0.5rem 0.75rem', fontWeight: 600, color: 'var(--text-secondary)', fontSize: '0.72rem', textTransform: 'uppercase', textAlign: 'right' }}>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -1395,7 +1402,7 @@ const ManageSpiritualCards = () => {
                         transition: 'background-color 0.15s',
                       }}
                     >
-                      <td style={{ padding: '1rem', whiteSpace: 'nowrap' }}>
+                      <td style={{ padding: '0.55rem 0.75rem', whiteSpace: 'nowrap' }}>
                         <div style={{ fontWeight: 700, color: 'var(--text-primary)' }}>{card.date}</div>
                         {isToday && (
                           <span
@@ -1413,15 +1420,15 @@ const ManageSpiritualCards = () => {
                         )}
                       </td>
 
-                      <td style={{ padding: '1rem' }}>
+                      <td style={{ padding: '0.55rem 0.75rem' }}>
                         <span
                           style={{
                             display: 'inline-flex',
                             alignItems: 'center',
-                            gap: '0.35rem',
-                            padding: '0.25rem 0.65rem',
-                            borderRadius: '16px',
-                            fontSize: '0.75rem',
+                            gap: '0.3rem',
+                            padding: '0.18rem 0.52rem',
+                            borderRadius: '14px',
+                            fontSize: '0.72rem',
                             fontWeight: 700,
                             backgroundColor: isPublished ? 'rgba(23, 74, 13, 0.1)' : '#FEF3C7',
                             color: isPublished ? 'var(--success-color)' : '#92400E',
@@ -1439,15 +1446,15 @@ const ManageSpiritualCards = () => {
                         </span>
                       </td>
 
-                      <td style={{ padding: '1rem' }}>
+                      <td style={{ padding: '0.55rem 0.75rem' }}>
                         <span
                           style={{
                             backgroundColor: '#EDE9FE',
                             color: '#6D28D9',
-                            fontSize: '0.75rem',
+                            fontSize: '0.7rem',
                             fontWeight: 600,
-                            padding: '0.2rem 0.5rem',
-                            borderRadius: '6px',
+                            padding: '0.16rem 0.42rem',
+                            borderRadius: '5px',
                             textTransform: 'uppercase',
                           }}
                         >
@@ -1455,22 +1462,22 @@ const ManageSpiritualCards = () => {
                         </span>
                       </td>
 
-                      <td style={{ padding: '1rem' }}>
+                      <td style={{ padding: '0.55rem 0.75rem' }}>
                         {card.festival?.isFestival ? (
                           <span
                             style={{
                               backgroundColor: '#FEF3C7',
                               color: '#B45309',
-                              padding: '0.2rem 0.55rem',
-                              borderRadius: '6px',
-                              fontSize: '0.78rem',
+                              padding: '0.16rem 0.48rem',
+                              borderRadius: '5px',
+                              fontSize: '0.73rem',
                               fontWeight: 700,
                               display: 'inline-flex',
                               alignItems: 'center',
-                              gap: '0.3rem',
+                              gap: '0.25rem',
                             }}
                           >
-                            <MdTempleHindu size={14} />
+                            <MdTempleHindu size={13} />
                             <span>{card.festival.name || 'Festival'}</span>
                           </span>
                         ) : (
@@ -1478,13 +1485,13 @@ const ManageSpiritualCards = () => {
                         )}
                       </td>
 
-                      <td style={{ padding: '1rem', maxWidth: '240px' }}>
-                        <div style={{ fontWeight: 600, fontSize: '0.82rem', color: 'var(--primary-color)' }}>
+                      <td style={{ padding: '0.55rem 0.75rem', maxWidth: '220px' }}>
+                        <div style={{ fontWeight: 600, fontSize: '0.78rem', color: 'var(--primary-color)' }}>
                           {card.thought?.title || 'Daily Thought'}
                         </div>
                         <div
                           style={{
-                            fontSize: '0.82rem',
+                            fontSize: '0.76rem',
                             color: 'var(--text-secondary)',
                             whiteSpace: 'nowrap',
                             overflow: 'hidden',
@@ -1495,13 +1502,13 @@ const ManageSpiritualCards = () => {
                         </div>
                       </td>
 
-                      <td style={{ padding: '1rem', maxWidth: '240px' }}>
-                        <div style={{ fontWeight: 600, fontSize: '0.82rem', color: '#4A2C10' }}>
+                      <td style={{ padding: '0.55rem 0.75rem', maxWidth: '220px' }}>
+                        <div style={{ fontWeight: 600, fontSize: '0.78rem', color: '#4A2C10' }}>
                           {card.mantra?.title || 'Mantra'}
                         </div>
                         <div
                           style={{
-                            fontSize: '0.82rem',
+                            fontSize: '0.76rem',
                             color: 'var(--text-secondary)',
                             whiteSpace: 'nowrap',
                             overflow: 'hidden',
@@ -1512,10 +1519,10 @@ const ManageSpiritualCards = () => {
                         </div>
                       </td>
 
-                      <td style={{ padding: '1rem', maxWidth: '200px' }}>
+                      <td style={{ padding: '0.55rem 0.75rem', maxWidth: '180px' }}>
                         <div
                           style={{
-                            fontSize: '0.82rem',
+                            fontSize: '0.76rem',
                             color: 'var(--text-primary)',
                             whiteSpace: 'nowrap',
                             overflow: 'hidden',
@@ -1526,14 +1533,14 @@ const ManageSpiritualCards = () => {
                           "{card.quote?.text}"
                         </div>
                         {card.quote?.author && (
-                          <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
+                          <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>
                             — {card.quote.author}
                           </div>
                         )}
                       </td>
 
-                      <td style={{ padding: '1rem', textAlign: 'right', whiteSpace: 'nowrap' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '0.4rem' }}>
+                      <td style={{ padding: '0.55rem 0.75rem', textAlign: 'right', whiteSpace: 'nowrap' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '0.35rem' }}>
                           <button
                             onClick={() => {
                               setPreviewCard(card);
@@ -1543,24 +1550,24 @@ const ManageSpiritualCards = () => {
                               background: 'none',
                               border: '1px solid var(--border-color)',
                               color: 'var(--text-secondary)',
-                              padding: '0.35rem 0.5rem',
-                              borderRadius: '6px',
+                              padding: '0.28rem 0.42rem',
+                              borderRadius: '5px',
                               cursor: 'pointer',
                             }}
                             title="Preview"
                           >
-                            <MdVisibility size={15} />
+                            <MdVisibility size={14} />
                           </button>
 
                           <button
                             onClick={() => handleTogglePublish(card)}
                             style={{
-                              padding: '0.35rem 0.65rem',
-                              borderRadius: '6px',
+                              padding: '0.28rem 0.55rem',
+                              borderRadius: '5px',
                               border: '1px solid var(--border-color)',
                               backgroundColor: isPublished ? '#FFFBEB' : '#ECFDF5',
                               color: isPublished ? '#92400E' : '#065F46',
-                              fontSize: '0.75rem',
+                              fontSize: '0.72rem',
                               fontWeight: 700,
                               cursor: 'pointer',
                             }}
@@ -1571,8 +1578,8 @@ const ManageSpiritualCards = () => {
                           <button
                             onClick={() => handleOpenEditModal(card)}
                             style={{
-                              padding: '0.35rem 0.5rem',
-                              borderRadius: '6px',
+                              padding: '0.28rem 0.42rem',
+                              borderRadius: '5px',
                               border: '1px solid var(--border-color)',
                               backgroundColor: '#FFFFFF',
                               color: 'var(--primary-color)',
@@ -1580,14 +1587,14 @@ const ManageSpiritualCards = () => {
                             }}
                             title="Edit"
                           >
-                            <MdEdit size={15} />
+                            <MdEdit size={14} />
                           </button>
 
                           <button
                             onClick={() => handleDelete(card)}
                             style={{
-                              padding: '0.35rem 0.5rem',
-                              borderRadius: '6px',
+                              padding: '0.28rem 0.42rem',
+                              borderRadius: '5px',
                               border: 'none',
                               backgroundColor: 'rgba(239, 68, 68, 0.1)',
                               color: 'var(--error-color)',
@@ -1595,7 +1602,7 @@ const ManageSpiritualCards = () => {
                             }}
                             title="Delete"
                           >
-                            <MdDeleteOutline size={15} />
+                            <MdDeleteOutline size={14} />
                           </button>
                         </div>
                       </td>
@@ -1613,19 +1620,19 @@ const ManageSpiritualCards = () => {
         <div
           className="glass-panel"
           style={{
-            padding: '1rem 1.5rem',
+            padding: '0.6rem 1rem',
             display: 'flex',
             flexWrap: 'wrap',
             alignItems: 'center',
             justifyContent: 'space-between',
-            gap: '1rem',
+            gap: '0.75rem',
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: 'var(--text-secondary)', fontSize: '0.85rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'var(--text-secondary)', fontSize: '0.8rem' }}>
             <span>
               Showing {cards.length} cards (Page {page} of {totalPages}) &bull; Total {totalCount}
             </span>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
               <span>Per page:</span>
               <select
                 value={limit}
@@ -1634,10 +1641,10 @@ const ManageSpiritualCards = () => {
                   setPage(1);
                 }}
                 style={{
-                  padding: '0.3rem 0.5rem',
-                  borderRadius: '6px',
+                  padding: '0.22rem 0.45rem',
+                  borderRadius: '5px',
                   border: '1px solid var(--border-color)',
-                  fontSize: '0.85rem',
+                  fontSize: '0.78rem',
                   backgroundColor: '#FFFFFF',
                 }}
               >
@@ -1648,29 +1655,29 @@ const ManageSpiritualCards = () => {
             </div>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
             <button
               onClick={() => setPage((p) => Math.max(1, p - 1))}
               disabled={page <= 1}
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '0.3rem',
-                padding: '0.5rem 0.85rem',
-                borderRadius: '8px',
+                gap: '0.25rem',
+                padding: '0.35rem 0.7rem',
+                borderRadius: '6px',
                 border: '1px solid var(--border-color)',
                 backgroundColor: page <= 1 ? '#F9FAFB' : '#FFFFFF',
                 color: page <= 1 ? '#9CA3AF' : 'var(--text-primary)',
                 fontWeight: 600,
-                fontSize: '0.85rem',
+                fontSize: '0.78rem',
                 cursor: page <= 1 ? 'not-allowed' : 'pointer',
               }}
             >
-              <MdArrowBack size={16} />
+              <MdArrowBack size={14} />
               <span>Previous</span>
             </button>
 
-            <span style={{ padding: '0 0.5rem', fontSize: '0.85rem', fontWeight: 600, color: 'var(--primary-color)' }}>
+            <span style={{ padding: '0 0.4rem', fontSize: '0.78rem', fontWeight: 600, color: 'var(--primary-color)' }}>
               {page} / {totalPages}
             </span>
 
@@ -1680,19 +1687,19 @@ const ManageSpiritualCards = () => {
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '0.3rem',
-                padding: '0.5rem 0.85rem',
-                borderRadius: '8px',
+                gap: '0.25rem',
+                padding: '0.35rem 0.7rem',
+                borderRadius: '6px',
                 border: '1px solid var(--border-color)',
                 backgroundColor: page >= totalPages ? '#F9FAFB' : '#FFFFFF',
                 color: page >= totalPages ? '#9CA3AF' : 'var(--text-primary)',
                 fontWeight: 600,
-                fontSize: '0.85rem',
+                fontSize: '0.78rem',
                 cursor: page >= totalPages ? 'not-allowed' : 'pointer',
               }}
             >
               <span>Next</span>
-              <MdArrowForward size={16} />
+              <MdArrowForward size={14} />
             </button>
           </div>
         </div>
@@ -1749,16 +1756,16 @@ const ManageSpiritualCards = () => {
             </div>
           )}
 
-          <form onSubmit={handleFormSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+            <form onSubmit={handleFormSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
             {/* Top Row: Date, Language, Status */}
             <div
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-                gap: '1rem',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+                gap: '0.7rem',
                 backgroundColor: '#F9FAFB',
-                padding: '1rem',
-                borderRadius: '12px',
+                padding: '0.75rem',
+                borderRadius: '10px',
                 border: '1px solid var(--border-color)',
               }}
             >
@@ -1930,19 +1937,19 @@ const ManageSpiritualCards = () => {
             <div
               style={{
                 border: '1px solid var(--border-color)',
-                borderRadius: '12px',
-                padding: '1.25rem',
+                borderRadius: '10px',
+                padding: '0.85rem',
                 backgroundColor: '#FFFFFF',
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.75rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', marginBottom: '0.5rem' }}>
                 <span style={{ color: 'var(--primary-color)' }}>💡</span>
-                <h3 style={{ margin: 0, fontSize: '1rem', fontWeight: 700, color: 'var(--primary-color)' }}>
+                <h3 style={{ margin: 0, fontSize: '0.92rem', fontWeight: 700, color: 'var(--primary-color)' }}>
                   Daily Spiritual Thought (दैनिक विचार)
                 </h3>
               </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
                 <div>
                   <label className="input-label" style={{ fontWeight: 600, fontSize: '0.85rem' }}>
                     Thought Title (Optional)
@@ -2003,19 +2010,19 @@ const ManageSpiritualCards = () => {
             <div
               style={{
                 border: '1px solid #F5E6CC',
-                borderRadius: '12px',
-                padding: '1.25rem',
+                borderRadius: '10px',
+                padding: '0.85rem',
                 backgroundColor: '#FFFDF9',
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.75rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', marginBottom: '0.5rem' }}>
                 <span style={{ color: 'var(--primary-color)' }}>🕉️</span>
-                <h3 style={{ margin: 0, fontSize: '1rem', fontWeight: 700, color: 'var(--primary-color)' }}>
+                <h3 style={{ margin: 0, fontSize: '0.92rem', fontWeight: 700, color: 'var(--primary-color)' }}>
                   Sacred Mantra (दैनिक मन्त्र)
                 </h3>
               </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1rem' }}>
                   <div>
                     <label className="input-label" style={{ fontWeight: 600, fontSize: '0.85rem' }}>
@@ -2106,19 +2113,19 @@ const ManageSpiritualCards = () => {
             <div
               style={{
                 border: '1px solid var(--border-color)',
-                borderRadius: '12px',
-                padding: '1.25rem',
+                borderRadius: '10px',
+                padding: '0.85rem',
                 backgroundColor: '#FFFFFF',
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.75rem' }}>
-                <MdFormatQuote size={20} style={{ color: 'var(--primary-color)' }} />
-                <h3 style={{ margin: 0, fontSize: '1rem', fontWeight: 700, color: 'var(--primary-color)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', marginBottom: '0.5rem' }}>
+                <MdFormatQuote size={18} style={{ color: 'var(--primary-color)' }} />
+                <h3 style={{ margin: 0, fontSize: '0.92rem', fontWeight: 700, color: 'var(--primary-color)' }}>
                   Sacred Quote / Subhashita (सुभाषित / अनमोल वचन)
                 </h3>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.7rem' }}>
                 <div style={{ gridColumn: '1 / -1' }}>
                   <label className="input-label" style={{ fontWeight: 600, fontSize: '0.85rem' }}>
                     Quote Text <span style={{ color: 'var(--error-color)' }}>*</span>
@@ -2181,10 +2188,10 @@ const ManageSpiritualCards = () => {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'flex-end',
-                gap: '1rem',
+                gap: '0.65rem',
                 borderTop: '1px solid var(--border-color)',
-                paddingTop: '1.25rem',
-                marginTop: '0.5rem',
+                paddingTop: '0.8rem',
+                marginTop: '0.25rem',
               }}
             >
               <button
@@ -2194,8 +2201,8 @@ const ManageSpiritualCards = () => {
                 style={{
                   backgroundColor: '#F3F4F6',
                   color: 'var(--text-primary)',
-                  padding: '0.7rem 1.25rem',
-                  borderRadius: '8px',
+                  padding: '0.45rem 0.9rem',
+                  borderRadius: '7px',
                   fontWeight: 600,
                 }}
               >
@@ -2209,13 +2216,13 @@ const ManageSpiritualCards = () => {
                 style={{
                   backgroundColor: 'var(--primary-color)',
                   color: '#FFFFFF',
-                  padding: '0.7rem 1.75rem',
-                  borderRadius: '8px',
+                  padding: '0.45rem 1.1rem',
+                  borderRadius: '7px',
                   fontWeight: 600,
                   display: 'inline-flex',
                   alignItems: 'center',
-                  gap: '0.5rem',
-                  boxShadow: '0 4px 12px rgba(130, 0, 30, 0.25)',
+                  gap: '0.4rem',
+                  boxShadow: '0 2px 8px rgba(130, 0, 30, 0.22)',
                 }}
               >
                 <MdSave size={18} />
@@ -2239,32 +2246,32 @@ const ManageSpiritualCards = () => {
         title="Devotee Mobile App Preview"
       >
         {previewCard && (
-          <div style={{ maxWidth: '420px', margin: '0 auto', textAlign: 'left' }}>
+          <div style={{ maxWidth: '370px', margin: '0 auto', textAlign: 'left' }}>
             <div
               style={{
                 backgroundColor: '#FFFDF9',
-                border: '2px solid #E6D5B8',
-                borderRadius: '24px',
-                padding: '1.75rem 1.5rem',
-                boxShadow: '0 20px 40px -10px rgba(74, 44, 16, 0.15)',
+                border: '1.5px solid #E6D5B8',
+                borderRadius: '18px',
+                padding: '1.15rem 1rem',
+                boxShadow: '0 14px 28px -8px rgba(74, 44, 16, 0.14)',
                 position: 'relative',
               }}
             >
               {/* Header with Temple Motif */}
-              <div style={{ textAlign: 'center', marginBottom: '1.25rem' }}>
-                <div style={{ fontSize: '1.8rem', color: 'var(--primary-color)', marginBottom: '0.25rem' }}>🕉️</div>
+              <div style={{ textAlign: 'center', marginBottom: '0.85rem' }}>
+                <div style={{ fontSize: '1.35rem', color: 'var(--primary-color)', marginBottom: '0.15rem' }}>🕉️</div>
                 <div
                   style={{
-                    fontSize: '0.8rem',
+                    fontSize: '0.72rem',
                     fontWeight: 700,
                     textTransform: 'uppercase',
                     color: 'var(--primary-color)',
-                    letterSpacing: '0.08em',
+                    letterSpacing: '0.07em',
                   }}
                 >
                   Vipra Saarthi &bull; दैनिक आध्यात्मिक विचार
                 </div>
-                <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', fontWeight: 500 }}>
+                <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', fontWeight: 500 }}>
                   {previewCard.date}
                 </div>
               </div>
@@ -2275,18 +2282,18 @@ const ManageSpiritualCards = () => {
                   style={{
                     backgroundColor: '#FEF3C7',
                     border: '1px solid #F59E0B',
-                    borderRadius: '10px',
-                    padding: '0.65rem 0.85rem',
-                    marginBottom: '1.25rem',
+                    borderRadius: '8px',
+                    padding: '0.45rem 0.65rem',
+                    marginBottom: '0.85rem',
                     textAlign: 'center',
                   }}
                 >
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem', color: '#B45309', fontWeight: 700, fontSize: '0.9rem' }}>
-                    <MdTempleHindu size={18} />
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.35rem', color: '#B45309', fontWeight: 700, fontSize: '0.82rem' }}>
+                    <MdTempleHindu size={15} />
                     <span>{previewCard.festival.name}</span>
                   </div>
                   {previewCard.festival.description && (
-                    <div style={{ fontSize: '0.78rem', color: '#92400E', marginTop: '0.2rem' }}>
+                    <div style={{ fontSize: '0.72rem', color: '#92400E', marginTop: '0.15rem' }}>
                       {previewCard.festival.description}
                     </div>
                   )}
@@ -2294,13 +2301,13 @@ const ManageSpiritualCards = () => {
               )}
 
               {/* Thought */}
-              <div style={{ marginBottom: '1.25rem' }}>
+              <div style={{ marginBottom: '0.85rem' }}>
                 {previewCard.thought?.title && (
-                  <h4 style={{ margin: 0, fontSize: '0.95rem', fontWeight: 700, color: 'var(--primary-color)', marginBottom: '0.35rem' }}>
+                  <h4 style={{ margin: 0, fontSize: '0.86rem', fontWeight: 700, color: 'var(--primary-color)', marginBottom: '0.25rem' }}>
                     {previewCard.thought.title}
                   </h4>
                 )}
-                <p style={{ margin: 0, fontSize: '0.95rem', lineHeight: '1.6', color: 'var(--text-primary)' }}>
+                <p style={{ margin: 0, fontSize: '0.84rem', lineHeight: '1.48', color: 'var(--text-primary)' }}>
                   {previewCard.thought?.content}
                 </p>
               </div>
@@ -2309,22 +2316,22 @@ const ManageSpiritualCards = () => {
               <div
                 style={{
                   backgroundColor: '#FFF8EE',
-                  border: '1.5px solid #F0BE3C',
-                  borderRadius: '16px',
-                  padding: '1.2rem',
-                  marginBottom: '1.25rem',
+                  border: '1px solid #F0BE3C',
+                  borderRadius: '12px',
+                  padding: '0.8rem',
+                  marginBottom: '0.85rem',
                   textAlign: 'center',
-                  boxShadow: 'inset 0 1px 3px rgba(240, 190, 60, 0.2)',
+                  boxShadow: 'inset 0 1px 2px rgba(240, 190, 60, 0.2)',
                 }}
               >
                 <div
                   style={{
-                    fontSize: '0.75rem',
+                    fontSize: '0.7rem',
                     fontWeight: 700,
                     textTransform: 'uppercase',
                     color: '#82001E',
                     letterSpacing: '0.05em',
-                    marginBottom: '0.5rem',
+                    marginBottom: '0.35rem',
                   }}
                 >
                   {previewCard.mantra?.title || 'आज का दिव्य मन्त्र'}
@@ -2332,11 +2339,11 @@ const ManageSpiritualCards = () => {
                 <div
                   style={{
                     fontFamily: 'serif',
-                    fontSize: '1.05rem',
+                    fontSize: '0.95rem',
                     fontWeight: 700,
                     color: '#82001E',
-                    lineHeight: '1.55',
-                    marginBottom: previewCard.mantra?.meaning ? '0.6rem' : 0,
+                    lineHeight: '1.45',
+                    marginBottom: previewCard.mantra?.meaning ? '0.45rem' : 0,
                   }}
                 >
                   {previewCard.mantra?.text}
@@ -2344,11 +2351,11 @@ const ManageSpiritualCards = () => {
                 {previewCard.mantra?.meaning && (
                   <div
                     style={{
-                      fontSize: '0.82rem',
+                      fontSize: '0.76rem',
                       color: '#4A2C10',
                       borderTop: '1px dashed #E5D5BA',
-                      paddingTop: '0.5rem',
-                      lineHeight: '1.45',
+                      paddingTop: '0.4rem',
+                      lineHeight: '1.4',
                     }}
                   >
                     <span style={{ fontWeight: 600 }}>अर्थ: </span>
@@ -2361,16 +2368,16 @@ const ManageSpiritualCards = () => {
               <div
                 style={{
                   backgroundColor: '#F9FAFB',
-                  borderRadius: '12px',
-                  padding: '1rem',
-                  borderLeft: '4px solid var(--secondary-color)',
+                  borderRadius: '10px',
+                  padding: '0.7rem 0.85rem',
+                  borderLeft: '3px solid var(--secondary-color)',
                 }}
               >
-                <p style={{ margin: 0, fontStyle: 'italic', fontSize: '0.9rem', lineHeight: '1.5', color: 'var(--text-primary)' }}>
+                <p style={{ margin: 0, fontStyle: 'italic', fontSize: '0.82rem', lineHeight: '1.45', color: 'var(--text-primary)' }}>
                   "{previewCard.quote?.text}"
                 </p>
                 {previewCard.quote?.author && (
-                  <div style={{ textAlign: 'right', fontSize: '0.8rem', fontWeight: 600, color: 'var(--text-secondary)', marginTop: '0.35rem' }}>
+                  <div style={{ textAlign: 'right', fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-secondary)', marginTop: '0.25rem' }}>
                     — {previewCard.quote.author}
                   </div>
                 )}
@@ -2381,9 +2388,9 @@ const ManageSpiritualCards = () => {
                 style={{
                   display: 'flex',
                   justifyContent: 'center',
-                  gap: '1rem',
-                  marginTop: '1.5rem',
-                  paddingTop: '1rem',
+                  gap: '0.75rem',
+                  marginTop: '0.95rem',
+                  paddingTop: '0.7rem',
                   borderTop: '1px solid #E6D5B8',
                 }}
               >
@@ -2397,18 +2404,18 @@ const ManageSpiritualCards = () => {
                   style={{
                     background: 'none',
                     border: '1px solid var(--border-color)',
-                    padding: '0.5rem 1rem',
-                    borderRadius: '8px',
-                    fontSize: '0.8rem',
+                    padding: '0.38rem 0.75rem',
+                    borderRadius: '6px',
+                    fontSize: '0.76rem',
                     fontWeight: 600,
                     color: 'var(--text-secondary)',
                     cursor: 'pointer',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '0.4rem',
+                    gap: '0.35rem',
                   }}
                 >
-                  <MdContentCopy size={16} />
+                  <MdContentCopy size={14} />
                   <span>Copy Devotee Text</span>
                 </button>
               </div>

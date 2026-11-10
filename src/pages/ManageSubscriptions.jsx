@@ -492,21 +492,21 @@ const ManageSubscriptions = () => {
   const isSaving = createPlanMutation.isPending || updatePlanMutation.isPending;
 
   return (
-    <div className="page-content animate-fade-in" style={{ paddingTop: '0.5rem' }}>
+    <div className="page-content animate-fade-in">
 
       {/* PAGE HEADER */}
-      <div className="top-header" style={{ margin: '-2rem -2rem 1.5rem -2rem' }}>
+      <div className="top-header" style={{ margin: '-0.95rem -1.25rem 0.9rem -1.25rem' }}>
         <div>
-          <h1 className="header-title" style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-            <MdCardMembership size={28} />
+          <h1 className="header-title" style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+            <MdCardMembership size={21} />
             Subscription & Plans Management
           </h1>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '0.875rem', marginTop: '0.25rem' }}>
+          <p style={{ color: 'var(--text-secondary)', fontSize: '0.78rem', marginTop: '0.1rem', marginBottom: 0 }}>
             Configure Vedic astrology subscription packages, feature permissions, and user limits.
           </p>
         </div>
 
-        <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+        <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
           <button
             className="btn btn-outline"
             onClick={() => {
@@ -515,18 +515,18 @@ const ManageSubscriptions = () => {
               toast.success('Refreshing data...');
             }}
             title="Refresh Data"
-            style={{ padding: '0.6rem 0.9rem' }}
+            style={{ padding: '0.42rem 0.65rem' }}
           >
-            <MdRefresh size={19} />
+            <MdRefresh size={16} />
           </button>
 
           {activeTab === 'plans' && (
             <button
               className="btn btn-primary"
               onClick={openCreateModal}
-              style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.65rem 1.25rem' }}
+              style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', padding: '0.42rem 0.9rem' }}
             >
-              <MdAdd size={20} />
+              <MdAdd size={17} />
               Create New Plan
             </button>
           )}
@@ -539,17 +539,18 @@ const ManageSubscriptions = () => {
           style={{
             backgroundColor: '#FFFBEB',
             border: '1px solid #FDE68A',
-            borderRadius: '10px',
-            padding: '1rem 1.25rem',
-            marginBottom: '1.5rem',
+            borderRadius: '8px',
+            padding: '0.6rem 0.9rem',
+            marginBottom: '0.85rem',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            gap: '1rem'
+            gap: '0.75rem',
+            fontSize: '0.8rem'
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-            <MdInfoOutline size={22} color="#D97706" />
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.55rem' }}>
+            <MdInfoOutline size={18} color="#D97706" />
             <div>
               <strong style={{ color: '#92400E' }}>Backend Notice:</strong>{' '}
               <span style={{ color: '#B45309' }}>
@@ -561,7 +562,7 @@ const ManageSubscriptions = () => {
           </div>
           <button
             className="btn btn-outline"
-            style={{ fontSize: '0.8rem', padding: '0.35rem 0.75rem', borderColor: '#D97706', color: '#B45309' }}
+            style={{ fontSize: '0.74rem', padding: '0.28rem 0.6rem', borderColor: '#D97706', color: '#B45309' }}
             onClick={() => refetchPlans()}
           >
             Retry Connection
@@ -573,50 +574,50 @@ const ManageSubscriptions = () => {
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(210px, 1fr))',
-          gap: '1rem',
-          marginBottom: '1.75rem'
+          gridTemplateColumns: 'repeat(auto-fit, minmax(175px, 1fr))',
+          gap: '0.75rem',
+          marginBottom: '0.9rem'
         }}
       >
-        <div className="glass-panel" style={{ padding: '1.25rem 1.5rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(130, 0, 30, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--primary-color)' }}>
-            <MdCardMembership size={26} />
+        <div className="glass-panel" style={{ padding: '0.68rem 0.9rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <div style={{ width: '36px', height: '36px', borderRadius: '8px', background: 'rgba(130, 0, 30, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--primary-color)' }}>
+            <MdCardMembership size={19} />
           </div>
           <div>
-            <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', textTransform: 'uppercase', fontWeight: '600' }}>Total Plans</div>
-            <div style={{ fontSize: '1.6rem', fontWeight: '700', color: 'var(--primary-color)', lineHeight: 1.2 }}>{stats.total}</div>
+            <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', textTransform: 'uppercase', fontWeight: '600' }}>Total Plans</div>
+            <div style={{ fontSize: '1.2rem', fontWeight: '700', color: 'var(--primary-color)', lineHeight: 1.15 }}>{stats.total}</div>
           </div>
         </div>
 
-        <div className="glass-panel" style={{ padding: '1.25rem 1.5rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(23, 74, 13, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--success-color)' }}>
-            <MdCheckCircle size={26} />
+        <div className="glass-panel" style={{ padding: '0.68rem 0.9rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <div style={{ width: '36px', height: '36px', borderRadius: '8px', background: 'rgba(23, 74, 13, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--success-color)' }}>
+            <MdCheckCircle size={19} />
           </div>
           <div>
-            <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', textTransform: 'uppercase', fontWeight: '600' }}>Active Plans</div>
-            <div style={{ fontSize: '1.6rem', fontWeight: '700', color: 'var(--success-color)', lineHeight: 1.2 }}>{stats.active}</div>
+            <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', textTransform: 'uppercase', fontWeight: '600' }}>Active Plans</div>
+            <div style={{ fontSize: '1.2rem', fontWeight: '700', color: 'var(--success-color)', lineHeight: 1.15 }}>{stats.active}</div>
           </div>
         </div>
 
-        <div className="glass-panel" style={{ padding: '1.25rem 1.5rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(240, 190, 60, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#B45309' }}>
-            <MdCalendarToday size={26} />
+        <div className="glass-panel" style={{ padding: '0.68rem 0.9rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <div style={{ width: '36px', height: '36px', borderRadius: '8px', background: 'rgba(240, 190, 60, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#B45309' }}>
+            <MdCalendarToday size={19} />
           </div>
           <div>
-            <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', textTransform: 'uppercase', fontWeight: '600' }}>Billing Cycles</div>
-            <div style={{ fontSize: '1.1rem', fontWeight: '700', color: 'var(--text-primary)', marginTop: '0.2rem' }}>
+            <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', textTransform: 'uppercase', fontWeight: '600' }}>Billing Cycles</div>
+            <div style={{ fontSize: '0.92rem', fontWeight: '700', color: 'var(--text-primary)', marginTop: '0.1rem' }}>
               {stats.monthly} Monthly <span style={{ color: 'var(--text-secondary)', fontWeight: 'normal' }}>|</span> {stats.yearly} Yearly
             </div>
           </div>
         </div>
 
-        <div className="glass-panel" style={{ padding: '1.25rem 1.5rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(59, 130, 246, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#2563EB' }}>
-            <MdPerson size={26} />
+        <div className="glass-panel" style={{ padding: '0.68rem 0.9rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <div style={{ width: '36px', height: '36px', borderRadius: '8px', background: 'rgba(59, 130, 246, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#2563EB' }}>
+            <MdPerson size={19} />
           </div>
           <div>
-            <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', textTransform: 'uppercase', fontWeight: '600' }}>Subscribers</div>
-            <div style={{ fontSize: '1.6rem', fontWeight: '700', color: '#2563EB', lineHeight: 1.2 }}>{subscribers.length}</div>
+            <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', textTransform: 'uppercase', fontWeight: '600' }}>Subscribers</div>
+            <div style={{ fontSize: '1.2rem', fontWeight: '700', color: '#2563EB', lineHeight: 1.15 }}>{subscribers.length}</div>
           </div>
         </div>
       </div>
@@ -627,9 +628,9 @@ const ManageSubscriptions = () => {
         aria-label="Subscription Management Views"
         style={{
           display: 'flex',
-          gap: '0.5rem',
+          gap: '0.4rem',
           borderBottom: '1px solid var(--border-color)',
-          marginBottom: '1.5rem',
+          marginBottom: '0.9rem',
         }}
       >
         <button
@@ -637,9 +638,9 @@ const ManageSubscriptions = () => {
           aria-selected={activeTab === 'plans'}
           className={`btn ${activeTab === 'plans' ? 'btn-primary' : 'btn-outline'}`}
           onClick={() => setActiveTab('plans')}
-          style={{ borderRadius: '8px 8px 0 0', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+          style={{ borderRadius: '6px 6px 0 0', display: 'flex', alignItems: 'center', gap: '0.4rem' }}
         >
-          <MdCardMembership size={18} />
+          <MdCardMembership size={16} />
           Subscription Plans ({plans.length})
         </button>
 
@@ -648,9 +649,9 @@ const ManageSubscriptions = () => {
           aria-selected={activeTab === 'subscribers'}
           className={`btn ${activeTab === 'subscribers' ? 'btn-primary' : 'btn-outline'}`}
           onClick={() => setActiveTab('subscribers')}
-          style={{ borderRadius: '8px 8px 0 0', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+          style={{ borderRadius: '6px 6px 0 0', display: 'flex', alignItems: 'center', gap: '0.4rem' }}
         >
-          <MdPerson size={18} />
+          <MdPerson size={16} />
           Subscribers & Usage ({subscribers.length})
         </button>
       </div>
@@ -664,43 +665,43 @@ const ManageSubscriptions = () => {
           <div
             className="glass-panel"
             style={{
-              padding: '1rem 1.5rem',
-              marginBottom: '1.5rem',
+              padding: '0.55rem 0.9rem',
+              marginBottom: '0.9rem',
               display: 'flex',
               flexWrap: 'wrap',
-              gap: '1rem',
+              gap: '0.65rem',
               alignItems: 'center',
               justifyContent: 'space-between'
             }}
           >
             {/* Search Input */}
-            <div style={{ display: 'flex', alignItems: 'center', flex: '1 1 280px', gap: '0.5rem', background: '#FFFFFF', padding: '0.35rem 0.75rem', borderRadius: '6px', border: '1px solid var(--border-color)' }}>
-              <MdSearch size={22} color="var(--text-secondary)" />
+            <div style={{ display: 'flex', alignItems: 'center', flex: '1 1 240px', gap: '0.4rem', background: '#FFFFFF', padding: '0.28rem 0.65rem', borderRadius: '6px', border: '1px solid var(--border-color)' }}>
+              <MdSearch size={18} color="var(--text-secondary)" />
               <input
                 type="text"
                 placeholder="Search plan by name, code, description..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                style={{ border: 'none', outline: 'none', width: '100%', fontSize: '0.9rem', color: 'var(--text-primary)' }}
+                style={{ border: 'none', outline: 'none', width: '100%', fontSize: '0.84rem', color: 'var(--text-primary)' }}
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery('')}
                   style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-secondary)' }}
                 >
-                  <MdClose size={16} />
+                  <MdClose size={15} />
                 </button>
               )}
             </div>
 
             {/* Filter Controls */}
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', alignItems: 'center' }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.55rem', alignItems: 'center' }}>
               {/* Billing Interval Filter */}
               <select
                 className="input-field"
                 value={intervalFilter}
                 onChange={(e) => setIntervalFilter(e.target.value)}
-                style={{ width: 'auto', padding: '0.5rem 0.75rem' }}
+                style={{ width: 'auto', padding: '0.35rem 0.6rem', fontSize: '0.8rem' }}
               >
                 <option value="all">All Intervals</option>
                 <option value="monthly">Monthly</option>
@@ -712,7 +713,7 @@ const ManageSubscriptions = () => {
                 className="input-field"
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
-                style={{ width: 'auto', padding: '0.5rem 0.75rem' }}
+                style={{ width: 'auto', padding: '0.35rem 0.6rem', fontSize: '0.8rem' }}
               >
                 <option value="all">All Status</option>
                 <option value="active">Active Only</option>
@@ -720,7 +721,7 @@ const ManageSubscriptions = () => {
               </select>
 
               {/* Include Inactive Switch */}
-              <label style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.85rem', cursor: 'pointer', userSelect: 'none', color: 'var(--text-primary)' }}>
+              <label style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.78rem', cursor: 'pointer', userSelect: 'none', color: 'var(--text-primary)' }}>
                 <input
                   type="checkbox"
                   checked={includeInactive}
@@ -735,7 +736,7 @@ const ManageSubscriptions = () => {
                   type="button"
                   onClick={() => setViewMode('grid')}
                   style={{
-                    padding: '0.45rem 0.75rem',
+                    padding: '0.35rem 0.55rem',
                     background: viewMode === 'grid' ? 'var(--primary-color)' : '#fff',
                     color: viewMode === 'grid' ? '#fff' : 'var(--text-secondary)',
                     border: 'none',
@@ -745,13 +746,13 @@ const ManageSubscriptions = () => {
                   }}
                   title="Card View"
                 >
-                  <MdGridView size={18} />
+                  <MdGridView size={16} />
                 </button>
                 <button
                   type="button"
                   onClick={() => setViewMode('table')}
                   style={{
-                    padding: '0.45rem 0.75rem',
+                    padding: '0.35rem 0.55rem',
                     background: viewMode === 'table' ? 'var(--primary-color)' : '#fff',
                     color: viewMode === 'table' ? '#fff' : 'var(--text-secondary)',
                     border: 'none',
@@ -761,7 +762,7 @@ const ManageSubscriptions = () => {
                   }}
                   title="Table View"
                 >
-                  <MdViewList size={18} />
+                  <MdViewList size={16} />
                 </button>
               </div>
             </div>
@@ -769,25 +770,25 @@ const ManageSubscriptions = () => {
 
           {/* LOADING STATE */}
           {isLoadingPlans && (
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '300px' }}>
-              <div className="spinner" style={{ width: '40px', height: '40px', borderTopColor: 'var(--primary-color)' }}></div>
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '220px' }}>
+              <div className="spinner" style={{ width: '32px', height: '32px', borderTopColor: 'var(--primary-color)' }}></div>
             </div>
           )}
 
           {/* EMPTY STATE */}
           {!isLoadingPlans && filteredPlans.length === 0 && (
-            <div className="glass-panel" style={{ padding: '4rem 2rem', textAlign: 'center' }}>
-              <div style={{ width: '70px', height: '70px', borderRadius: '50%', background: 'rgba(130, 0, 30, 0.08)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.25rem' }}>
-                <MdCardMembership size={36} color="var(--primary-color)" />
+            <div className="glass-panel" style={{ padding: '2rem 1.25rem', textAlign: 'center' }}>
+              <div style={{ width: '52px', height: '52px', borderRadius: '50%', background: 'rgba(130, 0, 30, 0.08)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', marginBottom: '0.75rem' }}>
+                <MdCardMembership size={26} color="var(--primary-color)" />
               </div>
-              <h3 style={{ marginBottom: '0.5rem', color: 'var(--text-primary)' }}>No Subscription Plans Found</h3>
-              <p style={{ color: 'var(--text-secondary)', maxWidth: '420px', margin: '0 auto 1.5rem auto' }}>
+              <h3 style={{ marginBottom: '0.35rem', color: 'var(--text-primary)', fontSize: '1rem' }}>No Subscription Plans Found</h3>
+              <p style={{ color: 'var(--text-secondary)', maxWidth: '400px', margin: '0 auto 1rem auto', fontSize: '0.84rem' }}>
                 {searchQuery || intervalFilter !== 'all' || statusFilter !== 'all'
                   ? 'No plans match your current filters. Try resetting the filters or search term.'
                   : 'Start by creating your first subscription plan to monetize your Vedic services.'}
               </p>
               <button className="btn btn-primary" onClick={openCreateModal}>
-                <MdAdd size={20} /> Create New Plan
+                <MdAdd size={17} /> Create New Plan
               </button>
             </div>
           )}
@@ -797,8 +798,8 @@ const ManageSubscriptions = () => {
             <div
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1fr))',
-                gap: '1.5rem',
+                gridTemplateColumns: 'repeat(auto-fill, minmax(295px, 1fr))',
+                gap: '0.85rem',
               }}
             >
               {filteredPlans.map((plan) => {
@@ -812,39 +813,39 @@ const ManageSubscriptions = () => {
                     key={planId}
                     className="glass-panel"
                     style={{
-                      padding: '1.5rem',
+                      padding: '0.95rem 1rem',
                       display: 'flex',
                       flexDirection: 'column',
                       justifyContent: 'space-between',
                       position: 'relative',
-                      borderTop: `4px solid ${plan.isActive ? 'var(--primary-color)' : '#9CA3AF'}`,
+                      borderTop: `3px solid ${plan.isActive ? 'var(--primary-color)' : '#9CA3AF'}`,
                       transition: 'all 0.2s ease',
                     }}
                   >
                     {/* Top Row: Title, Code, Status Badge */}
                     <div>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.75rem' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.45rem' }}>
                         <div>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.15rem' }}>
                             <span
                               style={{
-                                fontSize: '0.7rem',
+                                fontSize: '0.65rem',
                                 fontWeight: '700',
-                                padding: '0.15rem 0.5rem',
+                                padding: '0.12rem 0.42rem',
                                 borderRadius: '4px',
                                 background: '#F3F4F6',
                                 color: '#4B5563',
-                                letterSpacing: '0.05em',
+                                letterSpacing: '0.04em',
                                 textTransform: 'uppercase'
                               }}
                             >
                               {plan.code || 'PLAN_CODE'}
                             </span>
-                            <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
+                            <span style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>
                               #{plan.sortOrder ?? 1}
                             </span>
                           </div>
-                          <h3 style={{ margin: 0, fontSize: '1.25rem', color: 'var(--text-primary)', fontWeight: '700' }}>
+                          <h3 style={{ margin: 0, fontSize: '1.02rem', color: 'var(--text-primary)', fontWeight: '700' }}>
                             {plan.name}
                           </h3>
                         </div>
@@ -858,20 +859,20 @@ const ManageSubscriptions = () => {
                             background: plan.isActive ? 'rgba(23, 74, 13, 0.1)' : 'rgba(155, 42, 31, 0.1)',
                             color: plan.isActive ? 'var(--success-color)' : 'var(--error-color)',
                             border: `1px solid ${plan.isActive ? 'rgba(23, 74, 13, 0.3)' : 'rgba(155, 42, 31, 0.3)'}`,
-                            padding: '0.25rem 0.65rem',
-                            borderRadius: '16px',
-                            fontSize: '0.75rem',
+                            padding: '0.18rem 0.5rem',
+                            borderRadius: '14px',
+                            fontSize: '0.7rem',
                             fontWeight: '600',
                             cursor: 'pointer',
                             display: 'inline-flex',
                             alignItems: 'center',
-                            gap: '0.35rem'
+                            gap: '0.28rem'
                           }}
                         >
                           <span
                             style={{
-                              width: '6px',
-                              height: '6px',
+                              width: '5px',
+                              height: '5px',
                               borderRadius: '50%',
                               backgroundColor: plan.isActive ? 'var(--success-color)' : 'var(--error-color)'
                             }}
@@ -881,11 +882,11 @@ const ManageSubscriptions = () => {
                       </div>
 
                       {/* Pricing Tag */}
-                      <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.4rem', margin: '1rem 0 0.5rem 0' }}>
-                        <span style={{ fontSize: '1.75rem', fontWeight: '800', color: 'var(--primary-color)' }}>
+                      <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.3rem', margin: '0.55rem 0 0.35rem 0' }}>
+                        <span style={{ fontSize: '1.35rem', fontWeight: '800', color: 'var(--primary-color)' }}>
                           ₹{plan.price}
                         </span>
-                        <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+                        <span style={{ fontSize: '0.76rem', color: 'var(--text-secondary)' }}>
                           / {plan.billingInterval || 'monthly'} ({plan.currency || 'INR'})
                         </span>
                       </div>
@@ -894,10 +895,10 @@ const ManageSubscriptions = () => {
                       <p
                         style={{
                           color: 'var(--text-secondary)',
-                          fontSize: '0.85rem',
-                          minHeight: '2.4rem',
-                          lineHeight: '1.4',
-                          marginBottom: '1rem',
+                          fontSize: '0.78rem',
+                          minHeight: '2rem',
+                          lineHeight: '1.38',
+                          marginBottom: '0.6rem',
                           display: '-webkit-box',
                           WebkitLineClamp: 2,
                           WebkitBoxOrient: 'vertical',
@@ -907,27 +908,27 @@ const ManageSubscriptions = () => {
                         {plan.description || 'No description provided.'}
                       </p>
 
-                      <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '0.75rem 0 1rem 0' }} />
+                      <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '0.45rem 0 0.65rem 0' }} />
 
                       {/* Usage Limits Highlights */}
-                      <div style={{ marginBottom: '1rem' }}>
-                        <div style={{ fontSize: '0.75rem', fontWeight: '700', textTransform: 'uppercase', color: 'var(--text-secondary)', marginBottom: '0.5rem' }}>
+                      <div style={{ marginBottom: '0.65rem' }}>
+                        <div style={{ fontSize: '0.68rem', fontWeight: '700', textTransform: 'uppercase', color: 'var(--text-secondary)', marginBottom: '0.35rem' }}>
                           Quota Limits
                         </div>
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.4rem', fontSize: '0.8rem' }}>
-                          <div style={{ background: 'var(--bg-color)', padding: '0.4rem 0.6rem', borderRadius: '6px', border: '1px solid var(--border-color)' }}>
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.32rem', fontSize: '0.74rem' }}>
+                          <div style={{ background: 'var(--bg-color)', padding: '0.3rem 0.5rem', borderRadius: '5px', border: '1px solid var(--border-color)' }}>
                             <span style={{ color: 'var(--text-secondary)' }}>Kundali: </span>
                             <strong>{limits.kundali_generation === -1 ? '∞ Unlimited' : limits.kundali_generation ?? 0}</strong>
                           </div>
-                          <div style={{ background: 'var(--bg-color)', padding: '0.4rem 0.6rem', borderRadius: '6px', border: '1px solid var(--border-color)' }}>
+                          <div style={{ background: 'var(--bg-color)', padding: '0.3rem 0.5rem', borderRadius: '5px', border: '1px solid var(--border-color)' }}>
                             <span style={{ color: 'var(--text-secondary)' }}>Matching: </span>
                             <strong>{limits.kundali_matching === -1 ? '∞ Unlimited' : limits.kundali_matching ?? 0}</strong>
                           </div>
-                          <div style={{ background: 'var(--bg-color)', padding: '0.4rem 0.6rem', borderRadius: '6px', border: '1px solid var(--border-color)' }}>
+                          <div style={{ background: 'var(--bg-color)', padding: '0.3rem 0.5rem', borderRadius: '5px', border: '1px solid var(--border-color)' }}>
                             <span style={{ color: 'var(--text-secondary)' }}>Muhurt: </span>
                             <strong>{limits.muhurt === -1 ? '∞ Unlimited' : limits.muhurt ?? 0}</strong>
                           </div>
-                          <div style={{ background: 'var(--bg-color)', padding: '0.4rem 0.6rem', borderRadius: '6px', border: '1px solid var(--border-color)' }}>
+                          <div style={{ background: 'var(--bg-color)', padding: '0.3rem 0.5rem', borderRadius: '5px', border: '1px solid var(--border-color)' }}>
                             <span style={{ color: 'var(--text-secondary)' }}>Panchang: </span>
                             <strong>{limits.panchang === -1 ? '∞ Unlimited' : limits.panchang ?? 0}</strong>
                           </div>
@@ -935,43 +936,43 @@ const ManageSubscriptions = () => {
                       </div>
 
                       {/* Feature Badges Count */}
-                      <div style={{ marginBottom: '1.25rem' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
-                          <span style={{ fontSize: '0.75rem', fontWeight: '700', textTransform: 'uppercase', color: 'var(--text-secondary)' }}>
+                      <div style={{ marginBottom: '0.75rem' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.3rem' }}>
+                          <span style={{ fontSize: '0.68rem', fontWeight: '700', textTransform: 'uppercase', color: 'var(--text-secondary)' }}>
                             Enabled Features
                           </span>
-                          <span style={{ fontSize: '0.75rem', fontWeight: '600', color: 'var(--primary-color)' }}>
+                          <span style={{ fontSize: '0.7rem', fontWeight: '600', color: 'var(--primary-color)' }}>
                             {activeFeatureCount} / {FEATURE_DEFINITIONS.length}
                           </span>
                         </div>
 
                         {/* Visual chips of first few enabled features */}
-                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem' }}>
+                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.28rem' }}>
                           {FEATURE_DEFINITIONS.filter((f) => features[f.key]).slice(0, 4).map((f) => (
                             <span
                               key={f.key}
                               style={{
-                                fontSize: '0.7rem',
+                                fontSize: '0.66rem',
                                 background: 'rgba(130, 0, 30, 0.06)',
                                 color: 'var(--primary-color)',
-                                padding: '0.15rem 0.45rem',
+                                padding: '0.12rem 0.38rem',
                                 borderRadius: '4px',
                                 border: '1px solid rgba(130, 0, 30, 0.15)',
                                 display: 'inline-flex',
                                 alignItems: 'center',
-                                gap: '0.2rem'
+                                gap: '0.18rem'
                               }}
                             >
-                              <MdCheck size={12} /> {f.label}
+                              <MdCheck size={11} /> {f.label}
                             </span>
                           ))}
                           {activeFeatureCount > 4 && (
                             <span
                               style={{
-                                fontSize: '0.7rem',
+                                fontSize: '0.66rem',
                                 background: '#F3F4F6',
                                 color: 'var(--text-secondary)',
-                                padding: '0.15rem 0.45rem',
+                                padding: '0.12rem 0.38rem',
                                 borderRadius: '4px'
                               }}
                             >
@@ -986,37 +987,37 @@ const ManageSubscriptions = () => {
                     <div
                       style={{
                         display: 'flex',
-                        gap: '0.5rem',
+                        gap: '0.4rem',
                         borderTop: '1px solid var(--border-color)',
-                        paddingTop: '1rem',
+                        paddingTop: '0.6rem',
                         justifyContent: 'flex-end'
                       }}
                     >
                       <button
                         className="btn btn-outline"
-                        style={{ padding: '0.45rem 0.75rem', fontSize: '0.8rem' }}
+                        style={{ padding: '0.3rem 0.6rem', fontSize: '0.74rem' }}
                         onClick={() => setViewDetailsPlan(plan)}
                         title="View Full Details"
                       >
-                        <MdVisibility size={16} /> Details
+                        <MdVisibility size={14} /> Details
                       </button>
 
                       <button
                         className="btn btn-outline"
-                        style={{ padding: '0.45rem 0.75rem', fontSize: '0.8rem', color: 'var(--primary-color)' }}
+                        style={{ padding: '0.3rem 0.6rem', fontSize: '0.74rem', color: 'var(--primary-color)' }}
                         onClick={() => openEditModal(plan)}
                         title="Edit Plan"
                       >
-                        <MdEdit size={16} /> Edit
+                        <MdEdit size={14} /> Edit
                       </button>
 
                       <button
                         className="btn btn-outline"
-                        style={{ padding: '0.45rem 0.75rem', fontSize: '0.8rem', color: 'var(--error-color)', borderColor: '#FECACA' }}
+                        style={{ padding: '0.3rem 0.55rem', fontSize: '0.74rem', color: 'var(--error-color)', borderColor: '#FECACA' }}
                         onClick={() => handleDeletePlan(plan)}
                         title="Delete Plan"
                       >
-                        <MdDeleteOutline size={16} />
+                        <MdDeleteOutline size={14} />
                       </button>
                     </div>
                   </div>
@@ -1027,7 +1028,7 @@ const ManageSubscriptions = () => {
 
           {/* TABLE VIEW */}
           {!isLoadingPlans && filteredPlans.length > 0 && viewMode === 'table' && (
-            <div className="glass-panel" style={{ padding: '1.25rem', overflowX: 'auto' }}>
+            <div className="glass-panel" style={{ padding: '0.85rem 1rem', overflowX: 'auto' }}>
               <table className="data-table">
                 <thead>
                   <tr>
@@ -1153,32 +1154,32 @@ const ManageSubscriptions = () => {
           <div
             className="glass-panel"
             style={{
-              padding: '1rem 1.5rem',
-              marginBottom: '1.5rem',
+              padding: '0.55rem 0.9rem',
+              marginBottom: '0.9rem',
               display: 'flex',
               flexWrap: 'wrap',
-              gap: '1rem',
+              gap: '0.65rem',
               alignItems: 'center',
               justifyContent: 'space-between'
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', flex: '1 1 300px', gap: '0.5rem', background: '#FFFFFF', padding: '0.35rem 0.75rem', borderRadius: '6px', border: '1px solid var(--border-color)' }}>
-              <MdSearch size={22} color="var(--text-secondary)" />
+            <div style={{ display: 'flex', alignItems: 'center', flex: '1 1 260px', gap: '0.4rem', background: '#FFFFFF', padding: '0.28rem 0.65rem', borderRadius: '6px', border: '1px solid var(--border-color)' }}>
+              <MdSearch size={18} color="var(--text-secondary)" />
               <input
                 type="text"
                 placeholder="Search subscribers by name, email, or mobile..."
                 value={subSearchQuery}
                 onChange={(e) => setSubSearchQuery(e.target.value)}
-                style={{ border: 'none', outline: 'none', width: '100%', fontSize: '0.9rem', color: 'var(--text-primary)' }}
+                style={{ border: 'none', outline: 'none', width: '100%', fontSize: '0.84rem', color: 'var(--text-primary)' }}
               />
             </div>
 
-            <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+            <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
               <select
                 className="input-field"
                 value={subStatusFilter}
                 onChange={(e) => setSubStatusFilter(e.target.value)}
-                style={{ width: 'auto', padding: '0.5rem 0.75rem' }}
+                style={{ width: 'auto', padding: '0.35rem 0.6rem', fontSize: '0.8rem' }}
               >
                 <option value="all">All Status</option>
                 <option value="active">Active</option>
@@ -1189,10 +1190,10 @@ const ManageSubscriptions = () => {
 
           {/* Subscribers List */}
           {filteredSubscribers.length === 0 ? (
-            <div className="glass-panel" style={{ padding: '3.5rem', textAlign: 'center' }}>
-              <MdPerson size={64} style={{ color: 'var(--border-color)', marginBottom: '1rem' }} />
-              <h3>No Subscribers Found</h3>
-              <p style={{ color: 'var(--text-secondary)' }}>Try adjusting your search query or filters.</p>
+            <div className="glass-panel" style={{ padding: '1.5rem', textAlign: 'center' }}>
+              <MdPerson size={36} style={{ color: 'var(--border-color)', marginBottom: '0.5rem' }} />
+              <h3 style={{ fontSize: '0.96rem', marginBottom: '0.2rem' }}>No Subscribers Found</h3>
+              <p style={{ color: 'var(--text-secondary)', fontSize: '0.82rem', margin: 0 }}>Try adjusting your search query or filters.</p>
             </div>
           ) : (
             <div className="user-list">
@@ -1203,11 +1204,11 @@ const ManageSubscriptions = () => {
                 const features = sub.features || {};
 
                 return (
-                  <div key={sub._id} className="user-list-item glass-panel" style={{ display: 'block', marginBottom: '1.25rem' }}>
+                  <div key={sub._id} className="user-list-item glass-panel" style={{ display: 'block', marginBottom: '0.75rem' }}>
                     {/* Top Row: User Info & Subscription Status */}
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.25rem', paddingBottom: '1.25rem', borderBottom: '1px solid var(--border-color)' }}>
-                      <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                        <div className="user-avatar-large" style={{ width: '54px', height: '54px', fontSize: '1.35rem' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.75rem', paddingBottom: '0.75rem', borderBottom: '1px solid var(--border-color)' }}>
+                      <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+                        <div className="user-avatar-large" style={{ width: '40px', height: '40px', fontSize: '1rem' }}>
                           {user.profilePhoto ? (
                             <img src={user.profilePhoto} alt={user.fullName} className="avatar-img" />
                           ) : (
@@ -1215,53 +1216,53 @@ const ManageSubscriptions = () => {
                           )}
                         </div>
                         <div>
-                          <h3 style={{ margin: 0, fontSize: '1.15rem', color: 'var(--text-primary)' }}>{user.fullName}</h3>
-                          <div style={{ display: 'flex', gap: '1rem', marginTop: '0.35rem', color: 'var(--text-secondary)', fontSize: '0.85rem' }}>
-                            <span style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}><MdEmail /> {user.email}</span>
-                            <span style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}><MdPhone /> {user.mobileNumber}</span>
+                          <h3 style={{ margin: 0, fontSize: '0.98rem', color: 'var(--text-primary)' }}>{user.fullName}</h3>
+                          <div style={{ display: 'flex', gap: '0.75rem', marginTop: '0.2rem', color: 'var(--text-secondary)', fontSize: '0.78rem' }}>
+                            <span style={{ display: 'flex', alignItems: 'center', gap: '0.2rem' }}><MdEmail /> {user.email}</span>
+                            <span style={{ display: 'flex', alignItems: 'center', gap: '0.2rem' }}><MdPhone /> {user.mobileNumber}</span>
                           </div>
                         </div>
                       </div>
 
                       <div style={{ textAlign: 'right' }}>
-                        <span className={`user-status-badge ${sub.status === 'active' ? 'active' : 'inactive'}`} style={{ display: 'inline-block', marginBottom: '0.35rem', padding: '0.35rem 0.85rem' }}>
+                        <span className={`user-status-badge ${sub.status === 'active' ? 'active' : 'inactive'}`} style={{ display: 'inline-block', marginBottom: '0.2rem', padding: '0.2rem 0.6rem', fontSize: '0.7rem' }}>
                           {sub.status === 'active' ? 'Active Subscription' : 'Expired'}
                         </span>
                         {plan && (
-                          <div style={{ fontSize: '1.25rem', fontWeight: 'bold', color: 'var(--primary-color)' }}>
-                            ₹{plan.price} <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', fontWeight: 'normal' }}>/ {plan.billingInterval || 'Month'}</span>
+                          <div style={{ fontSize: '1.05rem', fontWeight: 'bold', color: 'var(--primary-color)' }}>
+                            ₹{plan.price} <span style={{ fontSize: '0.74rem', color: 'var(--text-secondary)', fontWeight: 'normal' }}>/ {plan.billingInterval || 'Month'}</span>
                           </div>
                         )}
                       </div>
                     </div>
 
                     {/* Bottom Row: Plan Details & Limits */}
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '0.9rem' }}>
                       {/* Left: Plan Info */}
                       <div>
-                        <h4 style={{ color: 'var(--text-primary)', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1rem' }}>
+                        <h4 style={{ color: 'var(--text-primary)', marginBottom: '0.45rem', display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.9rem' }}>
                           <MdCardMembership color="var(--primary-color)" /> {plan ? plan.name : 'No Active Plan'}
                         </h4>
 
-                        <div style={{ display: 'flex', gap: '1.5rem', marginBottom: '0.5rem' }}>
+                        <div style={{ display: 'flex', gap: '1rem', marginBottom: '0.35rem', fontSize: '0.8rem' }}>
                           <div>
-                            <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', textTransform: 'uppercase' }}>Start Date</div>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', fontWeight: '500', marginTop: '0.2rem' }}>
-                              <MdCalendarToday size={13} color="var(--text-secondary)" />
+                            <div style={{ fontSize: '0.68rem', color: 'var(--text-secondary)', textTransform: 'uppercase' }}>Start Date</div>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.2rem', fontWeight: '500', marginTop: '0.15rem' }}>
+                              <MdCalendarToday size={12} color="var(--text-secondary)" />
                               {sub.startDate ? new Date(sub.startDate).toLocaleDateString() : '—'}
                             </div>
                           </div>
                           <div>
-                            <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', textTransform: 'uppercase' }}>End Date</div>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', fontWeight: '500', marginTop: '0.2rem' }}>
-                              <MdCalendarToday size={13} color="var(--text-secondary)" />
+                            <div style={{ fontSize: '0.68rem', color: 'var(--text-secondary)', textTransform: 'uppercase' }}>End Date</div>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.2rem', fontWeight: '500', marginTop: '0.15rem' }}>
+                              <MdCalendarToday size={12} color="var(--text-secondary)" />
                               {sub.endDate ? new Date(sub.endDate).toLocaleDateString() : '—'}
                             </div>
                           </div>
                           <div>
-                            <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', textTransform: 'uppercase' }}>Days Left</div>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', fontWeight: 'bold', marginTop: '0.2rem', color: daysLeft > 5 ? 'var(--success-color)' : 'var(--error-color)' }}>
-                              <MdAutorenew size={14} />
+                            <div style={{ fontSize: '0.68rem', color: 'var(--text-secondary)', textTransform: 'uppercase' }}>Days Left</div>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.2rem', fontWeight: 'bold', marginTop: '0.15rem', color: daysLeft > 5 ? 'var(--success-color)' : 'var(--error-color)' }}>
+                              <MdAutorenew size={13} />
                               {daysLeft} Days
                             </div>
                           </div>
@@ -1269,11 +1270,11 @@ const ManageSubscriptions = () => {
                       </div>
 
                       {/* Right: Feature Limits */}
-                      <div style={{ background: 'var(--bg-color)', padding: '0.85rem', borderRadius: '8px', border: '1px solid var(--border-color)' }}>
-                        <div style={{ margin: '0 0 0.75rem 0', fontSize: '0.8rem', color: 'var(--text-secondary)', textTransform: 'uppercase', fontWeight: '600' }}>
+                      <div style={{ background: 'var(--bg-color)', padding: '0.65rem 0.75rem', borderRadius: '6px', border: '1px solid var(--border-color)' }}>
+                        <div style={{ margin: '0 0 0.45rem 0', fontSize: '0.7rem', color: 'var(--text-secondary)', textTransform: 'uppercase', fontWeight: '600' }}>
                           Quota Usage
                         </div>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
                           <FeatureProgressBar name="Kundali Generation" used={features.kundaliGeneration?.used} limit={features.kundaliGeneration?.limit} />
                           <FeatureProgressBar name="Panchang Calls" used={features.panchang?.used} limit={features.panchang?.limit} />
                           <FeatureProgressBar name="Muhurat" used={features.muhurat?.used} limit={features.muhurat?.limit} />
@@ -1297,29 +1298,29 @@ const ManageSubscriptions = () => {
           <div
             className="modal-content glass-panel animate-fade-in"
             onClick={(e) => e.stopPropagation()}
-            style={{ maxWidth: '820px', width: '95%', maxHeight: '90vh', display: 'flex', flexDirection: 'column' }}
+            style={{ maxWidth: '760px', width: '95%', maxHeight: '90vh', display: 'flex', flexDirection: 'column' }}
           >
             <div className="modal-header">
-              <h2 className="modal-title" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <MdCardMembership />
+              <h2 className="modal-title" style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+                <MdCardMembership size={18} />
                 {editingPlanId ? 'Edit Subscription Plan' : 'Create New Subscription Plan'}
               </h2>
               <button className="modal-close-btn" onClick={closePlanModal}>
-                <MdClose size={24} />
+                <MdClose size={20} />
               </button>
             </div>
 
-            <form onSubmit={handlePlanSubmit} style={{ display: 'flex', flexDirection: 'column', overflowY: 'auto', flex: 1, padding: '1.5rem' }}>
+            <form onSubmit={handlePlanSubmit} style={{ display: 'flex', flexDirection: 'column', overflowY: 'auto', flex: 1, padding: '1rem 1.15rem' }}>
               {/* SECTION 1: BASIC INFORMATION */}
-              <div style={{ marginBottom: '1.75rem' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.5rem' }}>
-                  <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--primary-color)' }}></span>
-                  <h3 style={{ fontSize: '1.1rem', margin: 0, color: 'var(--primary-color)', fontWeight: '700' }}>
+              <div style={{ marginBottom: '1rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.65rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.35rem' }}>
+                  <span style={{ width: '7px', height: '7px', borderRadius: '50%', background: 'var(--primary-color)' }}></span>
+                  <h3 style={{ fontSize: '0.95rem', margin: 0, color: 'var(--primary-color)', fontWeight: '700' }}>
                     1. Basic & Pricing Details
                   </h3>
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(210px, 1fr))', gap: '0.65rem' }}>
                   <div className="input-group">
                     <label className="input-label" htmlFor="plan-name">
                       Plan Name <span style={{ color: 'var(--error-color)' }}>*</span>
@@ -1441,20 +1442,20 @@ const ManageSubscriptions = () => {
               </div>
 
               {/* SECTION 2: FEATURE PERMISSIONS */}
-              <div style={{ marginBottom: '1.75rem' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.5rem', marginBottom: '1rem' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                    <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--primary-color)' }}></span>
-                    <h3 style={{ fontSize: '1.1rem', margin: 0, color: 'var(--primary-color)', fontWeight: '700' }}>
+              <div style={{ marginBottom: '1rem' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.35rem', marginBottom: '0.65rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                    <span style={{ width: '7px', height: '7px', borderRadius: '50%', background: 'var(--primary-color)' }}></span>
+                    <h3 style={{ fontSize: '0.95rem', margin: 0, color: 'var(--primary-color)', fontWeight: '700' }}>
                       2. Feature Access (10 Features)
                     </h3>
                   </div>
 
-                  <div style={{ display: 'flex', gap: '0.5rem' }}>
+                  <div style={{ display: 'flex', gap: '0.4rem' }}>
                     <button
                       type="button"
                       className="btn btn-outline"
-                      style={{ padding: '0.25rem 0.6rem', fontSize: '0.75rem' }}
+                      style={{ padding: '0.2rem 0.5rem', fontSize: '0.72rem' }}
                       onClick={() => handleSelectAllFeatures(true)}
                     >
                       Enable All
@@ -1462,7 +1463,7 @@ const ManageSubscriptions = () => {
                     <button
                       type="button"
                       className="btn btn-outline"
-                      style={{ padding: '0.25rem 0.6rem', fontSize: '0.75rem' }}
+                      style={{ padding: '0.2rem 0.5rem', fontSize: '0.72rem' }}
                       onClick={() => handleSelectAllFeatures(false)}
                     >
                       Disable All
@@ -1470,7 +1471,7 @@ const ManageSubscriptions = () => {
                   </div>
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '0.75rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '0.5rem' }}>
                   {FEATURE_DEFINITIONS.map((feat) => {
                     const isChecked = Boolean(planForm.features[feat.key]);
                     return (
@@ -1479,9 +1480,9 @@ const ManageSubscriptions = () => {
                         style={{
                           display: 'flex',
                           alignItems: 'flex-start',
-                          gap: '0.75rem',
-                          padding: '0.75rem 1rem',
-                          borderRadius: '8px',
+                          gap: '0.55rem',
+                          padding: '0.5rem 0.7rem',
+                          borderRadius: '6px',
                           border: `1px solid ${isChecked ? 'var(--primary-color)' : 'var(--border-color)'}`,
                           backgroundColor: isChecked ? 'rgba(130, 0, 30, 0.03)' : '#FFFFFF',
                           cursor: 'pointer',
@@ -1500,13 +1501,13 @@ const ManageSubscriptions = () => {
                               }
                             })
                           }
-                          style={{ marginTop: '0.2rem' }}
+                          style={{ marginTop: '0.15rem' }}
                         />
                         <div>
-                          <div style={{ fontWeight: '600', color: isChecked ? 'var(--primary-color)' : 'var(--text-primary)', fontSize: '0.875rem' }}>
+                          <div style={{ fontWeight: '600', color: isChecked ? 'var(--primary-color)' : 'var(--text-primary)', fontSize: '0.82rem' }}>
                             {feat.label}
                           </div>
-                          <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginTop: '0.15rem', lineHeight: '1.3' }}>
+                          <div style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', marginTop: '0.1rem', lineHeight: '1.25' }}>
                             {feat.desc}
                           </div>
                         </div>
@@ -1517,18 +1518,18 @@ const ManageSubscriptions = () => {
               </div>
 
               {/* SECTION 3: USAGE LIMITS */}
-              <div style={{ marginBottom: '1.5rem' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.5rem' }}>
-                  <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: 'var(--primary-color)' }}></span>
-                  <h3 style={{ fontSize: '1.1rem', margin: 0, color: 'var(--primary-color)', fontWeight: '700' }}>
+              <div style={{ marginBottom: '0.9rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.6rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.35rem' }}>
+                  <span style={{ width: '7px', height: '7px', borderRadius: '50%', background: 'var(--primary-color)' }}></span>
+                  <h3 style={{ fontSize: '0.95rem', margin: 0, color: 'var(--primary-color)', fontWeight: '700' }}>
                     3. Usage Quota & Limits
                   </h3>
                 </div>
-                <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '1rem' }}>
+                <p style={{ fontSize: '0.76rem', color: 'var(--text-secondary)', marginBottom: '0.65rem' }}>
                   Set quantitative quota allowances per billing period. Check <strong>Unlimited (∞)</strong> for unrestricted calls or enter a specific numerical threshold.
                 </p>
 
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(230px, 1fr))', gap: '0.65rem' }}>
                   {LIMIT_DEFINITIONS.map((limit) => {
                     const currentVal = planForm.usageLimits[limit.key] ?? 0;
                     const isUnlimited = currentVal === -1;
@@ -1539,15 +1540,15 @@ const ManageSubscriptions = () => {
                         style={{
                           background: '#FAFAFA',
                           border: '1px solid var(--border-color)',
-                          borderRadius: '8px',
-                          padding: '0.85rem 1rem'
+                          borderRadius: '6px',
+                          padding: '0.55rem 0.75rem'
                         }}
                       >
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-                          <span style={{ fontWeight: '600', fontSize: '0.85rem', color: 'var(--text-primary)' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.35rem' }}>
+                          <span style={{ fontWeight: '600', fontSize: '0.8rem', color: 'var(--text-primary)' }}>
                             {limit.label}
                           </span>
-                          <label style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', fontSize: '0.75rem', cursor: 'pointer', color: 'var(--primary-color)', fontWeight: '600' }}>
+                          <label style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', fontSize: '0.72rem', cursor: 'pointer', color: 'var(--primary-color)', fontWeight: '600' }}>
                             <input
                               type="checkbox"
                               checked={isUnlimited}
@@ -1558,11 +1559,11 @@ const ManageSubscriptions = () => {
                         </div>
 
                         {isUnlimited ? (
-                          <div style={{ padding: '0.65rem 0.85rem', background: 'rgba(23, 74, 13, 0.08)', borderRadius: '6px', color: 'var(--success-color)', fontWeight: '700', fontSize: '0.85rem', textAlign: 'center' }}>
+                          <div style={{ padding: '0.42rem 0.65rem', background: 'rgba(23, 74, 13, 0.08)', borderRadius: '5px', color: 'var(--success-color)', fontWeight: '700', fontSize: '0.78rem', textAlign: 'center' }}>
                             ∞ Unlimited Access
                           </div>
                         ) : (
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                             <input
                               type="number"
                               min="0"
@@ -1570,9 +1571,9 @@ const ManageSubscriptions = () => {
                               value={currentVal}
                               onChange={(e) => handleLimitChange(limit.key, Number(e.target.value))}
                               placeholder="0"
-                              style={{ padding: '0.5rem 0.75rem' }}
+                              style={{ padding: '0.35rem 0.55rem' }}
                             />
-                            <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', whiteSpace: 'nowrap' }}>
+                            <span style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', whiteSpace: 'nowrap' }}>
                               calls / period
                             </span>
                           </div>
@@ -1584,7 +1585,7 @@ const ManageSubscriptions = () => {
               </div>
 
               {/* FOOTER ACTIONS */}
-              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem', marginTop: 'auto', paddingTop: '1.25rem', borderTop: '1px solid var(--border-color)' }}>
+              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.5rem', marginTop: 'auto', paddingTop: '0.75rem', borderTop: '1px solid var(--border-color)' }}>
                 <button
                   type="button"
                   className="btn btn-outline"
@@ -1616,29 +1617,29 @@ const ManageSubscriptions = () => {
           <div
             className="modal-content glass-panel animate-fade-in"
             onClick={(e) => e.stopPropagation()}
-            style={{ maxWidth: '680px', width: '92%', maxHeight: '90vh', overflowY: 'auto', padding: '2rem' }}
+            style={{ maxWidth: '620px', width: '92%', maxHeight: '90vh', overflowY: 'auto', padding: '1.15rem' }}
           >
-            <div className="modal-header" style={{ marginBottom: '1.5rem' }}>
+            <div className="modal-header" style={{ padding: '0 0 0.7rem 0', marginBottom: '0.85rem' }}>
               <div>
-                <span style={{ fontSize: '0.75rem', fontWeight: '700', padding: '0.2rem 0.6rem', background: '#F3F4F6', borderRadius: '4px', textTransform: 'uppercase' }}>
+                <span style={{ fontSize: '0.7rem', fontWeight: '700', padding: '0.15rem 0.5rem', background: '#F3F4F6', borderRadius: '4px', textTransform: 'uppercase' }}>
                   {viewDetailsPlan.code}
                 </span>
-                <h2 className="modal-title" style={{ marginTop: '0.4rem', color: 'var(--primary-color)' }}>
+                <h2 className="modal-title" style={{ marginTop: '0.25rem', color: 'var(--primary-color)' }}>
                   {viewDetailsPlan.name}
                 </h2>
               </div>
               <button className="modal-close-btn" onClick={() => setViewDetailsPlan(null)}>
-                <MdClose size={24} />
+                <MdClose size={20} />
               </button>
             </div>
 
             {/* Price & Status Row */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'var(--bg-color)', padding: '1rem 1.25rem', borderRadius: '8px', marginBottom: '1.5rem', border: '1px solid var(--border-color)' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'var(--bg-color)', padding: '0.7rem 0.9rem', borderRadius: '6px', marginBottom: '0.85rem', border: '1px solid var(--border-color)' }}>
               <div>
-                <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', textTransform: 'uppercase' }}>Price & Interval</div>
-                <div style={{ fontSize: '1.75rem', fontWeight: '800', color: 'var(--primary-color)' }}>
+                <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', textTransform: 'uppercase' }}>Price & Interval</div>
+                <div style={{ fontSize: '1.35rem', fontWeight: '800', color: 'var(--primary-color)' }}>
                   ₹{viewDetailsPlan.price}{' '}
-                  <span style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', fontWeight: 'normal' }}>
+                  <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', fontWeight: 'normal' }}>
                     / {viewDetailsPlan.billingInterval} ({viewDetailsPlan.currency || 'INR'})
                   </span>
                 </div>
@@ -1649,10 +1650,10 @@ const ManageSubscriptions = () => {
                   style={{
                     background: viewDetailsPlan.isActive ? 'rgba(23, 74, 13, 0.1)' : 'rgba(155, 42, 31, 0.1)',
                     color: viewDetailsPlan.isActive ? 'var(--success-color)' : 'var(--error-color)',
-                    padding: '0.4rem 1rem',
-                    borderRadius: '16px',
+                    padding: '0.28rem 0.75rem',
+                    borderRadius: '14px',
                     fontWeight: '600',
-                    fontSize: '0.85rem'
+                    fontSize: '0.78rem'
                   }}
                 >
                   {viewDetailsPlan.isActive ? 'Active Plan' : 'Inactive Plan'}
@@ -1661,28 +1662,28 @@ const ManageSubscriptions = () => {
             </div>
 
             {/* Description */}
-            <div style={{ marginBottom: '1.5rem' }}>
-              <h4 style={{ fontSize: '0.9rem', textTransform: 'uppercase', color: 'var(--text-secondary)', marginBottom: '0.4rem' }}>
+            <div style={{ marginBottom: '0.85rem' }}>
+              <h4 style={{ fontSize: '0.78rem', textTransform: 'uppercase', color: 'var(--text-secondary)', marginBottom: '0.25rem' }}>
                 Description
               </h4>
-              <p style={{ color: 'var(--text-primary)', lineHeight: '1.5' }}>
+              <p style={{ color: 'var(--text-primary)', lineHeight: '1.45', fontSize: '0.84rem' }}>
                 {viewDetailsPlan.description || 'No description provided.'}
               </p>
             </div>
 
             {/* Quota Limits */}
-            <div style={{ marginBottom: '1.5rem' }}>
-              <h4 style={{ fontSize: '0.9rem', textTransform: 'uppercase', color: 'var(--text-secondary)', marginBottom: '0.75rem' }}>
+            <div style={{ marginBottom: '0.85rem' }}>
+              <h4 style={{ fontSize: '0.78rem', textTransform: 'uppercase', color: 'var(--text-secondary)', marginBottom: '0.45rem' }}>
                 Usage Limits
               </h4>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '0.6rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(175px, 1fr))', gap: '0.45rem' }}>
                 {LIMIT_DEFINITIONS.map((lim) => {
                   const val = viewDetailsPlan.usageLimits?.[lim.key];
                   const isUnlim = val === -1;
                   return (
-                    <div key={lim.key} style={{ background: '#F9FAFB', padding: '0.65rem 0.85rem', borderRadius: '6px', border: '1px solid var(--border-color)' }}>
-                      <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>{lim.label}</div>
-                      <div style={{ fontSize: '1rem', fontWeight: '700', color: isUnlim ? 'var(--success-color)' : 'var(--text-primary)', marginTop: '0.2rem' }}>
+                    <div key={lim.key} style={{ background: '#F9FAFB', padding: '0.45rem 0.65rem', borderRadius: '6px', border: '1px solid var(--border-color)' }}>
+                      <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>{lim.label}</div>
+                      <div style={{ fontSize: '0.9rem', fontWeight: '700', color: isUnlim ? 'var(--success-color)' : 'var(--text-primary)', marginTop: '0.1rem' }}>
                         {isUnlim ? '∞ Unlimited' : (val ?? 0)}
                       </div>
                     </div>
@@ -1692,11 +1693,11 @@ const ManageSubscriptions = () => {
             </div>
 
             {/* Features Checklist */}
-            <div style={{ marginBottom: '1.5rem' }}>
-              <h4 style={{ fontSize: '0.9rem', textTransform: 'uppercase', color: 'var(--text-secondary)', marginBottom: '0.75rem' }}>
+            <div style={{ marginBottom: '0.95rem' }}>
+              <h4 style={{ fontSize: '0.78rem', textTransform: 'uppercase', color: 'var(--text-secondary)', marginBottom: '0.45rem' }}>
                 Features & Capabilities
               </h4>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.5rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(195px, 1fr))', gap: '0.4rem' }}>
                 {FEATURE_DEFINITIONS.map((feat) => {
                   const isEnabled = Boolean(viewDetailsPlan.features?.[feat.key]);
                   return (
@@ -1705,16 +1706,16 @@ const ManageSubscriptions = () => {
                       style={{
                         display: 'flex',
                         alignItems: 'center',
-                        gap: '0.5rem',
-                        padding: '0.5rem 0.75rem',
-                        borderRadius: '6px',
+                        gap: '0.4rem',
+                        padding: '0.38rem 0.6rem',
+                        borderRadius: '5px',
                         background: isEnabled ? 'rgba(23, 74, 13, 0.05)' : '#F9FAFB',
                         color: isEnabled ? 'var(--success-color)' : '#9CA3AF',
-                        fontSize: '0.85rem',
+                        fontSize: '0.78rem',
                         fontWeight: isEnabled ? '600' : 'normal'
                       }}
                     >
-                      {isEnabled ? <MdCheckCircle size={18} /> : <MdCancel size={18} />}
+                      {isEnabled ? <MdCheckCircle size={15} /> : <MdCancel size={15} />}
                       <span>{feat.label}</span>
                     </div>
                   );
@@ -1723,7 +1724,7 @@ const ManageSubscriptions = () => {
             </div>
 
             {/* Modal Actions */}
-            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem', borderTop: '1px solid var(--border-color)', paddingTop: '1.25rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.5rem', borderTop: '1px solid var(--border-color)', paddingTop: '0.75rem' }}>
               <button
                 className="btn btn-outline"
                 onClick={() => {
@@ -1731,7 +1732,7 @@ const ManageSubscriptions = () => {
                   openEditModal(viewDetailsPlan);
                 }}
               >
-                <MdEdit size={16} /> Edit Plan
+                <MdEdit size={15} /> Edit Plan
               </button>
               <button
                 className="btn btn-primary"

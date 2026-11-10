@@ -266,20 +266,20 @@ const ManageStotram = () => {
   const isSaving = createMutation.isPending || updateMutation.isPending;
 
   return (
-    <div className="page-content animate-fade-in" style={{ paddingTop: '0.5rem' }}>
+    <div className="page-content animate-fade-in">
       {/* TOP HEADER */}
-      <div className="top-header" style={{ margin: '-2rem -2rem 1.5rem -2rem' }}>
+      <div className="top-header" style={{ margin: '-0.95rem -1.25rem 0.9rem -1.25rem' }}>
         <div>
-          <h1 className="header-title" style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-            <MdMusicNote size={28} />
+          <h1 className="header-title" style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+            <MdMusicNote size={21} />
             Manage Stotram & Library
           </h1>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '0.875rem', marginTop: '0.25rem' }}>
+          <p style={{ color: 'var(--text-secondary)', fontSize: '0.78rem', marginTop: '0.1rem', marginBottom: 0 }}>
             Manage Vedic stotras, Sanskrit recitations, audio tracks, and devotional categories.
           </p>
         </div>
 
-        <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', flexWrap: 'wrap' }}>
           <button
             className="btn btn-outline"
             onClick={() => {
@@ -288,26 +288,26 @@ const ManageStotram = () => {
               toast.success('Stotram library refreshed');
             }}
             title="Refresh Library"
-            style={{ padding: '0.6rem 0.9rem' }}
+            style={{ padding: '0.42rem 0.65rem' }}
           >
-            <MdRefresh size={19} />
+            <MdRefresh size={16} />
           </button>
 
           <button
             className="btn btn-outline"
             onClick={() => navigate('/manage-stotram-categories')}
-            style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', padding: '0.65rem 1.1rem' }}
+            style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', padding: '0.42rem 0.8rem' }}
           >
-            <MdLibraryBooks size={18} />
+            <MdLibraryBooks size={16} />
             Manage Categories
           </button>
 
           <button
             className="btn btn-primary"
             onClick={openCreateModal}
-            style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', padding: '0.65rem 1.25rem' }}
+            style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', padding: '0.42rem 0.9rem' }}
           >
-            <MdAdd size={20} />
+            <MdAdd size={17} />
             Upload Stotra
           </button>
         </div>
@@ -317,48 +317,48 @@ const ManageStotram = () => {
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-          gap: '1rem',
-          marginBottom: '1.75rem'
+          gridTemplateColumns: 'repeat(auto-fit, minmax(175px, 1fr))',
+          gap: '0.75rem',
+          marginBottom: '0.9rem'
         }}
       >
-        <div className="glass-panel" style={{ padding: '1.25rem 1.5rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(130, 0, 30, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--primary-color)' }}>
-            <MdMusicNote size={26} />
+        <div className="glass-panel" style={{ padding: '0.68rem 0.9rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <div style={{ width: '36px', height: '36px', borderRadius: '8px', background: 'rgba(130, 0, 30, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--primary-color)' }}>
+            <MdMusicNote size={19} />
           </div>
           <div>
-            <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', textTransform: 'uppercase', fontWeight: '600' }}>Total Stotras</div>
-            <div style={{ fontSize: '1.6rem', fontWeight: '700', color: 'var(--primary-color)', lineHeight: 1.2 }}>{stats.total}</div>
+            <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', textTransform: 'uppercase', fontWeight: '600' }}>Total Stotras</div>
+            <div style={{ fontSize: '1.2rem', fontWeight: '700', color: 'var(--primary-color)', lineHeight: 1.15 }}>{stats.total}</div>
           </div>
         </div>
 
-        <div className="glass-panel" style={{ padding: '1.25rem 1.5rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(240, 190, 60, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#B45309' }}>
-            <MdLibraryBooks size={26} />
+        <div className="glass-panel" style={{ padding: '0.68rem 0.9rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <div style={{ width: '36px', height: '36px', borderRadius: '8px', background: 'rgba(240, 190, 60, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#B45309' }}>
+            <MdLibraryBooks size={19} />
           </div>
           <div>
-            <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', textTransform: 'uppercase', fontWeight: '600' }}>Categories</div>
-            <div style={{ fontSize: '1.6rem', fontWeight: '700', color: '#B45309', lineHeight: 1.2 }}>{stats.totalCats}</div>
+            <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', textTransform: 'uppercase', fontWeight: '600' }}>Categories</div>
+            <div style={{ fontSize: '1.2rem', fontWeight: '700', color: '#B45309', lineHeight: 1.15 }}>{stats.totalCats}</div>
           </div>
         </div>
 
-        <div className="glass-panel" style={{ padding: '1.25rem 1.5rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(23, 74, 13, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--success-color)' }}>
-            <MdAudiotrack size={26} />
+        <div className="glass-panel" style={{ padding: '0.68rem 0.9rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <div style={{ width: '36px', height: '36px', borderRadius: '8px', background: 'rgba(23, 74, 13, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--success-color)' }}>
+            <MdAudiotrack size={19} />
           </div>
           <div>
-            <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', textTransform: 'uppercase', fontWeight: '600' }}>With Audio</div>
-            <div style={{ fontSize: '1.6rem', fontWeight: '700', color: 'var(--success-color)', lineHeight: 1.2 }}>{stats.hasAudio}</div>
+            <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', textTransform: 'uppercase', fontWeight: '600' }}>With Audio</div>
+            <div style={{ fontSize: '1.2rem', fontWeight: '700', color: 'var(--success-color)', lineHeight: 1.15 }}>{stats.hasAudio}</div>
           </div>
         </div>
 
-        <div className="glass-panel" style={{ padding: '1.25rem 1.5rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(234, 179, 8, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#CA8A04' }}>
-            <MdStar size={26} />
+        <div className="glass-panel" style={{ padding: '0.68rem 0.9rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <div style={{ width: '36px', height: '36px', borderRadius: '8px', background: 'rgba(234, 179, 8, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#CA8A04' }}>
+            <MdStar size={19} />
           </div>
           <div>
-            <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', textTransform: 'uppercase', fontWeight: '600' }}>Favorites</div>
-            <div style={{ fontSize: '1.6rem', fontWeight: '700', color: '#CA8A04', lineHeight: 1.2 }}>{stats.favorites}</div>
+            <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', textTransform: 'uppercase', fontWeight: '600' }}>Favorites</div>
+            <div style={{ fontSize: '1.2rem', fontWeight: '700', color: '#CA8A04', lineHeight: 1.15 }}>{stats.favorites}</div>
           </div>
         </div>
       </div>
@@ -367,62 +367,62 @@ const ManageStotram = () => {
       <div
         className="glass-panel"
         style={{
-          padding: '1rem 1.5rem',
-          marginBottom: '1.5rem',
+          padding: '0.55rem 0.9rem',
+          marginBottom: '0.85rem',
           display: 'flex',
           flexWrap: 'wrap',
-          gap: '1rem',
+          gap: '0.75rem',
           alignItems: 'center',
           justifyContent: 'space-between'
         }}
       >
         {/* Search */}
-        <div style={{ display: 'flex', alignItems: 'center', flex: '1 1 300px', gap: '0.5rem', background: '#FFFFFF', padding: '0.35rem 0.75rem', borderRadius: '6px', border: '1px solid var(--border-color)' }}>
-          <MdSearch size={22} color="var(--text-secondary)" />
+        <div style={{ display: 'flex', alignItems: 'center', flex: '1 1 260px', gap: '0.4rem', background: '#FFFFFF', padding: '0.28rem 0.65rem', borderRadius: '6px', border: '1px solid var(--border-color)' }}>
+          <MdSearch size={18} color="var(--text-secondary)" />
           <input
             type="text"
             placeholder="Search stotram by title, category, or lyrics..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            style={{ border: 'none', outline: 'none', width: '100%', fontSize: '0.9rem', color: 'var(--text-primary)' }}
+            style={{ border: 'none', outline: 'none', width: '100%', fontSize: '0.84rem', color: 'var(--text-primary)' }}
           />
           {searchQuery && (
             <button
               onClick={() => setSearchQuery('')}
               style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-secondary)' }}
             >
-              <MdClose size={16} />
+              <MdClose size={15} />
             </button>
           )}
         </div>
 
         {/* Favorite & Quick Filters */}
-        <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
-          <label style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', cursor: 'pointer', userSelect: 'none', fontSize: '0.85rem', fontWeight: '500' }}>
+        <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+          <label style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', cursor: 'pointer', userSelect: 'none', fontSize: '0.8rem', fontWeight: '500' }}>
             <input
               type="checkbox"
               checked={favoriteOnly}
               onChange={(e) => setFavoriteOnly(e.target.checked)}
             />
-            <MdStar size={16} color="#EAB308" /> Favorites Only
+            <MdStar size={15} color="#EAB308" /> Favorites Only
           </label>
         </div>
       </div>
 
       {/* CATEGORY TABS */}
-      <div className="tabs-container" style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '1.25rem' }}>
+      <div className="tabs-container" style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginBottom: '0.85rem' }}>
         <button
           className={`tab-btn ${selectedCategory === 'all' ? 'active' : ''}`}
           onClick={() => setSelectedCategory('all')}
           style={{
-            padding: '0.5rem 1rem',
-            borderRadius: '20px',
+            padding: '0.32rem 0.78rem',
+            borderRadius: '16px',
             border: selectedCategory === 'all' ? '1px solid var(--primary-color)' : '1px solid var(--border-color)',
             background: selectedCategory === 'all' ? 'var(--primary-color)' : '#FFFFFF',
             color: selectedCategory === 'all' ? '#FFFFFF' : 'var(--text-primary)',
             fontWeight: '600',
             cursor: 'pointer',
-            fontSize: '0.85rem'
+            fontSize: '0.78rem'
           }}
         >
           All Categories ({stotras.length})
@@ -443,14 +443,14 @@ const ManageStotram = () => {
               className={`tab-btn ${isSelected ? 'active' : ''}`}
               onClick={() => setSelectedCategory(catId)}
               style={{
-                padding: '0.5rem 1rem',
-                borderRadius: '20px',
+                padding: '0.32rem 0.78rem',
+                borderRadius: '16px',
                 border: isSelected ? '1px solid var(--primary-color)' : '1px solid var(--border-color)',
                 background: isSelected ? 'var(--primary-color)' : '#FFFFFF',
                 color: isSelected ? '#FFFFFF' : 'var(--text-primary)',
                 fontWeight: '600',
                 cursor: 'pointer',
-                fontSize: '0.85rem'
+                fontSize: '0.78rem'
               }}
             >
               {cat.categoryName} ({count})
@@ -460,27 +460,27 @@ const ManageStotram = () => {
       </div>
 
       {/* LIST OF STOTRAMS */}
-      <div className="glass-panel" style={{ padding: '1.5rem' }}>
+      <div className="glass-panel" style={{ padding: '0.9rem' }}>
         {isStotrasLoading || isCatLoading ? (
-          <div style={{ textAlign: 'center', padding: '3rem' }}>
-            <div className="spinner" style={{ width: '36px', height: '36px', margin: '0 auto', borderTopColor: 'var(--primary-color)' }}></div>
-            <p style={{ marginTop: '0.75rem', color: 'var(--text-secondary)' }}>Loading stotram library...</p>
+          <div style={{ textAlign: 'center', padding: '2rem' }}>
+            <div className="spinner" style={{ width: '30px', height: '30px', margin: '0 auto', borderTopColor: 'var(--primary-color)' }}></div>
+            <p style={{ marginTop: '0.6rem', color: 'var(--text-secondary)', fontSize: '0.84rem' }}>Loading stotram library...</p>
           </div>
         ) : filteredStotras.length === 0 ? (
-          <div style={{ padding: '3.5rem', textAlign: 'center' }}>
-            <MdMusicNote size={56} style={{ color: 'var(--border-color)', marginBottom: '1rem' }} />
-            <h3 style={{ margin: '0 0 0.5rem 0', color: 'var(--text-primary)' }}>No Stotrams Found</h3>
-            <p style={{ color: 'var(--text-secondary)', maxWidth: '420px', margin: '0 auto 1.5rem auto' }}>
+          <div style={{ padding: '2rem', textAlign: 'center' }}>
+            <MdMusicNote size={44} style={{ color: 'var(--border-color)', marginBottom: '0.65rem' }} />
+            <h3 style={{ margin: '0 0 0.35rem 0', color: 'var(--text-primary)', fontSize: '1rem' }}>No Stotrams Found</h3>
+            <p style={{ color: 'var(--text-secondary)', maxWidth: '400px', margin: '0 auto 1rem auto', fontSize: '0.84rem' }}>
               {searchQuery || selectedCategory !== 'all' || favoriteOnly
                 ? 'No stotram matched your current filter criteria. Try resetting the filters.'
                 : 'Your stotram library is empty. Click below to add your first stotram.'}
             </p>
             <button className="btn btn-primary" onClick={openCreateModal}>
-              <MdAdd size={20} /> Upload Stotra
+              <MdAdd size={17} /> Upload Stotra
             </button>
           </div>
         ) : (
-          <div className="stotram-list" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: '1rem' }}>
+          <div className="stotram-list" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(275px, 1fr))', gap: '0.75rem' }}>
             {filteredStotras.map((stotra) => {
               const stotraId = idOf(stotra);
               const cat = stotra.categoryId;
@@ -491,8 +491,8 @@ const ManageStotram = () => {
                   key={stotraId}
                   className="stotram-list-item glass-panel"
                   style={{
-                    padding: '1.25rem',
-                    borderRadius: '10px',
+                    padding: '0.85rem 0.95rem',
+                    borderRadius: '8px',
                     border: '1px solid var(--border-color)',
                     background: '#FFFFFF',
                     display: 'flex',
@@ -505,12 +505,12 @@ const ManageStotram = () => {
                 >
                   <div>
                     {/* Top Category Badge & Favorite Star */}
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.45rem' }}>
                       <span
                         style={{
-                          fontSize: '0.75rem',
+                          fontSize: '0.7rem',
                           fontWeight: '600',
-                          padding: '0.2rem 0.55rem',
+                          padding: '0.15rem 0.45rem',
                           borderRadius: '4px',
                           background: 'rgba(130, 0, 30, 0.08)',
                           color: 'var(--primary-color)',
@@ -528,32 +528,32 @@ const ManageStotram = () => {
                           background: 'none',
                           border: 'none',
                           cursor: 'pointer',
-                          padding: '0.2rem',
+                          padding: '0.15rem',
                           color: stotra.isFavorite ? '#EAB308' : '#9CA3AF',
                         }}
                       >
-                        {stotra.isFavorite ? <MdStar size={22} /> : <MdStarBorder size={22} />}
+                        {stotra.isFavorite ? <MdStar size={19} /> : <MdStarBorder size={19} />}
                       </button>
                     </div>
 
                     {/* Stotram Title */}
-                    <h3 style={{ margin: '0 0 0.5rem 0', fontSize: '1.15rem', color: 'var(--text-primary)', fontWeight: '700' }}>
+                    <h3 style={{ margin: '0 0 0.35rem 0', fontSize: '0.96rem', color: 'var(--text-primary)', fontWeight: '700' }}>
                       {stotra.title || stotra.subCategoryName || 'Untitled Stotram'}
                     </h3>
 
                     {/* Content Snippet */}
                     <div
                       style={{
-                        fontSize: '0.85rem',
+                        fontSize: '0.8rem',
                         color: 'var(--text-secondary)',
-                        lineHeight: '1.5',
-                        maxHeight: '4.2rem',
+                        lineHeight: '1.42',
+                        maxHeight: '3.4rem',
                         overflow: 'hidden',
                         textOverflow: 'ellipsis',
                         display: '-webkit-box',
                         WebkitLineClamp: 3,
                         WebkitBoxOrient: 'vertical',
-                        marginBottom: '1rem',
+                        marginBottom: '0.65rem',
                         fontStyle: 'italic',
                       }}
                       dangerouslySetInnerHTML={{
@@ -562,42 +562,42 @@ const ManageStotram = () => {
                     />
 
                     {/* Media Badges: Audio, PDF */}
-                    <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem', flexWrap: 'wrap' }}>
+                    <div style={{ display: 'flex', gap: '0.4rem', marginBottom: '0.6rem', flexWrap: 'wrap' }}>
                       {stotra.audioFile ? (
                         <span
                           style={{
-                            fontSize: '0.7rem',
+                            fontSize: '0.68rem',
                             display: 'inline-flex',
                             alignItems: 'center',
-                            gap: '0.25rem',
-                            padding: '0.2rem 0.5rem',
+                            gap: '0.2rem',
+                            padding: '0.15rem 0.45rem',
                             borderRadius: '4px',
                             background: 'rgba(23, 74, 13, 0.08)',
                             color: 'var(--success-color)',
                             fontWeight: '600',
                           }}
                         >
-                          <MdAudiotrack size={13} /> Audio Available
+                          <MdAudiotrack size={12} /> Audio Available
                         </span>
                       ) : (
-                        <span style={{ fontSize: '0.7rem', color: '#9CA3AF', padding: '0.2rem 0.5rem' }}>No Audio</span>
+                        <span style={{ fontSize: '0.68rem', color: '#9CA3AF', padding: '0.15rem 0.4rem' }}>No Audio</span>
                       )}
 
                       {stotra.pdf && (
                         <span
                           style={{
-                            fontSize: '0.7rem',
+                            fontSize: '0.68rem',
                             display: 'inline-flex',
                             alignItems: 'center',
-                            gap: '0.25rem',
-                            padding: '0.2rem 0.5rem',
+                            gap: '0.2rem',
+                            padding: '0.15rem 0.45rem',
                             borderRadius: '4px',
                             background: 'rgba(59, 130, 246, 0.08)',
                             color: '#2563EB',
                             fontWeight: '600',
                           }}
                         >
-                          <MdPictureAsPdf size={13} /> PDF Document
+                          <MdPictureAsPdf size={12} /> PDF Document
                         </span>
                       )}
                     </div>
@@ -610,33 +610,33 @@ const ManageStotram = () => {
                       justifyContent: 'space-between',
                       alignItems: 'center',
                       borderTop: '1px solid var(--border-color)',
-                      paddingTop: '0.75rem',
-                      marginTop: '0.5rem',
+                      paddingTop: '0.55rem',
+                      marginTop: '0.25rem',
                     }}
                     onClick={(e) => e.stopPropagation()}
                   >
                     <button
                       className="btn btn-outline"
-                      style={{ padding: '0.35rem 0.75rem', fontSize: '0.75rem' }}
+                      style={{ padding: '0.28rem 0.6rem', fontSize: '0.72rem' }}
                       onClick={() => setSelectedStotraForPreview(stotra)}
                     >
-                      <MdVisibility size={14} /> Preview
+                      <MdVisibility size={13} /> Preview
                     </button>
 
-                    <div style={{ display: 'flex', gap: '0.35rem' }}>
+                    <div style={{ display: 'flex', gap: '0.3rem' }}>
                       <button
                         className="btn-icon edit"
                         title="Edit Stotra"
                         onClick={() => openEditModal(stotra)}
                       >
-                        <MdEdit size={17} />
+                        <MdEdit size={16} />
                       </button>
                       <button
                         className="btn-icon delete"
                         title="Delete Stotra"
                         onClick={() => handleDeleteStotra(stotra)}
                       >
-                        <MdDeleteOutline size={17} />
+                        <MdDeleteOutline size={16} />
                       </button>
                     </div>
                   </div>
@@ -655,15 +655,15 @@ const ManageStotram = () => {
           <div
             className="modal-content glass-panel animate-fade-in"
             onClick={(e) => e.stopPropagation()}
-            style={{ maxWidth: '680px', width: '92%', maxHeight: '90vh', overflowY: 'auto', padding: '1.75rem' }}
+            style={{ maxWidth: '640px', width: '92%', maxHeight: '90vh', overflowY: 'auto', padding: '1.15rem' }}
           >
-            <div className="modal-header" style={{ marginBottom: '1rem' }}>
+            <div className="modal-header" style={{ padding: '0 0 0.7rem 0', marginBottom: '0.85rem' }}>
               <div>
                 <span
                   style={{
-                    fontSize: '0.75rem',
+                    fontSize: '0.7rem',
                     fontWeight: '600',
-                    padding: '0.2rem 0.6rem',
+                    padding: '0.15rem 0.5rem',
                     borderRadius: '4px',
                     background: 'rgba(130, 0, 30, 0.08)',
                     color: 'var(--primary-color)',
@@ -673,19 +673,19 @@ const ManageStotram = () => {
                     ? selectedStotraForPreview.categoryId.categoryName
                     : 'Stotram'}
                 </span>
-                <h2 className="modal-title" style={{ marginTop: '0.35rem', color: 'var(--primary-color)' }}>
+                <h2 className="modal-title" style={{ marginTop: '0.25rem', color: 'var(--primary-color)', fontSize: '1.05rem' }}>
                   {selectedStotraForPreview.title || selectedStotraForPreview.subCategoryName}
                 </h2>
               </div>
               <button className="modal-close-btn" onClick={() => setSelectedStotraForPreview(null)}>
-                <MdClose size={24} />
+                <MdClose size={20} />
               </button>
             </div>
 
             {/* Audio Player if URL exists */}
             {selectedStotraForPreview.audioFile && (
-              <div style={{ marginBottom: '1.5rem', background: 'var(--bg-color)', padding: '1rem', borderRadius: '8px', border: '1px solid var(--border-color)' }}>
-                <div style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--text-secondary)', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
+              <div style={{ marginBottom: '0.95rem', background: 'var(--bg-color)', padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--border-color)' }}>
+                <div style={{ fontSize: '0.7rem', fontWeight: '700', color: 'var(--text-secondary)', textTransform: 'uppercase', marginBottom: '0.35rem' }}>
                   Recitation Audio Track
                 </div>
                 <AudioPlayerUI
@@ -696,8 +696,8 @@ const ManageStotram = () => {
             )}
 
             {/* Stotram Text / Lyrics Content */}
-            <div style={{ marginBottom: '1.5rem' }}>
-              <div style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--text-secondary)', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
+            <div style={{ marginBottom: '0.95rem' }}>
+              <div style={{ fontSize: '0.7rem', fontWeight: '700', color: 'var(--text-secondary)', textTransform: 'uppercase', marginBottom: '0.35rem' }}>
                 Stotram Text / Recitation Content
               </div>
               <div
@@ -705,11 +705,11 @@ const ManageStotram = () => {
                   background: '#FAFAFA',
                   border: '1px solid var(--border-color)',
                   borderRadius: '8px',
-                  padding: '1.25rem',
-                  fontSize: '1rem',
-                  lineHeight: '1.8',
+                  padding: '0.9rem',
+                  fontSize: '0.92rem',
+                  lineHeight: '1.65',
                   color: 'var(--text-primary)',
-                  maxHeight: '320px',
+                  maxHeight: '280px',
                   overflowY: 'auto',
                   fontFamily: 'serif',
                 }}
@@ -721,21 +721,21 @@ const ManageStotram = () => {
 
             {/* PDF Download link if available */}
             {selectedStotraForPreview.pdf && (
-              <div style={{ marginBottom: '1.5rem' }}>
+              <div style={{ marginBottom: '0.95rem' }}>
                 <a
                   href={selectedStotraForPreview.pdf}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn btn-outline"
-                  style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.85rem' }}
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.8rem' }}
                 >
-                  <MdPictureAsPdf size={18} color="#EF4444" /> View PDF Document
+                  <MdPictureAsPdf size={16} color="#EF4444" /> View PDF Document
                 </a>
               </div>
             )}
 
             {/* Footer Actions */}
-            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem', borderTop: '1px solid var(--border-color)', paddingTop: '1rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.5rem', borderTop: '1px solid var(--border-color)', paddingTop: '0.75rem' }}>
               <button
                 className="btn btn-outline"
                 onClick={() => {
@@ -744,7 +744,7 @@ const ManageStotram = () => {
                   openEditModal(s);
                 }}
               >
-                <MdEdit size={16} /> Edit Stotra
+                <MdEdit size={15} /> Edit Stotra
               </button>
               <button className="btn btn-primary" onClick={() => setSelectedStotraForPreview(null)}>
                 Close
@@ -762,19 +762,19 @@ const ManageStotram = () => {
           <div
             className="modal-content glass-panel animate-fade-in"
             onClick={(e) => e.stopPropagation()}
-            style={{ maxWidth: '680px', width: '95%', maxHeight: '90vh', display: 'flex', flexDirection: 'column' }}
+            style={{ maxWidth: '640px', width: '95%', maxHeight: '90vh', display: 'flex', flexDirection: 'column' }}
           >
             <div className="modal-header">
-              <h2 className="modal-title" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <MdMusicNote />
+              <h2 className="modal-title" style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+                <MdMusicNote size={18} />
                 {editingStotraId ? 'Edit Stotram' : 'Add New Stotram'}
               </h2>
               <button className="modal-close-btn" onClick={closeEditModal}>
-                <MdClose size={24} />
+                <MdClose size={20} />
               </button>
             </div>
 
-            <form onSubmit={handleFormSubmit} style={{ display: 'flex', flexDirection: 'column', overflowY: 'auto', flex: 1, padding: '1.5rem', gap: '1rem' }}>
+            <form onSubmit={handleFormSubmit} style={{ display: 'flex', flexDirection: 'column', overflowY: 'auto', flex: 1, padding: '1rem 1.15rem', gap: '0.7rem' }}>
               {/* Category */}
               <div className="input-group">
                 <label className="input-label" htmlFor="stotra-cat">
@@ -876,12 +876,12 @@ const ManageStotram = () => {
               </label>
 
               {/* Actions */}
-              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem', marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid var(--border-color)' }}>
+              <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.5rem', marginTop: '0.35rem', paddingTop: '0.75rem', borderTop: '1px solid var(--border-color)' }}>
                 <button type="button" className="btn btn-outline" onClick={closeEditModal} disabled={isSaving}>
                   Cancel
                 </button>
                 <button type="submit" className="btn btn-primary" disabled={isSaving}>
-                  <MdSave size={18} />
+                  <MdSave size={16} />
                   {isSaving ? 'Saving...' : editingStotraId ? 'Update Stotra' : 'Save Stotra'}
                 </button>
               </div>

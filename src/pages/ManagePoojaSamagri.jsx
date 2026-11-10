@@ -293,24 +293,24 @@ const ManagePoojaSamagri = () => {
 
   return (
     <div className="page-content animate-fade-in">
-      <div className="top-header" style={{ margin: '-2rem -2rem 2rem -2rem' }}>
+      <div className="top-header" style={{ margin: '-0.95rem -1.25rem 0.9rem -1.25rem' }}>
         <h1 className="header-title">Manage Pooja Samagri</h1>
         
-        <div style={{ display: 'flex', gap: '1rem', background: 'rgba(255,255,255,0.05)', padding: '0.5rem', borderRadius: '8px' }}>
+        <div style={{ display: 'flex', gap: '0.5rem', background: 'rgba(255,255,255,0.05)', padding: '0.25rem', borderRadius: '8px' }}>
           <button 
-            className={`btn ${activeTab === 'inventory' ? 'btn-primary' : 'btn-secondary'}`}
+            className={`btn ${activeTab === 'inventory' ? 'btn-primary' : 'btn-outline'}`}
             onClick={() => setActiveTab('inventory')}
-            style={{ border: 'none', transition: 'all 0.3s' }}
+            style={{ border: activeTab === 'inventory' ? 'none' : undefined, transition: 'all 0.2s' }}
           >
-            <MdListAlt size={20} style={{ marginRight: '8px', verticalAlign: 'middle' }} />
+            <MdListAlt size={17} />
             Master Inventory
           </button>
           <button 
-            className={`btn ${activeTab === 'builder' ? 'btn-primary' : 'btn-secondary'}`}
+            className={`btn ${activeTab === 'builder' ? 'btn-primary' : 'btn-outline'}`}
             onClick={() => setActiveTab('builder')}
-            style={{ border: 'none', transition: 'all 0.3s' }}
+            style={{ border: activeTab === 'builder' ? 'none' : undefined, transition: 'all 0.2s' }}
           >
-            <MdOutlinePostAdd size={20} style={{ marginRight: '8px', verticalAlign: 'middle' }} />
+            <MdOutlinePostAdd size={17} />
             List Builder
           </button>
         </div>
@@ -318,11 +318,11 @@ const ManagePoojaSamagri = () => {
 
       {activeTab === 'inventory' && (
         <>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1.5rem', background: 'rgba(255,255,255,0.02)', padding: '1rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.05)' }}>
-            <div style={{ display: 'flex', gap: '1.5rem', flex: 1, minWidth: '300px', flexWrap: 'wrap', alignItems: 'center' }}>
-              <div style={{ position: 'relative', flex: 1, maxWidth: '350px', minWidth: '250px' }}>
-                <div style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', pointerEvents: 'none' }}>
-                  <MdSearch size={20} />
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.85rem', flexWrap: 'wrap', gap: '0.75rem', background: 'rgba(255,255,255,0.02)', padding: '0.6rem 0.85rem', borderRadius: '8px', border: '1px solid var(--border-color)' }}>
+            <div style={{ display: 'flex', gap: '0.75rem', flex: 1, minWidth: '260px', flexWrap: 'wrap', alignItems: 'center' }}>
+              <div style={{ position: 'relative', flex: 1, maxWidth: '300px', minWidth: '210px' }}>
+                <div style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', pointerEvents: 'none' }}>
+                  <MdSearch size={17} />
                 </div>
                 <input 
                   type="text" 
@@ -330,30 +330,30 @@ const ManagePoojaSamagri = () => {
                   placeholder="Search by Pooja or God Name..."
                   value={inventorySearchQuery}
                   onChange={(e) => setInventorySearchQuery(e.target.value)}
-                  style={{ width: '100%', margin: 0, paddingLeft: '40px', background: 'rgba(0,0,0,0.2)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '24px' }}
+                  style={{ width: '100%', margin: 0, paddingLeft: '34px', borderRadius: '20px' }}
                 />
               </div>
               
-              <div style={{ position: 'relative', width: '200px' }}>
-                <div style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', pointerEvents: 'none' }}>
-                  <MdFilterList size={20} />
+              <div style={{ position: 'relative', width: '175px' }}>
+                <div style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', pointerEvents: 'none' }}>
+                  <MdFilterList size={17} />
                 </div>
                 <select 
                   className="input-field"
                   value={inventoryFilterType}
                   onChange={(e) => setInventoryFilterType(e.target.value)}
-                  style={{ width: '100%', margin: 0, paddingLeft: '40px', background: 'rgba(0,0,0,0.2)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '24px', cursor: 'pointer', appearance: 'none' }}
+                  style={{ width: '100%', margin: 0, paddingLeft: '34px', borderRadius: '20px', cursor: 'pointer', appearance: 'none' }}
                 >
                   <option value="All">All Types</option>
                   <option value="Pooja">Pooja Specific</option>
                   <option value="Hawan">Hawan Specific</option>
                   <option value="Common">Common</option>
                 </select>
-                <div style={{ position: 'absolute', right: '12px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', borderLeft: '5px solid transparent', borderRight: '5px solid transparent', borderTop: '5px solid var(--text-secondary)' }}></div>
+                <div style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', borderLeft: '4px solid transparent', borderRight: '4px solid transparent', borderTop: '4px solid var(--text-secondary)' }}></div>
               </div>
             </div>
             <button className="btn btn-primary shadow-hover" onClick={() => setIsModalOpen(true)}>
-              <MdAdd size={20} /> Create New Package
+              <MdAdd size={17} /> Create New Package
             </button>
           </div>
 
@@ -372,7 +372,7 @@ const ManagePoojaSamagri = () => {
               <tbody>
                 {isLoading ? (
                   <tr>
-                    <td colSpan="6" style={{ textAlign: 'center', padding: '2rem' }}>
+                    <td colSpan="6" style={{ textAlign: 'center', padding: '1.35rem' }}>
                       <div className="loader" style={{margin: '0 auto'}}></div>
                     </td>
                   </tr>
@@ -444,10 +444,10 @@ const ManagePoojaSamagri = () => {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="6" style={{ textAlign: 'center', color: 'var(--text-secondary)', padding: '3rem' }}>
-                      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
-                        <MdListAlt size={48} style={{ opacity: 0.2 }} />
-                        <p>No samagri packages found matching your filters.</p>
+                    <td colSpan="6" style={{ textAlign: 'center', color: 'var(--text-secondary)', padding: '1.5rem' }}>
+                      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.55rem' }}>
+                        <MdListAlt size={36} style={{ opacity: 0.25 }} />
+                        <p style={{ fontSize: '0.84rem', margin: 0 }}>No samagri packages found matching your filters.</p>
                       </div>
                     </td>
                   </tr>
@@ -460,13 +460,13 @@ const ManagePoojaSamagri = () => {
       )}
 
       {activeTab === 'builder' && (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
-          <div className="glass-panel" style={{ padding: '2rem', height: 'fit-content' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '1.5rem', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '1rem' }}>
-              <div style={{ background: 'var(--primary-color)', padding: '8px', borderRadius: '8px', display: 'flex' }}>
-                <MdListAlt size={20} color="#fff" />
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem' }}>
+          <div className="glass-panel" style={{ padding: '1rem 1.15rem', height: 'fit-content' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '0.85rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.6rem' }}>
+              <div style={{ background: 'var(--primary-color)', padding: '6px', borderRadius: '6px', display: 'flex' }}>
+                <MdListAlt size={17} color="#fff" />
               </div>
-              <h3 style={{ margin: 0, color: 'var(--text-primary)' }}>List Criteria</h3>
+              <h3 style={{ margin: 0, color: 'var(--text-primary)', fontSize: '0.95rem' }}>List Criteria</h3>
             </div>
             
             <div className="input-group">
@@ -491,13 +491,13 @@ const ManagePoojaSamagri = () => {
               />
             </div>
 
-            <div className="input-group" style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '12px', marginTop: '1.5rem', background: 'rgba(255,255,255,0.03)', padding: '1rem', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
+            <div className="input-group" style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '10px', marginTop: '0.75rem', background: 'rgba(0,0,0,0.02)', padding: '0.65rem 0.85rem', borderRadius: '6px', border: '1px solid var(--border-color)' }}>
               <input 
                 type="checkbox" 
                 id="includeHawan"
                 checked={includeHawan}
                 onChange={(e) => setIncludeHawan(e.target.checked)}
-                style={{ width: '20px', height: '20px', cursor: 'pointer', accentColor: 'var(--primary-color)' }}
+                style={{ width: '16px', height: '16px', cursor: 'pointer', accentColor: 'var(--primary-color)' }}
               />
               <label className="input-label" htmlFor="includeHawan" style={{ marginBottom: 0, cursor: 'pointer', flex: 1 }}>
                 Include Hawan Specific Items
@@ -506,31 +506,31 @@ const ManagePoojaSamagri = () => {
 
             <button 
               className="btn btn-primary shadow-hover" 
-              style={{ width: '100%', marginTop: '2rem', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px', padding: '12px' }}
+              style={{ width: '100%', marginTop: '0.9rem', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '6px' }}
               onClick={copyToClipboard}
             >
-              <MdContentCopy size={20} /> Copy Consolidated List
+              <MdContentCopy size={17} /> Copy Consolidated List
             </button>
           </div>
 
-          <div className="glass-panel" style={{ padding: '2rem', display: 'flex', flexDirection: 'column' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '1rem' }}>
-              <h3 style={{ margin: 0, color: 'var(--text-primary)' }}>Matched Packages</h3>
-              <span style={{ background: 'var(--primary-color)', color: '#fff', padding: '4px 12px', borderRadius: '20px', fontWeight: 600, boxShadow: '0 2px 10px rgba(var(--primary-rgb), 0.3)' }}>
+          <div className="glass-panel" style={{ padding: '1rem 1.15rem', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.85rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.6rem' }}>
+              <h3 style={{ margin: 0, color: 'var(--text-primary)', fontSize: '0.95rem' }}>Matched Packages</h3>
+              <span style={{ background: 'var(--primary-color)', color: '#fff', padding: '2px 10px', borderRadius: '16px', fontSize: '0.75rem', fontWeight: 600 }}>
                 {samagris.filter(pkg => checkedPackages[pkg._id || pkg.id]).length} Selected
               </span>
             </div>
 
             {isLoading ? (
-              <div style={{ textAlign: 'center', padding: '2rem' }}>
+              <div style={{ textAlign: 'center', padding: '1.5rem' }}>
                 <div className="loader" style={{margin: '0 auto'}}></div>
               </div>
             ) : samagris.length === 0 ? (
-              <div style={{ textAlign: 'center', color: 'var(--text-secondary)', padding: '2rem', background: 'rgba(255,255,255,0.02)', borderRadius: '8px' }}>
+              <div style={{ textAlign: 'center', color: 'var(--text-secondary)', padding: '1.5rem', fontSize: '0.84rem' }}>
                 No packages in inventory.
               </div>
             ) : (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', overflowY: 'auto', maxHeight: '500px', paddingRight: '10px' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', overflowY: 'auto', maxHeight: '420px', paddingRight: '6px' }}>
                 {samagris.map(pkg => {
                   const pkgId = pkg._id || pkg.id;
                   const isChecked = checkedPackages[pkgId] || false;
@@ -540,14 +540,13 @@ const ManagePoojaSamagri = () => {
                       style={{ 
                         display: 'flex', 
                         alignItems: 'flex-start', 
-                        gap: '1rem', 
-                        padding: '1rem', 
-                        background: isChecked ? 'rgba(var(--primary-rgb), 0.1)' : 'rgba(255,255,255,0.03)',
-                        border: isChecked ? '1px solid var(--primary-color)' : '1px solid rgba(255,255,255,0.05)',
-                        borderRadius: '12px',
+                        gap: '0.65rem', 
+                        padding: '0.65rem 0.8rem', 
+                        background: isChecked ? 'rgba(130, 0, 30, 0.04)' : '#fff',
+                        border: isChecked ? '1px solid var(--primary-color)' : '1px solid var(--border-color)',
+                        borderRadius: '8px',
                         cursor: 'pointer',
-                        transition: 'all 0.2s ease-in-out',
-                        boxShadow: isChecked ? '0 4px 12px rgba(var(--primary-rgb), 0.1)' : 'none'
+                        transition: 'all 0.15s ease-in-out',
                       }}
                       onClick={() => handleToggleCheck(pkgId)}
                       className="hover-card"
@@ -556,19 +555,20 @@ const ManagePoojaSamagri = () => {
                         type="checkbox" 
                         checked={isChecked}
                         readOnly
-                        style={{ width: '22px', height: '22px', cursor: 'pointer', accentColor: 'var(--primary-color)', marginTop: '4px' }}
+                        style={{ width: '16px', height: '16px', cursor: 'pointer', accentColor: 'var(--primary-color)', marginTop: '3px' }}
                       />
-                      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '4px', fontSize: '0.82rem' }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                            <span style={{ 
-                             padding: '2px 8px', 
-                             borderRadius: '12px', 
+                             padding: '2px 7px', 
+                             borderRadius: '10px', 
+                             fontSize: '0.7rem',
                              fontWeight: 600,
                              ...getChipStyle(pkg.itemType) 
                            }}>
                              {pkg.itemType}
                            </span>
-                           <span style={{ color: 'var(--text-secondary)', fontWeight: 500 }}>
+                           <span style={{ color: 'var(--text-secondary)', fontSize: '0.75rem', fontWeight: 500 }}>
                              {pkg.items?.length || 0} items
                            </span>
                         </div>
@@ -579,8 +579,8 @@ const ManagePoojaSamagri = () => {
                            <strong style={{color: 'var(--text-primary)'}}>Gods:</strong> {(pkg.godName || []).join(', ') || 'Any'}
                         </div>
                         {pkg.havanRequired && (
-                           <div style={{ color: '#ff9800', display: 'flex', alignItems: 'center', gap: '4px', marginTop: '4px' }}>
-                             <span style={{width: '6px', height: '6px', borderRadius: '50%', background: '#ff9800'}}></span>
+                           <div style={{ color: '#d97706', fontSize: '0.74rem', display: 'flex', alignItems: 'center', gap: '4px', marginTop: '2px' }}>
+                             <span style={{width: '5px', height: '5px', borderRadius: '50%', background: '#d97706'}}></span>
                              Havan Required
                            </div>
                         )}
@@ -596,24 +596,24 @@ const ManagePoojaSamagri = () => {
 
       {/* Inventory Modal */}
       {isModalOpen && (
-        <div className="modal-overlay" onClick={closeModal} style={{ zIndex: 1000, padding: '1rem' }}>
-          <div className="modal-content glass-panel animate-scale-in" onClick={e => e.stopPropagation()} style={{ maxWidth: '800px', width: '100%', maxHeight: '90vh', display: 'flex', flexDirection: 'column' }}>
-            <div className="modal-header" style={{ padding: '1.5rem 2rem', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
-              <h2 className="modal-title" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <div style={{ background: 'var(--primary-color)', padding: '6px', borderRadius: '8px', display: 'flex' }}>
-                   {editingId ? <MdEdit size={20} color="#fff" /> : <MdAdd size={20} color="#fff" />}
+        <div className="modal-overlay" onClick={closeModal} style={{ zIndex: 1000, padding: '0.75rem' }}>
+          <div className="modal-content glass-panel animate-scale-in" onClick={e => e.stopPropagation()} style={{ maxWidth: '680px', width: '100%', maxHeight: '90vh', display: 'flex', flexDirection: 'column' }}>
+            <div className="modal-header">
+              <h2 className="modal-title" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <div style={{ background: 'var(--primary-color)', padding: '5px', borderRadius: '6px', display: 'flex' }}>
+                   {editingId ? <MdEdit size={16} color="#fff" /> : <MdAdd size={16} color="#fff" />}
                 </div>
                 {editingId ? 'Edit Samagri Package' : 'Create Samagri Package'}
               </h2>
-              <button className="modal-close-btn" onClick={closeModal} style={{ background: 'rgba(255,255,255,0.1)', padding: '8px', borderRadius: '50%' }}>
-                <MdClose size={24} />
+              <button className="modal-close-btn" onClick={closeModal}>
+                <MdClose size={20} />
               </button>
             </div>
             
-            <div className="modal-body custom-scrollbar" style={{ padding: '2rem', overflowY: 'auto', flex: 1, display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+            <div className="modal-body custom-scrollbar" style={{ padding: '1rem 1.15rem', overflowY: 'auto', flex: 1, display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
               
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
-                <div className="input-group">
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '0.75rem' }}>
+                <div className="input-group" style={{ marginBottom: 0 }}>
                   <label className="input-label">Pooja Names (Comma separated)</label>
                   <input 
                     type="text" 
@@ -624,7 +624,7 @@ const ManagePoojaSamagri = () => {
                   />
                 </div>
                 
-                <div className="input-group">
+                <div className="input-group" style={{ marginBottom: 0 }}>
                   <label className="input-label">God Names (Comma separated)</label>
                   <input 
                     type="text" 
@@ -636,14 +636,14 @@ const ManagePoojaSamagri = () => {
                 </div>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
-                <div className="input-group">
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '0.75rem' }}>
+                <div className="input-group" style={{ marginBottom: 0 }}>
                   <label className="input-label">Item Type <span style={{color:'var(--primary-color)'}}>*</span></label>
                   <select 
                     className="input-field"
                     value={itemType}
                     onChange={(e) => setItemType(e.target.value)}
-                    style={{ appearance: 'none', background: 'var(--bg-secondary)', cursor: 'pointer' }}
+                    style={{ cursor: 'pointer' }}
                   >
                     <option value="Common">Common</option>
                     <option value="Pooja">Pooja Specific</option>
@@ -651,13 +651,13 @@ const ManagePoojaSamagri = () => {
                   </select>
                 </div>
                 
-                <div className="input-group" style={{ display: 'flex', alignItems: 'center', padding: '1rem', background: 'rgba(255,255,255,0.02)', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)', marginTop: 'auto' }}>
+                <div className="input-group" style={{ display: 'flex', alignItems: 'center', padding: '0.55rem 0.85rem', borderRadius: '6px', border: '1px solid var(--border-color)', marginTop: 'auto', marginBottom: 0 }}>
                   <input 
                     type="checkbox" 
                     id="havanRequired"
                     checked={havanRequired}
                     onChange={(e) => setHavanRequired(e.target.checked)}
-                    style={{ width: '22px', height: '22px', cursor: 'pointer', accentColor: 'var(--primary-color)', marginRight: '12px' }}
+                    style={{ width: '16px', height: '16px', cursor: 'pointer', accentColor: 'var(--primary-color)', marginRight: '8px' }}
                   />
                   <label htmlFor="havanRequired" className="input-label" style={{ marginBottom: 0, cursor: 'pointer', flex: 1 }}>
                     Havan Required for this package?
@@ -665,17 +665,17 @@ const ManagePoojaSamagri = () => {
                 </div>
               </div>
 
-              <div style={{ marginTop: '1rem', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '1.5rem' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-                  <h3 style={{ margin: 0, color: 'var(--text-primary)' }}>Package Items</h3>
-                  <span style={{ color: 'var(--text-secondary)' }}>
+              <div style={{ marginTop: '0.25rem', borderTop: '1px solid var(--border-color)', paddingTop: '0.75rem' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.55rem' }}>
+                  <h3 style={{ margin: 0, color: 'var(--text-primary)', fontSize: '0.92rem' }}>Package Items</h3>
+                  <span style={{ color: 'var(--text-secondary)', fontSize: '0.78rem' }}>
                     {items.length} item(s)
                   </span>
                 </div>
                 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                   {items.map((item, index) => (
-                    <div key={index} style={{ display: 'flex', gap: '1rem', alignItems: 'center', background: 'rgba(255,255,255,0.02)', padding: '1rem', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                    <div key={index} style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', background: '#f9fafb', padding: '0.45rem 0.6rem', borderRadius: '6px', border: '1px solid var(--border-color)' }}>
                       <div className="input-group" style={{ flex: 2, marginBottom: 0 }}>
                         <input 
                           type="text" 
@@ -683,7 +683,6 @@ const ManagePoojaSamagri = () => {
                           placeholder="Item Name (e.g. Haldi)"
                           value={item.itemName}
                           onChange={(e) => handleItemChange(index, 'itemName', e.target.value)}
-                          style={{ background: 'rgba(0,0,0,0.2)' }}
                         />
                       </div>
                       <div className="input-group" style={{ flex: 1, marginBottom: 0 }}>
@@ -693,45 +692,43 @@ const ManagePoojaSamagri = () => {
                           placeholder="Qty (e.g. 50g)"
                           value={item.quantity}
                           onChange={(e) => handleItemChange(index, 'quantity', e.target.value)}
-                          style={{ background: 'rgba(0,0,0,0.2)' }}
                         />
                       </div>
                       <button 
                         className="action-btn delete" 
                         onClick={() => handleRemoveItem(index)}
-                        style={{ background: 'rgba(244, 67, 54, 0.1)', padding: '10px' }}
+                        style={{ background: 'rgba(244, 67, 54, 0.1)', padding: '6px' }}
                         title="Remove Item"
                       >
-                        <MdDeleteOutline size={20} />
+                        <MdDeleteOutline size={17} />
                       </button>
                     </div>
                   ))}
                 </div>
                 
                 <button 
-                  className="btn btn-secondary" 
+                  className="btn btn-outline" 
                   onClick={handleAddItem}
-                  style={{ marginTop: '1rem', width: '100%', borderStyle: 'dashed', borderWidth: '2px', background: 'transparent' }}
+                  style={{ marginTop: '0.6rem', width: '100%', borderStyle: 'dashed' }}
                 >
-                  <MdAdd size={20} /> Add Another Item
+                  <MdAdd size={17} /> Add Another Item
                 </button>
               </div>
 
             </div>
             
-            <div className="modal-footer" style={{ padding: '1.5rem 2rem', borderTop: '1px solid rgba(255,255,255,0.1)', display: 'flex', justifyContent: 'flex-end', gap: '1rem', background: 'rgba(0,0,0,0.2)', borderBottomLeftRadius: '16px', borderBottomRightRadius: '16px' }}>
-              <button className="btn btn-secondary" onClick={closeModal} style={{ padding: '10px 24px' }}>Cancel</button>
+            <div className="modal-footer" style={{ padding: '0.7rem 1.15rem', display: 'flex', justifyContent: 'flex-end', gap: '0.5rem' }}>
+              <button className="btn btn-outline" onClick={closeModal}>Cancel</button>
               <button 
                 className="btn btn-primary shadow-hover" 
                 onClick={handleSave}
                 disabled={createMutation.isPending || updateMutation.isPending}
-                style={{ padding: '10px 24px', minWidth: '150px' }}
               >
                 {createMutation.isPending || updateMutation.isPending ? (
-                  <div className="loader" style={{ width: '20px', height: '20px', borderTopColor: '#fff', margin: '0 auto' }}></div>
+                  <div className="loader" style={{ width: '16px', height: '16px', borderTopColor: '#fff', margin: '0 auto' }}></div>
                 ) : (
                   <>
-                    <MdSave size={20} style={{ marginRight: '8px', verticalAlign: 'middle' }} /> 
+                    <MdSave size={16} /> 
                     {editingId ? 'Update Package' : 'Save Package'}
                   </>
                 )}

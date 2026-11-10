@@ -61,8 +61,8 @@ const Signup = () => {
   };
 
   return (
-    <div className="auth-layout" style={{ padding: '2rem 1rem', overflowY: 'auto' }}>
-      <div className="auth-card glass-panel animate-fade-in" style={{ maxWidth: '600px', marginTop: '2rem', marginBottom: '2rem' }}>
+    <div className="auth-layout" style={{ padding: '1rem', overflowY: 'auto' }}>
+      <div className="auth-card glass-panel animate-fade-in" style={{ maxWidth: '520px', marginTop: '0.5rem', marginBottom: '0.5rem' }}>
         <div className="auth-header" style={{ textAlign: 'center' }}>
           <img src="/logo.png?v=2" alt="Vipra Sarthi Logo" className="auth-logo" onError={(e) => { e.target.style.display = 'none' }} />
           <h1 className="auth-title">Create Account</h1>
@@ -76,7 +76,7 @@ const Signup = () => {
             </div>
           )}
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
             <Input
               label="Full Name *"
               id="fullName"
@@ -95,7 +95,7 @@ const Signup = () => {
             />
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
             <Input
               label="Mobile Number *"
               id="mobileNumber"
@@ -116,7 +116,7 @@ const Signup = () => {
             />
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
             <Input
               label="Password *"
               id="password"
@@ -137,7 +137,7 @@ const Signup = () => {
             />
           </div>
 
-          <Button type="submit" isLoading={signupMutation.isPending} style={{ marginTop: '1rem' }}>
+          <Button type="submit" isLoading={signupMutation.isPending} style={{ marginTop: '0.45rem' }}>
             {signupMutation.isPending ? 'Creating Account...' : 'Sign Up'}
           </Button>
         </form>
