@@ -800,10 +800,10 @@ const ManagePooja = () => {
                     <td style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', whiteSpace: 'nowrap' }}>
                       {pooja.updatedAt || pooja.createdAt
                         ? new Date(pooja.updatedAt || pooja.createdAt).toLocaleDateString('en-IN', {
-                            day: 'numeric',
-                            month: 'short',
-                            year: 'numeric',
-                          })
+                          day: 'numeric',
+                          month: 'short',
+                          year: 'numeric',
+                        })
                         : '—'}
                     </td>
                     <td style={{ textAlign: 'right' }}>
