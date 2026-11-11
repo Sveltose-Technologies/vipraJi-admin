@@ -13,11 +13,12 @@ import {
   MdRefresh,
   MdStar,
   MdStarBorder,
-  MdPlayCircle,
   MdPictureAsPdf,
   MdSave,
   MdAudiotrack,
-  MdVisibility
+  MdVisibility,
+  MdViewList,
+  MdViewModule
 } from 'react-icons/md';
 import AudioPlayerUI from '../components/AudioPlayerUI';
 import { useConfirmModal } from '../contexts/ConfirmModalContext';
@@ -62,6 +63,7 @@ const ManageStotram = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [favoriteOnly, setFavoriteOnly] = useState(false);
+  const [viewMode, setViewMode] = useState('table'); // 'table' | 'grid'
 
   // Modals
   const [selectedStotraForPreview, setSelectedStotraForPreview] = useState(null);
@@ -129,8 +131,9 @@ const ManageStotram = () => {
     const total = stotras.length;
     const favorites = stotras.filter((s) => s.isFavorite).length;
     const hasAudio = stotras.filter((s) => Boolean(s.audioFile)).length;
+    const hasPdf = stotras.filter((s) => Boolean(s.pdf)).length;
     const totalCats = categories.length;
-    return { total, favorites, hasAudio, totalCats };
+    return { total, favorites, hasAudio, hasPdf, totalCats };
   }, [stotras, categories]);
 
   // Mutations
@@ -293,13 +296,32 @@ const ManageStotram = () => {
             <MdRefresh size={16} />
           </button>
 
+          <div className="view-toggle-group">
+            <button
+              type="button"
+              onClick={() => setViewMode('table')}
+              className={`view-toggle-btn ${viewMode === 'table' ? 'active' : ''}`}
+              title="List View"
+            >
+              <MdViewList size={17} />
+            </button>
+            <button
+              type="button"
+              onClick={() => setViewMode('grid')}
+              className={`view-toggle-btn ${viewMode === 'grid' ? 'active' : ''}`}
+              title="Card View"
+            >
+              <MdViewModule size={17} />
+            </button>
+          </div>
+
           <button
             className="btn btn-outline"
             onClick={() => navigate('/manage-stotram-categories')}
             style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', padding: '0.42rem 0.8rem' }}
           >
             <MdLibraryBooks size={16} />
-            Manage Categories
+            Categories
           </button>
 
           <button
@@ -313,339 +335,374 @@ const ManageStotram = () => {
         </div>
       </div>
 
-      {/* STATS TILES */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(175px, 1fr))',
-          gap: '0.75rem',
-          marginBottom: '0.9rem'
-        }}
-      >
-        <div className="glass-panel" style={{ padding: '0.68rem 0.9rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          <div style={{ width: '36px', height: '36px', borderRadius: '8px', background: 'rgba(130, 0, 30, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--primary-color)' }}>
-            <MdMusicNote size={19} />
+      {/* COMPACT STAT PILLS + SEARCH & CATEGORY FILTER */}
+      <div className="compact-controls-bar">
+        <div className="compact-stat-pills">
+          <div className="compact-stat-pill">
+            <span className="compact-stat-pill-label">Total</span>
+            <strong className="compact-stat-pill-val">{stats.total}</strong>
           </div>
-          <div>
-            <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', textTransform: 'uppercase', fontWeight: '600' }}>Total Stotras</div>
-            <div style={{ fontSize: '1.2rem', fontWeight: '700', color: 'var(--primary-color)', lineHeight: 1.15 }}>{stats.total}</div>
+
+          <button
+            type="button"
+            className={`compact-stat-pill clickable ${favoriteOnly ? 'active-warning' : ''}`}
+            onClick={() => setFavoriteOnly((prev) => !prev)}
+            title="Click to filter favorite stotrams"
+          >
+            <MdStar size={14} color="#EAB308" />
+            <span className="compact-stat-pill-label">Favorites</span>
+            <strong className="compact-stat-pill-val" style={{ color: '#B45309' }}>{stats.favorites}</strong>
+          </button>
+
+          <div className="compact-stat-pill">
+            <MdAudiotrack size={14} color="#059669" />
+            <span className="compact-stat-pill-label">Audio</span>
+            <strong className="compact-stat-pill-val" style={{ color: '#047857' }}>{stats.hasAudio}</strong>
+          </div>
+
+          <div className="compact-stat-pill">
+            <MdPictureAsPdf size={14} color="#2563EB" />
+            <span className="compact-stat-pill-label">PDFs</span>
+            <strong className="compact-stat-pill-val" style={{ color: '#1D4ED8' }}>{stats.hasPdf}</strong>
           </div>
         </div>
 
-        <div className="glass-panel" style={{ padding: '0.68rem 0.9rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          <div style={{ width: '36px', height: '36px', borderRadius: '8px', background: 'rgba(240, 190, 60, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#B45309' }}>
-            <MdLibraryBooks size={19} />
-          </div>
-          <div>
-            <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', textTransform: 'uppercase', fontWeight: '600' }}>Categories</div>
-            <div style={{ fontSize: '1.2rem', fontWeight: '700', color: '#B45309', lineHeight: 1.15 }}>{stats.totalCats}</div>
-          </div>
-        </div>
-
-        <div className="glass-panel" style={{ padding: '0.68rem 0.9rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          <div style={{ width: '36px', height: '36px', borderRadius: '8px', background: 'rgba(23, 74, 13, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--success-color)' }}>
-            <MdAudiotrack size={19} />
-          </div>
-          <div>
-            <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', textTransform: 'uppercase', fontWeight: '600' }}>With Audio</div>
-            <div style={{ fontSize: '1.2rem', fontWeight: '700', color: 'var(--success-color)', lineHeight: 1.15 }}>{stats.hasAudio}</div>
-          </div>
-        </div>
-
-        <div className="glass-panel" style={{ padding: '0.68rem 0.9rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          <div style={{ width: '36px', height: '36px', borderRadius: '8px', background: 'rgba(234, 179, 8, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#CA8A04' }}>
-            <MdStar size={19} />
-          </div>
-          <div>
-            <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', textTransform: 'uppercase', fontWeight: '600' }}>Favorites</div>
-            <div style={{ fontSize: '1.2rem', fontWeight: '700', color: '#CA8A04', lineHeight: 1.15 }}>{stats.favorites}</div>
-          </div>
-        </div>
-      </div>
-
-      {/* SEARCH AND FILTER BAR */}
-      <div
-        className="glass-panel"
-        style={{
-          padding: '0.55rem 0.9rem',
-          marginBottom: '0.85rem',
-          display: 'flex',
-          flexWrap: 'wrap',
-          gap: '0.75rem',
-          alignItems: 'center',
-          justifyContent: 'space-between'
-        }}
-      >
-        {/* Search */}
-        <div style={{ display: 'flex', alignItems: 'center', flex: '1 1 260px', gap: '0.4rem', background: '#FFFFFF', padding: '0.28rem 0.65rem', borderRadius: '6px', border: '1px solid var(--border-color)' }}>
-          <MdSearch size={18} color="var(--text-secondary)" />
-          <input
-            type="text"
-            placeholder="Search stotram by title, category, or lyrics..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            style={{ border: 'none', outline: 'none', width: '100%', fontSize: '0.84rem', color: 'var(--text-primary)' }}
-          />
-          {searchQuery && (
-            <button
-              onClick={() => setSearchQuery('')}
-              style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-secondary)' }}
-            >
-              <MdClose size={15} />
-            </button>
-          )}
-        </div>
-
-        {/* Favorite & Quick Filters */}
-        <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-          <label style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', cursor: 'pointer', userSelect: 'none', fontSize: '0.8rem', fontWeight: '500' }}>
+        <div className="compact-filter-toolbar">
+          <div className="compact-search-wrap">
+            <MdSearch size={16} className="compact-search-icon" />
             <input
-              type="checkbox"
-              checked={favoriteOnly}
-              onChange={(e) => setFavoriteOnly(e.target.checked)}
+              type="text"
+              placeholder="Search stotram, category, or lyrics..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="compact-search-input"
             />
-            <MdStar size={15} color="#EAB308" /> Favorites Only
-          </label>
+            {searchQuery && (
+              <button onClick={() => setSearchQuery('')} className="compact-search-clear" title="Clear search">
+                <MdClose size={14} />
+              </button>
+            )}
+          </div>
+
+          <select
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
+            className="compact-filter-select"
+            aria-label="Filter by category"
+          >
+            <option value="all">All Categories ({stotras.length})</option>
+            {categories.map((cat) => {
+              const catId = idOf(cat);
+              const count = stotras.filter((s) => {
+                const sc = s.categoryId;
+                const scId = typeof sc === 'object' && sc ? idOf(sc) : sc;
+                return scId === catId;
+              }).length;
+              return (
+                <option key={catId} value={catId}>
+                  {cat.categoryName} ({count})
+                </option>
+              );
+            })}
+          </select>
         </div>
       </div>
 
-      {/* CATEGORY TABS */}
-      <div className="tabs-container" style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginBottom: '0.85rem' }}>
-        <button
-          className={`tab-btn ${selectedCategory === 'all' ? 'active' : ''}`}
-          onClick={() => setSelectedCategory('all')}
-          style={{
-            padding: '0.32rem 0.78rem',
-            borderRadius: '16px',
-            border: selectedCategory === 'all' ? '1px solid var(--primary-color)' : '1px solid var(--border-color)',
-            background: selectedCategory === 'all' ? 'var(--primary-color)' : '#FFFFFF',
-            color: selectedCategory === 'all' ? '#FFFFFF' : 'var(--text-primary)',
-            fontWeight: '600',
-            cursor: 'pointer',
-            fontSize: '0.78rem'
-          }}
-        >
-          All Categories ({stotras.length})
-        </button>
-
-        {categories.map((cat) => {
-          const catId = idOf(cat);
-          const isSelected = selectedCategory === catId || selectedCategory === cat.categoryName;
-          const count = stotras.filter((s) => {
-            const sc = s.categoryId;
-            const scId = typeof sc === 'object' && sc ? idOf(sc) : sc;
-            return scId === catId;
-          }).length;
-
-          return (
-            <button
-              key={catId}
-              className={`tab-btn ${isSelected ? 'active' : ''}`}
-              onClick={() => setSelectedCategory(catId)}
-              style={{
-                padding: '0.32rem 0.78rem',
-                borderRadius: '16px',
-                border: isSelected ? '1px solid var(--primary-color)' : '1px solid var(--border-color)',
-                background: isSelected ? 'var(--primary-color)' : '#FFFFFF',
-                color: isSelected ? '#FFFFFF' : 'var(--text-primary)',
-                fontWeight: '600',
-                cursor: 'pointer',
-                fontSize: '0.78rem'
-              }}
-            >
-              {cat.categoryName} ({count})
-            </button>
-          );
-        })}
-      </div>
-
-      {/* LIST OF STOTRAMS */}
-      <div className="glass-panel" style={{ padding: '0.9rem' }}>
-        {isStotrasLoading || isCatLoading ? (
-          <div style={{ textAlign: 'center', padding: '2rem' }}>
-            <div className="spinner" style={{ width: '30px', height: '30px', margin: '0 auto', borderTopColor: 'var(--primary-color)' }}></div>
-            <p style={{ marginTop: '0.6rem', color: 'var(--text-secondary)', fontSize: '0.84rem' }}>Loading stotram library...</p>
+      {/* LIST OR GRID OF STOTRAMS */}
+      {isStotrasLoading || isCatLoading ? (
+        <div className="glass-panel" style={{ textAlign: 'center', padding: '2rem' }}>
+          <div className="spinner" style={{ width: '30px', height: '30px', margin: '0 auto', borderTopColor: 'var(--primary-color)' }}></div>
+          <p style={{ marginTop: '0.6rem', color: 'var(--text-secondary)', fontSize: '0.84rem' }}>Loading stotram library...</p>
+        </div>
+      ) : filteredStotras.length === 0 ? (
+        <div className="glass-panel" style={{ padding: '2rem', textAlign: 'center' }}>
+          <MdMusicNote size={44} style={{ color: 'var(--border-color)', marginBottom: '0.65rem' }} />
+          <h3 style={{ margin: '0 0 0.35rem 0', color: 'var(--text-primary)', fontSize: '1rem' }}>No Stotrams Found</h3>
+          <p style={{ color: 'var(--text-secondary)', maxWidth: '400px', margin: '0 auto 1rem auto', fontSize: '0.84rem' }}>
+            {searchQuery || selectedCategory !== 'all' || favoriteOnly
+              ? 'No stotram matched your current filter criteria. Try resetting the filters.'
+              : 'Your stotram library is empty. Click below to add your first stotram.'}
+          </p>
+          <button className="btn btn-primary" onClick={openCreateModal}>
+            <MdAdd size={17} /> Upload Stotra
+          </button>
+        </div>
+      ) : viewMode === 'table' ? (
+        <div className="clean-table-wrap">
+          <div className="clean-table-header">
+            <span className="clean-table-count">
+              Showing <strong>{filteredStotras.length}</strong> of <strong>{stotras.length}</strong> stotrams
+            </span>
           </div>
-        ) : filteredStotras.length === 0 ? (
-          <div style={{ padding: '2rem', textAlign: 'center' }}>
-            <MdMusicNote size={44} style={{ color: 'var(--border-color)', marginBottom: '0.65rem' }} />
-            <h3 style={{ margin: '0 0 0.35rem 0', color: 'var(--text-primary)', fontSize: '1rem' }}>No Stotrams Found</h3>
-            <p style={{ color: 'var(--text-secondary)', maxWidth: '400px', margin: '0 auto 1rem auto', fontSize: '0.84rem' }}>
-              {searchQuery || selectedCategory !== 'all' || favoriteOnly
-                ? 'No stotram matched your current filter criteria. Try resetting the filters.'
-                : 'Your stotram library is empty. Click below to add your first stotram.'}
-            </p>
-            <button className="btn btn-primary" onClick={openCreateModal}>
-              <MdAdd size={17} /> Upload Stotra
-            </button>
-          </div>
-        ) : (
-          <div className="stotram-list" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(275px, 1fr))', gap: '0.75rem' }}>
-            {filteredStotras.map((stotra) => {
-              const stotraId = idOf(stotra);
-              const cat = stotra.categoryId;
-              const catName = typeof cat === 'object' && cat ? cat.categoryName : categories.find((c) => idOf(c) === cat)?.categoryName;
+          <table className="clean-table">
+            <thead>
+              <tr>
+                <th style={{ width: '48px' }}>#</th>
+                <th>Title & Recitation Preview</th>
+                <th>Category</th>
+                <th>Media</th>
+                <th>Status</th>
+                <th style={{ textAlign: 'right' }}>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredStotras.map((stotra, idx) => {
+                const stotraId = idOf(stotra);
+                const cat = stotra.categoryId;
+                const catName = typeof cat === 'object' && cat ? cat.categoryName : categories.find((c) => idOf(c) === cat)?.categoryName;
+                const plainText = stotra.textEditor ? stotra.textEditor.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim() : '';
 
-              return (
-                <div
-                  key={stotraId}
-                  className="stotram-list-item glass-panel"
-                  style={{
-                    padding: '0.85rem 0.95rem',
-                    borderRadius: '8px',
-                    border: '1px solid var(--border-color)',
-                    background: '#FFFFFF',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    cursor: 'pointer',
-                    transition: 'transform 0.2s, box-shadow 0.2s',
-                  }}
-                  onClick={() => setSelectedStotraForPreview(stotra)}
-                >
-                  <div>
-                    {/* Top Category Badge & Favorite Star */}
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.45rem' }}>
+                return (
+                  <tr key={stotraId} style={{ cursor: 'pointer' }} onClick={() => setSelectedStotraForPreview(stotra)}>
+                    <td style={{ color: 'var(--text-secondary)', fontWeight: 600 }}>{idx + 1}</td>
+                    <td>
+                      <div style={{ fontWeight: 700, color: 'var(--text-primary)' }}>
+                        {stotra.title || stotra.subCategoryName || 'Untitled Stotram'}
+                      </div>
+                      {plainText && (
+                        <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', maxWidth: '340px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', marginTop: '2px' }}>
+                          {plainText}
+                        </div>
+                      )}
+                    </td>
+                    <td>
                       <span
                         style={{
-                          fontSize: '0.7rem',
-                          fontWeight: '600',
-                          padding: '0.15rem 0.45rem',
-                          borderRadius: '4px',
+                          fontSize: '0.72rem',
+                          fontWeight: 600,
+                          padding: '0.16rem 0.48rem',
+                          borderRadius: '5px',
                           background: 'rgba(130, 0, 30, 0.08)',
                           color: 'var(--primary-color)',
-                          border: '1px solid rgba(130, 0, 30, 0.15)',
+                          border: '1px solid rgba(130, 0, 30, 0.14)',
                         }}
                       >
                         {catName || 'Devotional'}
                       </span>
-
+                    </td>
+                    <td>
+                      <div style={{ display: 'flex', gap: '0.35rem', alignItems: 'center', flexWrap: 'wrap' }}>
+                        {stotra.audioFile ? (
+                          <span style={{ fontSize: '0.7rem', display: 'inline-flex', alignItems: 'center', gap: '3px', padding: '0.15rem 0.45rem', borderRadius: '5px', background: '#ECFDF5', color: '#047857', fontWeight: 600 }}>
+                            <MdAudiotrack size={12} /> Audio
+                          </span>
+                        ) : null}
+                        {stotra.pdf ? (
+                          <span style={{ fontSize: '0.7rem', display: 'inline-flex', alignItems: 'center', gap: '3px', padding: '0.15rem 0.45rem', borderRadius: '5px', background: '#EFF6FF', color: '#1D4ED8', fontWeight: 600 }}>
+                            <MdPictureAsPdf size={12} /> PDF
+                          </span>
+                        ) : null}
+                        {!stotra.audioFile && !stotra.pdf && (
+                          <span style={{ fontSize: '0.74rem', color: '#9CA3AF' }}>—</span>
+                        )}
+                      </div>
+                    </td>
+                    <td onClick={(e) => e.stopPropagation()}>
                       <button
                         type="button"
                         onClick={(e) => toggleFavorite(stotra, e)}
+                        className={`clean-flag-pill ${stotra.isFavorite ? 'is-fav' : ''}`}
                         title={stotra.isFavorite ? 'Remove from favorites' : 'Mark as favorite'}
-                        style={{
-                          background: 'none',
-                          border: 'none',
-                          cursor: 'pointer',
-                          padding: '0.15rem',
-                          color: stotra.isFavorite ? '#EAB308' : '#9CA3AF',
-                        }}
                       >
-                        {stotra.isFavorite ? <MdStar size={19} /> : <MdStarBorder size={19} />}
+                        {stotra.isFavorite ? <MdStar size={12} /> : <MdStarBorder size={12} />}
+                        {stotra.isFavorite ? 'Fav' : 'Normal'}
                       </button>
-                    </div>
+                    </td>
+                    <td style={{ textAlign: 'right', whiteSpace: 'nowrap' }} onClick={(e) => e.stopPropagation()}>
+                      <div style={{ display: 'inline-flex', gap: '0.3rem' }}>
+                        <button
+                          type="button"
+                          className="btn-icon-sm"
+                          title="Preview"
+                          onClick={() => setSelectedStotraForPreview(stotra)}
+                        >
+                          <MdVisibility size={15} />
+                        </button>
+                        <button
+                          type="button"
+                          className="btn-icon-sm edit"
+                          title="Edit"
+                          onClick={() => openEditModal(stotra)}
+                        >
+                          <MdEdit size={15} />
+                        </button>
+                        <button
+                          type="button"
+                          className="btn-icon-sm delete"
+                          title="Delete"
+                          onClick={() => handleDeleteStotra(stotra)}
+                        >
+                          <MdDeleteOutline size={15} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <div className="stotram-list" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(265px, 100%), 1fr))', gap: '0.75rem' }}>
+          {filteredStotras.map((stotra) => {
+            const stotraId = idOf(stotra);
+            const cat = stotra.categoryId;
+            const catName = typeof cat === 'object' && cat ? cat.categoryName : categories.find((c) => idOf(c) === cat)?.categoryName;
 
-                    {/* Stotram Title */}
-                    <h3 style={{ margin: '0 0 0.35rem 0', fontSize: '0.96rem', color: 'var(--text-primary)', fontWeight: '700' }}>
-                      {stotra.title || stotra.subCategoryName || 'Untitled Stotram'}
-                    </h3>
-
-                    {/* Content Snippet */}
-                    <div
+            return (
+              <div
+                key={stotraId}
+                className="stotram-list-item glass-panel"
+                style={{
+                  padding: '0.85rem 0.95rem',
+                  borderRadius: '8px',
+                  border: '1px solid var(--border-color)',
+                  background: '#FFFFFF',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  cursor: 'pointer',
+                  transition: 'transform 0.2s, box-shadow 0.2s',
+                }}
+                onClick={() => setSelectedStotraForPreview(stotra)}
+              >
+                <div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.45rem' }}>
+                    <span
                       style={{
-                        fontSize: '0.8rem',
-                        color: 'var(--text-secondary)',
-                        lineHeight: '1.42',
-                        maxHeight: '3.4rem',
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        display: '-webkit-box',
-                        WebkitLineClamp: 3,
-                        WebkitBoxOrient: 'vertical',
-                        marginBottom: '0.65rem',
-                        fontStyle: 'italic',
+                        fontSize: '0.7rem',
+                        fontWeight: '600',
+                        padding: '0.15rem 0.45rem',
+                        borderRadius: '4px',
+                        background: 'rgba(130, 0, 30, 0.08)',
+                        color: 'var(--primary-color)',
+                        border: '1px solid rgba(130, 0, 30, 0.15)',
                       }}
-                      dangerouslySetInnerHTML={{
-                        __html: stotra.textEditor ? stotra.textEditor.replace(/<[^>]+>/g, ' ').slice(0, 150) + '...' : 'No content available.',
+                    >
+                      {catName || 'Devotional'}
+                    </span>
+
+                    <button
+                      type="button"
+                      onClick={(e) => toggleFavorite(stotra, e)}
+                      title={stotra.isFavorite ? 'Remove from favorites' : 'Mark as favorite'}
+                      style={{
+                        background: 'none',
+                        border: 'none',
+                        cursor: 'pointer',
+                        padding: '0.15rem',
+                        color: stotra.isFavorite ? '#EAB308' : '#9CA3AF',
                       }}
-                    />
-
-                    {/* Media Badges: Audio, PDF */}
-                    <div style={{ display: 'flex', gap: '0.4rem', marginBottom: '0.6rem', flexWrap: 'wrap' }}>
-                      {stotra.audioFile ? (
-                        <span
-                          style={{
-                            fontSize: '0.68rem',
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: '0.2rem',
-                            padding: '0.15rem 0.45rem',
-                            borderRadius: '4px',
-                            background: 'rgba(23, 74, 13, 0.08)',
-                            color: 'var(--success-color)',
-                            fontWeight: '600',
-                          }}
-                        >
-                          <MdAudiotrack size={12} /> Audio Available
-                        </span>
-                      ) : (
-                        <span style={{ fontSize: '0.68rem', color: '#9CA3AF', padding: '0.15rem 0.4rem' }}>No Audio</span>
-                      )}
-
-                      {stotra.pdf && (
-                        <span
-                          style={{
-                            fontSize: '0.68rem',
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: '0.2rem',
-                            padding: '0.15rem 0.45rem',
-                            borderRadius: '4px',
-                            background: 'rgba(59, 130, 246, 0.08)',
-                            color: '#2563EB',
-                            fontWeight: '600',
-                          }}
-                        >
-                          <MdPictureAsPdf size={12} /> PDF Document
-                        </span>
-                      )}
-                    </div>
+                    >
+                      {stotra.isFavorite ? <MdStar size={19} /> : <MdStarBorder size={19} />}
+                    </button>
                   </div>
 
-                  {/* Actions Row */}
+                  <h3 style={{ margin: '0 0 0.35rem 0', fontSize: '0.96rem', color: 'var(--text-primary)', fontWeight: '700' }}>
+                    {stotra.title || stotra.subCategoryName || 'Untitled Stotram'}
+                  </h3>
+
                   <div
                     style={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      borderTop: '1px solid var(--border-color)',
-                      paddingTop: '0.55rem',
-                      marginTop: '0.25rem',
+                      fontSize: '0.8rem',
+                      color: 'var(--text-secondary)',
+                      lineHeight: '1.42',
+                      maxHeight: '3.4rem',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      display: '-webkit-box',
+                      WebkitLineClamp: 3,
+                      WebkitBoxOrient: 'vertical',
+                      marginBottom: '0.65rem',
+                      fontStyle: 'italic',
                     }}
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <button
-                      className="btn btn-outline"
-                      style={{ padding: '0.28rem 0.6rem', fontSize: '0.72rem' }}
-                      onClick={() => setSelectedStotraForPreview(stotra)}
-                    >
-                      <MdVisibility size={13} /> Preview
-                    </button>
+                    dangerouslySetInnerHTML={{
+                      __html: stotra.textEditor ? stotra.textEditor.replace(/<[^>]+>/g, ' ').slice(0, 150) + '...' : 'No content available.',
+                    }}
+                  />
 
-                    <div style={{ display: 'flex', gap: '0.3rem' }}>
-                      <button
-                        className="btn-icon edit"
-                        title="Edit Stotra"
-                        onClick={() => openEditModal(stotra)}
+                  <div style={{ display: 'flex', gap: '0.4rem', marginBottom: '0.6rem', flexWrap: 'wrap' }}>
+                    {stotra.audioFile ? (
+                      <span
+                        style={{
+                          fontSize: '0.68rem',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '0.2rem',
+                          padding: '0.15rem 0.45rem',
+                          borderRadius: '4px',
+                          background: 'rgba(23, 74, 13, 0.08)',
+                          color: 'var(--success-color)',
+                          fontWeight: '600',
+                        }}
                       >
-                        <MdEdit size={16} />
-                      </button>
-                      <button
-                        className="btn-icon delete"
-                        title="Delete Stotra"
-                        onClick={() => handleDeleteStotra(stotra)}
+                        <MdAudiotrack size={12} /> Audio Available
+                      </span>
+                    ) : (
+                      <span style={{ fontSize: '0.68rem', color: '#9CA3AF', padding: '0.15rem 0.4rem' }}>No Audio</span>
+                    )}
+
+                    {stotra.pdf && (
+                      <span
+                        style={{
+                          fontSize: '0.68rem',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '0.2rem',
+                          padding: '0.15rem 0.45rem',
+                          borderRadius: '4px',
+                          background: 'rgba(59, 130, 246, 0.08)',
+                          color: '#2563EB',
+                          fontWeight: '600',
+                        }}
                       >
-                        <MdDeleteOutline size={16} />
-                      </button>
-                    </div>
+                        <MdPictureAsPdf size={12} /> PDF Document
+                      </span>
+                    )}
                   </div>
                 </div>
-              );
-            })}
-          </div>
-        )}
-      </div>
+
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    borderTop: '1px solid var(--border-color)',
+                    paddingTop: '0.55rem',
+                    marginTop: '0.25rem',
+                  }}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <button
+                    className="btn btn-outline"
+                    style={{ padding: '0.28rem 0.6rem', fontSize: '0.72rem' }}
+                    onClick={() => setSelectedStotraForPreview(stotra)}
+                  >
+                    <MdVisibility size={13} /> Preview
+                  </button>
+
+                  <div style={{ display: 'flex', gap: '0.3rem' }}>
+                    <button
+                      className="btn-icon-sm edit"
+                      title="Edit Stotra"
+                      onClick={() => openEditModal(stotra)}
+                    >
+                      <MdEdit size={15} />
+                    </button>
+                    <button
+                      className="btn-icon-sm delete"
+                      title="Delete Stotra"
+                      onClick={() => handleDeleteStotra(stotra)}
+                    >
+                      <MdDeleteOutline size={15} />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
 
       {/* ======================================================== */}
       {/* MODAL: PREVIEW STOTRA WITH AUDIO PLAYER & CONTENT       */}

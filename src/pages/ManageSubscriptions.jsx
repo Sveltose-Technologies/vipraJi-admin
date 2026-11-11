@@ -7,10 +7,8 @@ import {
   MdDeleteOutline,
   MdSearch,
   MdRefresh,
-  MdFilterList,
   MdCheckCircle,
   MdCancel,
-  MdAllInclusive,
   MdClose,
   MdSave,
   MdVisibility,
@@ -22,10 +20,6 @@ import {
   MdAutorenew,
   MdGridView,
   MdViewList,
-  MdLayers,
-  MdOutlineToggleOn,
-  MdOutlineToggleOff,
-  MdStar,
   MdCheck,
   MdInfoOutline
 } from 'react-icons/md';
@@ -217,7 +211,7 @@ const ManageSubscriptions = () => {
   const [intervalFilter, setIntervalFilter] = useState('all'); // all, monthly, yearly
   const [statusFilter, setStatusFilter] = useState('all'); // all, active, inactive
   const [includeInactive, setIncludeInactive] = useState(true);
-  const [viewMode, setViewMode] = useState('grid'); // 'grid' | 'table'
+  const [viewMode, setViewMode] = useState('table'); // 'table' | 'grid'
 
   // Modals
   const [isPlanModalOpen, setIsPlanModalOpen] = useState(false);
@@ -570,90 +564,89 @@ const ManageSubscriptions = () => {
         </div>
       )}
 
-      {/* STATS TILES */}
+      {/* NAVIGATION TABS + COMPACT STAT PILLS */}
       <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(175px, 1fr))',
-          gap: '0.75rem',
-          marginBottom: '0.9rem'
-        }}
-      >
-        <div className="glass-panel" style={{ padding: '0.68rem 0.9rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          <div style={{ width: '36px', height: '36px', borderRadius: '8px', background: 'rgba(130, 0, 30, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--primary-color)' }}>
-            <MdCardMembership size={19} />
-          </div>
-          <div>
-            <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', textTransform: 'uppercase', fontWeight: '600' }}>Total Plans</div>
-            <div style={{ fontSize: '1.2rem', fontWeight: '700', color: 'var(--primary-color)', lineHeight: 1.15 }}>{stats.total}</div>
-          </div>
-        </div>
-
-        <div className="glass-panel" style={{ padding: '0.68rem 0.9rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          <div style={{ width: '36px', height: '36px', borderRadius: '8px', background: 'rgba(23, 74, 13, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--success-color)' }}>
-            <MdCheckCircle size={19} />
-          </div>
-          <div>
-            <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', textTransform: 'uppercase', fontWeight: '600' }}>Active Plans</div>
-            <div style={{ fontSize: '1.2rem', fontWeight: '700', color: 'var(--success-color)', lineHeight: 1.15 }}>{stats.active}</div>
-          </div>
-        </div>
-
-        <div className="glass-panel" style={{ padding: '0.68rem 0.9rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          <div style={{ width: '36px', height: '36px', borderRadius: '8px', background: 'rgba(240, 190, 60, 0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#B45309' }}>
-            <MdCalendarToday size={19} />
-          </div>
-          <div>
-            <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', textTransform: 'uppercase', fontWeight: '600' }}>Billing Cycles</div>
-            <div style={{ fontSize: '0.92rem', fontWeight: '700', color: 'var(--text-primary)', marginTop: '0.1rem' }}>
-              {stats.monthly} Monthly <span style={{ color: 'var(--text-secondary)', fontWeight: 'normal' }}>|</span> {stats.yearly} Yearly
-            </div>
-          </div>
-        </div>
-
-        <div className="glass-panel" style={{ padding: '0.68rem 0.9rem', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          <div style={{ width: '36px', height: '36px', borderRadius: '8px', background: 'rgba(59, 130, 246, 0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#2563EB' }}>
-            <MdPerson size={19} />
-          </div>
-          <div>
-            <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', textTransform: 'uppercase', fontWeight: '600' }}>Subscribers</div>
-            <div style={{ fontSize: '1.2rem', fontWeight: '700', color: '#2563EB', lineHeight: 1.15 }}>{subscribers.length}</div>
-          </div>
-        </div>
-      </div>
-
-      {/* NAVIGATION TABS */}
-      <div
-        role="tablist"
-        aria-label="Subscription Management Views"
         style={{
           display: 'flex',
-          gap: '0.4rem',
-          borderBottom: '1px solid var(--border-color)',
-          marginBottom: '0.9rem',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          gap: '0.75rem',
+          flexWrap: 'wrap',
+          marginBottom: '0.75rem',
         }}
       >
-        <button
-          role="tab"
-          aria-selected={activeTab === 'plans'}
-          className={`btn ${activeTab === 'plans' ? 'btn-primary' : 'btn-outline'}`}
-          onClick={() => setActiveTab('plans')}
-          style={{ borderRadius: '6px 6px 0 0', display: 'flex', alignItems: 'center', gap: '0.4rem' }}
+        <div
+          role="tablist"
+          aria-label="Subscription Management Views"
+          style={{ display: 'flex', gap: '0.4rem' }}
         >
-          <MdCardMembership size={16} />
-          Subscription Plans ({plans.length})
-        </button>
+          <button
+            role="tab"
+            aria-selected={activeTab === 'plans'}
+            className={`btn ${activeTab === 'plans' ? 'btn-primary' : 'btn-outline'}`}
+            onClick={() => setActiveTab('plans')}
+            style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', padding: '0.4rem 0.8rem', fontSize: '0.8rem' }}
+          >
+            <MdCardMembership size={15} />
+            Subscription Plans ({plans.length})
+          </button>
 
-        <button
-          role="tab"
-          aria-selected={activeTab === 'subscribers'}
-          className={`btn ${activeTab === 'subscribers' ? 'btn-primary' : 'btn-outline'}`}
-          onClick={() => setActiveTab('subscribers')}
-          style={{ borderRadius: '6px 6px 0 0', display: 'flex', alignItems: 'center', gap: '0.4rem' }}
-        >
-          <MdPerson size={16} />
-          Subscribers & Usage ({subscribers.length})
-        </button>
+          <button
+            role="tab"
+            aria-selected={activeTab === 'subscribers'}
+            className={`btn ${activeTab === 'subscribers' ? 'btn-primary' : 'btn-outline'}`}
+            onClick={() => setActiveTab('subscribers')}
+            style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', padding: '0.4rem 0.8rem', fontSize: '0.8rem' }}
+          >
+            <MdPerson size={15} />
+            Subscribers & Usage ({subscribers.length})
+          </button>
+        </div>
+
+        <div className="compact-stat-pills">
+          <button
+            type="button"
+            className={`compact-stat-pill clickable ${statusFilter === 'all' && activeTab === 'plans' ? 'active-primary' : ''}`}
+            onClick={() => {
+              setActiveTab('plans');
+              setStatusFilter('all');
+            }}
+          >
+            <span className="compact-stat-pill-label">Plans</span>
+            <strong className="compact-stat-pill-val">{stats.total}</strong>
+          </button>
+
+          <button
+            type="button"
+            className={`compact-stat-pill clickable ${statusFilter === 'active' && activeTab === 'plans' ? 'active-success' : ''}`}
+            onClick={() => {
+              setActiveTab('plans');
+              setStatusFilter((prev) => (prev === 'active' ? 'all' : 'active'));
+            }}
+          >
+            <MdCheckCircle size={14} color="#059669" />
+            <span className="compact-stat-pill-label">Active</span>
+            <strong className="compact-stat-pill-val" style={{ color: '#047857' }}>{stats.active}</strong>
+          </button>
+
+          <div className="compact-stat-pill">
+            <MdCalendarToday size={13} color="#92400E" />
+            <span className="compact-stat-pill-label">Cycles</span>
+            <strong className="compact-stat-pill-val" style={{ fontSize: '0.76rem' }}>
+              {stats.monthly}M / {stats.yearly}Y
+            </strong>
+          </div>
+
+          <button
+            type="button"
+            className={`compact-stat-pill clickable ${activeTab === 'subscribers' ? 'active-info' : ''}`}
+            onClick={() => setActiveTab('subscribers')}
+          >
+            <MdPerson size={14} color="#2563EB" />
+            <span className="compact-stat-pill-label">Subscribers</span>
+            <strong className="compact-stat-pill-val" style={{ color: '#1D4ED8' }}>{subscribers.length}</strong>
+          </button>
+        </div>
       </div>
 
       {/* ======================================================== */}
@@ -661,108 +654,74 @@ const ManageSubscriptions = () => {
       {/* ======================================================== */}
       {activeTab === 'plans' && (
         <div>
-          {/* SEARCH & FILTERS BAR */}
-          <div
-            className="glass-panel"
-            style={{
-              padding: '0.55rem 0.9rem',
-              marginBottom: '0.9rem',
-              display: 'flex',
-              flexWrap: 'wrap',
-              gap: '0.65rem',
-              alignItems: 'center',
-              justifyContent: 'space-between'
-            }}
-          >
-            {/* Search Input */}
-            <div style={{ display: 'flex', alignItems: 'center', flex: '1 1 240px', gap: '0.4rem', background: '#FFFFFF', padding: '0.28rem 0.65rem', borderRadius: '6px', border: '1px solid var(--border-color)' }}>
-              <MdSearch size={18} color="var(--text-secondary)" />
+          {/* COMPACT SEARCH & FILTERS BAR */}
+          <div className="compact-controls-bar">
+            <div className="compact-search-wrap" style={{ maxWidth: '300px' }}>
+              <MdSearch size={16} className="compact-search-icon" />
               <input
                 type="text"
-                placeholder="Search plan by name, code, description..."
+                placeholder="Search plan by name, code..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                style={{ border: 'none', outline: 'none', width: '100%', fontSize: '0.84rem', color: 'var(--text-primary)' }}
+                className="compact-search-input"
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery('')}
-                  style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-secondary)' }}
+                  className="compact-search-clear"
+                  title="Clear search"
                 >
-                  <MdClose size={15} />
+                  <MdClose size={14} />
                 </button>
               )}
             </div>
 
-            {/* Filter Controls */}
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.55rem', alignItems: 'center' }}>
-              {/* Billing Interval Filter */}
+            <div className="compact-filter-toolbar">
               <select
-                className="input-field"
+                className="compact-filter-select"
                 value={intervalFilter}
                 onChange={(e) => setIntervalFilter(e.target.value)}
-                style={{ width: 'auto', padding: '0.35rem 0.6rem', fontSize: '0.8rem' }}
               >
                 <option value="all">All Intervals</option>
                 <option value="monthly">Monthly</option>
                 <option value="yearly">Yearly</option>
               </select>
 
-              {/* Status Filter */}
               <select
-                className="input-field"
+                className="compact-filter-select"
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
-                style={{ width: 'auto', padding: '0.35rem 0.6rem', fontSize: '0.8rem' }}
               >
                 <option value="all">All Status</option>
                 <option value="active">Active Only</option>
                 <option value="inactive">Inactive Only</option>
               </select>
 
-              {/* Include Inactive Switch */}
-              <label style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.78rem', cursor: 'pointer', userSelect: 'none', color: 'var(--text-primary)' }}>
+              <label style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', fontSize: '0.78rem', fontWeight: 600, cursor: 'pointer', userSelect: 'none', color: 'var(--text-primary)' }}>
                 <input
                   type="checkbox"
                   checked={includeInactive}
                   onChange={(e) => setIncludeInactive(e.target.checked)}
                 />
-                Include Inactive
+                Show Inactive
               </label>
 
-              {/* View Toggle */}
-              <div style={{ display: 'flex', border: '1px solid var(--border-color)', borderRadius: '6px', overflow: 'hidden' }}>
-                <button
-                  type="button"
-                  onClick={() => setViewMode('grid')}
-                  style={{
-                    padding: '0.35rem 0.55rem',
-                    background: viewMode === 'grid' ? 'var(--primary-color)' : '#fff',
-                    color: viewMode === 'grid' ? '#fff' : 'var(--text-secondary)',
-                    border: 'none',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center'
-                  }}
-                  title="Card View"
-                >
-                  <MdGridView size={16} />
-                </button>
+              <div className="view-toggle-group">
                 <button
                   type="button"
                   onClick={() => setViewMode('table')}
-                  style={{
-                    padding: '0.35rem 0.55rem',
-                    background: viewMode === 'table' ? 'var(--primary-color)' : '#fff',
-                    color: viewMode === 'table' ? '#fff' : 'var(--text-secondary)',
-                    border: 'none',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center'
-                  }}
-                  title="Table View"
+                  className={`view-toggle-btn ${viewMode === 'table' ? 'active' : ''}`}
+                  title="List View"
                 >
-                  <MdViewList size={16} />
+                  <MdViewList size={17} />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setViewMode('grid')}
+                  className={`view-toggle-btn ${viewMode === 'grid' ? 'active' : ''}`}
+                  title="Card View"
+                >
+                  <MdGridView size={17} />
                 </button>
               </div>
             </div>
@@ -798,7 +757,7 @@ const ManageSubscriptions = () => {
             <div
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fill, minmax(295px, 1fr))',
+                gridTemplateColumns: 'repeat(auto-fill, minmax(min(280px, 100%), 1fr))',
                 gap: '0.85rem',
               }}
             >
@@ -1028,8 +987,13 @@ const ManageSubscriptions = () => {
 
           {/* TABLE VIEW */}
           {!isLoadingPlans && filteredPlans.length > 0 && viewMode === 'table' && (
-            <div className="glass-panel" style={{ padding: '0.85rem 1rem', overflowX: 'auto' }}>
-              <table className="data-table">
+            <div className="clean-table-wrap">
+              <div className="clean-table-header">
+                <span className="clean-table-count">
+                  Showing <strong>{filteredPlans.length}</strong> of <strong>{plans.length}</strong> subscription plans
+                </span>
+              </div>
+              <table className="clean-table">
                 <thead>
                   <tr>
                     <th>Sort</th>
@@ -1059,13 +1023,13 @@ const ManageSubscriptions = () => {
                         <td>
                           <div>
                             <strong style={{ color: 'var(--text-primary)', display: 'block' }}>{plan.name}</strong>
-                            <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', textTransform: 'uppercase' }}>
+                            <span style={{ fontSize: '0.73rem', color: 'var(--text-secondary)', textTransform: 'uppercase' }}>
                               {plan.code}
                             </span>
                           </div>
                         </td>
                         <td>
-                          <strong style={{ color: 'var(--primary-color)', fontSize: '1rem' }}>
+                          <strong style={{ color: 'var(--primary-color)', fontSize: '0.96rem' }}>
                             ₹{plan.price}
                           </strong>
                         </td>
@@ -1073,10 +1037,11 @@ const ManageSubscriptions = () => {
                           <span
                             style={{
                               textTransform: 'capitalize',
-                              padding: '0.2rem 0.5rem',
-                              borderRadius: '4px',
+                              padding: '0.18rem 0.48rem',
+                              borderRadius: '5px',
                               background: '#F3F4F6',
-                              fontSize: '0.75rem'
+                              fontSize: '0.74rem',
+                              fontWeight: 600,
                             }}
                           >
                             {plan.billingInterval || 'monthly'}
@@ -1088,7 +1053,7 @@ const ManageSubscriptions = () => {
                           </span>
                         </td>
                         <td>
-                          <span style={{ fontSize: '0.8rem' }}>
+                          <span style={{ fontSize: '0.78rem', color: 'var(--text-secondary)' }}>
                             K: {limits.kundali_generation === -1 ? '∞' : limits.kundali_generation ?? 0} | M: {limits.muhurt === -1 ? '∞' : limits.muhurt ?? 0}
                           </span>
                         </td>
@@ -1096,44 +1061,38 @@ const ManageSubscriptions = () => {
                           <button
                             type="button"
                             onClick={() => handleToggleDeactivate(plan)}
-                            style={{
-                              background: plan.isActive ? 'rgba(23, 74, 13, 0.1)' : 'rgba(155, 42, 31, 0.1)',
-                              color: plan.isActive ? 'var(--success-color)' : 'var(--error-color)',
-                              border: 'none',
-                              padding: '0.2rem 0.6rem',
-                              borderRadius: '12px',
-                              fontSize: '0.75rem',
-                              fontWeight: '600',
-                              cursor: 'pointer'
-                            }}
+                            className={`clean-flag-pill ${plan.isActive ? 'is-active' : 'is-draft'}`}
                           >
                             {plan.isActive ? 'Active' : 'Inactive'}
                           </button>
                         </td>
-                        <td style={{ textAlign: 'right' }}>
-                          <button
-                            className="btn-icon"
-                            title="View Details"
-                            onClick={() => setViewDetailsPlan(plan)}
-                            style={{ marginRight: '0.25rem' }}
-                          >
-                            <MdVisibility size={18} />
-                          </button>
-                          <button
-                            className="btn-icon edit"
-                            title="Edit"
-                            onClick={() => openEditModal(plan)}
-                            style={{ marginRight: '0.25rem' }}
-                          >
-                            <MdEdit size={18} />
-                          </button>
-                          <button
-                            className="btn-icon delete"
-                            title="Delete"
-                            onClick={() => handleDeletePlan(plan)}
-                          >
-                            <MdDeleteOutline size={18} />
-                          </button>
+                        <td style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
+                          <div style={{ display: 'inline-flex', gap: '0.3rem' }}>
+                            <button
+                              type="button"
+                              className="btn-icon-sm"
+                              title="View Details"
+                              onClick={() => setViewDetailsPlan(plan)}
+                            >
+                              <MdVisibility size={15} />
+                            </button>
+                            <button
+                              type="button"
+                              className="btn-icon-sm edit"
+                              title="Edit"
+                              onClick={() => openEditModal(plan)}
+                            >
+                              <MdEdit size={15} />
+                            </button>
+                            <button
+                              type="button"
+                              className="btn-icon-sm delete"
+                              title="Delete"
+                              onClick={() => handleDeletePlan(plan)}
+                            >
+                              <MdDeleteOutline size={15} />
+                            </button>
+                          </div>
                         </td>
                       </tr>
                     );

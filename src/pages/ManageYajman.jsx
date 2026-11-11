@@ -14,9 +14,21 @@ const ManageYajman = () => {
   const queryClient = useQueryClient();
   const [activeTab, setActiveTab] = useState("yajmans");
   const [searchQuery, setSearchQuery] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["yajman-entries"],
     queryFn: getAllYajmanEntries,
+  });
+
+  const statusMutation = useMutation({
+    mutationFn: ({ id, data }) => updateYajmanEntry(id, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["yajman-entries"]);
+      toast.success("Yajman status updated successfully");
+    },
+    onError: () => {
+      toast.error("Failed to update yajman status");
+    }
   });
 
   if (isLoading) {
@@ -85,6 +97,8 @@ const ManageYajman = () => {
   const getLocation = (yajman) =>
     yajman.city || yajman.location || yajman.address || "";
   const filteredYajmans = yajmanList.filter((yajman) => {
+    const itemStatus = (yajman.status || "active").toLowerCase();
+    if (statusFilter !== "all" && itemStatus !== statusFilter) return false;
     const searchableText = [
       yajman.name,
       yajman.fullName,
@@ -99,16 +113,11 @@ const ManageYajman = () => {
     return searchableText.includes(searchQuery.trim().toLowerCase());
   });
 
-  const statusMutation = useMutation({
-    mutationFn: ({ id, data }) => updateYajmanEntry(id, data),
-    onSuccess: () => {
-      queryClient.invalidateQueries(["yajman-entries"]);
-      toast.success("Yajman status updated successfully");
-    },
-    onError: () => {
-      toast.error("Failed to update yajman status");
-    }
-  });
+  const yajmanStats = {
+    total: yajmanList.length,
+    active: yajmanList.filter((y) => (y.status || "active").toLowerCase() === "active").length,
+    inactive: yajmanList.filter((y) => (y.status || "active").toLowerCase() !== "active").length,
+  };
 
   const handleStatusToggle = (yajman) => {
     const yajmanId = yajman._id || yajman.id;
@@ -177,48 +186,58 @@ const ManageYajman = () => {
 
       {activeTab === "yajmans" ? (
         <>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "0.5rem",
-              marginBottom: "0.85rem",
-              maxWidth: "460px",
-            }}
-          >
-            <div style={{ position: "relative", flex: 1 }}>
-              <MdSearch
-                size={18}
-                aria-hidden="true"
-                style={{
-                  position: "absolute",
-                  left: "0.65rem",
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                  color: "var(--text-secondary)",
-                }}
-              />
-              <input
-                type="search"
-                className="input-field"
-                aria-label="Search Yajman entries"
-                placeholder="Search name, category, phone, location, or status"
-                value={searchQuery}
-                onChange={(event) => setSearchQuery(event.target.value)}
-                style={{ paddingLeft: "2.15rem" }}
-              />
-            </div>
-            {searchQuery && (
+          <div className="compact-controls-bar">
+            <div className="compact-stat-pills">
               <button
-                className="btn-icon"
                 type="button"
-                aria-label="Clear search"
-                title="Clear search"
-                onClick={() => setSearchQuery("")}
+                className={`compact-stat-pill clickable ${statusFilter === "all" ? "active-primary" : ""}`}
+                onClick={() => setStatusFilter("all")}
               >
-                <MdClose size={18} />
+                <span className="compact-stat-pill-label">Total</span>
+                <strong className="compact-stat-pill-val">{yajmanStats.total}</strong>
               </button>
-            )}
+              <button
+                type="button"
+                className={`compact-stat-pill clickable ${statusFilter === "active" ? "active-success" : ""}`}
+                onClick={() => setStatusFilter((prev) => (prev === "active" ? "all" : "active"))}
+              >
+                <span className="compact-stat-pill-label">Active</span>
+                <strong className="compact-stat-pill-val" style={{ color: "#047857" }}>{yajmanStats.active}</strong>
+              </button>
+              <button
+                type="button"
+                className={`compact-stat-pill clickable ${statusFilter === "inactive" ? "active-warning" : ""}`}
+                onClick={() => setStatusFilter((prev) => (prev === "inactive" ? "all" : "inactive"))}
+              >
+                <span className="compact-stat-pill-label">Inactive</span>
+                <strong className="compact-stat-pill-val" style={{ color: "#B45309" }}>{yajmanStats.inactive}</strong>
+              </button>
+            </div>
+
+            <div className="compact-filter-toolbar">
+              <div className="compact-search-wrap" style={{ maxWidth: "300px" }}>
+                <MdSearch size={16} aria-hidden="true" className="compact-search-icon" />
+                <input
+                  type="search"
+                  className="compact-search-input"
+                  aria-label="Search Yajman entries"
+                  placeholder="Search name, category, phone, city..."
+                  value={searchQuery}
+                  onChange={(event) => setSearchQuery(event.target.value)}
+                />
+                {searchQuery && (
+                  <button
+                    className="compact-search-clear"
+                    type="button"
+                    aria-label="Clear search"
+                    title="Clear search"
+                    onClick={() => setSearchQuery("")}
+                  >
+                    <MdClose size={14} />
+                  </button>
+                )}
+              </div>
+            </div>
           </div>
 
           {yajmanList.length === 0 ? (
@@ -252,8 +271,13 @@ const ManageYajman = () => {
               </p>
             </div>
           ) : (
-            <div className="glass-panel" style={{ overflowX: "auto" }}>
-              <table className="data-table" style={{ minWidth: "680px" }}>
+            <div className="clean-table-wrap">
+              <div className="clean-table-header">
+                <span className="clean-table-count">
+                  Showing <strong>{filteredYajmans.length}</strong> of <strong>{yajmanList.length}</strong> yajman entries
+                </span>
+              </div>
+              <table className="clean-table" style={{ minWidth: "680px" }}>
                 <thead>
                   <tr>
                     <th>Yajman</th>

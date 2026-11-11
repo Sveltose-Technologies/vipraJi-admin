@@ -241,7 +241,7 @@ const NotificationBell = () => {
                 </p>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.55rem', marginBottom: '0.75rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(130px, 100%), 1fr))', gap: '0.55rem', marginBottom: '0.75rem' }}>
                 <div style={{ background: '#FFFBEB', padding: '0.55rem 0.7rem', borderRadius: '7px', border: '1px solid #FDE68A' }}>
                   <div style={{ fontSize: '0.68rem', color: '#92400E', fontWeight: 600 }}>RECIPIENT TYPE</div>
                   <div style={{ fontSize: '0.82rem', color: '#78350F', fontWeight: 700, marginTop: '2px' }}>

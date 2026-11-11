@@ -93,8 +93,13 @@ const ManageStotramCategory = () => {
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '1rem' }}>
-        <div className="glass-panel" style={{ padding: '0.9rem 1rem' }}>
-          <table className="data-table">
+        <div className="clean-table-wrap">
+          <div className="clean-table-header">
+            <span className="clean-table-count">
+              Showing <strong>{categories.length}</strong> stotram categories
+            </span>
+          </div>
+          <table className="clean-table">
             <thead>
               <tr>
                 <th>Category Name</th>
@@ -111,8 +116,10 @@ const ManageStotramCategory = () => {
                       <strong style={{ color: 'var(--text-primary)' }}>{cat.categoryName}</strong>
                     </td>
                     <td style={{ textAlign: 'right' }}>
-                      <button className="btn-icon edit" onClick={() => setCatModal({ isOpen: true, data: cat })} title="Edit"><MdEdit size={16} /></button>
-                      <button className="btn-icon delete" onClick={() => showConfirm(`Delete category "${cat.categoryName}"?`, () => { deleteCatMutation.mutate(cat._id || cat.id); })} title="Delete"><MdDeleteOutline size={16} /></button>
+                      <div style={{ display: 'inline-flex', gap: '0.3rem' }}>
+                        <button className="btn-icon-sm edit" onClick={() => setCatModal({ isOpen: true, data: cat })} title="Edit"><MdEdit size={15} /></button>
+                        <button className="btn-icon-sm delete" onClick={() => showConfirm(`Delete category "${cat.categoryName}"?`, () => { deleteCatMutation.mutate(cat._id || cat.id); })} title="Delete"><MdDeleteOutline size={15} /></button>
+                      </div>
                     </td>
                   </tr>
                 ))

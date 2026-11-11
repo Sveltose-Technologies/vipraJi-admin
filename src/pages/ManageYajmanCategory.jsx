@@ -76,19 +76,21 @@ const ManageYajmanCategory = ({ isEmbedded = false }) => {
       )}
 
       <div style={{ maxWidth: '720px', margin: '0 auto' }}>
-        <div className="glass-panel" style={{ padding: '0.9rem 1rem' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.65rem' }}>
-            <h2 style={{ fontSize: '0.98rem', margin: 0 }}>Categories</h2>
-            <button className="btn btn-primary" onClick={() => setCatModal({ isOpen: true, data: null })}>
-              <MdAdd size={16} /> Add Category
+        <div className="clean-table-wrap">
+          <div className="clean-table-header">
+            <span className="clean-table-count">
+              Showing <strong>{categories.length}</strong> Yajman categories
+            </span>
+            <button className="btn btn-primary" style={{ padding: '0.32rem 0.7rem', fontSize: '0.78rem' }} onClick={() => setCatModal({ isOpen: true, data: null })}>
+              <MdAdd size={15} /> Add Category
             </button>
           </div>
           
-          <table className="data-table">
+          <table className="clean-table">
             <thead>
               <tr>
                 <th>Category Name</th>
-                <th style={{ width: '90px' }}>Actions</th>
+                <th style={{ width: '90px', textAlign: 'right' }}>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -97,10 +99,12 @@ const ManageYajmanCategory = ({ isEmbedded = false }) => {
               ) : categories.length > 0 ? (
                 categories.map(cat => (
                   <tr key={cat._id || cat.id}>
-                    <td>{cat.categoryName}</td>
-                    <td>
-                      <button className="btn-icon edit" onClick={() => setCatModal({ isOpen: true, data: cat })}><MdEdit size={16} /></button>
-                      <button className="btn-icon delete" onClick={() => showConfirm('Are you sure?', () => { deleteCatMutation.mutate(cat._id || cat.id); })}><MdDeleteOutline size={16} /></button>
+                    <td style={{ fontWeight: 600 }}>{cat.categoryName}</td>
+                    <td style={{ textAlign: 'right' }}>
+                      <div style={{ display: 'inline-flex', gap: '0.3rem' }}>
+                        <button className="btn-icon-sm edit" onClick={() => setCatModal({ isOpen: true, data: cat })}><MdEdit size={15} /></button>
+                        <button className="btn-icon-sm delete" onClick={() => showConfirm('Are you sure?', () => { deleteCatMutation.mutate(cat._id || cat.id); })}><MdDeleteOutline size={15} /></button>
+                      </div>
                     </td>
                   </tr>
                 ))

@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useConfirmModal } from '../contexts/ConfirmModalContext';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { MdAdd, MdClose, MdDeleteOutline, MdSave, MdEdit, MdContentCopy, MdListAlt, MdOutlinePostAdd, MdSearch, MdFilterList } from 'react-icons/md';
+import { MdAdd, MdClose, MdDeleteOutline, MdSave, MdEdit, MdContentCopy, MdListAlt, MdOutlinePostAdd, MdSearch } from 'react-icons/md';
 import { toast } from 'react-hot-toast';
 import { getAllPoojaSamagri, createPoojaSamagri, updatePoojaSamagri, deletePoojaSamagri } from '../api/poojaSamagri';
 
@@ -37,7 +37,10 @@ const ManagePoojaSamagri = () => {
     queryFn: getAllPoojaSamagri
   });
 
-  const samagris = Array.isArray(rawSamagri) ? rawSamagri : (rawSamagri?.data || rawSamagri?.samagris || []);
+  const samagris = useMemo(
+    () => (Array.isArray(rawSamagri) ? rawSamagri : (rawSamagri?.data || rawSamagri?.samagris || [])),
+    [rawSamagri]
+  );
 
   // Builder auto-select logic
   useEffect(() => {
@@ -284,12 +287,30 @@ const ManagePoojaSamagri = () => {
 
   const getChipStyle = (type) => {
     switch(type) {
-      case 'Common': return { bg: 'rgba(76, 175, 80, 0.15)', color: '#4caf50', border: '1px solid rgba(76,175,80,0.3)' };
-      case 'Hawan': return { bg: 'rgba(244, 67, 54, 0.15)', color: '#f44336', border: '1px solid rgba(244,67,54,0.3)' };
-      case 'Pooja': return { bg: 'rgba(33, 150, 243, 0.15)', color: '#2196f3', border: '1px solid rgba(33,150,243,0.3)' };
-      default: return { bg: 'rgba(255,255,255,0.1)', color: '#fff', border: '1px solid rgba(255,255,255,0.2)' };
+      case 'Common': return { background: '#ECFDF5', color: '#047857', border: '1px solid #A7F3D0' };
+      case 'Hawan': return { background: '#FEF2F2', color: '#DC2626', border: '1px solid #FECACA' };
+      case 'Pooja': return { background: '#EFF6FF', color: '#1D4ED8', border: '1px solid #BFDBFE' };
+      default: return { background: '#F3F4F6', color: '#4B5563', border: '1px solid #D1D5DB' };
     }
   };
+
+  const samagriStats = {
+    total: samagris.length,
+    pooja: samagris.filter((p) => p.itemType === 'Pooja').length,
+    hawan: samagris.filter((p) => p.itemType === 'Hawan').length,
+    common: samagris.filter((p) => !p.itemType || p.itemType === 'Common').length,
+  };
+
+  const filteredInventory = samagris.filter((pkg) => {
+    if (inventoryFilterType !== 'All' && pkg.itemType !== inventoryFilterType) return false;
+    if (inventorySearchQuery.trim() !== '') {
+      const query = inventorySearchQuery.toLowerCase().trim();
+      const matchPooja = pkg.poojaName && pkg.poojaName.some((p) => p.toLowerCase().includes(query));
+      const matchGod = pkg.godName && pkg.godName.some((g) => g.toLowerCase().includes(query));
+      if (!matchPooja && !matchGod) return false;
+    }
+    return true;
+  });
 
   return (
     <div className="page-content animate-fade-in">
@@ -318,47 +339,78 @@ const ManagePoojaSamagri = () => {
 
       {activeTab === 'inventory' && (
         <>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.85rem', flexWrap: 'wrap', gap: '0.75rem', background: 'rgba(255,255,255,0.02)', padding: '0.6rem 0.85rem', borderRadius: '8px', border: '1px solid var(--border-color)' }}>
-            <div style={{ display: 'flex', gap: '0.75rem', flex: 1, minWidth: '260px', flexWrap: 'wrap', alignItems: 'center' }}>
-              <div style={{ position: 'relative', flex: 1, maxWidth: '300px', minWidth: '210px' }}>
-                <div style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', pointerEvents: 'none' }}>
-                  <MdSearch size={17} />
-                </div>
+          <div className="compact-controls-bar">
+            <div className="compact-stat-pills">
+              <button
+                type="button"
+                className={`compact-stat-pill clickable ${inventoryFilterType === 'All' ? 'active-primary' : ''}`}
+                onClick={() => setInventoryFilterType('All')}
+              >
+                <span className="compact-stat-pill-label">Total</span>
+                <strong className="compact-stat-pill-val">{samagriStats.total}</strong>
+              </button>
+              <button
+                type="button"
+                className={`compact-stat-pill clickable ${inventoryFilterType === 'Pooja' ? 'active-info' : ''}`}
+                onClick={() => setInventoryFilterType((prev) => (prev === 'Pooja' ? 'All' : 'Pooja'))}
+              >
+                <span className="compact-stat-pill-label">Pooja</span>
+                <strong className="compact-stat-pill-val" style={{ color: '#1D4ED8' }}>{samagriStats.pooja}</strong>
+              </button>
+              <button
+                type="button"
+                className={`compact-stat-pill clickable ${inventoryFilterType === 'Hawan' ? 'active-warning' : ''}`}
+                onClick={() => setInventoryFilterType((prev) => (prev === 'Hawan' ? 'All' : 'Hawan'))}
+              >
+                <span className="compact-stat-pill-label">Hawan</span>
+                <strong className="compact-stat-pill-val" style={{ color: '#DC2626' }}>{samagriStats.hawan}</strong>
+              </button>
+              <button
+                type="button"
+                className={`compact-stat-pill clickable ${inventoryFilterType === 'Common' ? 'active-success' : ''}`}
+                onClick={() => setInventoryFilterType((prev) => (prev === 'Common' ? 'All' : 'Common'))}
+              >
+                <span className="compact-stat-pill-label">Common</span>
+                <strong className="compact-stat-pill-val" style={{ color: '#047857' }}>{samagriStats.common}</strong>
+              </button>
+            </div>
+
+            <div className="compact-filter-toolbar">
+              <div className="compact-search-wrap" style={{ maxWidth: '240px' }}>
+                <MdSearch size={16} className="compact-search-icon" />
                 <input 
                   type="text" 
-                  className="input-field" 
-                  placeholder="Search by Pooja or God Name..."
+                  className="compact-search-input" 
+                  placeholder="Search Pooja or God..."
                   value={inventorySearchQuery}
                   onChange={(e) => setInventorySearchQuery(e.target.value)}
-                  style={{ width: '100%', margin: 0, paddingLeft: '34px', borderRadius: '20px' }}
                 />
               </div>
-              
-              <div style={{ position: 'relative', width: '175px' }}>
-                <div style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', pointerEvents: 'none' }}>
-                  <MdFilterList size={17} />
-                </div>
-                <select 
-                  className="input-field"
-                  value={inventoryFilterType}
-                  onChange={(e) => setInventoryFilterType(e.target.value)}
-                  style={{ width: '100%', margin: 0, paddingLeft: '34px', borderRadius: '20px', cursor: 'pointer', appearance: 'none' }}
-                >
-                  <option value="All">All Types</option>
-                  <option value="Pooja">Pooja Specific</option>
-                  <option value="Hawan">Hawan Specific</option>
-                  <option value="Common">Common</option>
-                </select>
-                <div style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none', borderLeft: '4px solid transparent', borderRight: '4px solid transparent', borderTop: '4px solid var(--text-secondary)' }}></div>
-              </div>
+
+              <select 
+                className="compact-filter-select"
+                value={inventoryFilterType}
+                onChange={(e) => setInventoryFilterType(e.target.value)}
+              >
+                <option value="All">All Types</option>
+                <option value="Pooja">Pooja Specific</option>
+                <option value="Hawan">Hawan Specific</option>
+                <option value="Common">Common</option>
+              </select>
+
+              <button className="btn btn-primary" style={{ padding: '0.38rem 0.8rem', fontSize: '0.79rem' }} onClick={() => setIsModalOpen(true)}>
+                <MdAdd size={16} /> Create Package
+              </button>
             </div>
-            <button className="btn btn-primary shadow-hover" onClick={() => setIsModalOpen(true)}>
-              <MdAdd size={17} /> Create New Package
-            </button>
           </div>
 
-          <div className="table-container" style={{ overflowX: 'auto' }}>
-            <table className="data-table">
+          <div className="clean-table-wrap">
+            <div className="clean-table-header">
+              <span className="clean-table-count">
+                Showing <strong>{filteredInventory.length}</strong> of <strong>{samagris.length}</strong> samagri packages
+              </span>
+            </div>
+            <table className="clean-table">
               <thead>
                 <tr>
                   <th>Type</th>
@@ -366,7 +418,7 @@ const ManagePoojaSamagri = () => {
                   <th>Gods/Deities</th>
                   <th>Havan Required</th>
                   <th>Items Count</th>
-                  <th>Actions</th>
+                  <th style={{ textAlign: 'right' }}>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -376,26 +428,15 @@ const ManagePoojaSamagri = () => {
                       <div className="loader" style={{margin: '0 auto'}}></div>
                     </td>
                   </tr>
-                ) : (() => {
-                  const filteredInventory = samagris.filter(pkg => {
-                    if (inventoryFilterType !== 'All' && pkg.itemType !== inventoryFilterType) return false;
-                    if (inventorySearchQuery.trim() !== '') {
-                      const query = inventorySearchQuery.toLowerCase().trim();
-                      const matchPooja = pkg.poojaName && pkg.poojaName.some(p => p.toLowerCase().includes(query));
-                      const matchGod = pkg.godName && pkg.godName.some(g => g.toLowerCase().includes(query));
-                      if (!matchPooja && !matchGod) return false;
-                    }
-                    return true;
-                  });
-
-                  return filteredInventory.length > 0 ? (
-                    filteredInventory.map(pkg => (
-                      <tr key={pkg._id || pkg.id}>
-                        <td>
+                ) : filteredInventory.length > 0 ? (
+                  filteredInventory.map(pkg => (
+                    <tr key={pkg._id || pkg.id}>
+                      <td>
                         <span style={{
-                          padding: '4px 10px', 
-                          borderRadius: '20px',
-                          fontWeight: '600',
+                          padding: '0.18rem 0.52rem', 
+                          borderRadius: '14px',
+                          fontSize: '0.72rem',
+                          fontWeight: '700',
                           ...getChipStyle(pkg.itemType)
                         }}>
                           {pkg.itemType || 'Common'}
@@ -417,28 +458,32 @@ const ManagePoojaSamagri = () => {
                       </td>
                       <td>
                         {pkg.havanRequired ? (
-                           <span style={{ color: '#4caf50', fontWeight: 'bold' }}>Yes</span>
+                           <span className="clean-flag-pill is-active" style={{ cursor: 'default' }}>Yes</span>
                         ) : (
-                           <span style={{ color: 'var(--text-secondary)' }}>No</span>
+                           <span style={{ color: 'var(--text-secondary)', fontSize: '0.78rem' }}>No</span>
                         )}
                       </td>
                       <td>
                         <span style={{ 
-                          background: 'rgba(255,255,255,0.1)', 
-                          padding: '4px 12px', 
-                          borderRadius: '12px',
-                          fontWeight: 500
+                          background: '#F3F4F6', 
+                          padding: '0.18rem 0.55rem', 
+                          borderRadius: '10px',
+                          fontWeight: 600,
+                          fontSize: '0.75rem',
+                          color: 'var(--text-primary)'
                         }}>
                           {pkg.items ? pkg.items.length : 0} items
                         </span>
                       </td>
-                      <td>
-                        <button className="action-btn edit" onClick={() => handleEdit(pkg)} disabled={deleteMutation.isPending} title="Edit Package">
-                          <MdEdit size={18} />
-                        </button>
-                        <button className="action-btn delete" onClick={() => handleDelete(pkg._id || pkg.id)} disabled={deleteMutation.isPending} title="Delete Package">
-                          <MdDeleteOutline size={18} />
-                        </button>
+                      <td style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
+                        <div style={{ display: 'inline-flex', gap: '0.3rem' }}>
+                          <button type="button" className="btn-icon-sm edit" onClick={() => handleEdit(pkg)} disabled={deleteMutation.isPending} title="Edit Package">
+                            <MdEdit size={15} />
+                          </button>
+                          <button type="button" className="btn-icon-sm delete" onClick={() => handleDelete(pkg._id || pkg.id)} disabled={deleteMutation.isPending} title="Delete Package">
+                            <MdDeleteOutline size={15} />
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   ))
@@ -451,8 +496,7 @@ const ManagePoojaSamagri = () => {
                       </div>
                     </td>
                   </tr>
-                );
-                })()}
+                )}
               </tbody>
             </table>
           </div>
@@ -460,7 +504,7 @@ const ManagePoojaSamagri = () => {
       )}
 
       {activeTab === 'builder' && (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(265px, 100%), 1fr))', gap: '1rem' }}>
           <div className="glass-panel" style={{ padding: '1rem 1.15rem', height: 'fit-content' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '0.85rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.6rem' }}>
               <div style={{ background: 'var(--primary-color)', padding: '6px', borderRadius: '6px', display: 'flex' }}>

@@ -18,8 +18,6 @@ import {
   MdAssignmentInd,
   MdLayers,
   MdConfirmationNumber,
-  MdAccessTime,
-  MdOutlineChatBubbleOutline
 } from "react-icons/md";
 import { useConfirmModal } from "../contexts/ConfirmModalContext";
 import {
@@ -462,88 +460,101 @@ const ManageSupportTickets = () => {
         </div>
       </div>
 
-      {/* STATS TILES */}
+      {/* NAVIGATION TABS + COMPACT STAT PILLS */}
       <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(175px, 1fr))",
-          gap: "0.75rem",
-          marginBottom: "0.95rem",
-        }}
-      >
-        <div className="glass-panel" style={{ padding: "0.68rem 0.9rem", display: "flex", alignItems: "center", gap: "0.75rem" }}>
-          <div style={{ width: "36px", height: "36px", borderRadius: "9px", background: "rgba(130, 0, 30, 0.1)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--primary-color)", flexShrink: 0 }}>
-            <MdConfirmationNumber size={19} />
-          </div>
-          <div>
-            <div style={{ fontSize: "0.72rem", color: "var(--text-secondary)", textTransform: "uppercase", fontWeight: "600" }}>Total Tickets</div>
-            <div style={{ fontSize: "1.2rem", fontWeight: "700", color: "var(--primary-color)", lineHeight: 1.2 }}>{stats.total}</div>
-          </div>
-        </div>
-
-        <div className="glass-panel" style={{ padding: "0.68rem 0.9rem", display: "flex", alignItems: "center", gap: "0.75rem" }}>
-          <div style={{ width: "36px", height: "36px", borderRadius: "9px", background: "rgba(245, 166, 35, 0.15)", display: "flex", alignItems: "center", justifyContent: "center", color: "#D97706", flexShrink: 0 }}>
-            <MdPending size={19} />
-          </div>
-          <div>
-            <div style={{ fontSize: "0.72rem", color: "var(--text-secondary)", textTransform: "uppercase", fontWeight: "600" }}>Pending Action</div>
-            <div style={{ fontSize: "1.2rem", fontWeight: "700", color: "#D97706", lineHeight: 1.2 }}>{stats.pending}</div>
-          </div>
-        </div>
-
-        <div className="glass-panel" style={{ padding: "0.68rem 0.9rem", display: "flex", alignItems: "center", gap: "0.75rem" }}>
-          <div style={{ width: "36px", height: "36px", borderRadius: "9px", background: "rgba(23, 74, 13, 0.1)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--success-color)", flexShrink: 0 }}>
-            <MdCheckCircle size={19} />
-          </div>
-          <div>
-            <div style={{ fontSize: "0.72rem", color: "var(--text-secondary)", textTransform: "uppercase", fontWeight: "600" }}>Resolved</div>
-            <div style={{ fontSize: "1.2rem", fontWeight: "700", color: "var(--success-color)", lineHeight: 1.2 }}>{stats.resolved}</div>
-          </div>
-        </div>
-
-        <div className="glass-panel" style={{ padding: "0.68rem 0.9rem", display: "flex", alignItems: "center", gap: "0.75rem" }}>
-          <div style={{ width: "36px", height: "36px", borderRadius: "9px", background: "rgba(59, 130, 246, 0.1)", display: "flex", alignItems: "center", justifyContent: "center", color: "#2563EB", flexShrink: 0 }}>
-            <MdAssignmentInd size={19} />
-          </div>
-          <div>
-            <div style={{ fontSize: "0.72rem", color: "var(--text-secondary)", textTransform: "uppercase", fontWeight: "600" }}>Assigned to Me</div>
-            <div style={{ fontSize: "1.2rem", fontWeight: "700", color: "#2563EB", lineHeight: 1.2 }}>{stats.assignedToMe}</div>
-          </div>
-        </div>
-      </div>
-
-      {/* NAVIGATION TABS */}
-      <div
-        role="tablist"
-        aria-label="Support ticket tabs"
         style={{
           display: "flex",
-          gap: "0.45rem",
-          borderBottom: "1px solid var(--border-color)",
-          marginBottom: "0.9rem",
+          justifyContent: "space-between",
+          alignItems: "center",
+          gap: "0.75rem",
+          flexWrap: "wrap",
+          marginBottom: "0.75rem",
         }}
       >
-        <button
-          role="tab"
-          aria-selected={activeTab === "tickets"}
-          className={`btn ${activeTab === "tickets" ? "btn-primary" : "btn-outline"}`}
-          onClick={() => setActiveTab("tickets")}
-          style={{ borderRadius: "7px 7px 0 0", display: "flex", alignItems: "center", gap: "0.4rem" }}
+        <div
+          role="tablist"
+          aria-label="Support ticket tabs"
+          style={{ display: "flex", gap: "0.4rem" }}
         >
-          <MdConfirmationNumber size={16} />
-          Support Tickets ({allTickets.length})
-        </button>
+          <button
+            role="tab"
+            aria-selected={activeTab === "tickets"}
+            className={`btn ${activeTab === "tickets" ? "btn-primary" : "btn-outline"}`}
+            onClick={() => setActiveTab("tickets")}
+            style={{ display: "flex", alignItems: "center", gap: "0.4rem", padding: "0.4rem 0.8rem", fontSize: "0.8rem" }}
+          >
+            <MdConfirmationNumber size={15} />
+            Support Tickets ({allTickets.length})
+          </button>
 
-        <button
-          role="tab"
-          aria-selected={activeTab === "categories"}
-          className={`btn ${activeTab === "categories" ? "btn-primary" : "btn-outline"}`}
-          onClick={() => setActiveTab("categories")}
-          style={{ borderRadius: "7px 7px 0 0", display: "flex", alignItems: "center", gap: "0.4rem" }}
-        >
-          <MdLayers size={16} />
-          Categories ({categories.length})
-        </button>
+          <button
+            role="tab"
+            aria-selected={activeTab === "categories"}
+            className={`btn ${activeTab === "categories" ? "btn-primary" : "btn-outline"}`}
+            onClick={() => setActiveTab("categories")}
+            style={{ display: "flex", alignItems: "center", gap: "0.4rem", padding: "0.4rem 0.8rem", fontSize: "0.8rem" }}
+          >
+            <MdLayers size={15} />
+            Categories ({categories.length})
+          </button>
+        </div>
+
+        <div className="compact-stat-pills">
+          <button
+            type="button"
+            className={`compact-stat-pill clickable ${statusFilter === "all" && ticketScope === "all" ? "active-primary" : ""}`}
+            onClick={() => {
+              setActiveTab("tickets");
+              setStatusFilter("all");
+              setTicketScope("all");
+            }}
+          >
+            <span className="compact-stat-pill-label">Total</span>
+            <strong className="compact-stat-pill-val">{stats.total}</strong>
+          </button>
+
+          <button
+            type="button"
+            className={`compact-stat-pill clickable ${statusFilter === "Pending" ? "active-warning" : ""}`}
+            onClick={() => {
+              setActiveTab("tickets");
+              setStatusFilter((prev) => (prev === "Pending" ? "all" : "Pending"));
+            }}
+            title="Filter Pending tickets"
+          >
+            <MdPending size={14} color="#D97706" />
+            <span className="compact-stat-pill-label">Pending</span>
+            <strong className="compact-stat-pill-val" style={{ color: "#B45309" }}>{stats.pending}</strong>
+          </button>
+
+          <button
+            type="button"
+            className={`compact-stat-pill clickable ${statusFilter === "Resolved" ? "active-success" : ""}`}
+            onClick={() => {
+              setActiveTab("tickets");
+              setStatusFilter((prev) => (prev === "Resolved" ? "all" : "Resolved"));
+            }}
+            title="Filter Resolved tickets"
+          >
+            <MdCheckCircle size={14} color="#059669" />
+            <span className="compact-stat-pill-label">Resolved</span>
+            <strong className="compact-stat-pill-val" style={{ color: "#047857" }}>{stats.resolved}</strong>
+          </button>
+
+          <button
+            type="button"
+            className={`compact-stat-pill clickable ${ticketScope === "assigned_to_me" ? "active-info" : ""}`}
+            onClick={() => {
+              setActiveTab("tickets");
+              setTicketScope((prev) => (prev === "assigned_to_me" ? "all" : "assigned_to_me"));
+            }}
+            title="Filter Assigned to Me"
+          >
+            <MdAssignmentInd size={14} color="#2563EB" />
+            <span className="compact-stat-pill-label">Mine</span>
+            <strong className="compact-stat-pill-val" style={{ color: "#1D4ED8" }}>{stats.assignedToMe}</strong>
+          </button>
+        </div>
       </div>
 
       {/* ======================================================== */}
@@ -551,57 +562,42 @@ const ManageSupportTickets = () => {
       {/* ======================================================== */}
       {activeTab === "tickets" && (
         <div>
-          {/* SEARCH & FILTERS BAR */}
-          <div
-            className="glass-panel"
-            style={{
-              padding: "0.55rem 0.9rem",
-              marginBottom: "0.85rem",
-              display: "flex",
-              flexWrap: "wrap",
-              gap: "0.65rem",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
-            {/* Search Input */}
-            <div style={{ display: "flex", alignItems: "center", flex: "1 1 250px", gap: "0.45rem", background: "#FFFFFF", padding: "0.28rem 0.65rem", borderRadius: "6px", border: "1px solid var(--border-color)" }}>
-              <MdSearch size={18} color="var(--text-secondary)" />
+          {/* COMPACT SEARCH & FILTERS BAR */}
+          <div className="compact-controls-bar">
+            <div className="compact-search-wrap" style={{ maxWidth: "320px" }}>
+              <MdSearch size={16} className="compact-search-icon" />
               <input
                 type="text"
-                placeholder="Search by subject, description, user name or email..."
+                placeholder="Search subject, user name, email..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                style={{ border: "none", outline: "none", width: "100%", fontSize: "0.84rem", color: "var(--text-primary)" }}
+                className="compact-search-input"
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery("")}
-                  style={{ background: "none", border: "none", cursor: "pointer", color: "var(--text-secondary)" }}
+                  className="compact-search-clear"
+                  title="Clear search"
                 >
-                  <MdClose size={15} />
+                  <MdClose size={14} />
                 </button>
               )}
             </div>
 
-            {/* Scope Toggle: All vs Assigned to Me */}
-            <div style={{ display: "flex", gap: "0.45rem", alignItems: "center" }}>
+            <div className="compact-filter-toolbar">
               <select
-                className="input-field"
+                className="compact-filter-select"
                 value={ticketScope}
                 onChange={(e) => setTicketScope(e.target.value)}
-                style={{ width: "auto", padding: "0.38rem 0.65rem", fontWeight: "500", fontSize: "0.82rem" }}
               >
                 <option value="all">All Platform Tickets</option>
                 <option value="assigned_to_me">Assigned to Me</option>
               </select>
 
-              {/* Status Filter */}
               <select
-                className="input-field"
+                className="compact-filter-select"
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
-                style={{ width: "auto", padding: "0.38rem 0.65rem", fontSize: "0.82rem" }}
               >
                 <option value="all">All Statuses</option>
                 <option value="Pending">Pending</option>
@@ -609,12 +605,10 @@ const ManageSupportTickets = () => {
                 <option value="Closed">Closed</option>
               </select>
 
-              {/* Category Filter */}
               <select
-                className="input-field"
+                className="compact-filter-select"
                 value={categoryFilter}
                 onChange={(e) => setCategoryFilter(e.target.value)}
-                style={{ width: "auto", padding: "0.38rem 0.65rem", fontSize: "0.82rem" }}
               >
                 <option value="all">All Categories</option>
                 {categories.map((c) => (
@@ -627,8 +621,13 @@ const ManageSupportTickets = () => {
           </div>
 
           {/* TABLE OF TICKETS */}
-          <div className="glass-panel" style={{ padding: "0.9rem 1rem", overflowX: "auto" }}>
-            <table className="data-table">
+          <div className="clean-table-wrap">
+            <div className="clean-table-header">
+              <span className="clean-table-count">
+                Showing <strong>{filteredTickets.length}</strong> of <strong>{allTickets.length}</strong> support tickets
+              </span>
+            </div>
+            <table className="clean-table">
               <thead>
                 <tr>
                   <th>Subject & Ticket ID</th>
@@ -761,29 +760,29 @@ const ManageSupportTickets = () => {
                         </td>
 
                         <td style={{ textAlign: "right", whiteSpace: "nowrap" }}>
-                          <button
-                            className="btn-icon"
-                            title="View Details"
-                            onClick={() => setDetailModalTicket(ticket)}
-                            style={{ marginRight: "0.25rem" }}
-                          >
-                            <MdVisibility size={18} />
-                          </button>
-                          <button
-                            className="btn-icon edit"
-                            title="Edit Ticket"
-                            onClick={() => openEditTicketModal(ticket)}
-                            style={{ marginRight: "0.25rem" }}
-                          >
-                            <MdEdit size={18} />
-                          </button>
-                          <button
-                            className="btn-icon delete"
-                            title="Delete Ticket"
-                            onClick={() => handleDeleteTicket(ticket)}
-                          >
-                            <MdDeleteOutline size={18} />
-                          </button>
+                          <div style={{ display: "inline-flex", gap: "0.3rem" }}>
+                            <button
+                              className="btn-icon-sm"
+                              title="View Details"
+                              onClick={() => setDetailModalTicket(ticket)}
+                            >
+                              <MdVisibility size={15} />
+                            </button>
+                            <button
+                              className="btn-icon-sm edit"
+                              title="Edit Ticket"
+                              onClick={() => openEditTicketModal(ticket)}
+                            >
+                              <MdEdit size={15} />
+                            </button>
+                            <button
+                              className="btn-icon-sm delete"
+                              title="Delete Ticket"
+                              onClick={() => handleDeleteTicket(ticket)}
+                            >
+                              <MdDeleteOutline size={15} />
+                            </button>
+                          </div>
                         </td>
                       </tr>
                     );
@@ -799,8 +798,13 @@ const ManageSupportTickets = () => {
       {/* TAB 2: CATEGORIES LIST                                  */}
       {/* ======================================================== */}
       {activeTab === "categories" && (
-        <div className="glass-panel" style={{ padding: "0.9rem 1rem", overflowX: "auto" }}>
-          <table className="data-table">
+        <div className="clean-table-wrap">
+          <div className="clean-table-header">
+            <span className="clean-table-count">
+              Showing <strong>{categories.length}</strong> support categories
+            </span>
+          </div>
+          <table className="clean-table">
             <thead>
               <tr>
                 <th>Category Name</th>
@@ -835,35 +839,29 @@ const ManageSupportTickets = () => {
                       </td>
                       <td>
                         <span
-                          className={`badge ${category.isActive ? "badge-success" : "badge-danger"}`}
-                          style={{
-                            padding: "0.25rem 0.65rem",
-                            borderRadius: "12px",
-                            fontSize: "0.75rem",
-                            fontWeight: "600",
-                            background: category.isActive ? "rgba(23, 74, 13, 0.1)" : "rgba(155, 42, 31, 0.1)",
-                            color: category.isActive ? "var(--success-color)" : "var(--error-color)",
-                          }}
+                          className={`clean-flag-pill ${category.isActive ? "is-active" : "is-draft"}`}
+                          style={{ cursor: "default" }}
                         >
                           {category.isActive ? "Active" : "Inactive"}
                         </span>
                       </td>
                       <td style={{ textAlign: "right" }}>
-                        <button
-                          className="btn-icon edit"
-                          title="Edit Category"
-                          onClick={() => openEditCategoryModal(category)}
-                          style={{ marginRight: "0.25rem" }}
-                        >
-                          <MdEdit size={18} />
-                        </button>
-                        <button
-                          className="btn-icon delete"
-                          title="Delete Category"
-                          onClick={() => handleDeleteCategory(category)}
-                        >
-                          <MdDeleteOutline size={18} />
-                        </button>
+                        <div style={{ display: "inline-flex", gap: "0.3rem" }}>
+                          <button
+                            className="btn-icon-sm edit"
+                            title="Edit Category"
+                            onClick={() => openEditCategoryModal(category)}
+                          >
+                            <MdEdit size={15} />
+                          </button>
+                          <button
+                            className="btn-icon-sm delete"
+                            title="Delete Category"
+                            onClick={() => handleDeleteCategory(category)}
+                          >
+                            <MdDeleteOutline size={15} />
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   );
@@ -1001,7 +999,7 @@ const ManageSupportTickets = () => {
               </div>
 
               {/* Status & Assigned Admin Row */}
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+              <div className="responsive-form-grid-2">
                 <div className="input-group">
                   <label className="input-label" htmlFor="ticket-status">
                     Status

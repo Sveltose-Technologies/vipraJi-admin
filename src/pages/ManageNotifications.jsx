@@ -509,7 +509,7 @@ const ManageNotifications = () => {
       {/* Top Header */}
       <div className="notif-page-header">
         <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.15rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '0.15rem' }}>
             <h1 className="header-title" style={{ margin: 0 }}>Mobile Push Notifications</h1>
             <span
               style={{
@@ -587,141 +587,129 @@ const ManageNotifications = () => {
         </div>
       </div>
 
-      {/* KPI Stats Overview Cards */}
-      <div className="notif-stats-grid">
-        <div className="notif-stat-card">
-          <div className="notif-stat-icon-wrap" style={{ background: '#FFF1F2', color: '#BE123C' }}>
-            <MdCampaign size={20} />
+      {/* Compact Stat Pills + Filter Toolbar (Pooja Library style) */}
+      <div className="compact-controls-bar">
+        <div className="compact-stat-pills">
+          <button
+            type="button"
+            className={`compact-stat-pill clickable ${statusFilter === 'ALL' ? 'active-primary' : ''}`}
+            onClick={() => setStatusFilter('ALL')}
+          >
+            <MdCampaign size={14} color="var(--primary-color)" />
+            <span className="compact-stat-pill-label">Campaigns</span>
+            <strong className="compact-stat-pill-val">{stats.totalNotifications || 0}</strong>
+          </button>
+
+          <div className="compact-stat-pill">
+            <MdSend size={13} color="#1D4ED8" />
+            <span className="compact-stat-pill-label">Dispatched</span>
+            <strong className="compact-stat-pill-val" style={{ color: '#1D4ED8' }}>{stats.totalDeliveries || 0}</strong>
           </div>
-          <div className="notif-stat-info">
-            <span className="notif-stat-value">{stats.totalNotifications || 0}</span>
-            <span className="notif-stat-label">Total Push Campaigns</span>
+
+          <div className="compact-stat-pill">
+            <MdCheckCircle size={14} color="#059669" />
+            <span className="compact-stat-pill-label">Opened</span>
+            <strong className="compact-stat-pill-val" style={{ color: '#047857' }}>{stats.totalReadDeliveries || 0}</strong>
+          </div>
+
+          <div className="compact-stat-pill">
+            <MdAssessment size={14} color="#6D28D9" />
+            <span className="compact-stat-pill-label">Open Rate</span>
+            <strong className="compact-stat-pill-val" style={{ color: '#6D28D9' }}>{stats.readRate || '0%'}</strong>
           </div>
         </div>
 
-        <div className="notif-stat-card">
-          <div className="notif-stat-icon-wrap" style={{ background: '#EFF6FF', color: '#1D4ED8' }}>
-            <MdSend size={20} />
+        <div className="compact-filter-toolbar">
+          <div className="compact-search-wrap" style={{ minWidth: '185px', maxWidth: '250px' }}>
+            <MdSearch size={16} className="compact-search-icon" />
+            <input
+              type="text"
+              className="compact-search-input"
+              placeholder="Search notification title, message..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            {searchQuery && (
+              <button
+                type="button"
+                onClick={() => setSearchQuery('')}
+                className="compact-search-clear"
+                title="Clear search"
+              >
+                <MdClose size={14} />
+              </button>
+            )}
           </div>
-          <div className="notif-stat-info">
-            <span className="notif-stat-value">{stats.totalDeliveries || 0}</span>
-            <span className="notif-stat-label">Dispatched to Devices</span>
-          </div>
-        </div>
 
-        <div className="notif-stat-card">
-          <div className="notif-stat-icon-wrap" style={{ background: '#ECFDF5', color: '#047857' }}>
-            <MdCheckCircle size={20} />
-          </div>
-          <div className="notif-stat-info">
-            <span className="notif-stat-value">{stats.totalReadDeliveries || 0}</span>
-            <span className="notif-stat-label">Opened / Read on App</span>
-          </div>
-        </div>
+          <select
+            className="compact-filter-select"
+            value={typeFilter}
+            onChange={(e) => setTypeFilter(e.target.value)}
+          >
+            <option value="ALL">All Push Types</option>
+            {NOTIFICATION_TYPES.map((t) => (
+              <option key={t} value={t}>
+                {t.replace(/_/g, ' ')}
+              </option>
+            ))}
+          </select>
 
-        <div className="notif-stat-card">
-          <div className="notif-stat-icon-wrap" style={{ background: '#F5F3FF', color: '#6D28D9' }}>
-            <MdAssessment size={20} />
-          </div>
-          <div className="notif-stat-info">
-            <span className="notif-stat-value">{stats.readRate || '0%'}</span>
-            <span className="notif-stat-label">Device Open Rate</span>
-          </div>
-        </div>
-      </div>
+          <select
+            className="compact-filter-select"
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}
+          >
+            <option value="ALL">All Statuses</option>
+            <option value="SENT">Sent</option>
+            <option value="SCHEDULED">Scheduled</option>
+            <option value="DRAFT">Draft</option>
+            <option value="CANCELLED">Cancelled</option>
+            <option value="FAILED">Failed</option>
+          </select>
 
-      {/* Filters Toolbar */}
-      <div className="notif-filter-bar">
-        <div className="notif-search-input-wrap">
-          <MdSearch size={20} className="notif-search-icon" />
-          <input
-            type="text"
-            className="notif-search-input"
-            placeholder="Search by title, message content, or target keyword..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-          {searchQuery && (
+          <select
+            className="compact-filter-select"
+            value={recipientFilter}
+            onChange={(e) => setRecipientFilter(e.target.value)}
+          >
+            <option value="ALL">All Audiences</option>
+            <option value="SELECTED_USERS">Selected Users</option>
+            <option value="SUBSCRIBERS">Subscribers</option>
+          </select>
+
+          {(searchQuery || typeFilter !== 'ALL' || statusFilter !== 'ALL' || recipientFilter !== 'ALL') && (
             <button
               type="button"
-              onClick={() => setSearchQuery('')}
               style={{
-                position: 'absolute',
-                right: 10,
-                background: 'none',
-                border: 'none',
+                background: '#FEF2F2',
+                border: '1px solid #FECACA',
+                color: '#DC2626',
+                fontWeight: 600,
+                fontSize: '0.76rem',
+                borderRadius: '7px',
                 cursor: 'pointer',
-                color: 'var(--text-secondary)',
+                padding: '0.36rem 0.6rem',
+              }}
+              onClick={() => {
+                setSearchQuery('');
+                setTypeFilter('ALL');
+                setStatusFilter('ALL');
+                setRecipientFilter('ALL');
               }}
             >
-              <MdClose size={16} />
+              Reset
             </button>
           )}
         </div>
-
-        <select
-          className="notif-filter-select"
-          value={typeFilter}
-          onChange={(e) => setTypeFilter(e.target.value)}
-        >
-          <option value="ALL">All Push Types</option>
-          {NOTIFICATION_TYPES.map((t) => (
-            <option key={t} value={t}>
-              {t.replace(/_/g, ' ')}
-            </option>
-          ))}
-        </select>
-
-        <select
-          className="notif-filter-select"
-          value={statusFilter}
-          onChange={(e) => setStatusFilter(e.target.value)}
-        >
-          <option value="ALL">All Statuses</option>
-          <option value="SENT">Sent</option>
-          <option value="SCHEDULED">Scheduled</option>
-          <option value="DRAFT">Draft</option>
-          <option value="CANCELLED">Cancelled</option>
-          <option value="FAILED">Failed</option>
-        </select>
-
-        <select
-          className="notif-filter-select"
-          value={recipientFilter}
-          onChange={(e) => setRecipientFilter(e.target.value)}
-        >
-          <option value="ALL">All Target Audiences</option>
-          <option value="ALL">All Users (Broadcast)</option>
-          <option value="SELECTED_USERS">Selected Users</option>
-          <option value="SUBSCRIBERS">Subscribers</option>
-        </select>
-
-        {(searchQuery || typeFilter !== 'ALL' || statusFilter !== 'ALL' || recipientFilter !== 'ALL') && (
-          <button
-            type="button"
-            className="btn"
-            style={{
-              background: 'none',
-              border: 'none',
-              color: 'var(--primary-color)',
-              fontWeight: 600,
-              cursor: 'pointer',
-              padding: '0.5rem',
-            }}
-            onClick={() => {
-              setSearchQuery('');
-              setTypeFilter('ALL');
-              setStatusFilter('ALL');
-              setRecipientFilter('ALL');
-            }}
-          >
-            Reset Filters
-          </button>
-        )}
       </div>
 
       {/* Main Notifications Campaigns Table */}
-      <div className="glass-panel" style={{ padding: '0.85rem 1rem', overflowX: 'auto' }}>
+      <div className="clean-table-wrap">
+        <div className="clean-table-header">
+          <span className="clean-table-count">
+            Showing <strong>{filteredNotifications.length}</strong> of <strong>{notifications.length}</strong> notification campaigns
+          </span>
+        </div>
         {isNotifsLoading ? (
           <div style={{ textAlign: 'center', padding: '1.75rem', color: 'var(--text-secondary)' }}>
             <div className="spinner" style={{ margin: '0 auto 0.65rem auto', width: 24, height: 24 }} />
@@ -761,16 +749,16 @@ const ManageNotifications = () => {
             </button>
           </div>
         ) : (
-          <table className="data-table">
+          <table className="clean-table notif-clean-table">
             <thead>
               <tr>
-                <th style={{ width: 140 }}>Notification Type</th>
+                <th style={{ width: 128 }}>Notification Type</th>
                 <th>Message & Screen Target</th>
-                <th style={{ width: 150 }}>Target Audience</th>
-                <th style={{ width: 110 }}>Status</th>
-                <th style={{ width: 140 }}>Dispatch Date</th>
-                <th style={{ width: 110, textAlign: 'center' }}>Deliveries</th>
-                <th style={{ width: 200, textAlign: 'right' }}>Admin Actions</th>
+                <th style={{ width: 138 }}>Target Audience</th>
+                <th style={{ width: 96 }}>Status</th>
+                <th style={{ width: 124 }}>Dispatch Date</th>
+                <th style={{ width: 98, textAlign: 'center' }}>Deliveries</th>
+                <th style={{ width: 185, textAlign: 'right' }}>Admin Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -783,11 +771,11 @@ const ManageNotifications = () => {
                   <tr key={notif._id}>
                     {/* Type */}
                     <td>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <div className={`notif-item-icon-wrap ${getTypeBadgeClass(notif.type)}`} style={{ width: 32, height: 32 }}>
-                          {getTypeIcon(notif.type, 16)}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                        <div className={`notif-item-icon-wrap ${getTypeBadgeClass(notif.type)}`} style={{ width: 26, height: 26, borderRadius: '7px' }}>
+                          {getTypeIcon(notif.type, 13)}
                         </div>
-                        <span style={{ fontSize: '0.8rem', fontWeight: 600 }}>
+                        <span style={{ fontSize: '0.69rem', fontWeight: 600 }}>
                           {notif.type.replace(/_/g, ' ')}
                         </span>
                       </div>
@@ -795,13 +783,14 @@ const ManageNotifications = () => {
 
                     {/* Title & Body */}
                     <td>
-                      <div style={{ maxWidth: 360 }}>
+                      <div style={{ maxWidth: 320 }}>
                         <div
                           style={{
                             fontWeight: 700,
-                            fontSize: '0.92rem',
+                            fontSize: '0.76rem',
                             color: 'var(--text-primary)',
-                            marginBottom: '0.2rem',
+                            marginBottom: '0.12rem',
+                            lineHeight: 1.3,
                             cursor: 'pointer',
                           }}
                           onClick={() => handleViewDetails(notif)}
@@ -811,9 +800,9 @@ const ManageNotifications = () => {
                         </div>
                         <div
                           style={{
-                            fontSize: '0.82rem',
+                            fontSize: '0.69rem',
                             color: '#4B5563',
-                            lineHeight: 1.35,
+                            lineHeight: 1.3,
                             overflow: 'hidden',
                             textOverflow: 'ellipsis',
                             whiteSpace: 'nowrap',
@@ -824,14 +813,14 @@ const ManageNotifications = () => {
                         </div>
 
                         {/* Mobile Screen Tag & Personalization */}
-                        <div style={{ display: 'flex', gap: '0.35rem', marginTop: '0.35rem', flexWrap: 'wrap' }}>
+                        <div style={{ display: 'flex', gap: '0.3rem', marginTop: '0.24rem', flexWrap: 'wrap' }}>
                           {notif.data?.screen && (
-                            <span style={{ fontSize: '0.68rem', background: '#EFF6FF', color: '#1E40AF', padding: '0.1rem 0.4rem', borderRadius: 4, fontWeight: 600 }}>
+                            <span style={{ fontSize: '0.61rem', background: '#EFF6FF', color: '#1E40AF', padding: '0.08rem 0.35rem', borderRadius: 4, fontWeight: 600 }}>
                               📱 Screen: {notif.data.screen}
                             </span>
                           )}
                           {notif.personalizationEnabled && (
-                            <span style={{ fontSize: '0.68rem', background: '#FEF3C7', color: '#92400E', padding: '0.1rem 0.4rem', borderRadius: 4, fontWeight: 600 }}>
+                            <span style={{ fontSize: '0.61rem', background: '#FEF3C7', color: '#92400E', padding: '0.08rem 0.35rem', borderRadius: 4, fontWeight: 600 }}>
                               Dynamic Tags
                             </span>
                           )}
@@ -842,13 +831,13 @@ const ManageNotifications = () => {
                     {/* Audience */}
                     <td>
                       <div>
-                        <span style={{ fontSize: '0.82rem', fontWeight: 600, color: 'var(--text-primary)' }}>
+                        <span style={{ fontSize: '0.71rem', fontWeight: 600, color: 'var(--text-primary)' }}>
                           {notif.recipientType === 'ALL' && '📢 All Mobile Users'}
                           {notif.recipientType === 'SELECTED_USERS' && `👥 ${notif.recipientUserIds?.length || 0} Users`}
                           {notif.recipientType === 'SUBSCRIBERS' && '⭐ Subscribers'}
                         </span>
                         {notif.targetPlanCodes && notif.targetPlanCodes.length > 0 && (
-                          <div style={{ fontSize: '0.72rem', color: 'var(--text-secondary)' }}>
+                          <div style={{ fontSize: '0.64rem', color: 'var(--text-secondary)' }}>
                             Plans: {notif.targetPlanCodes.join(', ')}
                           </div>
                         )}
@@ -864,16 +853,16 @@ const ManageNotifications = () => {
 
                     {/* Dispatch Date */}
                     <td>
-                      <div style={{ fontSize: '0.8rem' }}>
+                      <div style={{ fontSize: '0.7rem' }}>
                         {notif.scheduledAt ? (
                           <div style={{ color: '#0284C7', fontWeight: 600 }}>
-                            <MdSchedule size={14} style={{ verticalAlign: 'middle', marginRight: 2 }} />
+                            <MdSchedule size={13} style={{ verticalAlign: 'middle', marginRight: 2 }} />
                             {new Date(notif.scheduledAt).toLocaleDateString('en-IN', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
                           </div>
                         ) : notif.sentAt ? (
                           <div>
                             <div style={{ fontWeight: 600, color: '#166534' }}>Sent</div>
-                            <span style={{ color: 'var(--text-secondary)', fontSize: '0.75rem' }}>
+                            <span style={{ color: 'var(--text-secondary)', fontSize: '0.64rem' }}>
                               {formatTimeAgo(notif.sentAt)}
                             </span>
                           </div>
@@ -891,11 +880,11 @@ const ManageNotifications = () => {
                         type="button"
                         className="btn"
                         style={{
-                          padding: '0.3rem 0.6rem',
+                          padding: '0.22rem 0.48rem',
                           background: '#F9FAFB',
                           border: '1px solid var(--border-color)',
                           borderRadius: 6,
-                          fontSize: '0.8rem',
+                          fontSize: '0.7rem',
                           fontWeight: 600,
                           cursor: 'pointer',
                         }}
@@ -906,7 +895,7 @@ const ManageNotifications = () => {
                         <span style={{ color: '#9CA3AF' }}> / </span>
                         <span>{notif.recipientCount || 0}</span>
                         {notif.failureCount > 0 && (
-                          <span style={{ color: '#DC2626', marginLeft: 4 }}>
+                          <span style={{ color: '#DC2626', marginLeft: 3 }}>
                             ({notif.failureCount} fail)
                           </span>
                         )}
@@ -915,17 +904,17 @@ const ManageNotifications = () => {
 
                     {/* Admin Actions */}
                     <td>
-                      <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.35rem' }}>
+                      <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.28rem', flexWrap: 'nowrap' }}>
                         {/* Send Now (Draft / Scheduled) */}
                         {(isDraft || isScheduled) && (
                           <button
                             type="button"
-                            className="action-btn"
+                            className="btn-icon-sm"
                             style={{ background: '#DCFCE7', color: '#166534', border: '1px solid #BBF7D0' }}
                             onClick={() => handleSendNow(notif)}
                             title="Dispatch Push to Devices Now"
                           >
-                            <MdSend size={16} />
+                            <MdSend size={14} />
                           </button>
                         )}
 
@@ -933,12 +922,12 @@ const ManageNotifications = () => {
                         {isDraft && (
                           <button
                             type="button"
-                            className="action-btn"
+                            className="btn-icon-sm"
                             style={{ background: '#E0F2FE', color: '#0369A1', border: '1px solid #BAE6FD' }}
                             onClick={() => handleOpenScheduleModal(notif)}
                             title="Schedule Dispatch Time..."
                           >
-                            <MdSchedule size={16} />
+                            <MdSchedule size={14} />
                           </button>
                         )}
 
@@ -946,62 +935,62 @@ const ManageNotifications = () => {
                         {isScheduled && (
                           <button
                             type="button"
-                            className="action-btn"
+                            className="btn-icon-sm"
                             style={{ background: '#FEE2E2', color: '#991B1B', border: '1px solid #FECDD3' }}
                             onClick={() => handleCancelSchedule(notif)}
                             title="Cancel Scheduled Dispatch"
                           >
-                            <MdCancel size={16} />
+                            <MdCancel size={14} />
                           </button>
                         )}
 
                         {/* Delivery Report */}
                         <button
                           type="button"
-                          className="action-btn"
+                          className="btn-icon-sm"
                           style={{ background: '#F3F4F6', color: '#374151', border: '1px solid #E5E7EB' }}
                           onClick={() => handleOpenDeliveryReport(notif)}
                           title="Mobile Delivery Report"
                         >
-                          <MdAssessment size={16} />
+                          <MdAssessment size={14} />
                         </button>
 
                         {/* Smartphone Lockscreen Preview */}
                         <button
                           type="button"
-                          className="action-btn"
+                          className="btn-icon-sm"
                           style={{ background: '#FDF2F4', color: 'var(--primary-color)', border: '1px solid #FBCFE8' }}
                           onClick={() => handleOpenPreviewModal(notif)}
                           title="Preview on Smartphone Lock Screen"
                         >
-                          <MdPhoneIphone size={16} />
+                          <MdPhoneIphone size={14} />
                         </button>
 
                         {/* View Full Details */}
                         <button
                           type="button"
-                          className="action-btn"
+                          className="btn-icon-sm"
                           style={{ background: '#F9FAFB', color: '#4B5563', border: '1px solid #E5E7EB' }}
                           onClick={() => handleViewDetails(notif)}
                           title="View Full Details"
                         >
-                          <MdInfoOutline size={16} />
+                          <MdInfoOutline size={14} />
                         </button>
 
                         {/* Edit or Duplicate */}
                         {isDraft ? (
                           <button
                             type="button"
-                            className="action-btn"
+                            className="btn-icon-sm edit"
                             onClick={() => handleOpenCreateModal(notif)}
                             title="Edit Notification"
                           >
-                            <MdEdit size={16} />
+                            <MdEdit size={14} />
                           </button>
                         ) : (
                           <button
                             type="button"
-                            className="action-btn"
+                            className="btn-icon-sm"
                             onClick={() => {
                               handleOpenCreateModal({
                                 ...notif,
@@ -1012,18 +1001,18 @@ const ManageNotifications = () => {
                             }}
                             title="Duplicate as new draft"
                           >
-                            <MdContentCopy size={16} />
+                            <MdContentCopy size={14} />
                           </button>
                         )}
 
                         {/* Delete */}
                         <button
                           type="button"
-                          className="action-btn text-red"
+                          className="btn-icon-sm delete"
                           onClick={() => handleDelete(notif._id, notif.title)}
                           title="Delete Notification"
                         >
-                          <MdDeleteOutline size={16} />
+                          <MdDeleteOutline size={14} />
                         </button>
                       </div>
                     </td>
@@ -1041,8 +1030,9 @@ const ManageNotifications = () => {
           isOpen={createModalOpen}
           onClose={() => setCreateModalOpen(false)}
           title={editingItem ? 'Edit Push Notification Campaign' : 'Create Mobile Push Notification'}
+          maxWidth="840px"
         >
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(260px, 100%), 1fr))', gap: '1rem' }}>
             {/* Left: Configuration Form */}
             <form
               onSubmit={(e) => {
@@ -1086,7 +1076,7 @@ const ManageNotifications = () => {
 
               {/* Title Input with Quick Variable Inserters */}
               <div className="input-group" style={{ marginBottom: '0.65rem' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.35rem' }}>
                   <label className="input-label" htmlFor="formTitle">
                     Notification Title *
                   </label>
@@ -1120,7 +1110,7 @@ const ManageNotifications = () => {
 
               {/* Message Body with Quick Variable Inserters */}
               <div className="input-group" style={{ marginBottom: '1rem' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.35rem' }}>
                   <label className="input-label" htmlFor="formBody">
                     Message Body (Push Alert Text) *
                   </label>
@@ -1166,7 +1156,7 @@ const ManageNotifications = () => {
               {/* Target Audience */}
               <div className="input-group" style={{ marginBottom: '1rem' }}>
                 <label className="input-label">Target Audience *</label>
-                <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '0.75rem' }}>
+                <div style={{ display: 'flex', gap: '0.45rem', marginBottom: '0.75rem', flexWrap: 'wrap' }}>
                   {[
                     { type: 'ALL', label: 'All Users (Broadcast)', icon: <MdCampaign size={16} /> },
                     { type: 'SELECTED_USERS', label: 'Specific Users', icon: <MdGroup size={16} /> },
@@ -1177,8 +1167,8 @@ const ManageNotifications = () => {
                       type="button"
                       onClick={() => setFormRecipientType(aud.type)}
                       style={{
-                        flex: 1,
-                        padding: '0.5rem 0.4rem',
+                        flex: '1 1 120px',
+                        padding: '0.46rem 0.45rem',
                         borderRadius: 8,
                         border: formRecipientType === aud.type ? '2px solid var(--primary-color)' : '1px solid var(--border-color)',
                         background: formRecipientType === aud.type ? '#FFF5F7' : 'white',
@@ -1587,6 +1577,7 @@ const ManageNotifications = () => {
           isOpen={deliveryReportModalOpen}
           onClose={() => setDeliveryReportModalOpen(false)}
           title={`Mobile Delivery Report: ${targetNotification.title}`}
+          maxWidth="720px"
         >
           <div style={{ padding: '0.25rem 0' }}>
             {isReportLoading ? (

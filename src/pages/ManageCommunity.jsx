@@ -338,52 +338,81 @@ const ManageCommunity = () => {
       </div>
 
       <div
-        role="tablist"
-        aria-label="Community management"
-        style={{
-          display: "flex",
-          gap: "0.45rem",
-          borderBottom: "1px solid var(--border-color)",
-          marginBottom: "0.85rem",
-          paddingBottom: "0.4rem",
-        }}
+        className="compact-controls-bar"
+        style={{ borderBottom: "1px solid var(--border-color)", paddingBottom: "0.65rem" }}
       >
-        <button
-          role="tab"
-          aria-selected={section === "posts"}
-          className={`btn ${section === "posts" ? "btn-primary" : "btn-outline"}`}
-          onClick={() => setSection("posts")}
+        <div
+          role="tablist"
+          aria-label="Community management"
+          style={{ display: "flex", gap: "0.4rem" }}
         >
-          Posts
-        </button>
-        <button
-          role="tab"
-          aria-selected={section === "replies"}
-          className={`btn ${section === "replies" ? "btn-primary" : "btn-outline"}`}
-          onClick={() => setSection("replies")}
-        >
-          Replies
-        </button>
+          <button
+            role="tab"
+            aria-selected={section === "posts"}
+            className={`btn ${section === "posts" ? "btn-primary" : "btn-outline"}`}
+            onClick={() => setSection("posts")}
+            style={{ padding: "0.38rem 0.8rem", fontSize: "0.8rem" }}
+          >
+            Posts ({ownPosts.length})
+          </button>
+          <button
+            role="tab"
+            aria-selected={section === "replies"}
+            className={`btn ${section === "replies" ? "btn-primary" : "btn-outline"}`}
+            onClick={() => setSection("replies")}
+            style={{ padding: "0.38rem 0.8rem", fontSize: "0.8rem" }}
+          >
+            Replies ({ownReplies.length})
+          </button>
+        </div>
+
+        <div className="compact-stat-pills">
+          <button
+            type="button"
+            className={`compact-stat-pill clickable ${section === "posts" ? "active-primary" : ""}`}
+            onClick={() => setSection("posts")}
+          >
+            <span className="compact-stat-pill-label">My Posts</span>
+            <strong className="compact-stat-pill-val">{ownPosts.length}</strong>
+          </button>
+          <button
+            type="button"
+            className={`compact-stat-pill clickable ${section === "replies" ? "active-info" : ""}`}
+            onClick={() => setSection("replies")}
+          >
+            <span className="compact-stat-pill-label">Replies</span>
+            <strong className="compact-stat-pill-val" style={{ color: "#1D4ED8" }}>{ownReplies.length}</strong>
+          </button>
+          <div className="compact-stat-pill">
+            <MdFavorite size={13} color="#BE123C" />
+            <span className="compact-stat-pill-label">Likes</span>
+            <strong className="compact-stat-pill-val" style={{ color: "#BE123C" }}>
+              {ownPosts.reduce((sum, p) => sum + (Array.isArray(p.likes) ? p.likes.length : (p.likeCount ?? 0)), 0)}
+            </strong>
+          </div>
+        </div>
       </div>
 
       {section === "posts" ? (
-        <div
-          className="glass-panel"
-          style={{ padding: "0.9rem 1rem", overflowX: "auto" }}
-        >
+        <div className="clean-table-wrap">
+          <div className="clean-table-header">
+            <span className="clean-table-count">
+              Showing <strong>{ownPosts.length}</strong> community posts
+            </span>
+          </div>
           {!adminId ? (
-            <p>
+            <p style={{ padding: "1rem" }}>
               Admin ID is unavailable. Sign in again to manage community posts.
             </p>
           ) : (
-            <table className="data-table">
+            <table className="clean-table">
               <thead>
                 <tr>
                   <th>Title</th>
                   <th>Type</th>
                   <th>Tags</th>
                   <th>Likes</th>
-                  <th>Actions</th>
+                  <th style={{ textAlign: "right" }}>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -398,7 +427,7 @@ const ManageCommunity = () => {
                 ) : ownPosts.length ? (
                   ownPosts.map((post) => (
                     <tr key={idOf(post)}>
-                      <td>{post.title || "Untitled"}</td>
+                      <td style={{ fontWeight: 600 }}>{post.title || "Untitled"}</td>
                       <td>{post.type || "—"}</td>
                       <td>
                         {Array.isArray(post.tags)
@@ -410,43 +439,45 @@ const ManageCommunity = () => {
                           ? post.likes.length
                           : (post.likeCount ?? 0)}
                       </td>
-                      <td>
-                        <button
-                          className="btn-icon"
-                          aria-label="Like post"
-                          title="Like"
-                          onClick={() => openReaction(post, "like")}
-                        >
-                          <MdFavorite size={18} />
-                        </button>
-                        <button
-                          className="btn-icon"
-                          aria-label="Unlike post"
-                          title="Unlike"
-                          onClick={() => openReaction(post, "unlike")}
-                        >
-                          <MdFavoriteBorder size={18} />
-                        </button>
-                        <button
-                          className="btn-icon edit"
-                          aria-label="Edit post"
-                          title="Edit"
-                          onClick={() => openPost(post)}
-                        >
-                          <MdEdit size={18} />
-                        </button>
-                        <button
-                          className="btn-icon delete"
-                          aria-label="Delete post"
-                          title="Delete"
-                          onClick={() =>
-                            showConfirm("Delete this community post?", () =>
-                              deletePostMutation.mutate(idOf(post)),
-                            )
-                          }
-                        >
-                          <MdDeleteOutline size={18} />
-                        </button>
+                      <td style={{ textAlign: "right", whiteSpace: "nowrap" }}>
+                        <div style={{ display: "inline-flex", gap: "0.3rem" }}>
+                          <button
+                            className="btn-icon-sm"
+                            aria-label="Like post"
+                            title="Like"
+                            onClick={() => openReaction(post, "like")}
+                          >
+                            <MdFavorite size={15} />
+                          </button>
+                          <button
+                            className="btn-icon-sm"
+                            aria-label="Unlike post"
+                            title="Unlike"
+                            onClick={() => openReaction(post, "unlike")}
+                          >
+                            <MdFavoriteBorder size={15} />
+                          </button>
+                          <button
+                            className="btn-icon-sm edit"
+                            aria-label="Edit post"
+                            title="Edit"
+                            onClick={() => openPost(post)}
+                          >
+                            <MdEdit size={15} />
+                          </button>
+                          <button
+                            className="btn-icon-sm delete"
+                            aria-label="Delete post"
+                            title="Delete"
+                            onClick={() =>
+                              showConfirm("Delete this community post?", () =>
+                                deletePostMutation.mutate(idOf(post)),
+                              )
+                            }
+                          >
+                            <MdDeleteOutline size={15} />
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   ))
@@ -465,23 +496,25 @@ const ManageCommunity = () => {
           )}
         </div>
       ) : (
-        <div
-          className="glass-panel"
-          style={{ padding: "0.9rem 1rem", overflowX: "auto" }}
-        >
+        <div className="clean-table-wrap">
+          <div className="clean-table-header">
+            <span className="clean-table-count">
+              Showing <strong>{ownReplies.length}</strong> community replies
+            </span>
+          </div>
           {!adminId ? (
-            <p>
+            <p style={{ padding: "1rem" }}>
               Admin ID is unavailable. Sign in again to manage community
               replies.
             </p>
           ) : (
-            <table className="data-table">
+            <table className="clean-table">
               <thead>
                 <tr>
                   <th>Post</th>
                   <th>Reply</th>
                   <th>User ID</th>
-                  <th>Actions</th>
+                  <th style={{ textAlign: "right" }}>Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -499,7 +532,7 @@ const ManageCommunity = () => {
                     const post = allPosts.find((item) => idOf(item) === postId);
                     return (
                       <tr key={idOf(reply)}>
-                        <td>
+                        <td style={{ fontWeight: 600 }}>
                           {post?.title || String(postId || "Unknown post")}
                         </td>
                         <td>{reply.reply || ""}</td>
@@ -508,27 +541,29 @@ const ManageCommunity = () => {
                             ? reply.userId.fullName || idOf(reply.userId)
                             : reply.userId || "—"}
                         </td>
-                        <td>
-                          <button
-                            className="btn-icon edit"
-                            aria-label="Edit reply"
-                            title="Edit"
-                            onClick={() => openReply(reply)}
-                          >
-                            <MdEdit size={18} />
-                          </button>
-                          <button
-                            className="btn-icon delete"
-                            aria-label="Delete reply"
-                            title="Delete"
-                            onClick={() =>
-                              showConfirm("Delete this community reply?", () =>
-                                deleteReplyMutation.mutate(idOf(reply)),
-                              )
-                            }
-                          >
-                            <MdDeleteOutline size={18} />
-                          </button>
+                        <td style={{ textAlign: "right", whiteSpace: "nowrap" }}>
+                          <div style={{ display: "inline-flex", gap: "0.3rem" }}>
+                            <button
+                              className="btn-icon-sm edit"
+                              aria-label="Edit reply"
+                              title="Edit"
+                              onClick={() => openReply(reply)}
+                            >
+                              <MdEdit size={15} />
+                            </button>
+                            <button
+                              className="btn-icon-sm delete"
+                              aria-label="Delete reply"
+                              title="Delete"
+                              onClick={() =>
+                                showConfirm("Delete this community reply?", () =>
+                                  deleteReplyMutation.mutate(idOf(reply)),
+                                )
+                              }
+                            >
+                              <MdDeleteOutline size={15} />
+                            </button>
+                          </div>
                         </td>
                       </tr>
                     );

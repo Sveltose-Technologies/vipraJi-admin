@@ -112,7 +112,7 @@ const Dashboard = () => {
 
       <div style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(195px, 1fr))',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(min(185px, 100%), 1fr))',
         gap: '0.7rem',
       }}>
         {gridItems.map((item, idx) => (

@@ -79,20 +79,22 @@ const ManageSupportTicketCategory = () => {
       </div>
 
       <div style={{ maxWidth: '720px', margin: '0 auto' }}>
-        <div className="glass-panel" style={{ padding: '0.9rem 1rem' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
-            <h2>Categories</h2>
-            <button className="btn btn-primary" onClick={() => setCatModal({ isOpen: true, data: null })}>
-              <MdAdd size={17} /> Add Category
+        <div className="clean-table-wrap">
+          <div className="clean-table-header">
+            <span className="clean-table-count">
+              Showing <strong>{categories.length}</strong> support ticket categories
+            </span>
+            <button className="btn btn-primary" style={{ padding: '0.32rem 0.7rem', fontSize: '0.78rem' }} onClick={() => setCatModal({ isOpen: true, data: null })}>
+              <MdAdd size={15} /> Add Category
             </button>
           </div>
           
-          <table className="data-table">
+          <table className="clean-table">
             <thead>
               <tr>
                 <th>Category Name</th>
                 <th>Status</th>
-                <th style={{ width: '96px' }}>Actions</th>
+                <th style={{ width: '96px', textAlign: 'right' }}>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -101,21 +103,17 @@ const ManageSupportTicketCategory = () => {
               ) : categories.length > 0 ? (
                 categories.map(cat => (
                   <tr key={cat._id || cat.id}>
-                    <td>{cat.categoryName}</td>
+                    <td style={{ fontWeight: 600 }}>{cat.categoryName}</td>
                     <td>
-                      <span className={`badge ${cat.isActive ? 'badge-success' : 'badge-danger'}`} style={{ 
-                        padding: '3px 8px', 
-                        borderRadius: '4px',
-                        backgroundColor: cat.isActive ? 'rgba(40, 167, 69, 0.2)' : 'rgba(220, 53, 69, 0.2)',
-                        color: cat.isActive ? '#28a745' : '#dc3545',
-                        fontWeight: 'bold'
-                      }}>
+                      <span className={`clean-flag-pill ${cat.isActive ? 'is-active' : 'is-draft'}`} style={{ cursor: 'default' }}>
                         {cat.isActive ? 'Active' : 'Inactive'}
                       </span>
                     </td>
-                    <td>
-                      <button className="btn-icon edit" onClick={() => setCatModal({ isOpen: true, data: cat })}><MdEdit size={17} /></button>
-                      <button className="btn-icon delete" onClick={() => showConfirm('Are you sure?', () => { deleteCatMutation.mutate(cat._id || cat.id); })}><MdDeleteOutline size={17} /></button>
+                    <td style={{ textAlign: 'right' }}>
+                      <div style={{ display: 'inline-flex', gap: '0.3rem' }}>
+                        <button className="btn-icon-sm edit" onClick={() => setCatModal({ isOpen: true, data: cat })}><MdEdit size={15} /></button>
+                        <button className="btn-icon-sm delete" onClick={() => showConfirm('Are you sure?', () => { deleteCatMutation.mutate(cat._id || cat.id); })}><MdDeleteOutline size={15} /></button>
+                      </div>
                     </td>
                   </tr>
                 ))

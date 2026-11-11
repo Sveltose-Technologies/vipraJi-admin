@@ -61,22 +61,22 @@ const Signup = () => {
   };
 
   return (
-    <div className="auth-layout" style={{ padding: '1rem', overflowY: 'auto' }}>
-      <div className="auth-card glass-panel animate-fade-in" style={{ maxWidth: '520px', marginTop: '0.5rem', marginBottom: '0.5rem' }}>
+    <div className="auth-layout">
+      <div className="auth-card auth-card-wide glass-panel animate-fade-in">
         <div className="auth-header" style={{ textAlign: 'center' }}>
-          <img src="/logo.png?v=2" alt="Vipra Sarthi Logo" className="auth-logo" onError={(e) => { e.target.style.display = 'none' }} />
+          <img src="/logo.png?v=2" alt="Vipra Sarthi Logo" className="auth-logo auth-logo-compact" onError={(e) => { e.target.style.display = 'none' }} />
           <h1 className="auth-title">Create Account</h1>
           <p className="auth-subtitle">Join the Vipra Sarthi admin team</p>
         </div>
 
         <form className="form-container" onSubmit={handleSubmit}>
           {errorMsg && (
-            <div style={{ color: 'var(--error-color)', textAlign: 'center', backgroundColor: 'rgba(239, 68, 68, 0.1)', padding: '0.5rem', borderRadius: '4px' }}>
+            <div style={{ color: 'var(--error-color)', textAlign: 'center', backgroundColor: 'rgba(239, 68, 68, 0.1)', padding: '0.5rem', borderRadius: '4px', fontSize: '0.82rem' }}>
               {errorMsg}
             </div>
           )}
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
+          <div className="auth-form-grid-2">
             <Input
               label="Full Name *"
               id="fullName"
@@ -95,7 +95,7 @@ const Signup = () => {
             />
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
+          <div className="auth-form-grid-2">
             <Input
               label="Mobile Number *"
               id="mobileNumber"
@@ -116,7 +116,7 @@ const Signup = () => {
             />
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
+          <div className="auth-form-grid-2">
             <Input
               label="Password *"
               id="password"
@@ -137,7 +137,7 @@ const Signup = () => {
             />
           </div>
 
-          <Button type="submit" isLoading={signupMutation.isPending} style={{ marginTop: '0.45rem' }}>
+          <Button type="submit" isLoading={signupMutation.isPending} style={{ marginTop: '0.25rem' }}>
             {signupMutation.isPending ? 'Creating Account...' : 'Sign Up'}
           </Button>
         </form>

@@ -6,14 +6,12 @@ import {
   MdEdit,
   MdDeleteOutline,
   MdSearch,
-  MdFilterList,
   MdRefresh,
   MdCheckCircle,
   MdOutlineRadioButtonUnchecked,
   MdPublish,
   MdVisibility,
   MdCalendarToday,
-  MdTranslate,
   MdFormatQuote,
   MdSelfImprovement,
   MdTempleHindu,
@@ -25,7 +23,6 @@ import {
   MdArrowBack,
   MdArrowForward,
   MdContentCopy,
-  MdInfoOutline,
 } from 'react-icons/md';
 
 import {
@@ -132,7 +129,7 @@ const ManageSpiritualCards = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-  const [viewMode, setViewMode] = useState('grid'); // 'grid' | 'table'
+  const [viewMode, setViewMode] = useState('table'); // 'table' | 'grid'
 
   // Modals State
   const [formModalOpen, setFormModalOpen] = useState(false);
@@ -167,7 +164,7 @@ const ManageSpiritualCards = () => {
     keepPreviousData: true,
   });
 
-  const cards = cardsResponse?.data || [];
+  const cards = useMemo(() => cardsResponse?.data || [], [cardsResponse]);
   const totalCount = cardsResponse?.total || cards.length;
   const totalPages = Math.max(1, Math.ceil(totalCount / limit));
 
@@ -412,179 +409,21 @@ const ManageSpiritualCards = () => {
 
   return (
     <div style={{ maxWidth: '1500px', margin: '0 auto' }}>
-      {/* Top Banner / Header */}
+      {/* Clean Compact Header */}
       <div
-        className="glass-panel"
+        className="compact-header"
         style={{
-          padding: '0.75rem 1rem',
-          marginBottom: '0.8rem',
-          background: 'linear-gradient(135deg, #FFFFFF 0%, #FFF8EE 100%)',
-          borderLeft: '4px solid var(--primary-color)',
-          display: 'flex',
-          flexWrap: 'wrap',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: '0.75rem',
+          background: '#FFFFFF',
+          border: '1px solid var(--border-color)',
+          borderRadius: '10px',
+          padding: '0.7rem 1rem',
         }}
       >
-        <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-            <span
-              style={{
-                backgroundColor: 'rgba(130, 0, 30, 0.08)',
-                padding: '0.4rem',
-                borderRadius: '9px',
-                color: 'var(--primary-color)',
-                display: 'inline-flex',
-              }}
-            >
-              <MdSelfImprovement size={20} />
-            </span>
-            <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
-                <h1 style={{ margin: 0, fontWeight: 700, fontSize: '1.12rem', color: 'var(--primary-color)' }}>
-                  Daily Spiritual Cards
-                </h1>
-                <span
-                  style={{
-                    backgroundColor: 'var(--secondary-color)',
-                    color: '#4A2C10',
-                    fontSize: '0.66rem',
-                    fontWeight: 700,
-                    padding: '0.14rem 0.5rem',
-                    borderRadius: '20px',
-                    letterSpacing: '0.04em',
-                    textTransform: 'uppercase',
-                  }}
-                >
-                  Admin Portal
-                </span>
-              </div>
-              <p style={{ margin: 0, color: 'var(--text-secondary)', fontSize: '0.78rem', marginTop: '0.12rem' }}>
-                Curate and publish daily sacred mantras, thoughts, festival alerts, and quotes.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', flexWrap: 'wrap' }}>
-          <button
-            onClick={() => refetch()}
-            disabled={isFetching}
-            className="btn"
-            style={{
-              backgroundColor: '#FFFFFF',
-              color: 'var(--text-primary)',
-              border: '1px solid var(--border-color)',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.35rem',
-              padding: '0.38rem 0.72rem',
-              borderRadius: '7px',
-              fontSize: '0.8rem',
-              fontWeight: 600,
-              cursor: 'pointer',
-              transition: 'all 0.2s',
-            }}
-            title="Refresh list"
-          >
-            <MdRefresh size={16} className={isFetching ? 'animate-spin' : ''} />
-            <span>Refresh</span>
-          </button>
-
-          {/* View mode toggle */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
           <div
             style={{
-              display: 'inline-flex',
-              backgroundColor: '#F3F4F6',
-              padding: '2px',
-              borderRadius: '7px',
-              border: '1px solid var(--border-color)',
-            }}
-          >
-            <button
-              onClick={() => setViewMode('grid')}
-              style={{
-                background: viewMode === 'grid' ? '#FFFFFF' : 'transparent',
-                color: viewMode === 'grid' ? 'var(--primary-color)' : 'var(--text-secondary)',
-                border: 'none',
-                padding: '0.32rem 0.55rem',
-                borderRadius: '5px',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.3rem',
-                fontSize: '0.78rem',
-                fontWeight: viewMode === 'grid' ? 600 : 500,
-                boxShadow: viewMode === 'grid' ? '0 1px 2px rgba(0,0,0,0.1)' : 'none',
-              }}
-              title="Card View"
-            >
-              <MdViewModule size={16} />
-              <span>Cards</span>
-            </button>
-            <button
-              onClick={() => setViewMode('table')}
-              style={{
-                background: viewMode === 'table' ? '#FFFFFF' : 'transparent',
-                color: viewMode === 'table' ? 'var(--primary-color)' : 'var(--text-secondary)',
-                border: 'none',
-                padding: '0.32rem 0.55rem',
-                borderRadius: '5px',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.3rem',
-                fontSize: '0.78rem',
-                fontWeight: viewMode === 'table' ? 600 : 500,
-                boxShadow: viewMode === 'table' ? '0 1px 2px rgba(0,0,0,0.1)' : 'none',
-              }}
-              title="Table View"
-            >
-              <MdViewList size={16} />
-              <span>Table</span>
-            </button>
-          </div>
-
-          <button
-            onClick={handleOpenCreateModal}
-            className="btn"
-            style={{
-              backgroundColor: 'var(--primary-color)',
-              color: '#FFFFFF',
-              border: 'none',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.35rem',
-              padding: '0.42rem 0.9rem',
-              borderRadius: '7px',
-              fontSize: '0.81rem',
-              fontWeight: 600,
-              boxShadow: '0 2px 6px rgba(130, 0, 30, 0.2)',
-              cursor: 'pointer',
-              transition: 'transform 0.15s, background-color 0.2s',
-            }}
-          >
-            <MdAdd size={17} />
-            <span>Create New Card</span>
-          </button>
-        </div>
-      </div>
-
-      {/* Stats Summary Bar */}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(175px, 1fr))',
-          gap: '0.7rem',
-          marginBottom: '0.8rem',
-        }}
-      >
-        <div className="glass-panel" style={{ padding: '0.65rem 0.9rem', display: 'flex', alignItems: 'center', gap: '0.7rem' }}>
-          <div
-            style={{
-              width: '34px',
-              height: '34px',
+              width: '36px',
+              height: '36px',
               borderRadius: '8px',
               backgroundColor: 'rgba(130, 0, 30, 0.08)',
               color: 'var(--primary-color)',
@@ -594,318 +433,240 @@ const ManageSpiritualCards = () => {
               flexShrink: 0,
             }}
           >
-            <MdSelfImprovement size={18} />
+            <MdSelfImprovement size={20} />
           </div>
           <div>
-            <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', fontWeight: 600, textTransform: 'uppercase' }}>
-              Total Cards
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', flexWrap: 'wrap' }}>
+              <h1 style={{ margin: 0, fontWeight: 700, fontSize: '1.08rem', color: 'var(--primary-color)' }}>
+                Daily Spiritual Cards
+              </h1>
+              <span
+                style={{
+                  backgroundColor: 'rgba(240, 190, 60, 0.25)',
+                  color: '#7A5C12',
+                  fontSize: '0.65rem',
+                  fontWeight: 700,
+                  padding: '0.12rem 0.45rem',
+                  borderRadius: '12px',
+                  letterSpacing: '0.04em',
+                  textTransform: 'uppercase',
+                }}
+              >
+                Daily Feed
+              </span>
             </div>
-            <div style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--text-primary)', lineHeight: 1.15 }}>
-              {stats.total}
-            </div>
+            <p style={{ margin: '0.1rem 0 0 0', color: 'var(--text-secondary)', fontSize: '0.76rem' }}>
+              Curate daily sacred mantras, thoughts, festival alerts, and quotes.
+            </p>
           </div>
         </div>
 
-        <div className="glass-panel" style={{ padding: '0.65rem 0.9rem', display: 'flex', alignItems: 'center', gap: '0.7rem' }}>
-          <div
+        <div className="compact-header-actions">
+          <button
+            onClick={() => refetch()}
+            disabled={isFetching}
             style={{
-              width: '34px',
-              height: '34px',
-              borderRadius: '8px',
-              backgroundColor: 'rgba(23, 74, 13, 0.1)',
-              color: 'var(--success-color)',
-              display: 'flex',
+              backgroundColor: '#FFFFFF',
+              color: 'var(--text-primary)',
+              border: '1px solid var(--border-color)',
+              display: 'inline-flex',
               alignItems: 'center',
-              justifyContent: 'center',
-              flexShrink: 0,
+              gap: '0.32rem',
+              padding: '0.38rem 0.7rem',
+              borderRadius: '7px',
+              fontSize: '0.79rem',
+              fontWeight: 600,
+              cursor: 'pointer',
             }}
+            title="Refresh list"
           >
-            <MdCheckCircle size={18} />
-          </div>
-          <div>
-            <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', fontWeight: 600, textTransform: 'uppercase' }}>
-              Published
-            </div>
-            <div style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--success-color)', lineHeight: 1.15 }}>
-              {stats.published}
-            </div>
-          </div>
-        </div>
+            <MdRefresh size={16} className={isFetching ? 'animate-spin' : ''} />
+            <span>Refresh</span>
+          </button>
 
-        <div className="glass-panel" style={{ padding: '0.65rem 0.9rem', display: 'flex', alignItems: 'center', gap: '0.7rem' }}>
-          <div
-            style={{
-              width: '34px',
-              height: '34px',
-              borderRadius: '8px',
-              backgroundColor: 'rgba(240, 190, 60, 0.15)',
-              color: '#B45309',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexShrink: 0,
-            }}
-          >
-            <MdOutlineRadioButtonUnchecked size={18} />
-          </div>
-          <div>
-            <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', fontWeight: 600, textTransform: 'uppercase' }}>
-              Drafts
-            </div>
-            <div style={{ fontSize: '1.15rem', fontWeight: 700, color: '#B45309', lineHeight: 1.15 }}>
-              {stats.drafts}
-            </div>
-          </div>
-        </div>
-
-        <div
-          className="glass-panel"
-          style={{
-            padding: '0.65rem 0.9rem',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.7rem',
-            borderLeft: stats.hasTodayCard ? '3px solid var(--success-color)' : '3px solid #F59E0B',
-            background: stats.hasTodayCard ? '#F6FDF6' : '#FFFDF7',
-          }}
-        >
-          <div
-            style={{
-              width: '34px',
-              height: '34px',
-              borderRadius: '8px',
-              backgroundColor: stats.hasTodayCard ? 'rgba(23, 74, 13, 0.12)' : 'rgba(245, 158, 11, 0.12)',
-              color: stats.hasTodayCard ? 'var(--success-color)' : '#D97706',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexShrink: 0,
-            }}
-          >
-            <MdCalendarToday size={17} />
-          </div>
-          <div style={{ flex: 1, minWidth: 0 }}>
-            <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', fontWeight: 600, textTransform: 'uppercase' }}>
-              Today ({todayStr})
-            </div>
-            <div style={{ fontSize: '0.82rem', fontWeight: 700, color: stats.hasTodayCard ? 'var(--success-color)' : '#D97706' }}>
-              {stats.hasTodayCard ? 'Card Live 🟢' : 'Missing Today'}
-            </div>
-          </div>
-          {!stats.hasTodayCard && (
+          {/* View mode toggle: List first */}
+          <div className="view-toggle-group">
             <button
-              onClick={() => {
-                resetForm();
-                setFormData((prev) => ({ ...prev, date: todayStr, status: 'published' }));
-                setFormModalOpen(true);
-              }}
-              style={{
-                backgroundColor: '#F59E0B',
-                color: '#FFFFFF',
-                border: 'none',
-                padding: '0.28rem 0.55rem',
-                borderRadius: '6px',
-                fontSize: '0.72rem',
-                fontWeight: 700,
-                cursor: 'pointer',
-              }}
+              type="button"
+              onClick={() => setViewMode('table')}
+              className={`view-toggle-btn ${viewMode === 'table' ? 'active' : ''}`}
+              title="List View"
             >
-              Add
+              <MdViewList size={17} />
             </button>
-          )}
+            <button
+              type="button"
+              onClick={() => setViewMode('grid')}
+              className={`view-toggle-btn ${viewMode === 'grid' ? 'active' : ''}`}
+              title="Card Grid View"
+            >
+              <MdViewModule size={17} />
+            </button>
+          </div>
+
+          <button
+            onClick={handleOpenCreateModal}
+            className="btn btn-primary"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.35rem',
+              padding: '0.42rem 0.85rem',
+              fontSize: '0.8rem',
+              fontWeight: 600,
+              borderRadius: '7px',
+            }}
+          >
+            <MdAdd size={17} />
+            <span>Create Card</span>
+          </button>
         </div>
       </div>
 
-      {/* Search & Filters Glass Panel */}
-      <div
-        className="glass-panel"
-        style={{
-          padding: '0.65rem 0.9rem',
-          marginBottom: '0.85rem',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '0.55rem',
-        }}
-      >
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.55rem', alignItems: 'center' }}>
-          {/* Search box */}
-          <div
-            style={{
-              position: 'relative',
-              flex: '1 1 220px',
-              minWidth: '200px',
+      {/* Compact Stat Pills + Filter Toolbar (Pooja Library style) */}
+      <div className="compact-controls-bar">
+        <div className="compact-stat-pills">
+          <button
+            type="button"
+            className={`compact-stat-pill clickable ${statusFilter === 'all' && !startDate ? 'active-primary' : ''}`}
+            onClick={() => {
+              setStatusFilter('all');
+              setStartDate('');
+              setEndDate('');
+              setPage(1);
             }}
           >
-            <MdSearch
-              size={17}
-              style={{
-                position: 'absolute',
-                left: '10px',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                color: 'var(--text-secondary)',
-              }}
-            />
+            <span className="compact-stat-pill-label">Total</span>
+            <strong className="compact-stat-pill-val">{stats.total}</strong>
+          </button>
+
+          <button
+            type="button"
+            className={`compact-stat-pill clickable ${statusFilter === 'published' ? 'active-success' : ''}`}
+            onClick={() => {
+              setStatusFilter((prev) => (prev === 'published' ? 'all' : 'published'));
+              setPage(1);
+            }}
+            title="Click to filter Published cards"
+          >
+            <MdCheckCircle size={14} color="#059669" />
+            <span className="compact-stat-pill-label">Published</span>
+            <strong className="compact-stat-pill-val" style={{ color: '#047857' }}>{stats.published}</strong>
+          </button>
+
+          <button
+            type="button"
+            className={`compact-stat-pill clickable ${statusFilter === 'draft' ? 'active-warning' : ''}`}
+            onClick={() => {
+              setStatusFilter((prev) => (prev === 'draft' ? 'all' : 'draft'));
+              setPage(1);
+            }}
+            title="Click to filter Draft cards"
+          >
+            <MdOutlineRadioButtonUnchecked size={14} color="#D97706" />
+            <span className="compact-stat-pill-label">Drafts</span>
+            <strong className="compact-stat-pill-val" style={{ color: '#B45309' }}>{stats.drafts}</strong>
+          </button>
+
+          <button
+            type="button"
+            className={`compact-stat-pill clickable ${stats.hasTodayCard ? 'active-success' : 'active-warning'}`}
+            onClick={() => {
+              if (stats.hasTodayCard) {
+                handleQuickTodayFilter();
+              } else {
+                resetForm();
+                setFormData((prev) => ({ ...prev, date: todayStr, status: 'published' }));
+                setFormModalOpen(true);
+              }
+            }}
+            title={stats.hasTodayCard ? "Filter to today's card" : "Create today's card"}
+          >
+            <MdCalendarToday size={13} color={stats.hasTodayCard ? '#059669' : '#D97706'} />
+            <span className="compact-stat-pill-label">Today</span>
+            <strong
+              className="compact-stat-pill-val"
+              style={{ color: stats.hasTodayCard ? '#047857' : '#B45309', fontSize: '0.76rem' }}
+            >
+              {stats.hasTodayCard ? 'Live' : '+ Add'}
+            </strong>
+          </button>
+        </div>
+
+        <div className="compact-filter-toolbar">
+          <div className="compact-search-wrap" style={{ minWidth: '180px', maxWidth: '240px' }}>
+            <MdSearch size={16} className="compact-search-icon" />
             <input
               type="text"
-              placeholder="Search thought, mantra, quote, festival..."
+              placeholder="Search mantra, thought, quote..."
               value={searchQuery}
               onChange={(e) => {
                 setSearchQuery(e.target.value);
                 setPage(1);
               }}
-              style={{
-                width: '100%',
-                padding: '0.42rem 0.75rem 0.42rem 2.1rem',
-                borderRadius: '7px',
-                border: '1px solid var(--border-color)',
-                fontSize: '0.82rem',
-                backgroundColor: '#FAFAFA',
-                outline: 'none',
-              }}
+              className="compact-search-input"
             />
             {searchQuery && (
-              <button
-                onClick={() => setSearchQuery('')}
-                style={{
-                  position: 'absolute',
-                  right: '8px',
-                  top: '50%',
-                  transform: 'translateY(-50%)',
-                  background: 'none',
-                  border: 'none',
-                  color: 'var(--text-secondary)',
-                  cursor: 'pointer',
-                }}
-              >
-                <MdClose size={15} />
+              <button onClick={() => setSearchQuery('')} className="compact-search-clear" title="Clear search">
+                <MdClose size={14} />
               </button>
             )}
           </div>
 
-          {/* Status Filter */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-            <span style={{ fontSize: '0.78rem', fontWeight: 600, color: 'var(--text-secondary)' }}>Status:</span>
-            <select
-              value={statusFilter}
-              onChange={(e) => {
-                setStatusFilter(e.target.value);
-                setPage(1);
-              }}
-              style={{
-                padding: '0.4rem 0.6rem',
-                borderRadius: '7px',
-                border: '1px solid var(--border-color)',
-                fontSize: '0.8rem',
-                backgroundColor: '#FFFFFF',
-                color: 'var(--text-primary)',
-                fontWeight: 500,
-                cursor: 'pointer',
-              }}
-            >
-              <option value="all">All Statuses</option>
-              <option value="published">Published Only</option>
-              <option value="draft">Drafts Only</option>
-            </select>
-          </div>
-
-          {/* Language Filter */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-            <span style={{ fontSize: '0.78rem', fontWeight: 600, color: 'var(--text-secondary)' }}>Lang:</span>
-            <select
-              value={languageFilter}
-              onChange={(e) => {
-                setLanguageFilter(e.target.value);
-                setPage(1);
-              }}
-              style={{
-                padding: '0.4rem 0.6rem',
-                borderRadius: '7px',
-                border: '1px solid var(--border-color)',
-                fontSize: '0.8rem',
-                backgroundColor: '#FFFFFF',
-                color: 'var(--text-primary)',
-                fontWeight: 500,
-                cursor: 'pointer',
-              }}
-            >
-              <option value="all">All Languages</option>
-              {LANGUAGE_OPTIONS.map((opt) => (
-                <option key={opt.value} value={opt.value}>
-                  {opt.label}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          {/* Date range filters */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-            <span style={{ fontSize: '0.78rem', fontWeight: 600, color: 'var(--text-secondary)' }}>From:</span>
-            <input
-              type="date"
-              value={startDate}
-              onChange={(e) => {
-                setStartDate(e.target.value);
-                setPage(1);
-              }}
-              style={{
-                padding: '0.38rem 0.55rem',
-                borderRadius: '7px',
-                border: '1px solid var(--border-color)',
-                fontSize: '0.78rem',
-                backgroundColor: '#FFFFFF',
-              }}
-            />
-            <span style={{ fontSize: '0.78rem', fontWeight: 600, color: 'var(--text-secondary)' }}>To:</span>
-            <input
-              type="date"
-              value={endDate}
-              onChange={(e) => {
-                setEndDate(e.target.value);
-                setPage(1);
-              }}
-              style={{
-                padding: '0.38rem 0.55rem',
-                borderRadius: '7px',
-                border: '1px solid var(--border-color)',
-                fontSize: '0.78rem',
-                backgroundColor: '#FFFFFF',
-              }}
-            />
-          </div>
-
-          {/* Quick buttons */}
-          <button
-            onClick={handleQuickTodayFilter}
-            style={{
-              padding: '0.38rem 0.65rem',
-              borderRadius: '7px',
-              border: '1px solid var(--border-color)',
-              background: '#FFFFFF',
-              fontSize: '0.78rem',
-              fontWeight: 600,
-              color: 'var(--primary-color)',
-              cursor: 'pointer',
+          <select
+            value={languageFilter}
+            onChange={(e) => {
+              setLanguageFilter(e.target.value);
+              setPage(1);
             }}
+            className="compact-filter-select"
+            aria-label="Language filter"
           >
-            Today's Card
-          </button>
+            <option value="all">All Languages</option>
+            {LANGUAGE_OPTIONS.map((opt) => (
+              <option key={opt.value} value={opt.value}>
+                {opt.label}
+              </option>
+            ))}
+          </select>
+
+          <input
+            type="date"
+            value={startDate}
+            onChange={(e) => {
+              setStartDate(e.target.value);
+              setPage(1);
+            }}
+            className="compact-filter-select"
+            title="Start Date"
+          />
+          <input
+            type="date"
+            value={endDate}
+            onChange={(e) => {
+              setEndDate(e.target.value);
+              setPage(1);
+            }}
+            className="compact-filter-select"
+            title="End Date"
+          />
 
           {hasActiveFilters && (
             <button
+              type="button"
               onClick={handleClearFilters}
               style={{
-                padding: '0.38rem 0.65rem',
+                padding: '0.36rem 0.6rem',
                 borderRadius: '7px',
-                border: 'none',
-                background: '#FEE2E2',
-                color: '#991B1B',
-                fontSize: '0.78rem',
+                border: '1px solid #FECACA',
+                background: '#FEF2F2',
+                color: '#DC2626',
+                fontSize: '0.76rem',
                 fontWeight: 600,
                 cursor: 'pointer',
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '0.25rem',
+                gap: '0.2rem',
               }}
             >
               <MdClose size={13} />
@@ -994,7 +755,7 @@ const ManageSpiritualCards = () => {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(290px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(min(275px, 100%), 1fr))',
             gap: '0.9rem',
             marginBottom: '1rem',
           }}
@@ -1371,247 +1132,200 @@ const ManageSpiritualCards = () => {
           })}
         </div>
       ) : (
-        /* TABLE VIEW: Compact rows */
-        <div className="glass-panel" style={{ overflow: 'hidden', marginBottom: '0.9rem' }}>
-          <div style={{ overflowX: 'auto' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.82rem' }}>
-              <thead>
-                <tr style={{ backgroundColor: '#F9FAFB', borderBottom: '1px solid var(--border-color)' }}>
-                  <th style={{ padding: '0.5rem 0.75rem', fontWeight: 600, color: 'var(--text-secondary)', fontSize: '0.72rem', textTransform: 'uppercase' }}>Date</th>
-                  <th style={{ padding: '0.5rem 0.75rem', fontWeight: 600, color: 'var(--text-secondary)', fontSize: '0.72rem', textTransform: 'uppercase' }}>Status</th>
-                  <th style={{ padding: '0.5rem 0.75rem', fontWeight: 600, color: 'var(--text-secondary)', fontSize: '0.72rem', textTransform: 'uppercase' }}>Lang</th>
-                  <th style={{ padding: '0.5rem 0.75rem', fontWeight: 600, color: 'var(--text-secondary)', fontSize: '0.72rem', textTransform: 'uppercase' }}>Festival</th>
-                  <th style={{ padding: '0.5rem 0.75rem', fontWeight: 600, color: 'var(--text-secondary)', fontSize: '0.72rem', textTransform: 'uppercase' }}>Thought</th>
-                  <th style={{ padding: '0.5rem 0.75rem', fontWeight: 600, color: 'var(--text-secondary)', fontSize: '0.72rem', textTransform: 'uppercase' }}>Mantra</th>
-                  <th style={{ padding: '0.5rem 0.75rem', fontWeight: 600, color: 'var(--text-secondary)', fontSize: '0.72rem', textTransform: 'uppercase' }}>Quote</th>
-                  <th style={{ padding: '0.5rem 0.75rem', fontWeight: 600, color: 'var(--text-secondary)', fontSize: '0.72rem', textTransform: 'uppercase', textAlign: 'right' }}>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {cards.map((card) => {
-                  const cardId = card._id || card.id;
-                  const isToday = card.date === todayStr;
-                  const isPublished = card.status === 'published';
+        /* TABLE VIEW: Clean List View matching Pooja Library */
+        <div className="clean-table-wrap" style={{ marginBottom: '0.85rem' }}>
+          <div className="clean-table-header">
+            <span className="clean-table-count">
+              Showing <strong>{cards.length}</strong> of <strong>{totalCount}</strong> spiritual cards • Page <strong>{page}</strong> of <strong>{totalPages}</strong>
+            </span>
+          </div>
+          <table className="clean-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Lang</th>
+                <th>Festival</th>
+                <th>Thought</th>
+                <th>Mantra</th>
+                <th>Quote</th>
+                <th style={{ textAlign: 'right' }}>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {cards.map((card) => {
+                const cardId = card._id || card.id;
+                const isToday = card.date === todayStr;
+                const isPublished = card.status === 'published';
 
-                  return (
-                    <tr
-                      key={cardId}
-                      style={{
-                        borderBottom: '1px solid var(--border-color)',
-                        backgroundColor: isToday ? 'rgba(253, 249, 241, 0.5)' : '#FFFFFF',
-                        transition: 'background-color 0.15s',
-                      }}
-                    >
-                      <td style={{ padding: '0.55rem 0.75rem', whiteSpace: 'nowrap' }}>
-                        <div style={{ fontWeight: 700, color: 'var(--text-primary)' }}>{card.date}</div>
-                        {isToday && (
-                          <span
-                            style={{
-                              backgroundColor: 'var(--secondary-color)',
-                              color: '#4A2C10',
-                              fontSize: '0.65rem',
-                              fontWeight: 700,
-                              padding: '0.1rem 0.4rem',
-                              borderRadius: '8px',
-                            }}
-                          >
-                            TODAY
-                          </span>
-                        )}
-                      </td>
-
-                      <td style={{ padding: '0.55rem 0.75rem' }}>
+                return (
+                  <tr key={cardId}>
+                    <td style={{ whiteSpace: 'nowrap' }}>
+                      <div style={{ fontWeight: 700, color: 'var(--text-primary)' }}>{card.date}</div>
+                      {isToday && (
                         <span
                           style={{
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: '0.3rem',
-                            padding: '0.18rem 0.52rem',
-                            borderRadius: '14px',
+                            backgroundColor: 'var(--secondary-color)',
+                            color: '#4A2C10',
+                            fontSize: '0.64rem',
+                            fontWeight: 700,
+                            padding: '0.08rem 0.38rem',
+                            borderRadius: '8px',
+                          }}
+                        >
+                          TODAY
+                        </span>
+                      )}
+                    </td>
+
+                    <td>
+                      <button
+                        type="button"
+                        onClick={() => handleTogglePublish(card)}
+                        className={`clean-flag-pill ${isPublished ? 'is-active' : 'is-draft'}`}
+                        title={isPublished ? 'Click to unpublish to draft' : 'Click to publish'}
+                      >
+                        <span
+                          style={{
+                            width: '6px',
+                            height: '6px',
+                            borderRadius: '50%',
+                            backgroundColor: isPublished ? '#059669' : '#9CA3AF',
+                          }}
+                        />
+                        {isPublished ? 'Published' : 'Draft'}
+                      </button>
+                    </td>
+
+                    <td>
+                      <span
+                        style={{
+                          backgroundColor: '#EDE9FE',
+                          color: '#6D28D9',
+                          fontSize: '0.69rem',
+                          fontWeight: 700,
+                          padding: '0.14rem 0.42rem',
+                          borderRadius: '5px',
+                          textTransform: 'uppercase',
+                        }}
+                      >
+                        {card.language || 'hi'}
+                      </span>
+                    </td>
+
+                    <td>
+                      {card.festival?.isFestival ? (
+                        <span
+                          style={{
+                            backgroundColor: '#FEF3C7',
+                            color: '#B45309',
+                            padding: '0.14rem 0.45rem',
+                            borderRadius: '5px',
                             fontSize: '0.72rem',
                             fontWeight: 700,
-                            backgroundColor: isPublished ? 'rgba(23, 74, 13, 0.1)' : '#FEF3C7',
-                            color: isPublished ? 'var(--success-color)' : '#92400E',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '0.25rem',
                           }}
                         >
-                          <span
-                            style={{
-                              width: '6px',
-                              height: '6px',
-                              borderRadius: '50%',
-                              backgroundColor: isPublished ? 'var(--success-color)' : '#D97706',
-                            }}
-                          />
-                          {isPublished ? 'Published' : 'Draft'}
+                          <MdTempleHindu size={13} />
+                          <span>{card.festival.name || 'Festival'}</span>
                         </span>
-                      </td>
+                      ) : (
+                        <span style={{ color: 'var(--text-secondary)' }}>—</span>
+                      )}
+                    </td>
 
-                      <td style={{ padding: '0.55rem 0.75rem' }}>
-                        <span
-                          style={{
-                            backgroundColor: '#EDE9FE',
-                            color: '#6D28D9',
-                            fontSize: '0.7rem',
-                            fontWeight: 600,
-                            padding: '0.16rem 0.42rem',
-                            borderRadius: '5px',
-                            textTransform: 'uppercase',
+                    <td style={{ maxWidth: '220px' }}>
+                      <div style={{ fontWeight: 600, fontSize: '0.78rem', color: 'var(--primary-color)' }}>
+                        {card.thought?.title || 'Daily Thought'}
+                      </div>
+                      <div
+                        style={{
+                          fontSize: '0.75rem',
+                          color: 'var(--text-secondary)',
+                          whiteSpace: 'nowrap',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                        }}
+                      >
+                        {card.thought?.content}
+                      </div>
+                    </td>
+
+                    <td style={{ maxWidth: '220px' }}>
+                      <div style={{ fontWeight: 600, fontSize: '0.78rem', color: '#4A2C10' }}>
+                        {card.mantra?.title || 'Mantra'}
+                      </div>
+                      <div
+                        style={{
+                          fontSize: '0.75rem',
+                          color: 'var(--text-secondary)',
+                          whiteSpace: 'nowrap',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                        }}
+                      >
+                        {card.mantra?.text}
+                      </div>
+                    </td>
+
+                    <td style={{ maxWidth: '180px' }}>
+                      <div
+                        style={{
+                          fontSize: '0.75rem',
+                          color: 'var(--text-primary)',
+                          whiteSpace: 'nowrap',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          fontStyle: 'italic',
+                        }}
+                      >
+                        "{card.quote?.text}"
+                      </div>
+                      {card.quote?.author && (
+                        <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>
+                          — {card.quote.author}
+                        </div>
+                      )}
+                    </td>
+
+                    <td style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
+                      <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setPreviewCard(card);
+                            setPreviewModalOpen(true);
                           }}
+                          className="btn-icon-sm"
+                          title="Preview"
                         >
-                          {card.language || 'hi'}
-                        </span>
-                      </td>
-
-                      <td style={{ padding: '0.55rem 0.75rem' }}>
-                        {card.festival?.isFestival ? (
-                          <span
-                            style={{
-                              backgroundColor: '#FEF3C7',
-                              color: '#B45309',
-                              padding: '0.16rem 0.48rem',
-                              borderRadius: '5px',
-                              fontSize: '0.73rem',
-                              fontWeight: 700,
-                              display: 'inline-flex',
-                              alignItems: 'center',
-                              gap: '0.25rem',
-                            }}
-                          >
-                            <MdTempleHindu size={13} />
-                            <span>{card.festival.name || 'Festival'}</span>
-                          </span>
-                        ) : (
-                          <span style={{ color: 'var(--text-secondary)' }}>—</span>
-                        )}
-                      </td>
-
-                      <td style={{ padding: '0.55rem 0.75rem', maxWidth: '220px' }}>
-                        <div style={{ fontWeight: 600, fontSize: '0.78rem', color: 'var(--primary-color)' }}>
-                          {card.thought?.title || 'Daily Thought'}
-                        </div>
-                        <div
-                          style={{
-                            fontSize: '0.76rem',
-                            color: 'var(--text-secondary)',
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                          }}
+                          <MdVisibility size={15} />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleOpenEditModal(card)}
+                          className="btn-icon-sm edit"
+                          title="Edit"
                         >
-                          {card.thought?.content}
-                        </div>
-                      </td>
-
-                      <td style={{ padding: '0.55rem 0.75rem', maxWidth: '220px' }}>
-                        <div style={{ fontWeight: 600, fontSize: '0.78rem', color: '#4A2C10' }}>
-                          {card.mantra?.title || 'Mantra'}
-                        </div>
-                        <div
-                          style={{
-                            fontSize: '0.76rem',
-                            color: 'var(--text-secondary)',
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                          }}
+                          <MdEdit size={15} />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleDelete(card)}
+                          className="btn-icon-sm delete"
+                          title="Delete"
                         >
-                          {card.mantra?.text}
-                        </div>
-                      </td>
-
-                      <td style={{ padding: '0.55rem 0.75rem', maxWidth: '180px' }}>
-                        <div
-                          style={{
-                            fontSize: '0.76rem',
-                            color: 'var(--text-primary)',
-                            whiteSpace: 'nowrap',
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                            fontStyle: 'italic',
-                          }}
-                        >
-                          "{card.quote?.text}"
-                        </div>
-                        {card.quote?.author && (
-                          <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)' }}>
-                            — {card.quote.author}
-                          </div>
-                        )}
-                      </td>
-
-                      <td style={{ padding: '0.55rem 0.75rem', textAlign: 'right', whiteSpace: 'nowrap' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '0.35rem' }}>
-                          <button
-                            onClick={() => {
-                              setPreviewCard(card);
-                              setPreviewModalOpen(true);
-                            }}
-                            style={{
-                              background: 'none',
-                              border: '1px solid var(--border-color)',
-                              color: 'var(--text-secondary)',
-                              padding: '0.28rem 0.42rem',
-                              borderRadius: '5px',
-                              cursor: 'pointer',
-                            }}
-                            title="Preview"
-                          >
-                            <MdVisibility size={14} />
-                          </button>
-
-                          <button
-                            onClick={() => handleTogglePublish(card)}
-                            style={{
-                              padding: '0.28rem 0.55rem',
-                              borderRadius: '5px',
-                              border: '1px solid var(--border-color)',
-                              backgroundColor: isPublished ? '#FFFBEB' : '#ECFDF5',
-                              color: isPublished ? '#92400E' : '#065F46',
-                              fontSize: '0.72rem',
-                              fontWeight: 700,
-                              cursor: 'pointer',
-                            }}
-                          >
-                            {isPublished ? 'Unpublish' : 'Publish'}
-                          </button>
-
-                          <button
-                            onClick={() => handleOpenEditModal(card)}
-                            style={{
-                              padding: '0.28rem 0.42rem',
-                              borderRadius: '5px',
-                              border: '1px solid var(--border-color)',
-                              backgroundColor: '#FFFFFF',
-                              color: 'var(--primary-color)',
-                              cursor: 'pointer',
-                            }}
-                            title="Edit"
-                          >
-                            <MdEdit size={14} />
-                          </button>
-
-                          <button
-                            onClick={() => handleDelete(card)}
-                            style={{
-                              padding: '0.28rem 0.42rem',
-                              borderRadius: '5px',
-                              border: 'none',
-                              backgroundColor: 'rgba(239, 68, 68, 0.1)',
-                              color: 'var(--error-color)',
-                              cursor: 'pointer',
-                            }}
-                            title="Delete"
-                          >
-                            <MdDeleteOutline size={14} />
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
+                          <MdDeleteOutline size={15} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
       )}
 
@@ -1710,6 +1424,7 @@ const ManageSpiritualCards = () => {
         isOpen={formModalOpen}
         onClose={() => setFormModalOpen(false)}
         title={editingCardId ? 'Edit Daily Spiritual Card' : 'Create Daily Spiritual Card'}
+        maxWidth="880px"
       >
         <div style={{ maxWidth: '980px', width: '100%' }}>
           {/* Quick template loader for fast drafting */}

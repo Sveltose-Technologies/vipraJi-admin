@@ -104,8 +104,8 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
               disabled={loginMutation.isPending}
             />
-            <div style={{ textAlign: 'right', marginTop: '0.5rem' }}>
-              <Link to="/forgot-password" style={{ color: 'var(--primary-color)', textDecoration: 'none' }}>
+            <div style={{ textAlign: 'right', marginTop: '0.45rem' }}>
+              <Link to="/forgot-password" style={{ color: 'var(--primary-color)', textDecoration: 'none', fontSize: '0.78rem', fontWeight: 500 }}>
                 Forgot Password?
               </Link>
             </div>

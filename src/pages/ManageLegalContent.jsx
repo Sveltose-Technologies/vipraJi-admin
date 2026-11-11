@@ -159,17 +159,19 @@ const ManageLegalContent = ({ config }) => {
         </button>
       </div>
 
-      <div
-        className="glass-panel"
-        style={{ padding: "0.9rem 1rem", overflowX: "auto" }}
-      >
-        <table className="data-table">
+      <div className="clean-table-wrap">
+        <div className="clean-table-header">
+          <span className="clean-table-count">
+            Showing <strong>{records.length}</strong> {config.label.toLowerCase()} records
+          </span>
+        </div>
+        <table className="clean-table">
           <thead>
             <tr>
               <th style={{ width: "84px" }}>Banner</th>
               <th>Title</th>
               <th>Description</th>
-              <th style={{ width: "96px" }}>Actions</th>
+              <th style={{ width: "96px", textAlign: "right" }}>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -199,31 +201,33 @@ const ManageLegalContent = ({ config }) => {
                         "No image"
                       )}
                     </td>
-                    <td>{record.title || "Untitled"}</td>
+                    <td style={{ fontWeight: 600 }}>{record.title || "Untitled"}</td>
                     <td style={{ maxWidth: "360px" }}>
                       {record.description || "—"}
                     </td>
-                    <td>
-                      <button
-                        className="btn-icon edit"
-                        aria-label={`Edit ${config.label}`}
-                        title="Edit"
-                        onClick={() => openEditModal(record)}
-                      >
-                        <MdEdit size={18} />
-                      </button>
-                      <button
-                        className="btn-icon delete"
-                        aria-label={`Delete ${config.label}`}
-                        title="Delete"
-                        onClick={() =>
-                          showConfirm(`Delete this ${config.label}?`, () =>
-                            deleteMutation.mutate(id),
-                          )
-                        }
-                      >
-                        <MdDeleteOutline size={18} />
-                      </button>
+                    <td style={{ textAlign: "right" }}>
+                      <div style={{ display: "inline-flex", gap: "0.3rem" }}>
+                        <button
+                          className="btn-icon-sm edit"
+                          aria-label={`Edit ${config.label}`}
+                          title="Edit"
+                          onClick={() => openEditModal(record)}
+                        >
+                          <MdEdit size={15} />
+                        </button>
+                        <button
+                          className="btn-icon-sm delete"
+                          aria-label={`Delete ${config.label}`}
+                          title="Delete"
+                          onClick={() =>
+                            showConfirm(`Delete this ${config.label}?`, () =>
+                              deleteMutation.mutate(id),
+                            )
+                          }
+                        >
+                          <MdDeleteOutline size={15} />
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 );

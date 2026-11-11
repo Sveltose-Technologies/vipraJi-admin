@@ -406,7 +406,7 @@ const UpdateProfile = () => {
             </div>
 
             {/* Custom Input */}
-            <div style={{ display: 'flex', gap: '0.45rem', maxWidth: '460px', marginBottom: '0.65rem' }}>
+            <div style={{ display: 'flex', gap: '0.45rem', maxWidth: '460px', marginBottom: '0.65rem', flexWrap: 'wrap' }}>
               <input
                 type="text"
                 className="input-field"

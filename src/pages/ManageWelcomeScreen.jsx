@@ -16,9 +16,7 @@ import {
   MdLink,
   MdCollections,
   MdWavingHand,
-  MdFilterList,
   MdFormatListNumbered,
-  MdArrowForward,
 } from 'react-icons/md';
 
 import {
@@ -72,7 +70,7 @@ const ManageWelcomeScreen = () => {
 
   // Search & view state
   const [searchQuery, setSearchQuery] = useState('');
-  const [viewMode, setViewMode] = useState('grid'); // 'grid' | 'table'
+  const [viewMode, setViewMode] = useState('table'); // 'table' | 'grid'
 
   // Modal states
   const [isFormModalOpen, setIsFormModalOpen] = useState(false);
@@ -368,18 +366,18 @@ const ManageWelcomeScreen = () => {
           {/* View mode toggle */}
           <div className="view-toggle-group">
             <button
+              onClick={() => setViewMode('table')}
+              className={`view-toggle-btn ${viewMode === 'table' ? 'active' : ''}`}
+              title="List View"
+            >
+              <MdViewList size={17} />
+            </button>
+            <button
               onClick={() => setViewMode('grid')}
               className={`view-toggle-btn ${viewMode === 'grid' ? 'active' : ''}`}
               title="Card Grid View"
             >
               <MdViewModule size={17} />
-            </button>
-            <button
-              onClick={() => setViewMode('table')}
-              className={`view-toggle-btn ${viewMode === 'table' ? 'active' : ''}`}
-              title="Table View"
-            >
-              <MdViewList size={17} />
             </button>
           </div>
 
@@ -391,18 +389,18 @@ const ManageWelcomeScreen = () => {
       </div>
 
       {/* Compact Metrics & Search Bar */}
-      <div className="welcome-controls-bar">
-        <div className="welcome-stat-pills">
-          <div className="welcome-stat-pill">
+      <div className="compact-controls-bar">
+        <div className="compact-stat-pills">
+          <div className="compact-stat-pill">
             <MdCollections size={14} color="var(--primary-color)" />
-            <span className="w-pill-label">Screens</span>
-            <strong className="w-pill-val">{screens.length}</strong>
+            <span className="compact-stat-pill-label">Total</span>
+            <strong className="compact-stat-pill-val">{screens.length}</strong>
           </div>
 
-          <div className="welcome-stat-pill">
+          <div className="compact-stat-pill">
             <MdFormatListNumbered size={14} color="#92400E" />
-            <span className="w-pill-label">Sequence</span>
-            <strong className="w-pill-val" style={{ color: 'var(--primary-color)' }}>
+            <span className="compact-stat-pill-label">Sequence</span>
+            <strong className="compact-stat-pill-val" style={{ color: 'var(--primary-color)' }}>
               {screens.length > 0
                 ? `1 – ${screens[screens.length - 1]?.screenNumber || screens.length}`
                 : 'None'}
@@ -411,37 +409,34 @@ const ManageWelcomeScreen = () => {
 
           <button
             type="button"
-            className="welcome-stat-pill clickable"
+            className="compact-stat-pill clickable"
             onClick={openAddModal}
             title="Click to add next slide"
           >
             <MdAdd size={14} color="#059669" />
-            <span className="w-pill-label">Next Slide</span>
-            <strong className="w-pill-val" style={{ color: '#047857' }}>
+            <span className="compact-stat-pill-label">Next Slide</span>
+            <strong className="compact-stat-pill-val" style={{ color: '#047857' }}>
               #{getNextScreenNumber()}
             </strong>
           </button>
         </div>
 
-        <div className="filter-bar">
-          <div className="search-box">
-            <MdSearch size={17} className="search-icon" />
+        <div className="compact-filter-toolbar">
+          <div className="compact-search-wrap">
+            <MdSearch size={17} className="compact-search-icon" />
             <input
               type="text"
               placeholder="Search screen #, title, subtitle..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="search-input"
+              className="compact-search-input"
             />
             {searchQuery && (
-              <button onClick={() => setSearchQuery('')} className="search-clear-btn" title="Clear search">
+              <button onClick={() => setSearchQuery('')} className="compact-search-clear" title="Clear search">
                 <MdClose size={15} />
               </button>
             )}
           </div>
-          <span style={{ color: 'var(--text-secondary)', fontSize: '0.78rem', whiteSpace: 'nowrap' }}>
-            {filteredScreens.length}/{screens.length} shown
-          </span>
         </div>
       </div>
 
@@ -570,8 +565,13 @@ const ManageWelcomeScreen = () => {
         </div>
       ) : (
         /* Table View */
-        <div className="table-wrapper glass-panel">
-          <table className="welcome-table">
+        <div className="clean-table-wrap">
+          <div className="clean-table-header">
+            <span className="clean-table-count">
+              Showing <strong>{filteredScreens.length}</strong> of <strong>{screens.length}</strong> welcome screens
+            </span>
+          </div>
+          <table className="clean-table">
             <thead>
               <tr>
                 <th style={{ width: '100px' }}>Slide #</th>
@@ -579,7 +579,7 @@ const ManageWelcomeScreen = () => {
                 <th>Title & Subtitle</th>
                 <th>Description</th>
                 <th style={{ width: '140px' }}>Created</th>
-                <th style={{ width: '130px', textAlign: 'right' }}>Actions</th>
+                <th style={{ width: '120px', textAlign: 'right' }}>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -636,24 +636,24 @@ const ManageWelcomeScreen = () => {
                       <div className="table-action-btns">
                         <button
                           onClick={() => openMobilePreview(item)}
-                          className="table-action-btn"
+                          className="btn-icon-sm"
                           title="Mobile Mockup Preview"
                         >
-                          <MdSmartphone size={17} />
+                          <MdSmartphone size={15} />
                         </button>
                         <button
                           onClick={() => openEditModal(item)}
-                          className="table-action-btn edit"
+                          className="btn-icon-sm edit"
                           title="Edit"
                         >
-                          <MdEdit size={17} />
+                          <MdEdit size={15} />
                         </button>
                         <button
                           onClick={() => handleDelete(item)}
-                          className="table-action-btn delete"
+                          className="btn-icon-sm delete"
                           title="Delete"
                         >
-                          <MdDeleteOutline size={17} />
+                          <MdDeleteOutline size={15} />
                         </button>
                       </div>
                     </td>
@@ -1327,7 +1327,7 @@ const ManageWelcomeScreen = () => {
         /* Welcome Cards Grid */
         .welcome-cards-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(265px, 1fr));
+          grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr));
           gap: 0.85rem;
         }
 
@@ -2129,6 +2129,30 @@ const ManageWelcomeScreen = () => {
         .phone-standalone-mockup {
           margin: 0 auto;
           max-width: 320px;
+        }
+
+        @media (max-width: 640px) {
+          .welcome-header-actions {
+            width: 100%;
+          }
+          .welcome-controls-bar {
+            flex-direction: column;
+            align-items: stretch;
+          }
+          .filter-bar {
+            justify-content: flex-start;
+            width: 100%;
+          }
+          .search-box {
+            min-width: 0;
+            max-width: 100%;
+            width: 100%;
+            flex: 1 1 100%;
+          }
+          .modal-wide {
+            width: 100% !important;
+            max-width: calc(100vw - 1rem) !important;
+          }
         }
       `}</style>
     </div>

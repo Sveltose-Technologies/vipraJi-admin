@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { MdClose } from 'react-icons/md';
 
-const Modal = ({ isOpen, onClose, title, children }) => {
+const Modal = ({ isOpen, onClose, title, children, maxWidth }) => {
   // Prevent scrolling on body when modal is open
   useEffect(() => {
     if (isOpen) {
@@ -17,11 +17,15 @@ const Modal = ({ isOpen, onClose, title, children }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="modal-overlay">
-      <div className="modal-content glass-panel animate-fade-in">
+    <div className="modal-overlay" onClick={onClose}>
+      <div
+        className="modal-content glass-panel animate-fade-in"
+        style={maxWidth ? { maxWidth } : undefined}
+        onClick={(e) => e.stopPropagation()}
+      >
         <div className="modal-header">
           <h2 className="modal-title">{title}</h2>
-          <button className="modal-close-btn" onClick={onClose}>
+          <button type="button" className="modal-close-btn" onClick={onClose} aria-label="Close modal">
             <MdClose size={20} />
           </button>
         </div>

@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { getAllUsers, updateUserStatus } from "../api/auth";
 import toast from "react-hot-toast";
@@ -31,13 +31,13 @@ const ManageUsers = () => {
     }
   });
 
-  const getUserStatus = (user) => {
+  const getUserStatus = useCallback((user) => {
     const userId = user._id || user.id;
     if (userId && statusOverrides[userId]) {
       return statusOverrides[userId];
     }
     return user.status === "deactive" || user.status === "inactive" ? "deactive" : "active";
-  };
+  }, [statusOverrides]);
 
   const statusMutation = useMutation({
     mutationFn: ({ id, status }) => updateUserStatus(id, status),
@@ -88,7 +88,18 @@ const ManageUsers = () => {
   const [statusFilter, setStatusFilter] = useState("all");
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
 
-  const users = data?.data || data?.auths || data?.users || (Array.isArray(data) ? data : []);
+  const users = useMemo(
+    () => data?.data || data?.auths || data?.users || (Array.isArray(data) ? data : []),
+    [data]
+  );
+
+  const userStats = useMemo(() => {
+    const total = users.length;
+    const active = users.filter((u) => getUserStatus(u) === "active").length;
+    const deactive = total - active;
+    const admins = users.filter((u) => u.role === "admin").length;
+    return { total, active, deactive, admins };
+  }, [users, getUserStatus]);
 
   const filteredUsers = useMemo(() => {
     return users.filter((user) => {
@@ -110,7 +121,7 @@ const ManageUsers = () => {
 
       return matchesSearch && matchesRole && matchesStatus;
     });
-  }, [users, searchQuery, roleFilter, statusFilter, statusOverrides]);
+  }, [users, searchQuery, roleFilter, statusFilter, getUserStatus]);
 
   if (isLoading) {
     return (
@@ -245,89 +256,99 @@ const ManageUsers = () => {
       <div className="ecom-container">
         {/* RIGHT MAIN: LIST VIEW & SEARCH */}
         <main className="ecom-main">
-          {/* Search Bar */}
-          <div
-            className="search-container glass-panel"
-            style={{
-              position: "sticky",
-              top: "0.4rem",
-              zIndex: 40,
-              marginBottom: "0.85rem",
-              display: "flex",
-              gap: "0.65rem",
-              alignItems: "center",
-              padding: "0.45rem 0.9rem",
-              background: "rgba(255, 255, 255, 0.97)",
-              border: "1px solid var(--border-color)",
-              boxShadow: "0 4px 12px rgba(31, 41, 55, 0.06)",
-              backdropFilter: "blur(10px)",
-            }}
-          >
-            <div style={{ display: "flex", flex: 1, alignItems: "center" }}>
-              <MdSearch className="search-icon" size={19} />
-              <input
-                type="text"
-                className="search-input"
-                aria-label="Search users"
-                style={{ padding: "0.3rem 0", minWidth: 0, fontSize: "0.84rem" }}
-                placeholder="Search users by name, email, or mobile number..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
+          {/* Compact Stat Pills + Filter Toolbar (Pooja Library style) */}
+          <div className="compact-controls-bar">
+            <div className="compact-stat-pills">
+              <button
+                type="button"
+                className={`compact-stat-pill clickable ${statusFilter === "all" && roleFilter === "all" ? "active-primary" : ""}`}
+                onClick={() => {
+                  setStatusFilter("all");
+                  setRoleFilter("all");
+                }}
+              >
+                <span className="compact-stat-pill-label">Total</span>
+                <strong className="compact-stat-pill-val">{userStats.total}</strong>
+              </button>
+
+              <button
+                type="button"
+                className={`compact-stat-pill clickable ${statusFilter === "active" ? "active-success" : ""}`}
+                onClick={() => setStatusFilter((prev) => (prev === "active" ? "all" : "active"))}
+                title="Filter Active Users"
+              >
+                <MdCheckCircle size={14} color="#059669" />
+                <span className="compact-stat-pill-label">Active</span>
+                <strong className="compact-stat-pill-val" style={{ color: "#047857" }}>{userStats.active}</strong>
+              </button>
+
+              <button
+                type="button"
+                className={`compact-stat-pill clickable ${statusFilter === "deactive" ? "active-warning" : ""}`}
+                onClick={() => setStatusFilter((prev) => (prev === "deactive" ? "all" : "deactive"))}
+                title="Filter Deactive Users"
+              >
+                <MdCancel size={14} color="#DC2626" />
+                <span className="compact-stat-pill-label">Deactive</span>
+                <strong className="compact-stat-pill-val" style={{ color: "#DC2626" }}>{userStats.deactive}</strong>
+              </button>
+
+              <button
+                type="button"
+                className={`compact-stat-pill clickable ${roleFilter === "admin" ? "active-info" : ""}`}
+                onClick={() => setRoleFilter((prev) => (prev === "admin" ? "all" : "admin"))}
+                title="Filter Admins"
+              >
+                <MdVerified size={14} color="#2563EB" />
+                <span className="compact-stat-pill-label">Admins</span>
+                <strong className="compact-stat-pill-val" style={{ color: "#1D4ED8" }}>{userStats.admins}</strong>
+              </button>
             </div>
 
-            {/* Active Filters */}
-            <div
-              style={{ display: "flex", gap: "0.4rem", alignItems: "center" }}
-            >
-              {statusFilter !== "all" && (
-                <span
-                  className="detail-tag"
-                  style={{ margin: 0, textTransform: "capitalize", fontSize: "0.75rem", padding: "0.18rem 0.5rem" }}
-                >
-                  Status: {statusFilter}
-                </span>
-              )}
-              {roleFilter !== "all" && (
-                <span
-                  className="detail-tag"
-                  style={{ margin: 0, textTransform: "capitalize", fontSize: "0.75rem", padding: "0.18rem 0.5rem" }}
-                >
-                  Role: {roleFilter}
-                </span>
-              )}
+            <div className="compact-filter-toolbar">
+              <div className="compact-search-wrap" style={{ maxWidth: "280px" }}>
+                <MdSearch className="compact-search-icon" size={16} />
+                <input
+                  type="text"
+                  className="compact-search-input"
+                  aria-label="Search users"
+                  placeholder="Search name, email, phone..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+              </div>
 
               {(statusFilter !== "all" ||
                 roleFilter !== "all" ||
                 searchQuery !== "") && (
                 <button
                   className="btn btn-outline"
-                  style={{ padding: "0.3rem 0.6rem", fontSize: "0.76rem" }}
+                  style={{ padding: "0.34rem 0.6rem", fontSize: "0.76rem" }}
                   onClick={() => {
                     setRoleFilter("all");
                     setStatusFilter("all");
                     setSearchQuery("");
                   }}
                 >
-                  Clear All
+                  Clear
                 </button>
               )}
-            </div>
 
-            <button
-              className="btn btn-primary"
-              onClick={() => setIsFilterModalOpen(true)}
-              style={{
-                padding: "0.38rem 0.8rem",
-                fontSize: "0.8rem",
-                display: "flex",
-                alignItems: "center",
-                gap: "0.35rem",
-              }}
-            >
-              <MdFilterList size={17} />
-              Filters
-            </button>
+              <button
+                className="btn btn-primary"
+                onClick={() => setIsFilterModalOpen(true)}
+                style={{
+                  padding: "0.36rem 0.78rem",
+                  fontSize: "0.79rem",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: "0.32rem",
+                }}
+              >
+                <MdFilterList size={16} />
+                Filters
+              </button>
+            </div>
           </div>
 
           {/* User List */}
@@ -350,9 +371,14 @@ const ManageUsers = () => {
               </p>
             </div>
           ) : (
-            <div className="glass-panel" style={{ overflowX: "auto" }}>
+            <div className="clean-table-wrap">
+              <div className="clean-table-header">
+                <span className="clean-table-count">
+                  Showing <strong>{filteredUsers.length}</strong> of <strong>{users.length}</strong> users
+                </span>
+              </div>
               <table
-                className="data-table users-table"
+                className="clean-table users-table"
                 style={{ minWidth: "820px", tableLayout: "fixed" }}
               >
                 <colgroup>

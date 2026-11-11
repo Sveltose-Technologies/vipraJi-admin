@@ -1529,7 +1529,7 @@ const ManagePooja = () => {
         /* Grid Cards */
         .pooja-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
+          grid-template-columns: repeat(auto-fill, minmax(min(265px, 100%), 1fr));
           gap: 0.85rem;
         }
         .pooja-card {
@@ -2004,6 +2004,37 @@ const ManagePooja = () => {
           margin: 0 auto 0.75rem auto;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
+
+        @media (max-width: 640px) {
+          .pooja-header-actions {
+            width: 100%;
+          }
+          .pooja-controls-bar {
+            flex-direction: column;
+            align-items: stretch;
+          }
+          .filter-toolbar {
+            justify-content: flex-start;
+            width: 100%;
+          }
+          .search-input-wrap {
+            min-width: 0;
+            max-width: 100%;
+            width: 100%;
+            flex: 1 1 100%;
+          }
+          .filter-controls {
+            width: 100%;
+          }
+          .filter-select {
+            flex: 1 1 130px;
+            min-width: 0;
+          }
+          .pooja-modal-wide {
+            width: 100% !important;
+            max-width: calc(100vw - 1rem) !important;
+          }
+        }
       `}</style>
     </div>
   );
